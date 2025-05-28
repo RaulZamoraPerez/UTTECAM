@@ -282,7 +282,7 @@ import { ChevronDown, ChevronRight, Menu, X } from "lucide-react"
                     >
                     <a
                         href={item.href}
-                        className="text-[#0A9782] hover:text-[#0A9782]/80 px-4 py-3 text-base font-semibold flex items-center transition-colors duration-200"
+                        className="text-[#000000] hover:text-[#0A9782]/80 px-4 py-3 text-base font-semibold flex items-center transition-colors duration-200"
                     >
                         {item.label}
                         {item.submenu && (
