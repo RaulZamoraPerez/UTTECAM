@@ -30,7 +30,18 @@ import { ChevronDown, ChevronRight, Menu, X } from "lucide-react"
         label: "Quiénes somos",
         href: "/quienes-somos",
         submenu: [
-            { label: "Nosotros", href: "/nosotros" },
+            { label: "Nosotros", 
+            href: "/nosotros",
+            submenu: [
+                { label: "Mision", href: "/mision" },
+                { label: "Vision", href: "/vision" },
+                { label: "Valores", href: "/valores" },
+                { label: "Politicas", href: "/politicas" },
+                { label: "Historia", href: "/historia" },
+            ],
+
+
+             },
             {
             label: "Directorios",
             href: "/directorios",
