@@ -4,8 +4,9 @@ import NormatividadSeccion from "@/views/Normatividad/Normatividad";
 import PDF from "@/views/Nosotros/PDF";
 import { Page_404 } from "@/components/404";
 import { Directorios } from "@/views/Nosotros/Directorios";
-import { Home } from "@/views/Inicial/Home";
+import Home from "@/views/Inicial/Home";
 import Calendario from "@/views/Nosotros/Calendario";
+import ProgramDetail from "./views/ProgramDetail";
 
 
 
@@ -15,16 +16,14 @@ export default function Router() {
     <BrowserRouter>
       <Routes>
         <Route element={<AppLayout />}>
-
-
           <Route path="/" element={<Home />} index />
-          <Route path="/normatividad" element={<NormatividadSeccion />}  />
+          <Route path="/normatividad" element={<NormatividadSeccion />} />
           <Route path="/ver-documento/:title" element={<PDF />} />
-
+          <Route path="/programa/:id" element={<ProgramDetail />} />
           <Route path="/directorios" element={<Directorios />} />
-          <Route path="/calendario" element={<Calendario/>} />
+          <Route path="/calendario" element={<Calendario />} />
         </Route>
-        <Route path="/404" element={<Page_404 />} />
+        <Route path="*" element={<Page_404 />} />
       </Routes>
     </BrowserRouter>
   );
