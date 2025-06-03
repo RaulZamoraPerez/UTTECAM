@@ -12,7 +12,9 @@ export const AppLayout = () => {
 
             <Outlet/>
 
-             <Pleca/>
+            <Pleca/>
+
+
 
                {/* Contenedor global para los toasts */}
       <ToastContainer  />
