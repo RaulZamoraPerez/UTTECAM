@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { ChevronDown, ChevronRight, Menu, X } from "lucide-react"
+import { Link } from "react-router-dom"
 
     interface SubMenuItem {
     label: string
@@ -32,13 +33,7 @@ import { ChevronDown, ChevronRight, Menu, X } from "lucide-react"
         submenu: [
             { label: "Nosotros", 
             href: "/nosotros",
-            submenu: [
-                { label: "Mision", href: "/mision" },
-                { label: "Vision", href: "/vision" },
-                { label: "Valores", href: "/valores" },
-                { label: "Politicas", href: "/politicas" },
-                { label: "Historia", href: "/historia" },
-            ],
+            
 
 
              },
@@ -271,7 +266,9 @@ import { ChevronDown, ChevronRight, Menu, X } from "lucide-react"
             {/* Logo */}
             <div className="flex-shrink-0">
                 <div className="flex items-center">
-                <img src="/logo.png" alt="" className="w-50"/>
+                 <Link to={'/'}>
+                    <img src="/logo.png" alt="" className="w-50"/>
+                 </Link>
                 </div>
             </div>
 

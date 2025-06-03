@@ -1,6 +1,8 @@
 import { Outlet } from 'react-router-dom'
-import Navbar from '../components/navBar'
-import Pleca from '../components/pleca'
+import Navbar from '@/components/navBar'
+import Pleca from '@/components/pleca'
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const AppLayout = () => {
   return (
@@ -11,6 +13,9 @@ export const AppLayout = () => {
             <Outlet/>
 
              <Pleca/>
+
+               {/* Contenedor global para los toasts */}
+      <ToastContainer  />
   </>
     
   )
