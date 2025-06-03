@@ -4,7 +4,7 @@ import NormatividadSeccion from "@/views/Normatividad/Normatividad";
 import PDF from "@/views/Nosotros/PDF";
 import { Page_404 } from "@/components/404";
 import { Directorios } from "@/views/Nosotros/Directorios";
-import { Home } from "@/views/Inicial/Home";
+import Home from "@/views/Inicial/Home";
 import Calendario from "@/views/Nosotros/Calendario";
 import Finanzas from "@/views/Finanzas/finazas";
 import Vinculacion from "@/views/Vinculacion/vinculacion";
@@ -21,7 +21,7 @@ export default function Router() {
       <Routes>
         <Route element={<AppLayout />}>
           <Route path="/" element={<Home />} index />
-          <Route path="/normatividad" element={<NormatividadSeccion />}  />
+          <Route path="/normatividad" element={<NormatividadSeccion />} />
           <Route path="/ver-documento/:title" element={<PDF />} />
           <Route path ="/finanzas" element ={<Finanzas/>}/>
           <Route path ="/recursosHumanos" element ={<RecursosHumanos/>}/>
@@ -31,7 +31,7 @@ export default function Router() {
           <Route path="/vinculacion" element={<Vinculacion />} />
           <Route path="/calendario" element={<Calendario/>} />
         </Route>
-        <Route path="/404" element={<Page_404 />} />
+        <Route path="*" element={<Page_404 />} />
       </Routes>
     </BrowserRouter>
   );
