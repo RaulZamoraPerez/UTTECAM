@@ -1,201 +1,129 @@
-"use client";
+import TablaDocumentosReutilizable from "@/components/tablaDocumentosReutilizable";
 
-import { useState } from "react";
-import { Search, FileText, Download, Calendar } from "lucide-react";
-import { Link } from "react-router-dom";
 
-export default function RepositorioTablaPuro() {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [seccionActiva, setSeccionActiva] = useState<string | null>("2018");
-
-  // Estructura de datos
-  const secciones = [
+const datos = [
     {
-      id: "2018",
-      titulo: "Productos de Investigación 2018",
-      documentos: [
-        {
-          id: "doc1",
-          titulo: "El efecto de la delincuencia en las estrategias de gestión",
-        },
-        { id: "doc2", titulo: "Modelo de control interno administrativo" },
-        { id: "doc3", titulo: "POTENCIAL TECNOLÓGICO DE LAS MICRO Y PEQUEÑAS" },
-      ],
+        id: "leyes",
+        titulo: "Leyes",
+        documentos: [
+            { id: "ley1", titulo: "LEY DE EGRESOS 2023" },
+            { id: "ley2", titulo: "LEY DE PRESUPUESTO Y GASTO PÚBLICO RESPONSABLE DEL ESTADO DE PUEBLA" },
+            { id: "ley3", titulo: "LEY GENERAL DE CONTABILIDAD GUBERNAMENTAL" },
+            { id: "ley4", titulo: "LEY PARA EL ACCESO DE LAS MUJERES A UNA VIDA LIBRE DE VIOLENCIA" },
+            { id: "ley5", titulo: "LEY PARA LA IGUALDAD ENTRE MUJERES Y HOMBRES DEL ESTADO DE PUEBLA" },
+        ],
     },
     {
-      id: "2019",
-      titulo: "Productos de Investigación 2019",
-      documentos: [
-        {
-          id: "doc4",
-          titulo: "Aplicación de las dos primeras etapas del modelo",
-        },
-        { id: "doc5", titulo: "Efecto de la corrupción" },
-        {
-          id: "doc6",
-          titulo:
-            "Remesas y migración en el municipio de Tecamachalco puebla, México",
-        },
-        { id: "doc7", titulo: "Strategies for the competitiveness" },
-      ],
+        id: "lineamientos",
+        titulo: "Lineamientos",
+        documentos: [
+            { id: "lin1", titulo: "LINEAMIENTOS GENERALES PARA EL SEGUIMIENTO Y EVALUACIÓN DE LOS DOCUMENTOS RECTORES Y PROGRAMAS PRESUPUESTARIOS DE LA ADMINISTRACIÓN PÚBLICA DE PUEBLA" },
+            { id: "lin2", titulo: "LINEAMIENTOS PARA EL MONITOREO Y SEGUIMIENTO DEL AVANCE FÍSICO Y FINANCIERO DE LOS INDICADORES DE DESEMPEÑO DE LOS PROGRAMAS PRESUPUESTARIOS" },
+            { id: "lin3", titulo: "LINEAMIENTOS PARA LA OPERACIÓN DEL SISTEMA DE INFORMACIÓN PARA EL SEGUIMIENTO A LA PLANEACIÓN Y EVALUACIÓN DEL DESARROLLO EN EL ESTADO" },
+            { id: "lin4", titulo: "LINEAMIENTOS PARA LOS PROGRAMAS PRESUPUESTARIOS DE LAS DEPENDENCIAS Y ENTIDADES DE LA ADMINISTRACIÓN PÚBLICA ESTATAL" },
+            { id: "lin5", titulo: "LINEAMIENTOS QUE DEBERÁN OBSERVAR LAS DEPENDENCIAS Y ENTIDADES PARAESTATALES DEL GOBIERNO DEL ESTADO DE PUEBLA EN MATERIA DE IGUALDAD SUSTANTIVA" },
+            { id: "lin6", titulo: "LINEAMIENTOS CILyND UTTECAM" },
+        ],
     },
     {
-      id: "2020",
-      titulo: "Productos de Investigación 2020",
-      documentos: [
-        { id: "doc8", titulo: "Aspectos culturales del comercio informal" },
-        {
-          id: "doc9",
-          titulo: "Challenges and perspectives for the implementation",
-        },
-        {
-          id: "doc10",
-          titulo: "Coffee production and marketing in the municipality",
-        },
-        {
-          id: "doc11",
-          titulo: "Deterioro de la salud por causa de las vibraciones",
-        },
-        { id: "doc12", titulo: "Drone sembrador" },
-        { id: "doc13", titulo: "Imagen pública de la micro y pequeña empresa" },
-      ],
+        id: "codigo",
+        titulo: "Código",
+        documentos: [
+            { id: "cod1", titulo: "CÓDIGO DE CONDUCTA UTTECAM" },
+            { id: "cod2", titulo: "CÓDIGO DE ÉTICA" },
+            { id: "cod3", titulo: "CÓDIGO DE ÉTICA Y LAS REGLAS DE INTEGRIDAD PARA EL EJERCICIO DE LA FUNCIÓN PÚBLICA" },
+        ],
     },
-  ];
+    {
+        id: "guias",
+        titulo: "Guías",
+        documentos: [
+            { id: "gui1", titulo: "GUÍA PARA ELABORAR PLANES INSTITUCIONALES DE IGUALDAD SUSTANTIVA" },
+        ],
+    },
+    {
+        id: "decreto_creacion",
+        titulo: "Decreto de Creación",
+        documentos: [
+            { id: "dec1", titulo: "DECRETO DE CREACIÓN DE LA UTTECAM" },
+            { id: "dec2", titulo: "DECRETO QUE REFORMA LA CONSTITUCIÓN DEL CONSEJO DIRECTIVO (ART. 6)" },
+            { id: "dec3", titulo: "DECRETO QUE REFORMA LOS OBJETIVOS DE LA UTTECAM" },
+        ],
+    },
+    {
+        id: "manuales",
+        titulo: "Manuales",
+        documentos: [
+            { id: "man1", titulo: "MANUAL DE ORGANIZACIÓN DE LA UTT" },
+            { id: "man2", titulo: "MANUAL DE PROCEDIMIENTO PARA LA ATENCIÓN DE QUEJAS POR HOSTIGAMIENTO, ACOSO SEXUAL, LABORAL Y DISCRIMINACIÓN" },
+            { id: "man3", titulo: "MANUAL DE PROCEDIMIENTOS DE TUTORÍAS" },
+            { id: "man4", titulo: "MANUAL DE PROCEDIMIENTOS UTTECAM" },
+            { id: "man5", titulo: "MANUAL DE SEGURIDAD EN INSTITUCIONES DE EDUCACIÓN SUPERIOR ANUIES" },
+            { id: "man6", titulo: "MANUAL PARA LA INSTALACIÓN DE UNIDADES DE IGUALDAD SUSTANTIVA" },
+        ],
+    },
+    {
+        id: "politicas",
+        titulo: "Políticas",
+        documentos: [
+            { id: "pol1", titulo: "POLÍTICA GENERAL DE IGUALDAD, NO DISCRIMINACIÓN Y DERECHOS HUMANOS" },
+        ],
+    },
+    {
+        id: "protocolos",
+        titulo: "Protocolos",
+        documentos: [
+            { id: "pro1", titulo: "PROTOCOLO DE PREVENCIÓN, ACTUACIÓN Y SANCIÓN EN CASOS DE VIOLENCIA" },
+        ],
+    },
+    {
+        id: "reglamentos",
+        titulo: "Reglamentos",
+        documentos: [
+            { id: "reg1", titulo: "REGLAMENTO DE LA LEY PARA LA IGUALDAD ENTRE MUJERES Y HOMBRES DEL ESTADO DE PUEBLA" },
+            { id: "reg2", titulo: "REGLAMENTO DE ACADEMIAS" },
+            { id: "reg3", titulo: "REGLAMENTO DE CERTIFICACIÓN, ACREDITACIÓN Y TITULACIÓN" },
+            { id: "reg4", titulo: "REGLAMENTO DE ESTADÍAS DE LOS ALUMNOS EN EL SECTOR PRODUCTIVO" },
+            { id: "reg5", titulo: "REGLAMENTO DE INGRESO, PROMOCIÓN Y PERMANENCIA DEL PERSONAL ACADÉMICO (RIPPPA)" },
+            { id: "reg6", titulo: "REGLAMENTO DE LA INCUBADORA DE EMPRESAS DE LA UTTECAM" },
+            { id: "reg7", titulo: "REGLAMENTO DE PROTECCIÓN CONTRA EXPOSICIÓN AL HUMO DE TABACO DENTRO DE LAS INSTALACIONES DE LA UNIVERSIDAD" },
+            { id: "reg8", titulo: "REGLAMENTO DE RESPONSABILIDADES" },
+            { id: "reg9", titulo: "REGLAMENTO DE VISITAS INDUSTRIALES" },
+            { id: "reg10", titulo: "REGLAMENTO DEL COMITÉ DE ADQUISICIONES, ARRENDAMIENTOS Y SERVICIOS DE LA UTTECAM" },
+            { id: "reg11", titulo: "REGLAMENTO DEL CONSEJO DIRECTIVO DE LA UTTECAM" },
+            { id: "reg12", titulo: "REGLAMENTO DEL CONSEJO EDITORIAL" },
+            { id: "reg13", titulo: "REGLAMENTO DEL PROGRAMA INSTITUCIONAL DE TUTORÍAS" },
+            { id: "reg14", titulo: "REGLAMENTO DE SERVICIO SOCIAL DE LA UTTECAM" },
+            { id: "reg15", titulo: "REGLAMENTO GENERAL SOBRE EL USO Y FUNCIONAMIENTO DE LA BIBLIOTECA" },
+            { id: "reg16", titulo: "REGLAMENTO INTERIOR DE LA UTTECAM" },
+            { id: "reg17", titulo: "REGLAMENTO INTERIOR DE TRABAJO DEL PERSONAL DE LA UTTECAM" },
+            { id: "reg18", titulo: "REGLAMENTO PARA LA EVALUACIÓN DE LOS APRENDIZAJES" },
+            { id: "reg19", titulo: "REGLAMENTO PARA LA REGULARIZACIÓN DE BECAS Y CRÉDITOS EDUCATIVOS" },
+            { id: "reg20", titulo: "REGLAMENTO QUE NORMA EL USO DE LOS LABORATORIOS Y EL TALLER DE LA CARRERA DE TECNOLOGÍA DE ALIMENTOS" },
+            { id: "reg21", titulo: "REGLAMENTO QUE NORMA EL USO DE LOS LABORATORIOS Y EL TALLER DE LA CARRERA DE MANTENIMIENTO INDUSTRIAL" },
+            { id: "reg22", titulo: "REGLAMENTO QUE NORMA EL USO DE LOS LABORATORIOS Y TALLERES DE LA CARRERA DE PROCESOS DE PRODUCCIÓN" },
+            { id: "reg23", titulo: "REGLAMENTO QUE REGULA EL USO DE VEHÍCULOS OFICIALES DE LA UTTECAM" },
+            { id: "reg24", titulo: "REGLAMENTO QUE REGULA LOS DERECHOS Y OBLIGACIONES DE LOS ALUMNOS" },
+            { id: "reg25", titulo: "REQUISITOS DE EQUIVALENCIA ENTRE OTROS SISTEMAS DE EDUCACIÓN SUPERIOR AL DE UTs" },
+            { id: "reg26", titulo: "REQUISITOS DE EQUIVALENCIA ENTRE UTs" },
+        ],
+    },
+    {
+        id: "convocatoria_personal_academico",
+        titulo: "Convocatoria de Personal Académico",
+        documentos: [
+            { id: "conv1", titulo: "CONVOCATORIA PA" },
+        ],
+    },
+];
 
-  // Filtrar documentos según el término de búsqueda
-  const filteredSecciones = secciones
-    .map((seccion) => ({
-      ...seccion,
-      documentos: seccion.documentos.filter((doc) =>
-        doc.titulo.toLowerCase().includes(searchTerm.toLowerCase())
-      ),
-    }))
-    .filter((seccion) => seccion.documentos.length > 0);
 
-  return (
-    <div className="min-h-screen bg-gray-50 py-10">
-      <div className="container mx-auto px-4 max-w-6xl">
-        {/* Header */}
-        <div className="text-center mb-10">
-          <h1 className="text-4xl font-bold mb-4 text-[#D1672A]">
-            Repositorio Digital de Productos de Investigación
-          </h1>
-          <div className="h-1 w-32 mx-auto mb-4 bg-gradient-to-r from-[#D1672A] to-[#0A9782] rounded-full"></div>
-          <p className="text-gray-700 max-w-2xl mx-auto">
-            Explora nuestra colección de investigaciones académicas organizadas
-            por año
-          </p>
-        </div>
-
-        {/* Barra de navegación */}
-        <div className="relative max-w-xl mx-auto mb-10">
-          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-            <Search className="h-5 w-5 text-[#0A9782]" />
-          </div>
-          <input
-            type="text"
-            placeholder="Buscar documentos..."
-            className="w-full pl-10 py-2 rounded-full text-lg  bg-white border-2 border-[#0A9782] text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#0A9782] focus:border-transparent transition-all duration-200"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-        </div>
-
-        {/* Navigation Tabs */}
-        <div className="flex flex-wrap gap-2 mb-6 justify-center">
-          {secciones.map((seccion) => (
-            <button
-              key={seccion.id}
-              onClick={() => setSeccionActiva(seccion.id)}
-              className={`rounded-full px-6 py-2 font-medium transition-all duration-200 hover:scale-105 ${
-                seccionActiva === seccion.id
-                  ? "bg-[#D1672A] text-white shadow-lg"
-                  : "bg-[#0A9782] text-white hover:bg-[#0A9782]/90"
-              }`}
-            >
-              {seccion.titulo}
-            </button>
-          ))}
-        </div>
-
-        {/* Main Content */}
-        <div className="grid gap-6">
-          {filteredSecciones.map(
-            (seccion) =>
-              seccionActiva === seccion.id && (
-                <div
-                  key={seccion.id}
-                  className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-lg"
-                >
-                  {/* Card Header */}
-                  <div className="bg-[#0A9782] p-4">
-                    <div className="flex items-center gap-3 text-white">
-                      <div className="bg-white/20 p-2 rounded-full">
-                        <Calendar className="h-6 w-6" />
-                      </div>
-                      <span className="text-xl font-bold">
-                        {seccion.titulo}
-                      </span>
-                      <span className="ml-2 px-3 text-sm rounded-full bg-[#d1672a] text-white">
-                        {seccion.documentos.length} documentos
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Card Content */}
-                  <div className="p-0">
-                    <ul>
-                      {seccion.documentos.map((documento, index) => (
-                        <li
-                          key={documento.id}
-                          className="p-4 border-b border-gray-100 last:border-b-0 hover:bg-gray-50 transition-colors duration-150"
-                        >
-                          <div className="flex items-start gap-3">
-                            <div className="flex items-center justify-center h-8 w-8 rounded-full bg-[#0A9782]/10 text-[#0A9782] font-medium">
-                              {index + 1}
-                            </div>
-                            <div className="flex-1">
-                              <div className="flex items-start justify-between gap-4">
-                                <div className="flex items-start gap-2">
-                                  <FileText className="h-5 w-5 mt-0.5 flex-shrink-0 text-[#D1672A]" />
-                                  <Link
-                                    to={`/ver-documento/${documento.titulo}`}
-                                   
-                                    className="font-medium text-gray-800 hover:text-[#D1672A] hover:underline transition-colors duration-150"
-                                  >
-                                    {documento.titulo}
-                                  </Link>
-                                </div>
-                                <button className="flex-shrink-0 p-2 text-[#D1672A] hover:bg-[#D1672A]/10 rounded-lg transition-colors duration-150">
-                                  <Download className="h-4 w-4" />
-                                </button>
-                              </div>
-                            </div>
-                          </div>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              )
-          )}
-
-          {/* No Results Message */}
-          {filteredSecciones.length === 0 && (
-            <div className="text-center p-10 bg-white rounded-lg border-2 border-dashed border-[#0A9782]">
-              <div className="text-gray-600 mb-2">
-                No se encontraron documentos que coincidan con tu búsqueda
-              </div>
-              <button
-                onClick={() => setSearchTerm("")}
-                className="text-[#D1672A] hover:text-[#D1672A]/80 hover:underline transition-colors duration-150"
-              >
-                Mostrar todos los documentos
-              </button>
-            </div>
-          )}
-        </div>
-      </div>
-    </div>
-  );
+export default function Normatividad() {
+    return (
+        <TablaDocumentosReutilizable
+            secciones={datos}
+            titulo="Normatividad Institucional"
+            descripcion="Explora los documentos académicos por año"
+        />
+    )
 }

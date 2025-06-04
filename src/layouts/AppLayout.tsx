@@ -9,10 +9,9 @@ export const AppLayout = () => {
         <>
             <Navbar/>
 
-
             <Outlet/>
 
-             <Pleca/>
+            <Pleca/>
 
                {/* Contenedor global para los toasts */}
       <ToastContainer  />
