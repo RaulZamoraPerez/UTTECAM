@@ -48,24 +48,24 @@ export default function Footer() {
                         <h3 className="text-xl font-bold text-[#333] mb-4">Categories</h3>
                         <ul className="space-y-2">
                             <li>
-                                <link href="#" className="text-[#008066] hover:underline">
+                                <a href="#" className="text-[#008066] hover:underline">
                                     Counseling
-                                </link>
+                                </a>
                             </li>
                             <li>
-                                <link href="#" className="text-[#008066] hover:underline">
+                                <a href="#" className="text-[#008066] hover:underline">
                                     Health and fitness
-                                </link>
+                                </a>
                             </li>
                             <li>
-                                <link href="#" className="text-[#008066] hover:underline">
+                                <a href="#" className="text-[#008066] hover:underline">
                                     Individual development
-                                </link>
+                                </a>
                             </li>
                             <li>
-                                <link href="#" className="text-[#008066] hover:underline">
+                                <a href="#" className="text-[#008066] hover:underline">
                                     more
-                                </link>
+                                </a>
                             </li>
                         </ul>
                     </div>
@@ -75,14 +75,14 @@ export default function Footer() {
                         <h3 className="text-xl font-bold text-[#333] mb-4">Links</h3>
                         <ul className="space-y-2">
                             <li>
-                                <link href="#" className="text-[#008066] hover:underline">
+                                <a href="#" className="text-[#008066] hover:underline">
                                     About us
-                                </link>
+                                </a>
                             </li>
                             <li>
-                                <link href="#" className="text-[#008066] hover:underline">
+                                <a href="#" className="text-[#008066] hover:underline">
                                     blog
-                                </link>
+                                </a>
                             </li>
                         </ul>
                     </div>

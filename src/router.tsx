@@ -11,6 +11,7 @@ import Vinculacion from "@/views/Vinculacion/vinculacion";
 import RecursosHumanos from "./views/RecursosHumanos/recursosHumanos";
 import Sga from "./views/Sga/sga";
 import Sigc from "./views/Sigc/sigc";
+import ProgramDetail from "./views/ProgramDetail";
 
 
 
@@ -21,6 +22,7 @@ export default function Router() {
       <Routes>
         <Route element={<AppLayout />}>
           <Route path="/" element={<Home />} index />
+          <Route path="/programa/:id" element={<ProgramDetail />} />
           <Route path="/normatividad" element={<NormatividadSeccion />} />
           <Route path="/ver-documento/:title" element={<PDF />} />
           <Route path ="/finanzas" element ={<Finanzas/>}/>
