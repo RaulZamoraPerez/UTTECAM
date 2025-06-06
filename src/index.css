@@ -1,1 +1,40 @@
 @import "tailwindcss";
+
+.organigrama-wrapper .p-organizationchart .p-node {
+  background-color: #1e40af !important;
+  border-radius: 12px !important;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15) !important;
+  color: white !important;
+  padding: 1rem !important;
+  width: 180px !important;
+}
+
+.organigrama-wrapper .p-organizationchart .p-node img {
+  border-radius: 50% !important;
+  border: 2px solid #818cf8 !important;
+  width: 64px !important;
+  height: 64px !important;
+  display: block;
+  margin: 0 auto 0.5rem auto;
+}
+
+.organigrama-wrapper .p-organizationchart .p-node .name {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #c7d2fe;
+  text-align: center;
+}
+
+.organigrama-wrapper .p-organizationchart .p-node .title {
+  font-size: 0.85rem;
+  font-style: italic;
+  color: #a5b4fc;
+  text-align: center;
+}
+
+
+/* Puedes colocarlo en tu global.css o en un archivo CSS importado */
+.line-visible {
+
+  border-color: #4B5563 !important; /* gris oscuro (Tailwind: gray-600) */
+}
