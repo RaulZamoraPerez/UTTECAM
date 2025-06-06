@@ -8,13 +8,15 @@ import Home from "@/views/Inicial/Home";
 import Calendario from "@/views/Nosotros/Calendario";
 import Finanzas from "@/views/Finanzas/finazas";
 import Vinculacion from "@/views/Vinculacion/vinculacion";
-import RecursosHumanos from "./views/RecursosHumanos/recursosHumanos";
-import Sga from "./views/Sga/sga";
-import Sigc from "./views/Sigc/sigc";
-import ProgramDetail from "./views/ProgramDetail";
-import ConvocatoriaAdmision from "./views/Convocatoria/ConvocatoriaAdmision";
-import MiEscuela from "./views/MiEscuela/MiEscuela";
-import Nosotros from "./views/Nosotros/Nosotros";
+import RecursosHumanos from "@/views/RecursosHumanos/recursosHumanos";
+import Sga from "@/views/Sga/sga";
+import Sigc from "@/views/Sigc/sigc";
+import ProgramDetail from "@/views/ProgramDetail";
+import ConvocatoriaAdmision from "@/views/Convocatoria/ConvocatoriaAdmision";
+import MiEscuela from "@/views/MiEscuela/MiEscuela";
+import Nosotros from "@/views/Nosotros/Nosotros";
+import Becas from "@/views/Becas/Becas";
+import { Organigrama } from "@/views/Directorios/Organigrama";
 
 
 
@@ -43,15 +45,21 @@ export default function Router() {
             //*Rutas de admision
           }
           <Route path="/proceso-admision" element={<ConvocatoriaAdmision />} />
-
+          
           {
             //*Rutas de accesos
           }
           <Route path="/portal-estudiantes" element={<MiEscuela/>} />
-
+          
+          {/* Rutas de becas */}
+          <Route path="/becas-academicas" element={<Becas/>} />
+          <Route path="/Becas" element={<Calendario/>} />
+          <Route path="/Organigrama" element={<Organigrama/>} />
         </Route>
         <Route path="*" element={<Page_404 />} />
       </Routes>
     </BrowserRouter>
   );
 }
+
+//TODO  imagenes de semblanza , directorios

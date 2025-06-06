@@ -16,14 +16,14 @@ const HeroCarousel: React.FC = () => {
       >
         <div>
           <img
-            src="/banner_ut.webp"
+            src="/hero1.jpg"
             alt="Proceso de ingreso UTTECAM 2025"
             className="w-full h-auto object-cover"
           />
         </div>
         <div>
           <img
-            src="/banner_ut2.webp"
+            src="/hero2.jpg"
             alt="Beca Exención de Pago UTTECAM"
             className="w-full h-auto object-cover"
           />
