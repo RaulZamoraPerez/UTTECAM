@@ -9,39 +9,39 @@ export default function EducationalCarousel() {
     const courses = [
         {
             id: 1,
-            image: "/noticias/tequios.jpg",
+            image: "/noticias/tequios2.jpg",
         },
         {
             id: 2,
-            image: "/modeloeducativo.png",
+            image: "/noticias/EntregaLentes.jpg",
         },
         {
             id: 3,
-            image: "/modeloeducativo.png",
+            image: "/noticias/ConsejoV.jpg",
         },
         {
             id: 4,
-            image: "/modeloeducativo.png",
+            image: "/noticias/tequios2.jpg",
         },
         {
             id: 5,
-            image: "/modeloeducativo.png",
+            image: "/noticias/tequios4.jpg",
         },
         {
             id: 6,
-            image: "/modeloeducativo.png",
+            image: "/noticias/tequios5.jpg",
         },
         {
             id: 7,
-            image: "/modeloeducativo.png",
+            image: "/noticias/Expo2.jpg",
         },
         {
             id: 8,
-            image: "modeloeducativo.png",
+            image: "/noticias/Expo1.jpg",
         },
         {
             id: 9,
-            image: "/modeloeducativo.png",
+            image: "/noticias/tequios6.jpg",
         },
     ]
 
