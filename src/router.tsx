@@ -8,10 +8,12 @@ import Home from "@/views/Inicial/Home";
 import Calendario from "@/views/Nosotros/Calendario";
 import Finanzas from "@/views/Finanzas/finazas";
 import Vinculacion from "@/views/Vinculacion/vinculacion";
-import RecursosHumanos from "./views/RecursosHumanos/recursosHumanos";
-import Sga from "./views/Sga/sga";
-import Sigc from "./views/Sigc/sigc";
-import ProgramDetail from "./views/ProgramDetail";
+import RecursosHumanos from "@/views/RecursosHumanos/recursosHumanos";
+import Sga from "@/views/Sga/sga";
+import Sigc from "@/views/Sigc/sigc";
+import ProgramDetail from "@/views/ProgramDetail";
+import Becas from "@/views/Becas/Becas";
+import { Organigrama } from "@/views/Directorios/Organigrama";
 
 
 
@@ -32,9 +34,14 @@ export default function Router() {
           <Route path="/directorios" element={<Directorios />} />
           <Route path="/vinculacion" element={<Vinculacion />} />
           <Route path="/calendario" element={<Calendario/>} />
+          <Route path="/becas-academicas" element={<Becas/>} />
+          <Route path="/Becas" element={<Calendario/>} />
+          <Route path="/Organigrama" element={<Organigrama/>} />
         </Route>
         <Route path="*" element={<Page_404 />} />
       </Routes>
     </BrowserRouter>
   );
 }
+
+//TODO  imagenes de semblanza , directorios
