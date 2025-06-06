@@ -2,7 +2,7 @@ import { Spinner } from "@/components/Spinner";
 import { useState } from "react";
 import { Download } from "lucide-react";
 import { toast } from "react-toastify";
-import { ContenedorPDF } from '@/components/Pdf/contenedorPDF';
+import { ContenedorPDF } from '@/components/Pdf/ContenedorPDF';
 
 
 export default function Becas() {

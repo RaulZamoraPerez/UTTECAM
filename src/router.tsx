@@ -17,6 +17,7 @@ import MiEscuela from "@/views/MiEscuela/MiEscuela";
 import Nosotros from "@/views/Nosotros/Nosotros";
 import Becas from "@/views/Becas/Becas";
 import { Organigrama } from "@/views/Directorios/Organigrama";
+import ServiciosEscolares from "./views/ServiciosEscolares/ServiciosEscolares";
 
 
 
@@ -45,6 +46,8 @@ export default function Router() {
             //*Rutas de admision
           }
           <Route path="/proceso-admision" element={<ConvocatoriaAdmision />} />
+          <Route path="/serviciosEscolares" element={<ServiciosEscolares />} />
+
           
           {
             //*Rutas de accesos
