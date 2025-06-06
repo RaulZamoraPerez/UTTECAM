@@ -3,16 +3,17 @@ import EducationalModels from "@/components/EducationalModels"
 import EducationalPrograms from "@/components/EducationalPrograms"
 import Countdown from "@/components/Countdown"
 import { FormContact } from "@/components/Form/FormContact"
-
+import CarrucelNoticias from "@/components/CarrucelNoticias"
 
 const Home = () => {
   return (
     <>
-      <HeroCarousel/>
-      <Countdown/>
+      <HeroCarousel />
+      <Countdown />
       <EducationalModels />
-      <FormContact/>
+      <FormContact />
       <EducationalPrograms />
+      <CarrucelNoticias />
     </>
   )
 }

@@ -1,4 +1,4 @@
-import { MapPin, Phone, Clock, Mail } from "lucide-react"
+import { MapPin, Phone, Clock, Mail, ChevronRight } from "lucide-react"
 
 export default function Footer() {
     return (
@@ -15,74 +15,59 @@ export default function Footer() {
                             <div className="flex items-start">
                                 <MapPin className="h-5 w-5 text-[#008066] mr-2 mt-1 flex-shrink-0" />
                                 <div>
-                                    <p className="text-[#008066] font-medium">Address:</p>
-                                    <p className="text-[#008066]">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                    <p className="text-[#008066] font-medium">Dirección:</p>
+                                    <p className="text-[#008066]">Avenida, Universidad Tecnológica 1, Barrio la Villita, 75483 Tecamachalco,Pue.</p>
                                 </div>
                             </div>
 
                             <div className="flex items-center">
                                 <Phone className="h-5 w-5 text-[#008066] mr-2 flex-shrink-0" />
                                 <div>
-                                    <p className="text-[#008066]">Tel: +9229341037</p>
+                                    <p className="text-[#008066]">Tel: +52-249-422-3303</p>
                                 </div>
                             </div>
 
                             <div className="flex items-center">
                                 <Clock className="h-5 w-5 text-[#008066] mr-2 flex-shrink-0" />
                                 <div>
-                                    <p className="text-[#008066]">Response hours: 8 to 20</p>
+                                    <p className="text-[#008066]">horario: 7 a.m a 8:00 p.m</p>
                                 </div>
                             </div>
 
                             <div className="flex items-center">
                                 <Mail className="h-5 w-5 text-[#008066] mr-2 flex-shrink-0" />
                                 <div>
-                                    <p className="text-[#008066]">Email: info@onlearn.com</p>
+                                    <p className="text-[#008066]">Email: uttecam@uttecam.com</p>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    {/* Categories */}
+                    {/* categorias */}
                     <div className="md:col-span-1">
-                        <h3 className="text-xl font-bold text-[#333] mb-4">Categories</h3>
+                        <h3 className="text-xl font-bold text-[#333] mb-4"></h3>
                         <ul className="space-y-2">
-                            <li>
-                                <a href="#" className="text-[#008066] hover:underline">
-                                    Counseling
-                                </a>
+                            <li className="mb-8">
+                                <a href="/normatividad" className="text-[#0A9782] hover:text-[#D1672A] text-base font-semibold flex items-center transition-colors duration-200"><ChevronRight /> Normatividad</a>
                             </li>
-                            <li>
-                                <a href="#" className="text-[#008066] hover:underline">
-                                    Health and fitness
-                                </a>
+                            <li className="mb-8">
+                                <a href="/finanzas" className="text-[#0A9782] hover:text-[#D1672A] text-base font-semibold flex items-center transition-colors duration-200"><ChevronRight /> Finanzas</a>
                             </li>
-                            <li>
-                                <a href="#" className="text-[#008066] hover:underline">
-                                    Individual development
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" className="text-[#008066] hover:underline">
-                                    more
-                                </a>
+                            <li className="mb-8">
+                                <a href="/recursosHumanos" className="text-[#0A9782] hover:text-[#D1672A] text-base font-semibold flex items-center transition-colors duration-200"><ChevronRight /> Recursos Humanos</a>
                             </li>
                         </ul>
                     </div>
 
                     {/* Links */}
                     <div className="md:col-span-1">
-                        <h3 className="text-xl font-bold text-[#333] mb-4">Links</h3>
+                        <h3 className="text-xl font-bold text-[#333] mb-4"></h3>
                         <ul className="space-y-2">
-                            <li>
-                                <a href="#" className="text-[#008066] hover:underline">
-                                    About us
-                                </a>
+                            <li className="mb-8">
+                                <a href="/sga" className="text-[#0A9782] hover:text-[#D1672A] text-base font-semibold flex items-center transition-colors duration-200"><ChevronRight /> Sistema de Gestión Ambiental</a>
                             </li>
-                            <li>
-                                <a href="#" className="text-[#008066] hover:underline">
-                                    blog
-                                </a>
+                            <li className="mb-8">
+                                <a href="/sigc" className="text-[#0A9782] hover:text-[#D1672A] text-base font-semibold flex items-center transition-colors duration-200"><ChevronRight /> Sistema de Gestión de la Calidad</a>
                             </li>
                         </ul>
                     </div>
@@ -91,7 +76,7 @@ export default function Footer() {
                     <div className="md:col-span-1">
                         <div className="h-[200px] w-full rounded-md overflow-hidden">
                             <iframe
-                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3771.4775023685847!2d-98.31942492412985!3d19.04151055462014!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85cfc0d4c4b9c973%3A0x8e6db86c5c7a5c9e!2sUniversidad%20Tecnol%C3%B3gica%20de%20Tecamachalco!5e0!3m2!1sen!2smx!4v1717522804000!5m2!1sen!2smx"
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3416.651011064499!2d-97.72351492533981!3d18.863898058597947!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85c5631524041a17%3A0x43073fb16f64edc2!2sUTTcam!5e1!3m2!1sen!2smx!4v1749089731375!5m2!1sen!2smx"
                                 width="100%"
                                 height="100%"
                                 style={{ border: 0 }}
