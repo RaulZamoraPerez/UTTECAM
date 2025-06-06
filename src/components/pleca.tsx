@@ -14,72 +14,71 @@ interface Patrocinador {
         {
         id: "1",
         nombre: "Puebla",
-        logo: "/logoPuebla.png",
+        logo: "/logos/logoPuebla.png",
         website: "https://www.puebla.gob.mx/",
         },
         {
         id: "2",
         nombre: "Educacion",
-        logo: "/logoESE.png",
+        logo: "/logos/logoESE.png",
         website: "https://sep.puebla.gob.mx/",
         },
         {
         id: "3",
         nombre: "EDUCACIÓN",
-        logo: "/EDUCACIÓN.png",
+        logo: "/logos/EDUCACIÓN.png",
         website: "https://dgutyp.sep.gob.mx/",
         },
         {
         id: "4",
         nombre: "EDUCERT",
-        logo: "/EDUCERT.jpg",
+        logo: "/logos/EDUCERT.jpg",
         website: "https://consultapublicamx.plataformadetransparencia.org.mx/vut-web/faces/view/consultaPublica.xhtml#inicio",
         },
         {
         id: "5",
         nombre: "EDUCERT2",
-        logo: "/EDUCERT2.jpg",
+        logo: "/logos/EDUCERT2.jpg",
         website: "https://digitalpro.com",
         },
         {
         id: "6",
         nombre: "ANUIES",
-        logo: "/ANUIES.png",
+        logo: "/logos/ANUIES.png",
         website: "https://smartsolutions.com",
         },
         {
         id: "7",
         nombre: "CACEI",
-        logo: "/CACEI.png",
+        logo: "/logos/CACEI.png",
         website: "https://futuretech.com",
         },
         {
         id: "8",
         nombre: "PNT",
-        logo: "/PNT.png",
+        logo: "/logos/PNT.png",
         website: "https://nextgen.com",
         },
         {
         id: "9",
         nombre: "RC",
-        logo: "/RC.png",
+        logo: "/logos/RC.png",
         website: "https://techflow.com",
         },
         {
         id: "10",
         nombre: "CIEES",
-        logo: "/CIEES.png",
+        logo: "/logos/CIEES.png",
         website: "https://codelab.com",
         },
         {
         id: "11",
         nombre: "UTyP",
-        logo: "/UTyP.png",
+        logo: "/logos/UTyP.png",
         website: "https://codelab.com",
         },
     ]
 
-    // Triplicar para efecto infinito más suave
     const extendedPatrocinadores = [...patrocinadores, ...patrocinadores, ...patrocinadores]
 
     return (

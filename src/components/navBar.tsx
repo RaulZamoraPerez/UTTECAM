@@ -36,7 +36,7 @@ import { Link } from "react-router-dom"
             
 
 
-             },
+            },
             {
             label: "Directorios",
             href: "/directorios",
@@ -94,8 +94,6 @@ import { Link } from "react-router-dom"
                 { label: "Certificaciones", href: "/certificaciones" },
             ],
             },
-            { label: "Fechas importantes", href: "/fechas-importantes" },
-            { label: "Examen de admisión", href: "/examen-admision" },
             {
             label: "Becas y apoyos",
             href: "/becas-apoyos",
@@ -120,17 +118,6 @@ import { Link } from "react-router-dom"
                 { label: "Licenciaturas", href: "/licenciaturas" },
             ],
             },
-            { label: "Posgrados", href: "/posgrados" },
-            { label: "Educación continua", href: "/educacion-continua" },
-            {
-            label: "Investigación",
-            href: "/investigacion",
-            submenu: [
-                { label: "Proyectos", href: "/proyectos" },
-                { label: "Publicaciones", href: "/publicaciones" },
-                { label: "Grupos de investigación", href: "/grupos-investigacion" },
-            ],
-            },
             { label: "Profesores", href: "/profesores" },
         ],
         },
@@ -139,18 +126,32 @@ import { Link } from "react-router-dom"
         href: "/vinculacion",
         submenu: [
             {
-            label: "Empresas",
+            label: "Convenios con el sector productivo de bienes y servicios ",
             href: "/empresas",
-            submenu: [
-                { label: "Directorio empresarial", href: "/directorio-empresarial" },
-                { label: "Alianzas estratégicas", href: "/alianzas" },
-                { label: "Servicios empresariales", href: "/servicios-empresariales" },
-            ],
             },
-            { label: "Prácticas profesionales", href: "/practicas" },
-            { label: "Estadías", href: "/estadias" },
-            { label: "Bolsa de trabajo", href: "/bolsa-trabajo" },
-            { label: "Convenios", href: "/convenios" },
+            { label: "Desempeño de egresados", href: "/practicas", submenu: [
+                { label: "Bolsa de trabajo", href: "/bolsaTrabajo" },
+                { label: "Encuentro de egresados", href: "/egresados" },
+            ], },
+            { label: "Docente miembros del Sistema Nacional de Investigadoras e Investigadores SNII", href: "/estadias" },
+            { label: "Educación continua", href: "/bolsa-trabajo" ,  submenu: [
+                { label: "Catálogo de cursos y talleres", href: "/cursos" },
+                { label: "Cursos y talleres realizados ", href: "/diplomados" },
+            ], },
+            { label: "Entidad de certificación y evaluación", href: "/convenios" },
+            { label: "Movilidad internacional", href: "/convenios" },
+            { label: "Prácticas y estadías", href: "/convenios",
+            submenu: [
+                { label: "Catálogo de empresas para estadías ", href: "/practicas-profesionales" },
+                { label: "Documentos para la gestión de estadías", href: "/estadias" },
+                { label: "Servicio social", href: "/estadias" },
+            ], }, 
+            { label: "Repositorio digital de productos de investigación", href: "/vinculacion" },
+            { label: "Servicios Tecnológicos", href: "/convenios", submenu:[
+                { label: "Catálogo de servicios tecnológicosón", href: "/laboratorio-innovacion" },
+                { label: "Servicios tecnológicos realizados ", href: "/laboratorio-manufactura" },
+            ],},
+            { label: "Seminario café científico", href: "/convenios" },
         ],
         },
         {
@@ -162,24 +163,18 @@ import { Link } from "react-router-dom"
             { label: "Portal administrativo", href: "/portal-administrativo" },
             {
             label: "Biblioteca digital",
-            href: "/biblioteca",
-            submenu: [
-                { label: "Catálogo", href: "/catalogo" },
-                { label: "Recursos digitales", href: "/recursos-digitales" },
-                { label: "Repositorio", href: "/repositorio" },
-            ],
+            href: "https://elibro.net/es/lc/uttecam/login_usuario/?next=/es/lc/uttecam/inicio/",
             },
             { label: "Correo institucional", href: "/correo" },
         ],
         },
     ]
 
-    // Detectar si el submenú debe abrirse hacia la izquierda
     useEffect(() => {
         if (subMenuRef.current && hoveredSubItem) {
         const rect = subMenuRef.current.getBoundingClientRect()
         const windowWidth = window.innerWidth
-        const subMenuWidth = 288 // ancho del submenú
+        const subMenuWidth = 200 // ancho del submenú
 
         if (rect.right + subMenuWidth > windowWidth - 20) {
             setSubMenuDirection("left")
@@ -266,15 +261,15 @@ import { Link } from "react-router-dom"
             {/* Logo */}
             <div className="flex-shrink-0">
                 <div className="flex items-center">
-                 <Link to={'/'}>
-                    <img src="/logo.png" alt="" className="w-50"/>
-                 </Link>
+                    <Link to={'/'}>
+                        <img src="/logo.png" alt="" className="w-50"/>
+                    </Link>
                 </div>
             </div>
 
             {/* Desktop Navigation Menu */}
             <div className="hidden lg:block">
-                <div className="ml-10 flex items-center space-x-12">
+                <div className="ml-10 flex items-center space-x-4 mr-4">
                 {menuItems.map((item) => (
                     <div
                     key={item.label}
@@ -405,7 +400,6 @@ import { Link } from "react-router-dom"
                         )}
                     </div>
 
-                    {/* Mobile Submenu */}
                     <AnimatePresence>
                         {item.submenu && openMobileSubmenu === item.label && (
                         <motion.div
