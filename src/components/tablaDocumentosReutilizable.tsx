@@ -105,7 +105,7 @@ export default function tablaDocumentosReutilizable({ secciones, titulo, descrip
                                                             <div className="flex items-start justify-between gap-4">
                                                                 <div className="flex items-start gap-2">
                                                                     <FileText className="h-5 w-5 mt-0.5 flex-shrink-0 text-[#D1672A]" />
-                                                                    <a href="#" className="font-medium text-gray-800 hover:text-[#D1672A] hover:underline transition-colors duration-150">
+                                                                    <a href={`/ver-documento/${documento.titulo}`} className="font-medium text-gray-800 hover:text-[#D1672A] hover:underline transition-colors duration-150">
                                                                         {documento.titulo}
                                                                     </a>
                                                                 </div>

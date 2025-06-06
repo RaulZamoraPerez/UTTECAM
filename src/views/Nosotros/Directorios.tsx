@@ -8,10 +8,10 @@ export const Directorios = () => {
     <>
       <div className="bg-white ">
         <div className="max-w-7xl mx-auto px-4 py-3  ">
-          <h1 className="text-4xl font-bold text-center my-6 p-2 text-gray-600">
+          <h1 className="text-4xl font-bold text-center my-6 p-2 text-gray-400">
             Directorios
           </h1>
-          <p className="text-2xl font-light text-center p-3 text-gray-500">Explora nuestra colección de investigaciones académicas organizadas por año</p>
+          <p className="text-2xl font-light text-center p-3 text-gray-400">Explora nuestra colección de investigaciones académicas organizadas por año</p>
             <div className="relative max-w-xl mx-auto mb-10">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                 <Search className="h-5 w-5 text-[#0A9782]" />
@@ -24,13 +24,31 @@ export const Directorios = () => {
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
             </div>
-          <div className="grid grid-cols-1 w-full  sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 p-2 py-10 shadow-2xl px-10 mb-5 ">
+          <div className="grid grid-cols-1 w-full  sm:grid-cols-2 lg:grid-cols-3 gap-5 p-2 py-10 shadow px-10 mb-5 ">
             <ContactCard
               title="Dirección de Becas"
               name="Lic. Juan Pérez"
               phone="123-456-7890"
               extension="123"
               email="raul@gmail.com"
+              imagenUrl="https://img.freepik.com/foto-gratis/hombre-tiro-medio-corrigiendo-errores-gramaticales_23-2150171419.jpg?semt=ais_items_boosted&w=740"
+             
+            />
+            <ContactCard
+              title="Dirección de Becas"
+              name="Lic. Juan Pérez"
+              phone="123-456-7890"
+              extension="123"
+              email="raul@gmail.com"
+              imagenUrl="https://img.freepik.com/foto-gratis/profesor-sonriente-sosteniendo-tableta_23-2148668619.jpg?semt=ais_items_boosted&w=740"
+            />
+            <ContactCard
+              title="Dirección de Becas"
+              name="Lic. Juan Pérez"
+              phone="123-456-7890"
+              extension="123"
+              email="raul@gmail.com"
+              
             />
             <ContactCard
               title="Dirección de Becas"
@@ -52,6 +70,7 @@ export const Directorios = () => {
               phone="123-456-7890"
               extension="123"
               email="raul@gmail.com"
+               
             />
             <ContactCard
               title="Dirección de Becas"
@@ -59,6 +78,7 @@ export const Directorios = () => {
               phone="123-456-7890"
               extension="123"
               email="raul@gmail.com"
+               isGray={true}
             />
             <ContactCard
               title="Dirección de Becas"
@@ -66,6 +86,7 @@ export const Directorios = () => {
               phone="123-456-7890"
               extension="123"
               email="raul@gmail.com"
+               isGray={true}
             />
             <ContactCard
               title="Dirección de Becas"
@@ -73,28 +94,9 @@ export const Directorios = () => {
               phone="123-456-7890"
               extension="123"
               email="raul@gmail.com"
+                isGray={true}
             />
-            <ContactCard
-              title="Dirección de Becas"
-              name="Lic. Juan Pérez"
-              phone="123-456-7890"
-              extension="123"
-              email="raul@gmail.com"
-            />
-            <ContactCard
-              title="Dirección de Becas"
-              name="Lic. Juan Pérez"
-              phone="123-456-7890"
-              extension="123"
-              email="raul@gmail.com"
-            />
-            <ContactCard
-              title="Dirección de Becas"
-              name="Lic. Juan Pérez"
-              phone="123-456-7890"
-              extension="123"
-              email="raul@gmail.com"
-            />
+           
           </div>
         </div>
       </div>
