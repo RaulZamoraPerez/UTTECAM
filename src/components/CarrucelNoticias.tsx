@@ -107,7 +107,7 @@ export default function EducationalCarousel() {
                                 {slideGroup.map((course, courseIndex) => (
                                     <div key={`${course.id}-${slideIndex}-${courseIndex}`} className="flex-1">
                                         <div className="overflow-hidden rounded-lg shadow-lg bg-white">
-                                            <div className="aspect-[4/3] relative">
+                                            <div className="relative h-64 sm:h-80 md:h-[28rem] lg:h-[32rem] w-full">
                                                 <img
                                                     src={course.image || "/placeholder.svg?height=300&width=400"}
                                                     alt={`Curso ${course.id}`}
@@ -150,7 +150,7 @@ export default function EducationalCarousel() {
                 </button>
 
                 {/* Dots Indicator */}
-                <div className="flex justify-center gap-2 mt-6">
+                <div className="flex justify-center gap-2 mt-6 mb-5">
                     {Array.from({ length: totalSlides }).map((_, index) => (
                         <button
                             key={index}
