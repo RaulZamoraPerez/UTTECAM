@@ -35,7 +35,7 @@ export const Directorios = () => {
               title="Encargado de secretaria Académica "
               name="Mtro. Carlos Islas  Contreras"
               phone="2494223300"
-              extension="52"
+              extension="120"
               email="Ssecretariaacademica@uttecam.edu.mx"
               imagenUrl="public/Organigrama/secretariaAcademica.png"
             />
@@ -43,7 +43,7 @@ export const Directorios = () => {
               title="Encargado del Área de Abogado General "
               name="Mtro. Eleazar Carrillo  Camacho "
               phone="2494223300"
-              extension="52"
+              extension="142"
               email="abogadogeneral@uttecam.edu.mx"
               imagenUrl="public/Organigrama/AbogadoGeneral.png"
               
@@ -52,7 +52,7 @@ export const Directorios = () => {
               title="Encargado del Área de Contraloría Interna "
               name="Abg. Alain Eloy Álvarez Sánchez "
               phone="2494223300"
-              extension="52"
+              extension="110"
               email="contraloria@uttecam.edu.mx"
               imagenUrl="public/Organigrama/contraloriaInterna.png"
               isGray={true}
@@ -61,7 +61,7 @@ export const Directorios = () => {
               title="Direccion y administración y Finanzas"
               name=" Rodrigo Hernández Aguilar"
               phone="2494223300"
-              extension="52"
+              extension="115"
               email="direccionfinanzas@uttecam.edu.mx"
               imagenUrl="public/Organigrama/admin_finanzas.png"
               isGray={true}
@@ -70,7 +70,7 @@ export const Directorios = () => {
               title="Extensión Universitaria"
               name="Veronica Elizabeth Centeno Fortiz"
               phone="2494223300"
-              extension="52"
+              extension="109"
               email="extensionuniversitaria@uttecam.edu.mx"
               imagenUrl="public/Organigrama/enc_extend_universitaria.png"
               isGray={true}
