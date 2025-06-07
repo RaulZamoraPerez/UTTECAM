@@ -99,27 +99,38 @@ useEffect(() => {
           −
         </button>
       </div>
+ 
+
+
 
       <p className="text-gray-500 text-2xl font-bold capitalize p-3  mb-5 text-center">
         Organigrama{" "}
       </p>
+  
 
       <div className="organigrama-scroll overflow-auto max-w-max mx-auto max-h-screen p-4 mb-10 bg-white border border-gray-300">
 
-        <div
-          className="organigrama-wrapper origin-top-center inline-flex justify-center mt-10 transition-transform duration-300"
-          style={{ transform: `scale(${zoom})` }}
-        >
-          <div className="flex justify-center items-center gap-4 mb-4  "></div>
+      <div
+  className="organigrama-wrapper origin-top-center inline-flex flex-col items-center justify-center mt-10 transition-transform duration-300"
+  style={{ transform: `scale(${zoom})` }}
+>
+  <div className="mb-4">
+    <img
+      src="/logos/PORTADAORGANIGRAMA.jpg"
+      alt="Logo del Organigrama"
+      className="h-40 md:h-52 lg:h-60 object-contain rounded-xl shadow-2xl mb-5 border-4 border-indigo-100"
+    />
+  </div>
 
-          <OrganizationChart
-            value={data}
-            selectionMode="multiple"
-            selection={selection}
-            onSelectionChange={(e) => setSelection(e.data!)}
-            nodeTemplate={nodeTemplate}
-          />
-        </div>
+  <OrganizationChart
+    value={data}
+    selectionMode="multiple"
+    selection={selection}
+    onSelectionChange={(e) => setSelection(e.data!)}
+    nodeTemplate={nodeTemplate}
+  />
+</div>
+
       </div>
     </div>
   );
