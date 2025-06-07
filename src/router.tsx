@@ -19,12 +19,9 @@ import Becas from "@/views/Becas/Becas";
 import { Organigrama } from "@/views/Directorios/Organigrama";
 import ServiciosEscolares from "./views/ServiciosEscolares/ServiciosEscolares";
 
-
-
-
 export default function Router() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/">
       <Routes>
         <Route element={<AppLayout />}>
           <Route path="/" element={<Home />} index />
