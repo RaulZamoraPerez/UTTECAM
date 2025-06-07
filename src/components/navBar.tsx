@@ -85,6 +85,7 @@ import { Link } from "react-router-dom"
         href: "/admision",
         submenu: [
             { label: "Proceso de admisión", href: "/proceso-admision" },
+            { label: "Servicios escolares", href: "/serviciosEscolares" },
             {
             label: "Requisitos",
             href: "/requisitos",

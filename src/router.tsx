@@ -12,8 +12,12 @@ import RecursosHumanos from "@/views/RecursosHumanos/recursosHumanos";
 import Sga from "@/views/Sga/sga";
 import Sigc from "@/views/Sigc/sigc";
 import ProgramDetail from "@/views/ProgramDetail";
+import ConvocatoriaAdmision from "@/views/Convocatoria/ConvocatoriaAdmision";
+import MiEscuela from "@/views/MiEscuela/MiEscuela";
+import Nosotros from "@/views/Nosotros/Nosotros";
 import Becas from "@/views/Becas/Becas";
 import { Organigrama } from "@/views/Directorios/Organigrama";
+import ServiciosEscolares from "./views/ServiciosEscolares/ServiciosEscolares";
 
 
 
@@ -34,6 +38,23 @@ export default function Router() {
           <Route path="/directorios" element={<Directorios />} />
           <Route path="/vinculacion" element={<Vinculacion />} />
           <Route path="/calendario" element={<Calendario/>} />
+          {
+            //*Rutas de nosotros
+          }
+          <Route path="/nosotros" element={<Nosotros />} />
+          {
+            //*Rutas de admision
+          }
+          <Route path="/proceso-admision" element={<ConvocatoriaAdmision />} />
+          <Route path="/serviciosEscolares" element={<ServiciosEscolares />} />
+
+          
+          {
+            //*Rutas de accesos
+          }
+          <Route path="/portal-estudiantes" element={<MiEscuela/>} />
+          
+          {/* Rutas de becas */}
           <Route path="/becas-academicas" element={<Becas/>} />
           <Route path="/Becas" element={<Calendario/>} />
           <Route path="/Organigrama" element={<Organigrama/>} />
