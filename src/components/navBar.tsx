@@ -41,7 +41,7 @@ import { Link } from "react-router-dom"
             label: "Directorios",
             href: "/directorios",
             submenu: [
-                { label: "Directorio ", href: "/directorio" },
+                { label: "Directorio ", href: "/directorios" },
             
                 { label: "organigrama", href: "/organigrama" },
                 { label: "Directorio Administrativo", href: "/directorio-administrativo" },

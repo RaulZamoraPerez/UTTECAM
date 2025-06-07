@@ -118,7 +118,7 @@ useEffect(() => {
     <img
       src="/logos/PORTADAORGANIGRAMA.jpg"
       alt="Logo del Organigrama"
-      className="h-40 md:h-52 lg:h-60 object-contain rounded-xl shadow-2xl mb-5 border-4 border-indigo-100"
+      className="h-40 md:h-52 lg:h-60 object-contain rounded-xl shadow-2xl mb-5 border-4 border-gray-100"
     />
   </div>
 
