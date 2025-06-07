@@ -17,7 +17,7 @@ export const programDetails: ProgramDetail[] = [
   //SOFTWARE
   {
     programId: 1,
-    profileImage: "/PORTADASPE/TICS.jpg",
+    profileImage: "/PORTADASPE/SOFTWARE.jpg",
     videoUrl: "/VIDEOSPE2025/TICS.mp4",
     educationalObjectives: [
       "Resolver problemas complejos de ingeniería a través del método científico para sustentar la toma de decisiones.",
@@ -579,8 +579,8 @@ con base en las normas y estándares aplicables enfocados a atender las áreas d
   //MANTENIMIENTO INDUSTRIAL
   {
     programId: 5,
-    profileImage: "/PORTADASPE/INDUSTRIAL.jpg",
-    videoUrl: "/VIDEOSPE2025/INDUSTRIAL.mp4",
+    profileImage: "/PORTADASPE/MANTENIMIENTO.jpg",
+    videoUrl: "/VIDEOSPE2025/MANTENIMIENTO.mp4",
     educationalObjectives: [
       "Gestionar recursos naturales de manera sostenible.",
       "Evaluar el impacto ambiental de proyectos.",
@@ -1255,8 +1255,8 @@ con base en las normas y estándares aplicables enfocados a atender las áreas d
   //NEGOCIOS
   {
     programId: 10,
-    profileImage: "/PORTADASPE/NEGOCIOS.jpg",
-   
+    profileImage: "/PORTADASPE/ADMINISTRACION.jpg",
+    videoUrl: "/VIDEOSPE2025/ADMINISTRACION.mp4",
     educationalObjectives: [
       "Gestionar procesos administrativos y financieros en organizaciones.",
       "Implementar estrategias innovadoras para el desarrollo empresarial.",
@@ -1395,7 +1395,8 @@ con base en las normas y estándares aplicables enfocados a atender las áreas d
   //MERCADOTECNIA
   {
     programId: 11,
-    profileImage: "/perfil/InnovaciondeNegociosyMercadotecnia.png",
+    profileImage: "/PORTADASPE/NEGOCIOS.jpg",
+   
     videoUrl: "/VIDEOSPE2025/MERCADOTECNIA.mp4",
     educationalObjectives: [
       "Diseñar y ejecutar estrategias de marketing efectivas.",

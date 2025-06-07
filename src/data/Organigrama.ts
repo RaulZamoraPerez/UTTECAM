@@ -1,6 +1,3 @@
-import type { OrganizationChartNodeData } from "primereact/organizationchart";
-
-
 
 export interface CustomOrgNode {
   key?: string;

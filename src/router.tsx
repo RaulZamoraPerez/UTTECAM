@@ -11,7 +11,7 @@ import Vinculacion from "@/views/Vinculacion/vinculacion";
 import RecursosHumanos from "@/views/RecursosHumanos/recursosHumanos";
 import Sga from "@/views/Sga/sga";
 import Sigc from "@/views/Sigc/sigc";
-import ProgramDetail from "@/views/ProgramDetail";
+import ProgramDetail from "./views/DetallesCarrera/ProgramDetail";
 import ConvocatoriaAdmision from "@/views/Convocatoria/ConvocatoriaAdmision";
 import MiEscuela from "@/views/MiEscuela/MiEscuela";
 import Nosotros from "@/views/Nosotros/Nosotros";
