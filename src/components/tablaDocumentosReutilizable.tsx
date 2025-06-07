@@ -1,7 +1,9 @@
-"use client"
+
 
 import { useState } from "react"
 import { Search, FileText, Download, Library } from "lucide-react"
+import { Link } from "react-router-dom"
+import {  formatearTitulo } from "../util/Formatt"
 
 interface Documento {
     id: string
@@ -105,9 +107,14 @@ export default function tablaDocumentosReutilizable({ secciones, titulo, descrip
                                                             <div className="flex items-start justify-between gap-4">
                                                                 <div className="flex items-start gap-2">
                                                                     <FileText className="h-5 w-5 mt-0.5 flex-shrink-0 text-[#D1672A]" />
-                                                                    <a href={`/ver-documento/${documento.titulo}`} className="font-medium text-gray-800 hover:text-[#D1672A] hover:underline transition-colors duration-150">
-                                                                        {documento.titulo}
-                                                                    </a>
+                                                                    <Link to={ `/ver-documento/${formatearTitulo(documento.titulo)}`}    
+                                                                        className="font-medium text-gray-800 hover:text-[#D1672A] hover:underline transition-colors duration-150 text-">
+                                                                            {
+                                                                             
+                                                                                documento.titulo
+                                                                            }
+                                                                     
+                                                                    </Link>
                                                                 </div>
                                                                 <button className="flex-shrink-0 p-2 text-[#D1672A] hover:bg-[#D1672A]/10 rounded-lg transition-colors duration-150">
                                                                     <Download className="h-4 w-4" />
