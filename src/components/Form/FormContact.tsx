@@ -26,7 +26,7 @@ export const FormContact = () => {
   };
 
   return (
-    <div className="max-w-6xl mx-auto p-5 bg-gray-100 min-h-screen">
+    <div className="w-full mx-auto p-5 bg-gray-100 min-h-screen">
       <h1 className="text-center text-orange-600 text-4xl font-bold mb-10">
         Contáctanos
       </h1>

@@ -5,87 +5,63 @@ import { ChevronLeft, ChevronRight } from "lucide-react"
 
 export default function EducationalCarousel() {
     const [currentSlide, setCurrentSlide] = useState(0)
+    const [imagesPerSlide, setImagesPerSlide] = useState(3)
 
     const courses = [
-        {
-            id: 1,
-            image: "/noticias/tequios2.jpg",
-        },
-        {
-            id: 2,
-            image: "/noticias/EntregaLentes.jpg",
-        },
-        {
-            id: 3,
-            image: "/noticias/ConsejoV.jpg",
-        },
-        {
-            id: 4,
-            image: "/noticias/tequios2.jpg",
-        },
-        {
-            id: 5,
-            image: "/noticias/tequios4.jpg",
-        },
-        {
-            id: 6,
-            image: "/noticias/tequios5.jpg",
-        },
-        {
-            id: 7,
-            image: "/noticias/Expo2.jpg",
-        },
-        {
-            id: 8,
-            image: "/noticias/Expo1.jpg",
-        },
-        {
-            id: 9,
-            image: "/noticias/tequios6.jpg",
-        },
+        { id: 1, image: "/noticias/tequios2.jpg" },
+        { id: 2, image: "/noticias/EntregaLentes.jpg" },
+        { id: 3, image: "/noticias/ConsejoV.jpg" },
+        { id: 4, image: "/noticias/tequios2.jpg" },
+        { id: 5, image: "/noticias/tequios4.jpg" },
+        { id: 6, image: "/noticias/tequios5.jpg" },
+        { id: 7, image: "/noticias/Expo2.jpg" },
+        { id: 8, image: "/noticias/Expo1.jpg" },
+        { id: 9, image: "/noticias/tequios6.jpg" },
     ]
 
+    // Detecta el tamaño de pantalla y ajusta imágenes por slide
+    useEffect(() => {
+        const handleResize = () => {
+            if (window.innerWidth < 640) { // sm breakpoint de Tailwind
+                setImagesPerSlide(1)
+            } else {
+                setImagesPerSlide(3)
+            }
+        }
+        handleResize()
+        window.addEventListener("resize", handleResize)
+        return () => window.removeEventListener("resize", handleResize)
+    }, [])
 
+    // Agrupa los cursos según imagesPerSlide
     const extendedCourses = [...courses, ...courses, ...courses]
-
     const slides = []
-    for (let i = 0; i < extendedCourses.length; i += 3) {
-        slides.push(extendedCourses.slice(i, i + 3))
+    for (let i = 0; i < extendedCourses.length; i += imagesPerSlide) {
+        slides.push(extendedCourses.slice(i, i + imagesPerSlide))
     }
 
-    const totalSlides = Math.ceil(courses.length / 3)
-    const startIndex = totalSlides 
+    const totalSlides = Math.ceil(courses.length / imagesPerSlide)
+    const startIndex = totalSlides
 
-    const nextSlide = () => {
-        setCurrentSlide((prev) => prev + 1)
-    }
-
-    const prevSlide = () => {
-        setCurrentSlide((prev) => prev - 1)
-    }
+    const nextSlide = () => setCurrentSlide((prev) => prev + 1)
+    const prevSlide = () => setCurrentSlide((prev) => prev - 1)
 
     useEffect(() => {
         if (currentSlide >= totalSlides * 2) {
-            setTimeout(() => {
-                setCurrentSlide(totalSlides)
-            }, 500)
+            setTimeout(() => setCurrentSlide(totalSlides), 500)
         } else if (currentSlide < totalSlides) {
-            setTimeout(() => {
-                setCurrentSlide(totalSlides * 2 - 1)
-            }, 500)
+            setTimeout(() => setCurrentSlide(totalSlides * 2 - 1), 500)
         }
     }, [currentSlide, totalSlides])
 
     useEffect(() => {
         setCurrentSlide(startIndex)
-    }, [startIndex])
+    }, [startIndex, imagesPerSlide])
 
     useEffect(() => {
-        const interval = setInterval(() => {
-            nextSlide()
-        }, 4000)
+        const interval = setInterval(() => nextSlide(), 4000)
         return () => clearInterval(interval)
-    }, [])
+    }, [imagesPerSlide])
 
     return (
         <div className="flex flex-col items-center bg-[#f1f1f1]">
@@ -96,7 +72,7 @@ export default function EducationalCarousel() {
                 </p>
             </div>
 
-            <div className="relative w-full max-w-6xl mx-auto px-16">
+            <div className="relative w-full max-w-6xl mx-auto px-4 sm:px-16">
                 <div className="overflow-hidden rounded-lg">
                     <div
                         className="flex transition-transform duration-500 ease-in-out"
@@ -117,8 +93,8 @@ export default function EducationalCarousel() {
                                         </div>
                                     </div>
                                 ))}
-                                {slideGroup.length < 3 &&
-                                    Array.from({ length: 3 - slideGroup.length }).map((_, emptyIndex) => (
+                                {slideGroup.length < imagesPerSlide &&
+                                    Array.from({ length: imagesPerSlide - slideGroup.length }).map((_, emptyIndex) => (
                                         <div key={`empty-${slideIndex}-${emptyIndex}`} className="flex-1">
                                             <div className="overflow-hidden rounded-lg shadow-lg bg-gray-100">
                                                 <div className="aspect-[4/3] relative flex items-center justify-center">
@@ -149,7 +125,6 @@ export default function EducationalCarousel() {
                     <span className="sr-only">Siguiente</span>
                 </button>
 
-                {/* Dots Indicator */}
                 <div className="flex justify-center gap-2 mt-6 mb-5">
                     {Array.from({ length: totalSlides }).map((_, index) => (
                         <button

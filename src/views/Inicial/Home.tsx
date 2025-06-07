@@ -11,9 +11,9 @@ const Home = () => {
       <HeroCarousel />
       <Countdown />
       <EducationalModels />
-      <FormContact />
       <EducationalPrograms />
       <CarrucelNoticias />
+      <FormContact />
     </>
   )
 }
