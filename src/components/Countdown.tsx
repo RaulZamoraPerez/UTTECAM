@@ -56,7 +56,6 @@ const CountdownCircle: React.FC<CountdownCircleProps> = ({ label, value, max }) 
           {String(value).padStart(2, "0")}
         </text>
 
-        {/* Label text */}
         <text
           x="80"
           y="110"
