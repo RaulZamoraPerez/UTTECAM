@@ -58,6 +58,19 @@ useEffect(() => {
 
 
   const [data] = useState(dataOrganigrama);
+  useEffect(() => {
+  const container = document.querySelector(".organigrama-scroll") as HTMLElement;
+  const content = container?.firstElementChild as HTMLElement;
+
+  if (container && content) {
+    // Espera al render y luego centra
+    setTimeout(() => {
+      container.scrollLeft = (content.scrollWidth - container.clientWidth) / 2;
+      container.scrollTop = (content.scrollHeight - container.clientHeight) / 2;
+    }, 100);
+  }
+}, []);
+
 
   const nodeTemplate = (node: OrgNode) => {
     //template o card jefes
@@ -91,7 +104,8 @@ useEffect(() => {
         Organigrama{" "}
       </p>
 
-      <div className="overflow-auto max-w-max mx-auto    max-h-screen p-4  mb-10  bg-white  border border-gray-300">
+      <div className="organigrama-scroll overflow-auto max-w-max mx-auto max-h-screen p-4 mb-10 bg-white border border-gray-300">
+
         <div
           className="organigrama-wrapper origin-top-center inline-flex justify-center mt-10 transition-transform duration-300"
           style={{ transform: `scale(${zoom})` }}

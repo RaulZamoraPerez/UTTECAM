@@ -41,8 +41,9 @@ import { Link } from "react-router-dom"
             label: "Directorios",
             href: "/directorios",
             submenu: [
-                { label: "Directorio General", href: "/directorio-general" },
-                { label: "Directorio Académico", href: "/directorio-academico" },
+                { label: "Directorio ", href: "/directorio" },
+            
+                { label: "organigrama", href: "/organigrama" },
                 { label: "Directorio Administrativo", href: "/directorio-administrativo" },
                 { label: "Consejo Directivo", href: "/consejo-directivo" },
             ],

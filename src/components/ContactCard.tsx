@@ -5,9 +5,9 @@ import { ContactModal } from "./Modal/ContactModal";
 interface Props {
   title: string;
   name: string;
-  phone: string;
+  phone?: string;
   extension?: string;
-  email: string;
+  email?: string;
   className?: string;
   isGray?: boolean;
   imagenUrl?: string; 
@@ -44,18 +44,18 @@ export const ContactCard = ({
             <div className={`w-7 h-7 flex items-center justify-center rounded-full border ${iconBorderColor} bg-white`}>
               <Phone className={`w-4 h-4 ${iconColor}`} />
             </div>
-            <span className="text-sm sm:text-base text-gray-400">{phone}</span>
+            <span className="text-sm sm:text-base text-gray-400">{phone ? phone : "sin datos "}</span>
             {extension && (
               <span className="text-sm sm:text-base text-gray-400">Ext. {extension}</span>
             )}
           </div>
 
           {/* Email */}
-          <div className="flex flex-wrap items-center gap-2">
+          <div className="flex justify-centerp items-center gap-2">
             <div className={`w-7 h-7 flex items-center justify-center rounded-full border ${iconBorderColor} bg-white`}>
               <Mail className={`w-4 h-4 ${iconColor}`} />
             </div>
-            <span className="text-sm sm:text-base underline text-gray-400 break-all">{email}</span>
+            <span className="text-sm sm:text-base underline text-gray-400 break-all break-words whitespace-normal ">{email ? email : "No disponible"}</span>
           </div>
         </div>
       </div>

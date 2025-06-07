@@ -17,6 +17,7 @@ export interface OrgNode {
     image: string;
     name: string;
     title: string;
+    text?: string;
   };
   children?: OrgNode[];
 }

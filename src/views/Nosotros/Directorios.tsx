@@ -26,53 +26,57 @@ export const Directorios = () => {
             </div>
           <div className="grid grid-cols-1 w-full  sm:grid-cols-2 lg:grid-cols-3 gap-5 p-2 py-10 shadow px-10 mb-5 ">
             <ContactCard
-              title="Dirección de Becas"
-              name="Lic. Juan Pérez"
-              phone="123-456-7890"
-              extension="123"
-              email="raul@gmail.com"
-              imagenUrl="https://img.freepik.com/foto-gratis/hombre-tiro-medio-corrigiendo-errores-gramaticales_23-2150171419.jpg?semt=ais_items_boosted&w=740"
+              title="Secretaría de Vinculación"
+              name="Mtro. Daniel Huerta Conde "
+              imagenUrl="public/Organigrama/secretarioVinculacion.png"
              
             />
             <ContactCard
-              title="Dirección de Becas"
-              name="Lic. Juan Pérez"
-              phone="123-456-7890"
-              extension="123"
-              email="raul@gmail.com"
-              imagenUrl="https://img.freepik.com/foto-gratis/profesor-sonriente-sosteniendo-tableta_23-2148668619.jpg?semt=ais_items_boosted&w=740"
+              title="Encargado de secretaria Académica "
+              name="Mtro. Carlos Islas  Contreras"
+              phone="2494223300"
+              extension="52"
+              email="Ssecretariaacademica@uttecam.edu.mx"
+              imagenUrl="public/Organigrama/secretariaAcademica.png"
             />
             <ContactCard
-              title="Dirección de Becas"
-              name="Lic. Juan Pérez"
-              phone="123-456-7890"
-              extension="123"
-              email="raul@gmail.com"
+              title="Encargado del Área de Abogado General "
+              name="Mtro. Eleazar Carrillo  Camacho "
+              phone="2494223300"
+              extension="52"
+              email="abogadogeneral@uttecam.edu.mx"
+              imagenUrl="public/Organigrama/AbogadoGeneral.png"
               
             />
             <ContactCard
-              title="Dirección de Becas"
-              name="Lic. Juan Pérez"
-              phone="123-456-7890"
-              extension="123"
-              email="raul@gmail.com"
+              title="Encargado del Área de Contraloría Interna "
+              name="Abg. Alain Eloy Álvarez Sánchez "
+              phone="2494223300"
+              extension="52"
+              email="contraloria@uttecam.edu.mx"
+              imagenUrl="public/Organigrama/contraloriaInterna.png"
+              isGray={true}
             />
             <ContactCard
-              title="Dirección de Becas"
-              name="Lic. Juan Pérez"
-              phone="123-456-7890"
-              extension="123"
-              email="raul@gmail.com"
+              title="Direccion y administración y Finanzas"
+              name=" Rodrigo Hernández Aguilar"
+              phone="2494223300"
+              extension="52"
+              email="direccionfinanzas@uttecam.edu.mx"
+              imagenUrl="public/Organigrama/admin_finanzas.png"
+              isGray={true}
             />
             <ContactCard
-              title="Dirección de Becas"
-              name="Lic. Juan Pérez"
-              phone="123-456-7890"
-              extension="123"
-              email="raul@gmail.com"
+              title="Extensión Universitaria"
+              name="Veronica Elizabeth Centeno Fortiz"
+              phone="2494223300"
+              extension="52"
+              email="extensionuniversitaria@uttecam.edu.mx"
+              imagenUrl="public/Organigrama/enc_extend_universitaria.png"
+              isGray={true}
                
             />
-            <ContactCard
+            {/* <ContactCard
               title="Dirección de Becas"
               name="Lic. Juan Pérez"
               phone="123-456-7890"
@@ -80,22 +84,7 @@ export const Directorios = () => {
               email="raul@gmail.com"
                isGray={true}
             />
-            <ContactCard
-              title="Dirección de Becas"
-              name="Lic. Juan Pérez"
-              phone="123-456-7890"
-              extension="123"
-              email="raul@gmail.com"
-               isGray={true}
-            />
-            <ContactCard
-              title="Dirección de Becas"
-              name="Lic. Juan Pérez"
-              phone="123-456-7890"
-              extension="123"
-              email="raul@gmail.com"
-                isGray={true}
-            />
+           */}
            
           </div>
         </div>

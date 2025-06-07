@@ -67,20 +67,33 @@ export const ContactModal = ({
                 </div>
 
                 <div className="mt-6 border-t pt-4 space-y-3 text-sm text-gray-700">
+                  {/* Teléfono */}
                   <div className="flex items-center gap-2">
                     <Phone className="w-5 h-5 text-orange-500" />
-                    <span className="font-medium">
-                      {phone} {extension && <span>| Ext. {extension}</span>}
-                    </span>
+                    {phone ? (
+                      <span className="font-medium">
+                        {phone} {extension && <span>| Ext. {extension}</span>}
+                      </span>
+                    ) : (
+                      <span className="text-gray-400 italic">Sin teléfono</span>
+                    )}
                   </div>
+
+                  {/* Correo */}
                   <div className="flex items-center gap-2">
                     <Mail className="w-5 h-5 text-blue-600" />
-                    <a
-                      href={`mailto:${email}`}
-                      className="text-blue-600 underline hover:text-blue-800 transition"
-                    >
-                      {email}
-                    </a>
+                    {email ? (
+                      <a
+                        href={`mailto:${email}`}
+                        className="text-blue-600 underline hover:text-blue-800 transition"
+                      >
+                        {email}
+                      </a>
+                    ) : (
+                      <span className="text-gray-400 italic">
+                        Sin correo electrónico
+                      </span>
+                    )}
                   </div>
                 </div>
 
