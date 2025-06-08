@@ -8,6 +8,7 @@ import {
 import { Fragment } from "react";
 import { Mail, Phone } from "lucide-react";
 import { ImagePerfil } from "./ImagePerfil";
+import { formatPhone } from "@/util/Formatt";
 
 interface ContactModalProps {
   isOpen: boolean;
@@ -60,10 +61,10 @@ export const ContactModal = ({
                 <ImagePerfil name={name} imageUrl={imageUrl} />
 
                 <div className="mt-4 text-center">
-                  <DialogTitle className="text-2xl font-semibold text-gray-900">
+                  <DialogTitle className="text-2xl font-semibold text-gray-900 capitalize">
                     {title}
                   </DialogTitle>
-                  <p className="text-lg text-gray-600 font-medium">{name}</p>
+                  <p className="text-lg text-gray-600 font-medium capitalize">{name}</p>
                 </div>
 
                 <div className="mt-6 border-t pt-4 space-y-3 text-sm text-gray-700">
@@ -72,7 +73,7 @@ export const ContactModal = ({
                     <Phone className="w-5 h-5 text-orange-500" />
                     {phone ? (
                       <span className="font-medium">
-                        {phone} {extension && <span>| Ext. {extension}</span>}
+                        { formatPhone( phone!)} {extension && <span>| Ext. {extension}</span>}
                       </span>
                     ) : (
                       <span className="text-gray-400 italic">Sin teléfono</span>

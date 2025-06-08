@@ -10,7 +10,7 @@ export default function Calendario() {
 
   return (
     <>
-      <div className="h-screen w-screen flex flex-col mb-10">
+      <div className="h-screen w-screen flex flex-col mb-32">
         <div className="p-4 bg-white mt-10">
           <h1 className="text-4xl font-bold text-orange-500 text-center">
             Calendario
