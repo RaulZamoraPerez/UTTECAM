@@ -42,7 +42,7 @@ import { Link } from "react-router-dom"
             
             submenu: [
                 { label: "Directorio ", href: "/directorios" },
-                { label: "organigrama", href: "/organigrama" },
+                { label: "Organigrama", href: "/organigrama" },
             ],
             },
             { label: "Calendario", href: "/calendario" },
@@ -111,10 +111,7 @@ import { Link } from "react-router-dom"
         label: "Vinculación",
         href: "/vinculacion",
         submenu: [
-            {
-            label: "PIT - Programa Institucional de Tutorías",
-            href: "/programa-institucional-tutorias",
-            },
+          
             { label: "Desempeño de egresados", href: "/practicas", submenu: [
                 { label: "Bolsa de trabajo", href: "/bolsaTrabajo" },
                 { label: "Encuentro de egresados", href: "/egresados" },
@@ -145,7 +142,8 @@ import { Link } from "react-router-dom"
         href: "/accesos",
         submenu: [
             { label: "Portal estudiantes", href: "/portal-estudiantes" },
-            { label: "Portal docentes", href: "/portal-docentes" },
+            { label: "PIT - Programa Institucional de Tutorías/Portal docentes", href: "/programa-institucional-tutorias" },
+
             { label: "Portal administrativo", href: "/portal-administrativo" },
             {
             label: "Biblioteca digital",

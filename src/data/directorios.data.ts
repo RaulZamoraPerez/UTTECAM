@@ -2,7 +2,7 @@ export const contactData = [
   {
     title: "Secretaría de Vinculación",
     name: "Mtro. Daniel Huerta Conde",
-    imagenUrl: "public/Organigrama/secretarioVinculacion.png",
+    imagenUrl: "Organigrama/secretarioVinculacion.png",
   },
   {
     title: "Encargado de secretaria Académica",
@@ -10,7 +10,7 @@ export const contactData = [
     phone: "2494223300",
     extension: "120",
     email: "secretariaacademica@uttecam.edu.mx",
-    imagenUrl: "public/Organigrama/secretariaAcademica.png",
+    imagenUrl: "Organigrama/secretariaAcademica.png",
   },
   {
     title: "Encargado del Área de Abogado General",
@@ -18,7 +18,7 @@ export const contactData = [
     phone: "2494223300",
     extension: "142",
     email: "abogadogeneral@uttecam.edu.mx",
-    imagenUrl: "public/Organigrama/AbogadoGeneral.png",
+    imagenUrl: "Organigrama/AbogadoGeneral.png",
   },
   {
     title: "Encargado del Área de Contraloría Interna",
@@ -26,7 +26,7 @@ export const contactData = [
     phone: "2494223300",
     extension: "110",
     email: "contraloria@uttecam.edu.mx",
-    imagenUrl: "public/Organigrama/contraloriaInterna.png",
+    imagenUrl: "Organigrama/contraloriaInterna.png",
     isGray: true,
   },
   {
@@ -35,7 +35,7 @@ export const contactData = [
     phone: "2494223300",
     extension: "115",
     email: "direccionfinanzas@uttecam.edu.mx",
-    imagenUrl: "public/Organigrama/admin_finanzas.png",
+    imagenUrl: "Organigrama/admin_finanzas.png",
     isGray: true,
   },
   {
@@ -44,7 +44,7 @@ export const contactData = [
     phone: "2494223300",
     extension: "109",
     email: "extensionuniversitaria@uttecam.edu.mx",
-    imagenUrl: "public/Organigrama/enc_extend_universitaria.png",
+    imagenUrl: "Organigrama/enc_extend_universitaria.png",
     isGray: true,
   },
 ];
