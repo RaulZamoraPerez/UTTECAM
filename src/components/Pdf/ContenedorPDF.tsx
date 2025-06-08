@@ -1,20 +1,23 @@
+interface Props {
+  fakePDFUrl?: string;
+  imageUrl?: string;
 
-interface Props{
-    fakePDFUrl: string
-    isLoading: boolean
-    setIsLoading: (loading: boolean) => void
+  setIsLoading: (loading: boolean) => void;
 }
 
-export const ContenedorPDF = ({fakePDFUrl, isLoading, setIsLoading}:Props) => {
+export const ContenedorPDF = ({ fakePDFUrl, setIsLoading }: Props) => {
   return (
-    <iframe
-          src={fakePDFUrl}
-          className={`w-full md:w-3/4 h-full mx-auto transition-opacity duration-500 p-3 mb-5 ${
-            isLoading ? "opacity-0" : "opacity-100"
-          }`}
-          title={fakePDFUrl}
-          style={{ border: "none" }}
-          onLoad={() => setIsLoading(false)}
-        ></iframe>
-  )
-}
+    <div className="flex-1 p-4">
+      <iframe
+        src={fakePDFUrl}
+        className="w-full md:w-3/4 h-[80vh] mx-auto mb-10s"
+        title="Calendario PDF"
+        style={{ border: "none" }}
+        onLoad={() => {
+          console.log(" PDF cargado");
+          setIsLoading(false);
+        }}
+      />
+    </div>
+  );
+};

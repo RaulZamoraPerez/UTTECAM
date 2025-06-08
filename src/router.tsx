@@ -18,6 +18,8 @@ import Nosotros from "@/views/Nosotros/Nosotros";
 import Becas from "@/views/Becas/Becas";
 import { Organigrama } from "@/views/Directorios/Organigrama";
 import ServiciosEscolares from "./views/ServiciosEscolares/ServiciosEscolares";
+import {PIT} from '@/views/Sigc/PIT';
+import { PdfPIT } from "./components/Pdf/PdfPIT";
 
 export default function Router() {
   return (
@@ -28,6 +30,7 @@ export default function Router() {
           <Route path="/programa/:id" element={<ProgramDetail />} />
           <Route path="/normatividad" element={<NormatividadSeccion />} />
           <Route path="/ver-documento/:title" element={<PDF />} />
+          <Route path="/ver-documento-PIT/:title" element={<PdfPIT />} />
           <Route path ="/finanzas" element ={<Finanzas/>}/>
           <Route path ="/recursosHumanos" element ={<RecursosHumanos/>}/>
           <Route path ="/sga" element ={<Sga/>}/>
@@ -35,6 +38,7 @@ export default function Router() {
           <Route path="/directorios" element={<Directorios />} />
           <Route path="/vinculacion" element={<Vinculacion />} />
           <Route path="/calendario" element={<Calendario/>} />
+          <Route path="/PIT" element={<PIT/>} />
           {
             //*Rutas de nosotros
           }
