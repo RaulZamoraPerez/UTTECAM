@@ -38,7 +38,7 @@ export default function Router() {
           <Route path="/directorios" element={<Directorios />} />
           <Route path="/vinculacion" element={<Vinculacion />} />
           <Route path="/calendario" element={<Calendario/>} />
-          <Route path="/PIT" element={<PIT/>} />
+          <Route path="/programa-institucional-tutorias" element={<PIT/>} />
           {
             //*Rutas de nosotros
           }

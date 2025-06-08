@@ -2,7 +2,7 @@
 export interface CustomOrgNode {
   key?: string;
   expanded?: boolean;
-  type?: string; // <-- ahora sí se acepta
+  type?: string;
   data: {
     image: string;
     name: string;
@@ -41,8 +41,8 @@ const dataOrganigrama: CustomOrgNode[] = [
         type: "person",
         data: {
           image: "public/Organigrama/enc_extend_universitaria.png",
-          name: "Veronica Elizabeth Centeno Fortiz  ",
-          title:"Encargado de la Dirección de Extensión Universitaria ",
+          name: "Verónica Elizabeth Centeno Fórtiz  ",
+          title:"Encargada de la Dirección de Extensión Universitaria ",
           text: "La Mtra. Verónica Elizabeth Centeno Fortiz es Encargada de la Dirección de Extensión Universitaria en la Universidad Tecnológica de Tecamachalco, donde promueve actividades de proyección institucional, vinculación social, cultura y desarrollo estudiantil con un enfoque inclusivo y participativo. Es Maestra en Ciencias de la Educación por el Instituto de Estudios Universitarios A.C. y Licenciada en Ciencias de la Comunicación por la Universidad Realística de México, formación que le ha permitido desempeñarse en áreas clave de comunicación institucional, gestión educativa y desarrollo comunitario. Ha sido Directora de Extensión Universitaria y Titular del Área de Educación en el H. Ayuntamiento de Tepeaca, donde lideró iniciativas de impacto social y programas educativos orientados a fortalecer el vínculo entre gobierno y ciudadanía.Su perfil combina experiencia en educación, comunicación estratégica y participación ciudadana, lo que le permite contribuir de manera significativa al fortalecimiento del sentido de comunidad y responsabilidad social dentro del entorno universitario."
         },
 
@@ -95,7 +95,7 @@ const dataOrganigrama: CustomOrgNode[] = [
             data: {
               image: "public/Organigrama/directores/admin.png",
               name: "Mtra. Miriam Garcilazo Alcántara  ",
-              title: "DIRECTORA  DEL P.E.ADMINISTRACIÓN   ",
+              title: "DIRECTORA  DEL P.E. ADMINISTRACIÓN",
               text:"La Mtra. Miriam Garcilazo Alcantará es Directora del Programa Educativo de Administración en la Universidad Tecnológica de Tecamachalco, donde ha contribuido desde 2004 al fortalecimiento de los procesos académicos y administrativos, promoviendo una formación integral en el área económico-administrativa. Es Maestra en Administración por la Universidad Popular Autónoma del Estado de Puebla (UPAEP) y Licenciada en Economía por la Benemérita Universidad Autónoma de Puebla (BUAP). Su formación le ha permitido desarrollar una visión crítica y estratégica en torno a los procesos de gestión organizacional y desarrollo institucional. Ha desempeñado diversos cargos dentro de la universidad, entre ellos Subdirectora de Servicios Escolares y Jefa del Departamento de Prensa y Difusión, además de contar con una sólida trayectoria como profesora de tiempo completo, destacando por su compromiso académico y su cercanía con la comunidad estudiantil."
             },
           },
@@ -114,7 +114,7 @@ const dataOrganigrama: CustomOrgNode[] = [
             data: {
               image: "public/Organigrama/directores/industrial.png",
               name: "Ing. Job Armando Henández Cortés",
-              title: " DIRECCIÓN  DEL P.E.INGENIERÍA INDUSTRIAL ",
+              title: " DIRECCIÓN  DEL P.E. INGENIERÍA INDUSTRIAL ",
               text:"El Mtro. Job Armando Hernández Cortés es Director del Programa Educativo de Ingeniería Industrial en la Universidad Tecnológica de Tecamachalco, desde donde lidera procesos de enseñanza-aprendizaje enfocados en la optimización de sistemas productivos y el desarrollo de soluciones industriales sostenibles. Es Ingeniero Industrial por el Instituto Tecnológico Superior de Tepeaca y cuenta con una Maestría en la Enseñanza de las Ciencias Exactas por el Instituto Nacional de Óptica y Electrónica, formación que le permite integrar el conocimiento técnico con estrategias didácticas efectivas para la formación de ingenieros altamente capacitados.Antes de incorporarse a la universidad, se desempeñó como Launch Engineer en la empresa Minghua de México S.A. de C.V., donde adquirió experiencia práctica en procesos de manufactura y gestión de proyectos industriales, fortaleciendo su perfil profesional con visión aplicada al sector productivo."
             },
 
@@ -136,7 +136,7 @@ const dataOrganigrama: CustomOrgNode[] = [
             data: {
               image: "public/Organigrama/directores/meca.png",
               name: "Ing. Sullivan Reyes Negrete",
-              title: "ENCARGADO DE LA DIRECCIÓN DEL P.E.MECATRÓNICA  INDUSTRIAL",
+              title: "ENCARGADO DE LA DIRECCIÓN DEL P.E. MECATRÓNICA ",
                text:"El Ing. Sullivan Reyes Negrete es Encargado del Despacho de la Dirección del Programa Educativo de Mecatrónica Industrial en la Universidad Tecnológica de Tecamachalco, donde promueve una formación integral enfocada en la automatización, el control de procesos y la industria 4.0. Es Ingeniero Industrial por la Benemérita Universidad Autónoma de Puebla (BUAP) y cuenta con certificaciones en Gestión Integral de Riesgos y Green Belt en Lean Manufacturing, lo que refuerza su capacidad para implementar metodologías de mejora continua, eficiencia operativa y reducción de desperdicios en entornos industriales complejos. Ha sido Jefe del Departamento de Evaluación en el H. Ayuntamiento de Cuautlancingo, donde aplicó herramientas de análisis institucional y planeación estratégica con base en indicadores de desempeño.Su perfil técnico, complementado por su experiencia en gestión pública y sus certificaciones especializadas, lo consolidan como un formador de talento competitivo para el sector manufacturero, con visión innovadora y orientación a resultados."
             },
           },
@@ -154,7 +154,7 @@ const dataOrganigrama: CustomOrgNode[] = [
             data: {
               image: "public/Organigrama/directores/ti.png",
               name: "Mtra.  Mónica Meneses Gasca  ",
-              title: "DIRECCIÓN DEL P.E.TECNOLOGÍAS DE LA INFORMACIÓN",
+              title: "DIRECCIÓN DEL P.E. TECNOLOGÍAS DE LA INFORMACIÓN",
               text: "La Mtra. Mónica Meneses Gasca es Directora del Programa Educativo de Tecnologías de la Información e Innovación Tecnológica en la Universidad Tecnológica de Tecamachalco, donde impulsa la formación de profesionistas orientados al desarrollo digital, la innovación y la transformación tecnológica.Es Maestra en Administración de Empresas por el Instituto de Estudios Superiores del Estado y Ingeniera en Sistemas Computacionales por el Instituto Tecnológico Superior de Tepeaca, lo que le permite combinar competencias técnicas con una visión de gestión y liderazgo empresarial.Además, se ha desempeñado como profesora de asignatura en la misma universidad, destacando por su compromiso con la formación académica, el impulso al emprendimiento tecnológico y la atención a los retos de la economía digital.Su perfil combina experiencia en innovación, docencia y administración, alineado con las exigencias del entorno tecnológico actual."
                   },
           },

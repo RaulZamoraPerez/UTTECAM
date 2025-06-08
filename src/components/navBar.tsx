@@ -128,8 +128,8 @@ import { Link } from "react-router-dom"
         href: "/vinculacion",
         submenu: [
             {
-            label: "Convenios con el sector productivo de bienes y servicios ",
-            href: "/empresas",
+            label: "PIT - Programa Institucional de Tutorías",
+            href: "/programa-institucional-tutorias",
             },
             { label: "Desempeño de egresados", href: "/practicas", submenu: [
                 { label: "Bolsa de trabajo", href: "/bolsaTrabajo" },

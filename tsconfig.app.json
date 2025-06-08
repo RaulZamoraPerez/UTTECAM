@@ -12,6 +12,7 @@
       "@/layouts/*": ["layouts/*"],
       "@/views/*": ["views/*"],
       "@/data/*": ["data/*"],
+      "@/util/*": ["util/*"],
     },
 
     /* Bundler mode */

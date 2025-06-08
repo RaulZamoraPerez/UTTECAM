@@ -6,71 +6,68 @@ import {
 import "primereact/resources/themes/lara-light-indigo/theme.css";
 import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
-import { dataOrganigrama } from "../../data/Organigrama";
+import { dataOrganigrama } from "@/data/Organigrama.data";
 import { Card } from "./Card";
 import type { OrgNode } from "types/Program";
 
 export default function OrganigramaP() {
-
-
- 
   const [zoom, setZoom] = useState(0.6);
-useEffect(() => {
+  useEffect(() => {
+    const container = document.querySelector(".organigrama-wrapper");
 
-  const container = document.querySelector(".organigrama-wrapper");
+    if (!container) return;
 
-  if (!container) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const target = entry.target as HTMLElement;
 
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        const target = entry.target as HTMLElement;
+          if (entry.isIntersecting) {
+            target.classList.add("line-visible");
+          } else {
+            target.classList.remove("line-visible");
+          }
+        });
+      },
+      {
+        root: container,
+        threshold: 0.01,
+      }
+    );
 
-        if (entry.isIntersecting) {
-          target.classList.add("line-visible");
-        } else {
-          target.classList.remove("line-visible");
-        }
-      });
-    },
-    {
-      root: container,
-      threshold: 0.01,
-    }
-  );
+    // Seleccionamos solo las celdas que son líneas
+    const lines = container.querySelectorAll(
+      "td[class*='p-organizationchart-line']"
+    );
 
-  // Seleccionamos solo las celdas que son líneas
-  const lines = container.querySelectorAll(
-    "td[class*='p-organizationchart-line']"
-  );
+    lines.forEach((line) => observer.observe(line));
 
-  lines.forEach((line) => observer.observe(line));
-
-  return () => {
-    lines.forEach((line) => observer.unobserve(line));
-  };
-}, [zoom]);
+    return () => {
+      lines.forEach((line) => observer.unobserve(line));
+    };
+  }, [zoom]);
 
   const [selection, setSelection] = useState<
     OrganizationChartNodeData | OrganizationChartNodeData[] | null
   >(null);
 
-
-
   const [data] = useState(dataOrganigrama);
   useEffect(() => {
-  const container = document.querySelector(".organigrama-scroll") as HTMLElement;
-  const content = container?.firstElementChild as HTMLElement;
+    const container = document.querySelector(
+      ".organigrama-scroll"
+    ) as HTMLElement;
+    const content = container?.firstElementChild as HTMLElement;
 
-  if (container && content) {
-    // Espera al render y luego centra
-    setTimeout(() => {
-      container.scrollLeft = (content.scrollWidth - container.clientWidth) / 2;
-      container.scrollTop = (content.scrollHeight - container.clientHeight) / 2;
-    }, 100);
-  }
-}, []);
-
+    if (container && content) {
+      // Espera al render y luego centra
+      setTimeout(() => {
+        container.scrollLeft =
+          (content.scrollWidth - container.clientWidth) / 2;
+        container.scrollTop =
+          (content.scrollHeight - container.clientHeight) / 2;
+      }, 100);
+    }
+  }, []);
 
   const nodeTemplate = (node: OrgNode) => {
     //template o card jefes
@@ -99,38 +96,33 @@ useEffect(() => {
           −
         </button>
       </div>
- 
-
-
 
       <p className="text-gray-500 text-2xl font-bold capitalize p-3  mb-5 text-center">
         Organigrama{" "}
       </p>
-  
 
       <div className="organigrama-scroll overflow-auto max-w-max mx-auto max-h-screen p-4 mb-10 bg-white border border-gray-300">
+        <div
+          className="organigrama-wrapper origin-top-center inline-flex flex-col items-center justify-center mt-10 transition-transform duration-300"
+          style={{ transform: `scale(${zoom})` }}
+        >
+          <div className="mb-10">
+            <img
+              src="/logos/PORTADAORGANIGRAMA.jpg"
+              alt="Logo del Organigrama"
+              className="h-40 md:h-52 lg:h-60 object-contain rounded-xl shadow-2xl mb-5 border-4 border-gray-100"
+            />
+          </div>
 
-      <div
-  className="organigrama-wrapper origin-top-center inline-flex flex-col items-center justify-center mt-10 transition-transform duration-300"
-  style={{ transform: `scale(${zoom})` }}
->
-  <div className="mb-4">
-    <img
-      src="/logos/PORTADAORGANIGRAMA.jpg"
-      alt="Logo del Organigrama"
-      className="h-40 md:h-52 lg:h-60 object-contain rounded-xl shadow-2xl mb-5 border-4 border-gray-100"
-    />
-  </div>
-
-  <OrganizationChart
-    value={data}
-    selectionMode="multiple"
-    selection={selection}
-    onSelectionChange={(e) => setSelection(e.data!)}
-    nodeTemplate={nodeTemplate}
-  />
-</div>
-
+          <OrganizationChart
+          className="capitalize"
+            value={data}
+            selectionMode="single"
+            selection={selection}
+            onSelectionChange={(e) => setSelection(e.data!)}
+            nodeTemplate={nodeTemplate}
+          />
+        </div>
       </div>
     </div>
   );
