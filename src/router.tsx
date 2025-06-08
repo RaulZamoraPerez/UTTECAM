@@ -15,7 +15,7 @@ import ProgramDetail from "./views/DetallesCarrera/ProgramDetail";
 import ConvocatoriaAdmision from "@/views/Convocatoria/ConvocatoriaAdmision";
 import MiEscuela from "@/views/MiEscuela/MiEscuela";
 import Nosotros from "@/views/Nosotros/Nosotros";
-import Becas from "@/views/Becas/Becas";
+import Becas from "@/views/Becas2/Becas";
 import { Organigrama } from "@/views/Directorios/Organigrama";
 import ServiciosEscolares from "./views/ServiciosEscolares/ServiciosEscolares";
 
