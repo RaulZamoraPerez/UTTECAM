@@ -7,13 +7,13 @@ import { Link } from "react-router-dom"
 
     interface SubMenuItem {
     label: string
-    href: string
+    href?: string
     submenu?: SubMenuItem[]
     }
 
     interface MenuItem {
     label: string
-    href: string
+    href?: string
     submenu?: SubMenuItem[]
     }
 
@@ -39,19 +39,16 @@ import { Link } from "react-router-dom"
             },
             {
             label: "Directorios",
-            href: "/directorios",
+            
             submenu: [
                 { label: "Directorio ", href: "/directorios" },
-            
                 { label: "organigrama", href: "/organigrama" },
-                { label: "Directorio Administrativo", href: "/directorio-administrativo" },
-                { label: "Consejo Directivo", href: "/consejo-directivo" },
             ],
             },
             { label: "Calendario", href: "/calendario" },
             {
             label: "Disposición jurídica",
-            href: "/disposicion-juridica",
+           
             submenu: [
                 { label: "Reglamentos", href: "/reglamentos" },
                 { label: "Lineamientos", href: "/lineamientos" },
@@ -62,16 +59,11 @@ import { Link } from "react-router-dom"
             {
             label: "Programas de desarrollo",
             href: "/programas-desarrollo",
-            submenu: [
-                { label: "Desarrollo Institucional", href: "/desarrollo-institucional" },
-                { label: "Capacitación Docente", href: "/capacitacion-docente" },
-                { label: "Mejora Continua", href: "/mejora-continua" },
-                { label: "Innovación Educativa", href: "/innovacion-educativa" },
-            ],
+           
             },
             {
             label: "Comités",
-            href: "/comites",
+            
             submenu: [
                 { label: "Comité Académico", href: "/comite-academico" },
                 { label: "Comité de Vinculación", href: "/comite-vinculacion" },
@@ -90,35 +82,27 @@ import { Link } from "react-router-dom"
             {
             label: "Requisitos",
             href: "/requisitos",
-            submenu: [
-                { label: "Documentos", href: "/documentos" },
-                { label: "Exámenes médicos", href: "/examenes-medicos" },
-                { label: "Certificaciones", href: "/certificaciones" },
-            ],
+            
+           
             },
             {
             label: "Becas y apoyos",
             href: "/becas-apoyos",
             submenu: [
                 { label: "Becas académicas", href: "/becas-academicas" },
-                { label: "Becas deportivas", href: "/becas-deportivas" },
-                { label: "Apoyos económicos", href: "/apoyos-economicos" },
+               
             ],
             },
         ],
         },
         {
         label: "Academia",
-        href: "/academia",
+       
         submenu: [
             {
             label: "Carreras",
-            href: "/carreras",
-            submenu: [
-                { label: "Ingeniería", href: "/ingenieria" },
-                { label: "Tecnologías", href: "/tecnologias" },
-                { label: "Licenciaturas", href: "/licenciaturas" },
-            ],
+            href: "/#carreras",
+         
             },
             { label: "Profesores", href: "/profesores" },
         ],
@@ -167,7 +151,7 @@ import { Link } from "react-router-dom"
             label: "Biblioteca digital",
             href: "https://elibro.net/es/lc/uttecam/login_usuario/?next=/es/lc/uttecam/inicio/",
             },
-            { label: "Correo institucional", href: "/correo" },
+            
         ],
         },
     ]
@@ -272,35 +256,36 @@ import { Link } from "react-router-dom"
             {/* Desktop Navigation Menu */}
             <div className="hidden lg:block">
                 <div className="ml-10 flex items-center space-x-4 mr-4">
-                {menuItems.map((item) => (
+                  {menuItems.map((item) => (
                     <div
-                    key={item.label}
-                    className="relative"
-                    onMouseEnter={() => {
+                      key={item.label}
+                      className="relative"
+                      onMouseEnter={() => {
                         setHoveredItem(item.label)
                         setHoveredSubItem(null)
-                    }}
-                    onMouseLeave={() => {
+                      }}
+                      onMouseLeave={() => {
                         setHoveredItem(null)
                         setHoveredSubItem(null)
-                    }}
+                      }}
                     >
-                    <a
-                        href={item.href}
-                        className="text-[#000000] hover:text-[#0A9782]/80 px-4 py-3 text-base font-semibold flex items-center transition-colors duration-200"
-                    >
+                      <button
+                        type="button"
+                        className="text-[#000000] hover:text-[#0A9782]/80 px-4 py-3 text-base font-semibold flex items-center transition-colors duration-200 focus:outline-none"
+                        // No href, solo despliega el menú
+                      >
                         {item.label}
                         {item.submenu && (
-                        <ChevronDown
+                          <ChevronDown
                             className={`ml-2 h-5 w-5 text-[#0A9782] transition-transform duration-200 ${
-                            hoveredItem === item.label ? "rotate-180" : ""
+                              hoveredItem === item.label ? "rotate-180" : ""
                             }`}
-                        />
+                          />
                         )}
-                    </a>
+                      </button>
 
-                    {/* First Level Dropdown */}
-                    <AnimatePresence>
+                      {/* First Level Dropdown */}
+                      <AnimatePresence>
                         {item.submenu && hoveredItem === item.label && (
                         <motion.div
                             variants={dropdownVariants}
@@ -355,7 +340,7 @@ import { Link } from "react-router-dom"
                         )}
                     </AnimatePresence>
                     </div>
-                ))}
+                  ))}
                 </div>
             </div>
 
@@ -384,22 +369,32 @@ import { Link } from "react-router-dom"
                 {menuItems.map((item) => (
                     <div key={item.label}>
                     <div className="flex items-center justify-between">
-                        <a
-                        href={item.href}
-                        className="text-[#0A9782] font-semibold py-2 block"
-                        onClick={() => setMobileMenuOpen(false)}
+                      {item.submenu ? (
+                        <button
+                          type="button"
+                          className="text-[#0A9782] font-semibold py-2 block w-full text-left"
+                          onClick={() => toggleMobileSubmenu(item.label)}
                         >
-                        {item.label}
-                        </a>
-                        {item.submenu && (
-                        <button onClick={() => toggleMobileSubmenu(item.label)} className="text-[#0A9782] p-1">
-                            <ChevronDown
-                            className={`h-5 w-5 transition-transform duration-200 ${
-                                openMobileSubmenu === item.label ? "rotate-180" : ""
-                            }`}
-                            />
+                          {item.label}
                         </button>
-                        )}
+                      ) : (
+                        <a
+                          href={item.href}
+                          className="text-[#0A9782] font-semibold py-2 block"
+                          onClick={() => setMobileMenuOpen(false)}
+                        >
+                          {item.label}
+                        </a>
+                      )}
+                      {item.submenu && (
+                        <button onClick={() => toggleMobileSubmenu(item.label)} className="text-[#0A9782] p-1">
+                          <ChevronDown
+                            className={`h-5 w-5 transition-transform duration-200 ${
+                              openMobileSubmenu === item.label ? "rotate-180" : ""
+                            }`}
+                          />
+                        </button>
+                      )}
                     </div>
 
                     <AnimatePresence>
