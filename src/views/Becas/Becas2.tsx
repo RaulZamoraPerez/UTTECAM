@@ -25,7 +25,7 @@ export default function Becas2() {
 
         {/* Contenedor del PDF */}
 
-        <ContenedorPDF  fakePDFUrl={fakePDFUrl} isLoading={isLoading} setIsLoading={setIsLoading}  />
+        <ContenedorPDF  fakePDFUrl={fakePDFUrl} /* isLoading={isLoading} */ setIsLoading={setIsLoading}  />
       </div>
 
       <div className="mx-0   mb-10 px-4 sm:px-2 max-w-screen-md">
