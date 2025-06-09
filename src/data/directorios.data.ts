@@ -2,13 +2,14 @@ export const contactData = [
   {
     title: "Secretaría de Vinculación",
     name: "Mtro. Daniel Huerta Conde",
+    extension: "120",
     imagenUrl: "Organigrama/secretarioVinculacion.png",
   },
   {
-    title: "Encargado de secretaria Académica",
+    title: "Encargado de Secretaría Académica",
     name: "Mtro. Carlos Islas Contreras",
     phone: "2494223300",
-    extension: "120",
+    extension: "135",
     email: "secretariaacademica@uttecam.edu.mx",
     imagenUrl: "Organigrama/secretariaAcademica.png",
   },
@@ -31,7 +32,7 @@ export const contactData = [
   },
   {
     title: "Dirección y administración y Finanzas",
-    name: "Rodrigo Hernández Aguilar",
+    name: "Lic. Rodrigo Hernández Aguilar",
     phone: "2494223300",
     extension: "115",
     email: "direccionfinanzas@uttecam.edu.mx",
@@ -40,7 +41,7 @@ export const contactData = [
   },
   {
     title: "Extensión Universitaria",
-    name: "Verónica Elizabeth Centeno Fórtiz",
+    name: "Mtra. Verónica Elizabeth Centeno Fórtiz",
     phone: "2494223300",
     extension: "109",
     email: "extensionuniversitaria@uttecam.edu.mx",

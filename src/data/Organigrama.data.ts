@@ -41,7 +41,7 @@ const dataOrganigrama: CustomOrgNode[] = [
         type: "person",
         data: {
           image: "Organigrama/enc_extend_universitaria.png",
-          name: "Verónica Elizabeth Centeno Fórtiz  ",
+          name: "Mtra. Verónica Elizabeth Centeno Fórtiz  ",
           title:"Encargada de la Dirección de Extensión Universitaria ",
           text: "La Mtra. Verónica Elizabeth Centeno Fortiz es Encargada de la Dirección de Extensión Universitaria en la Universidad Tecnológica de Tecamachalco, donde promueve actividades de proyección institucional, vinculación social, cultura y desarrollo estudiantil con un enfoque inclusivo y participativo. Es Maestra en Ciencias de la Educación por el Instituto de Estudios Universitarios A.C. y Licenciada en Ciencias de la Comunicación por la Universidad Realística de México, formación que le ha permitido desempeñarse en áreas clave de comunicación institucional, gestión educativa y desarrollo comunitario. Ha sido Directora de Extensión Universitaria y Titular del Área de Educación en el H. Ayuntamiento de Tepeaca, donde lideró iniciativas de impacto social y programas educativos orientados a fortalecer el vínculo entre gobierno y ciudadanía.Su perfil combina experiencia en educación, comunicación estratégica y participación ciudadana, lo que le permite contribuir de manera significativa al fortalecimiento del sentido de comunidad y responsabilidad social dentro del entorno universitario."
         },
@@ -177,7 +177,7 @@ const dataOrganigrama: CustomOrgNode[] = [
         type: "person",
         data: {
           image: "Organigrama/admin_finanzas.png",
-          name: " Rodrigo Hernández Aguilar ",
+          name: " Lic. Rodrigo Hernández Aguilar ",
           title:"Dirección de Administración y Finanzas ",
           text: "El Lic. Rodrigo Hernández Aguilar es un profesional con sólida trayectoria en el ámbito de la administración pública, la gestión de calidad y el desarrollo institucional. Actualmente se desempeña como Encargado de la Dirección de Administración y Finanzas de la Universidad Tecnológica de Tecamachalco, donde lidera procesos estratégicos orientados a la eficiencia financiera, la gestión del capital humano y la innovación organizacional.Es Licenciado en Administración por la Benemérita Universidad Autónoma de Puebla (BUAP) y cuenta con una sólida formación complementaria en planeación estratégica, gestión financiera, desarrollo gerencial y derechos humanos, respaldada por instituciones como el Tecnológico de Monterrey, la Universidad Iberoamericana, Universidad Panamericana y el Insituto Tecnológico Autónomo de México. Está certificado como Auditor Líder en la Norma ISO 9001:2015, así como en igualdad laboral y no discriminación (NMX-R-025-SCFI-2015) y factores de riesgo psicosocial (NOM-035-STPS-2018), con experiencia en procesos de auditoría y certificación a nivel estatal y federal.Su liderazgo en áreas clave como recursos humanos, planeación presupuestaria y análisis de riesgos financieros le ha permitido impulsar iniciativas de transformación institucional, generación de ahorro y mejora continua, consolidándolo como un referente en administración pública eficiente y orientada a resultados."
         },
