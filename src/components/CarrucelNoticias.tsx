@@ -8,15 +8,11 @@ export default function EducationalCarousel() {
     const [imagesPerSlide, setImagesPerSlide] = useState(3)
 
     const courses = [
-        { id: 1, image: "/noticias/tequios2.jpg" },
-        { id: 2, image: "/noticias/EntregaLentes.jpg" },
+        { id: 1, image: "/noticias/consejo.jpg" },
+        { id: 2, image: "/noticias/Tequios8.jpg" },
         { id: 3, image: "/noticias/ConsejoV.jpg" },
-        { id: 4, image: "/noticias/tequios2.jpg" },
-        { id: 5, image: "/noticias/tequios4.jpg" },
-        { id: 6, image: "/noticias/tequios5.jpg" },
         { id: 7, image: "/noticias/Expo2.jpg" },
         { id: 8, image: "/noticias/Expo1.jpg" },
-        { id: 9, image: "/noticias/tequios6.jpg" },
     ]
 
     // Detecta el tamaño de pantalla y ajusta imágenes por slide

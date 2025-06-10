@@ -65,7 +65,7 @@ export default function Nosotros() {
           {/* Imagen */}
           <div className="w-full lg:w-1/2">
             <img
-              src="nosotros/explanada-uttecam.jpg"  // Reemplaza con la ruta de tu imagen
+              src="/PortadaPW.jpg"  // Reemplaza con la ruta de tu imagen
               alt="Vista del campus"
               className="w-auto h-auto rounded-lg shadow-md"
             />

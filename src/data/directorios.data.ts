@@ -2,7 +2,9 @@ export const contactData = [
   {
     title: "Secretaría de Vinculación",
     name: "Mtro. Daniel Huerta Conde",
+    phone: "249 422 3300",
     extension: "120",
+    email: "vinculacion@uttecam.edu.mx",
     imagenUrl: "Organigrama/secretarioVinculacion.png",
   },
   {

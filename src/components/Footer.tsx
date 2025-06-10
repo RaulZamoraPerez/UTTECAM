@@ -48,9 +48,6 @@ export default function Footer() {
                         <h3 className="text-xl font-bold text-[#333] mb-4"></h3>
                         <ul className="space-y-2">
                             <li className="mb-8">
-                                <a href="/normatividad" className="text-[#0A9782] hover:text-[#D1672A] text-base font-semibold flex items-center transition-colors duration-200"><ChevronRight /> Normatividad</a>
-                            </li>
-                            <li className="mb-8">
                                 <a href="/finanzas" className="text-[#0A9782] hover:text-[#D1672A] text-base font-semibold flex items-center transition-colors duration-200"><ChevronRight /> Finanzas</a>
                             </li>
                             <li className="mb-8">
