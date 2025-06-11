@@ -53,7 +53,7 @@ export default function NewsModal() {
                     >
                         <X className="h-6 w-6" style={{ color: "#008066" }} />
                     </button>
-                    <div className="relative" style={{ height: "500px", overflow: "hidden" }}>
+                    <div className="relative" style={{ height: "400px", overflow: "hidden" }}>
                         <img
                             src="/INGRESOUTTECAM2025.jpg"
                             alt="Noticia importante"

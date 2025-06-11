@@ -150,15 +150,6 @@ export default function Navbar() {
             href: "/extencion-universitaria",
         },
         {
-            label: "Extensión",
-            href: "/extension",
-            submenu: [
-                { label: "Proyectos de extensión", href: "/proyectos-extension" },
-                { label: "Eventos de extensión", href: "/eventos-extension" },
-                { label: "Redes de extensión", href: "/redes-extension" },
-            ],
-        },
-        {
             label: "Accesos",
             href: "/accesos",
             submenu: [
