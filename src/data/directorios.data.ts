@@ -45,7 +45,7 @@ export const contactData = [
     title: "Extensión Universitaria",
     name: "Mtra. Verónica Elizabeth Centeno Fórtiz",
     phone: "2494223300",
-    extension: "109",
+    extension: "153",
     email: "extensionuniversitaria@uttecam.edu.mx",
     imagenUrl: "Organigrama/enc_extend_universitaria.png",
     isGray: true,

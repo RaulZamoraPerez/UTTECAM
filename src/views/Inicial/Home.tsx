@@ -7,6 +7,7 @@ import { FormContact } from "@/components/Form/FormContact"
 import CarrucelNoticias from "@/components/CarrucelNoticias" // <- Revisa si debería ser "CarruselNoticias"
 import { useLocation } from "react-router-dom"
 import { useEffect } from "react"
+import ModalInicial from "@/components/Modal/ModalInicial"
 
 const Home = () => {
   const location = useLocation()
@@ -45,6 +46,8 @@ const Home = () => {
 
       {/* Formulario de contacto */}
       <FormContact />
+
+      <ModalInicial />
     </>
   )
 }

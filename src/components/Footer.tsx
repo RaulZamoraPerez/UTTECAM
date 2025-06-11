@@ -5,8 +5,7 @@ export default function Footer() {
         <footer className="bg-[#e6f7f2] py-8 px-4 md:px-8">
             <div className="container mx-auto">
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-                    {/* Logo and Contact Info */}
-                    <div className="md:col-span-1">
+                    <div className="md:col-span-">
                         <div className="mb-6">
                             <img src="/logo.png" alt="UTTECAM Logo" width={180} height={60} className="mb-4" />
                         </div>
@@ -30,15 +29,17 @@ export default function Footer() {
                             <div className="flex items-center">
                                 <Clock className="h-5 w-5 text-[#008066] mr-2 flex-shrink-0" />
                                 <div>
-                                    <p className="text-[#008066]">horario: 7 a.m a 8:00 p.m</p>
+                                    <p className="text-[#008066]">Horario: de 9:00 a 17:00</p>
                                 </div>
                             </div>
 
+                            <div className="flex items-center mb-1">
+                                <Mail className="h-5 w-5 text-[#008066] mr-2 flex-shrink-0" />
+                                <p className="text-[#008066]">Email: rectoria@uttcam.edu.mx</p>
+                            </div>
                             <div className="flex items-center">
                                 <Mail className="h-5 w-5 text-[#008066] mr-2 flex-shrink-0" />
-                                <div>
-                                    <p className="text-[#008066]">Email: uttecam@uttecam.com</p>
-                                </div>
+                                <p className="text-[#008066]">Email: extensionuniversitaria@uttecam.edu.mx</p>
                             </div>
                         </div>
                     </div>
