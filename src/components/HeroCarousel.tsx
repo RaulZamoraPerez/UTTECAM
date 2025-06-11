@@ -1,11 +1,26 @@
-import { Carousel } from 'react-responsive-carousel';
-import 'react-responsive-carousel/lib/styles/carousel.min.css';
+import { Carousel } from 'react-responsive-carousel'
+import 'react-responsive-carousel/lib/styles/carousel.min.css'
+import {  useState } from 'react'
 
 const HeroCarousel: React.FC = () => {
+  const [selectedIndex, setSelectedIndex] = useState(0)
+  const [autoPlay, setAutoPlay] = useState(true)
+
+  const handleVideoPlay = () => {
+    setAutoPlay(false) // Detiene autoplay cuando inicia el video
+  }
+
+  const handleVideoEnd = () => {
+    setSelectedIndex((prevIndex) => (prevIndex + 1) % 3) // Cambia manualmente al siguiente slide
+    setAutoPlay(true) // Reactiva autoplay
+  }
+
   return (
     <section className="w-full bg-white overflow-hidden">
       <Carousel
-        autoPlay
+        selectedItem={selectedIndex}
+        onChange={setSelectedIndex}
+        autoPlay={autoPlay}
         infiniteLoop
         showThumbs={false}
         showStatus={false}
@@ -21,6 +36,23 @@ const HeroCarousel: React.FC = () => {
             className="w-full h-auto object-cover"
           />
         </div>
+
+        <div>
+          <video
+            autoPlay
+            controls
+            muted
+            playsInline
+            preload="auto"
+            className="w-full h-auto object-cover"
+            onPlay={handleVideoPlay}
+            onEnded={handleVideoEnd}
+          >
+            <source src="/VIDEOS/UTTECAM.mp4" type="video/mp4" />
+            Tu navegador no soporta videos HTML5.
+          </video>
+        </div>
+
         <div>
           <img
             src="/hero2.jpg"
@@ -30,7 +62,7 @@ const HeroCarousel: React.FC = () => {
         </div>
       </Carousel>
     </section>
-  );
-};
+  )
+}
 
-export default HeroCarousel;
+export default HeroCarousel
