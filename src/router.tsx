@@ -20,7 +20,7 @@ import { Organigrama } from "@/views/Directorios/Organigrama";
 import ServiciosEscolares from "./views/ServiciosEscolares/ServiciosEscolares";
 import {PIT} from '@/views/Sigc/PIT';
 import { PdfPIT } from "./components/Pdf/PdfPIT";
-import { Gaceta } from "./views/gaceta/Gaceta";
+import { Gaceta } from "./views/gacetas/Gaceta";
 import { PdfGaceta } from "./components/Pdf/pdfGaceta";
 
 export default function Router() {
