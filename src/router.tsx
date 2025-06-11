@@ -20,7 +20,6 @@ import { Organigrama } from "@/views/Directorios/Organigrama";
 import ServiciosEscolares from "./views/ServiciosEscolares/ServiciosEscolares";
 import {PIT} from '@/views/Sigc/PIT';
 import { PdfPIT } from "./components/Pdf/PdfPIT";
-import { Gaceta } from "./views/gaceta/Gaceta";
 import { PdfGaceta } from "./components/Pdf/pdfGaceta";
 
 export default function Router() {
@@ -41,8 +40,7 @@ export default function Router() {
           <Route path="/vinculacion" element={<Vinculacion />} />
           <Route path="/calendario" element={<Calendario/>} />
           <Route path="/programa-institucional-tutorias" element={<PIT/>} />
-       <Route path="/gaceta" element={<Gaceta />} />
-<Route path="/ver-documento-gaceta/:title" element={<PdfGaceta />} />
+          <Route path="/ver-documento-gaceta/:title" element={<PdfGaceta />} />
 
           {
             //*Rutas de nosotros
