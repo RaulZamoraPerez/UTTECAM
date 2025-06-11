@@ -1,6 +1,8 @@
 import { Carousel } from 'react-responsive-carousel'
 import 'react-responsive-carousel/lib/styles/carousel.min.css'
-import {  useState } from 'react'
+import { useState } from 'react'
+
+const slidesCount = 3
 
 const HeroCarousel: React.FC = () => {
   const [selectedIndex, setSelectedIndex] = useState(0)
@@ -11,7 +13,7 @@ const HeroCarousel: React.FC = () => {
   }
 
   const handleVideoEnd = () => {
-    setSelectedIndex((prevIndex) => (prevIndex + 1) % 3) // Cambia manualmente al siguiente slide
+    setSelectedIndex((prevIndex) => (prevIndex + 1) % slidesCount) // Cambia manualmente al siguiente slide
     setAutoPlay(true) // Reactiva autoplay
   }
 
@@ -29,7 +31,7 @@ const HeroCarousel: React.FC = () => {
         emulateTouch
         className="relative"
       >
-        <div>
+        <div key="slide1">
           <img
             src="/hero1.jpg"
             alt="Proceso de ingreso UTTECAM 2025"
@@ -37,23 +39,32 @@ const HeroCarousel: React.FC = () => {
           />
         </div>
 
-        <div>
-          <video
-            autoPlay
-            controls
-            muted
-            playsInline
-            preload="auto"
-            className="w-full h-auto object-cover"
-            onPlay={handleVideoPlay}
-            onEnded={handleVideoEnd}
-          >
-            <source src="/VIDEOS/UTTECAM.mp4" type="video/mp4" />
-            Tu navegador no soporta videos HTML5.
-          </video>
+        <div key="slide2">
+          {selectedIndex === 1 ? (
+            <video
+              autoPlay
+              controls
+              muted
+              playsInline
+              preload="auto"
+              className="w-full h-auto object-cover"
+              onPlay={handleVideoPlay}
+              onEnded={handleVideoEnd}
+            >
+              <source src="/VIDEOS/UTTECAM.mp4" type="video/mp4" />
+              Tu navegador no soporta videos HTML5.
+            </video>
+          ) : (
+            // Cuando no está seleccionado el slide del video, mostrar un poster o imagen fija para evitar reproducción en background
+            <img
+              src="/video-poster.jpg" // Cambia por un frame representativo del video
+              alt="Video UTTECAM"
+              className="w-full h-auto object-cover"
+            />
+          )}
         </div>
 
-        <div>
+        <div key="slide3">
           <img
             src="/hero2.jpg"
             alt="Beca Exención de Pago UTTECAM"
