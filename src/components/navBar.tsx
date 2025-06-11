@@ -149,7 +149,7 @@ export default function Navbar() {
             label: "Extencion universitaria",
             href: "/extencion-universitaria",
             submenu: [
-                { label: "Gaceta", href: "/gaceta" },
+                { label: "Gaceta", href: "/gacetas" },
                 
             ],
         },

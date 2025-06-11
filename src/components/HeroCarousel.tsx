@@ -5,16 +5,16 @@ import { useState } from 'react'
 const slidesCount = 3
 
 const HeroCarousel: React.FC = () => {
-  const [selectedIndex, setSelectedIndex] = useState(0)
-  const [autoPlay, setAutoPlay] = useState(true)
+  const [selectedIndex, setSelectedIndex] = useState(1) // Empieza en el video (slide 2)
+  const [autoPlay, setAutoPlay] = useState(false) // Sin autoplay hasta que termine el video
 
   const handleVideoPlay = () => {
-    setAutoPlay(false) // Detiene autoplay cuando inicia el video
+    setAutoPlay(false)
   }
 
   const handleVideoEnd = () => {
-    setSelectedIndex((prevIndex) => (prevIndex + 1) % slidesCount) // Cambia manualmente al siguiente slide
-    setAutoPlay(true) // Reactiva autoplay
+    setSelectedIndex((prevIndex) => (prevIndex + 1) % slidesCount)
+    setAutoPlay(true)
   }
 
   return (
@@ -31,6 +31,7 @@ const HeroCarousel: React.FC = () => {
         emulateTouch
         className="relative"
       >
+        {/* Slide 1 */}
         <div key="slide1">
           <img
             src="/hero1.jpg"
@@ -39,6 +40,7 @@ const HeroCarousel: React.FC = () => {
           />
         </div>
 
+        {/* Slide 2 - Video */}
         <div key="slide2">
           {selectedIndex === 1 ? (
             <video
@@ -55,15 +57,15 @@ const HeroCarousel: React.FC = () => {
               Tu navegador no soporta videos HTML5.
             </video>
           ) : (
-            // Cuando no está seleccionado el slide del video, mostrar un poster o imagen fija para evitar reproducción en background
             <img
-              src="/video-poster.jpg" // Cambia por un frame representativo del video
+              src="/video-poster.jpg"
               alt="Video UTTECAM"
               className="w-full h-auto object-cover"
             />
           )}
         </div>
 
+        {/* Slide 3 */}
         <div key="slide3">
           <img
             src="/hero2.jpg"

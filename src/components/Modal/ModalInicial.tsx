@@ -55,7 +55,7 @@ export default function NewsModal() {
                     </button>
                     <div className="relative" style={{ height: "400px", overflow: "hidden" }}>
                         <img
-                            src="/INGRESOUTTECAM2025.jpg"
+                            src="/INGRESOUTTECAM2025.webp"
                             alt="Noticia importante"
                             width={600}
                             height={100}
