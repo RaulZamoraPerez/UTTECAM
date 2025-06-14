@@ -48,6 +48,8 @@ const Home = () => {
           <FormContact />
         </div>
       </section>
+
+      <ModalInicial />
     </>
   );
 };
