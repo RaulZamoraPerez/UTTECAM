@@ -133,7 +133,7 @@ export default function tablaDocumentosReutilizable({
                                 </div>
                               
                                 <a
-                                  href={`/${documento.id}.pdf`}
+                                  href={`/PIT/${documento.titulo}`}
                                   download
                                   className="flex-shrink-0 p-2 text-[#D1672A] hover:bg-[#D1672A]/10 rounded-lg transition-colors duration-150"
                                 >
