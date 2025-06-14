@@ -1,5 +1,3 @@
-"use client"
-
 import type React from "react"
 import { useEffect, useState } from "react"
 
@@ -14,11 +12,9 @@ const CountdownCircle: React.FC<CountdownCircleProps> = ({ label, value, max }) 
 
   return (
     <div className="w-40 h-40 flex items-center justify-center relative group">
-
       <div className="absolute inset-0 rounded-full bg-gradient-to-r from-amber-300 via-yellow-500 to-amber-300 opacity-20 blur-sm animate-pulse"></div>
 
       <svg width="160" height="160" className="relative z-10">
-
         <circle cx="80" cy="80" r="70" stroke="rgba(255,255,255,0.1)" strokeWidth="10" fill="none" />
         <defs>
           <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -39,10 +35,9 @@ const CountdownCircle: React.FC<CountdownCircleProps> = ({ label, value, max }) 
           strokeDashoffset={`${Math.PI * 2 * 70 * (1 - percentage / 100)}`}
           strokeLinecap="round"
           transform="rotate(-90 80 80)"
-          className="drop-shadow-[0_0_3px_rgba(255,215,0,0.7)]"
+          className="drop-shadow-[0_0_3px_rgba(255,215,0,0.7)] transition-[stroke-dashoffset] duration-500 ease-out"
         />
 
-        {/* Value text */}
         <text
           x="80"
           y="80"
@@ -69,35 +64,30 @@ const CountdownCircle: React.FC<CountdownCircleProps> = ({ label, value, max }) 
         </text>
       </svg>
 
-      {/* Hover effect */}
       <div className="absolute inset-0 rounded-full bg-amber-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
     </div>
   )
 }
 
-// Componente para los bordes decorativos
-const DecorativeBorder = () => {
-  return (
-    <div className="absolute inset-0 -z-10">
-      {/* Esquinas decorativas */}
-      <div className="absolute top-0 left-0 w-16 h-16 border-t-4 border-l-4 border-amber-500 rounded-tl-lg"></div>
-      <div className="absolute top-0 right-0 w-16 h-16 border-t-4 border-r-4 border-amber-500 rounded-tr-lg"></div>
-      <div className="absolute bottom-0 left-0 w-16 h-16 border-b-4 border-l-4 border-amber-500 rounded-bl-lg"></div>
-      <div className="absolute bottom-0 right-0 w-16 h-16 border-b-4 border-r-4 border-amber-500 rounded-br-lg"></div>
+const DecorativeBorder = () => (
+  <div className="absolute inset-0 -z-10">
+    <div className="absolute top-0 left-0 w-16 h-16 border-t-4 border-l-4 border-amber-500 rounded-tl-lg"></div>
+    <div className="absolute top-0 right-0 w-16 h-16 border-t-4 border-r-4 border-amber-500 rounded-tr-lg"></div>
+    <div className="absolute bottom-0 left-0 w-16 h-16 border-b-4 border-l-4 border-amber-500 rounded-bl-lg"></div>
+    <div className="absolute bottom-0 right-0 w-16 h-16 border-b-4 border-r-4 border-amber-500 rounded-br-lg"></div>
 
-      {/* Líneas decorativas */}
-      <div className="absolute top-0 left-16 right-16 h-4 border-t-4 border-amber-500"></div>
-      <div className="absolute bottom-0 left-16 right-16 h-4 border-b-4 border-amber-500"></div>
-      <div className="absolute left-0 top-16 bottom-16 w-4 border-l-4 border-amber-500"></div>
-      <div className="absolute right-0 top-16 bottom-16 w-4 border-r-4 border-amber-500"></div>
-    </div>
-  )
-}
+    <div className="absolute top-0 left-16 right-16 h-4 border-t-4 border-amber-500"></div>
+    <div className="absolute bottom-0 left-16 right-16 h-4 border-b-4 border-amber-500"></div>
+    <div className="absolute left-0 top-16 bottom-16 w-4 border-l-4 border-amber-500"></div>
+    <div className="absolute right-0 top-16 bottom-16 w-4 border-r-4 border-amber-500"></div>
+  </div>
+)
 
 const Countdown: React.FC = () => {
+ const targetDate = new Date(2025, 8, 6, 0, 0, 0) // 6 de septiembre de 2025 (mes 8 porque enero = 0)
+
   const calculateTimeLeft = () => {
     const now = new Date()
-    const targetDate = new Date(2026, 6, 6, 0, 0, 0)
     const difference = targetDate.getTime() - now.getTime()
 
     return {
@@ -105,6 +95,7 @@ const Countdown: React.FC = () => {
       hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
       minutes: Math.floor((difference / (1000 * 60)) % 60),
       seconds: Math.floor((difference / 1000) % 60),
+      totalMilliseconds: difference
     }
   }
 
@@ -117,13 +108,15 @@ const Countdown: React.FC = () => {
     return () => clearInterval(timer)
   }, [])
 
+  // Cálculo dinámico del máximo de días
+  const today = new Date()
+  const todayMidnight = new Date(today.getFullYear(), today.getMonth(), today.getDate())
+  const maxDays = Math.ceil((targetDate.getTime() - todayMidnight.getTime()) / (1000 * 60 * 60 * 24))
+
   return (
     <div className="min-h-screen flex items-center justify-center text-center py-16 px-4 relative overflow-hidden">
-      {/* Fondo principal con gradiente animado */}
       <div className="fixed inset-0 bg-black -z-30">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-amber-900/30 via-black to-black animate-pulse"></div>
-
-        {/* Patrón de fondo */}
         <div
           className="absolute inset-0 opacity-10"
           style={{
@@ -139,39 +132,38 @@ const Countdown: React.FC = () => {
       </div>
 
       <div className="max-w-5xl mx-auto relative z-10">
-        {/* Contenedor principal con borde decorativo */}
         <div className="relative p-1 rounded-2xl">
-          {/* Borde brillante animado */}
           <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-amber-600 via-yellow-400 to-amber-600 opacity-80 animate-pulse"></div>
 
-          {/* Contenido principal */}
           <div className="relative bg-black/90 backdrop-blur-md rounded-xl p-8 md:p-12 shadow-2xl">
             <DecorativeBorder />
 
-            {/* Adorno superior */}
             <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
               <div className="w-24 h-2 bg-gradient-to-r from-amber-600 via-yellow-400 to-amber-600 rounded-full"></div>
             </div>
 
-            {/* Título con efecto mejorado */}
             <div className="relative mb-8">
-              <h2 className="font-serif text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-yellow-400 to-amber-200 text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
-                30° Aniversario UTTECAM
+              <h2 className="font-serif text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-yellow-400 to-amber-200 text-4xl md:text-5xl lg:text-6xl font-bold mb-2">
+                29° Aniversario UTTECAM
               </h2>
+              <p className="text-amber-300 text-lg md:text-xl font-medium">
+                6 de septiembre 2025
+              </p>
               <div className="absolute -inset-1 -z-10 blur-md bg-gradient-to-r from-amber-600/20 via-yellow-400/20 to-amber-600/20 opacity-70"></div>
             </div>
 
+
             <p className="text-amber-300/80 text-lg md:text-xl mb-12 max-w-2xl mx-auto">
-              Celebrando tres décadas de excelencia académica y compromiso con la educación
+              Celebrando casi tres décadas de excelencia académica y compromiso con la educación
             </p>
 
             <div className="flex flex-wrap justify-center gap-6 md:gap-10">
-              <CountdownCircle label="DÍAS" value={timeLeft.days} max={365} />
+              <CountdownCircle label="DÍAS" value={timeLeft.days} max={maxDays} />
               <CountdownCircle label="HORAS" value={timeLeft.hours} max={24} />
               <CountdownCircle label="MINUTOS" value={timeLeft.minutes} max={60} />
               <CountdownCircle label="SEGUNDOS" value={timeLeft.seconds} max={60} />
             </div>
-            {/* Adorno inferior */}
+
             <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2">
               <div className="w-24 h-2 bg-gradient-to-r from-amber-600 via-yellow-400 to-amber-600 rounded-full"></div>
             </div>
