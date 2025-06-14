@@ -27,7 +27,11 @@ const Home = () => {
   <EducationalPrograms />
 </section>
       <CarrucelNoticias />
-      <FormContact />
+      <section className="w-full px-4 py-10 bg-gray-100">
+  <div className="max-w-6xl mx-auto">
+    <FormContact />
+  </div>
+</section>
     </>
   );
 };
