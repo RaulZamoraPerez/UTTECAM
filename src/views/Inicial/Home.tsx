@@ -1,29 +1,29 @@
 // Importación de componentes necesarios
-import HeroCarousel from "@/components/HeroCarousel"
-import EducationalModels from "@/components/ProgramsDetails/EducationalModels"
-import EducationalPrograms from "@/components/ProgramsDetails/EducationalPrograms"
-import Countdown from "@/components/Countdown"
-import { FormContact } from "@/components/Form/FormContact"
-import CarrucelNoticias from "@/components/CarrucelNoticias" // <- Revisa si debería ser "CarruselNoticias"
-import { useLocation } from "react-router-dom"
-import { useEffect } from "react"
-import ModalInicial from "@/components/Modal/ModalInicial"
+import HeroCarousel from "@/components/HeroCarousel";
+import EducationalModels from "@/components/ProgramsDetails/EducationalModels";
+import EducationalPrograms from "@/components/ProgramsDetails/EducationalPrograms";
+import Countdown from "@/components/Countdown";
+import { FormContact } from "@/components/Form/FormContact";
+import CarrucelNoticias from "@/components/CarrucelNoticias"; // <- Revisa si debería ser "CarruselNoticias"
+import { useLocation } from "react-router-dom";
+import { useEffect } from "react";
+import ModalInicial from "@/components/Modal/ModalInicial";
 
 const Home = () => {
-  const location = useLocation()
+  const location = useLocation();
 
   // Efecto que detecta si hay un hash en la URL y hace scroll a esa sección
   useEffect(() => {
     if (location.hash === "#carreras") {
       // Pequeño retraso para asegurar que el DOM esté cargado
       setTimeout(() => {
-        const el = document.getElementById("carreras")
+        const el = document.getElementById("carreras");
         if (el) {
-          el.scrollIntoView({ behavior: "smooth" }) // Scroll suave
+          el.scrollIntoView({ behavior: "smooth" }); // Scroll suave
         }
-      }, 100)
+      }, 100);
     }
-  }, [location])
+  }, [location]);
 
   return (
     <>
@@ -43,13 +43,15 @@ const Home = () => {
 
       {/* Carrusel de noticias relevantes */}
       <CarrucelNoticias />
-
-      {/* Formulario de contacto */}
-      <FormContact />
+      <section className="w-full px-4 py-10 bg-gray-100">
+        <div className="max-w-6xl mx-auto">
+          <FormContact />
+        </div>
+      </section>
 
       <ModalInicial />
     </>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
