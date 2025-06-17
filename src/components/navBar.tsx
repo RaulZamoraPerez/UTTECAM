@@ -48,15 +48,9 @@ export default function Navbar() {
                 },
                 { label: "Calendario", href: "/calendario" },
                 {
-                    label: "Disposición jurídica",
+                    label: "Disposición jurídica", href: "/normatividad"},
 
-                    submenu: [
-                        { label: "Reglamentos", href: "/reglamentos" },
-                        { label: "Lineamientos", href: "/lineamientos" },
-                        { label: "Políticas", href: "/politicas" },
-                        { label: "Normatividad", href: "/normatividad" },
-                    ],
-                },
+        
                 {
                     label: "Programas de desarrollo",
                     href: "/programas-desarrollo",
