@@ -1,4 +1,3 @@
-import TablaDocumentosReutilizable from "@/components/tablaDocumentosReutilizable"
 import TablaDocumentosReutilizable2 from "@/components/tablaDocumentosReutilizable2"
 
 
