@@ -71,4 +71,3 @@ export default function Router() {
   );
 }
 
-//TODO  imagenes de semblanza , directorios
