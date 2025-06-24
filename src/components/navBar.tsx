@@ -38,8 +38,45 @@ export default function Navbar() {
       href: "/quienes-somos",
       submenu: [
         {
-          label: "Nosotros",
-          href: "/nosotros",
+            label: "Quiénes somos",
+            href: "/quienes-somos",
+            submenu: [
+                {
+                    label: "Nosotros",
+                    href: "/nosotros",
+
+
+
+                },
+                {
+                    label: "Directorios",
+
+                    submenu: [
+                        { label: "Directorio ", href: "/directorios" },
+                        { label: "Organigrama", href: "/organigrama" },
+                    ],
+                },
+                { label: "Calendario", href: "/calendario" },
+                {
+                    label: "Disposición jurídica", href: "/normatividad"},
+
+        
+                {
+                    label: "Programas de desarrollo",
+                    href: "/programas-desarrollo",
+
+                },
+                {
+                    label: "Comités",
+
+                    submenu: [
+                        { label: "Comité Académico", href: "/comite-academico" },
+                        { label: "Comité de Vinculación", href: "/comite-vinculacion" },
+                        { label: "Comité de Calidad", href: "/comite-calidad" },
+                        { label: "Comité de Investigación", href: "/comite-investigacion" },
+                    ],
+                },
+            ],
         },
         {
           label: "Directorios",
