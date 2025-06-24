@@ -20,6 +20,13 @@ import { Organigrama } from "@/views/Directorios/Organigrama";
 import ServiciosEscolares from "./views/ServiciosEscolares/ServiciosEscolares";
 import {PIT} from '@/views/Sigc/PIT';
 import { PdfPIT } from "./components/Pdf/PdfPIT";
+import ConstanciasKardex from "./views/Formularios/ConstanciasKardex";
+import CertificadoEstudios from "./views/Formularios/CertificadoEstudios";
+import CartaPasante from "./views/Formularios/CartaPasante";
+import ReposicionCredencial from "./views/Formularios/ReposicionCredencial";
+import AltaBajaIMSS from "./views/Formularios/AltaBajaIMSS";
+import TramiteTitulo from "./views/Formularios/TramiteTitulo";
+import Reinscripcion from "./views/Formularios/Reinscripcion";
 
 export default function Router() {
   return (
@@ -48,6 +55,14 @@ export default function Router() {
           }
           <Route path="/proceso-admision" element={<ConvocatoriaAdmision />} />
           <Route path="/serviciosEscolares" element={<ServiciosEscolares />} />
+          <Route path="/requisitos/constancias-kardex" element={<ConstanciasKardex />} />
+          <Route path="/requisitos/certificado-estudios" element={<CertificadoEstudios/>} />
+          <Route path="/requisitos/carta-pasante" element={<CartaPasante/>} />
+          <Route path="/requisitos/reposicion-credencial" element={<ReposicionCredencial/>} />
+          <Route path="/requisitos/alta-baja-IMSS" element={<AltaBajaIMSS/>} />
+          <Route path="/requisitos/tramite-titulo" element={<TramiteTitulo/>} />
+          <Route path="/requisitos/reinscripcion" element={<Reinscripcion/>} />
+
 
           
           {

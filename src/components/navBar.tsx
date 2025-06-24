@@ -82,7 +82,15 @@ export default function Navbar() {
                 { label: "Servicios escolares", href: "/serviciosEscolares" },
                 {
                     label: "Requisitos",
-                    href: "/requisitos",
+                    submenu:[
+                        { label: "Constancias y Kardex", href: "/requisitos/constancias-kardex" },
+                        { label: "Certificado de estudios", href: "/requisitos/certificado-estudios" },
+                        { label: "Carta pasante", href: "/requisitos/carta-pasante" },
+                        { label: "Reposición de credencial", href: "/requisitos/reposicion-credencial" },
+                        { label: "Alta y baja IMSS", href: "/requisitos/alta-baja-imss" },
+                        { label: "Trámite de título", href: "/requisitos/tramite-titulo" },
+                        { label: "Reinscripción", href: "/requisitos/reinscripcion" },
+                    ]
 
 
                 },

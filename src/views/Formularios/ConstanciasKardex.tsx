@@ -1,0 +1,471 @@
+import { useState, type ChangeEvent, type FormEvent } from "react";
+import carreras from "@/util/carreras";
+import {
+  Clock,
+  DollarSign,
+  ClipboardList,
+  FileText,
+  User,
+  BookOpen,
+  Mail,
+  Phone,
+  GraduationCap,
+  Send,
+  ArrowRight,
+  FileBox,
+  FileArchive,
+} from "lucide-react";
+
+export default function ConstanciasKardex() {
+  const [formData, setFormData] = useState({
+    nombre: "",
+    matricula: "",
+    correo: "",
+    telefono: "",
+    carrera: "",
+    nivel: "",
+    entrega: "",
+    referencia: "",
+    documentos: [] as string[],
+  });
+
+  
+
+  const tramiteInfo = {
+    titulo: "Solicitud de Constancia de Estudios o Kardex",
+    requisitos: [
+      "Ser o haber sido estudiante, o en su caso egresado de la Universidad",
+      "No contar con ningún adeudo con la Institución",
+      "Pagar el costo del servicio",
+    ],
+    pasos: [
+      "Descargar la orden pago de la página pagos en línea Puebla",
+      "Realizar el pago en cualquiera de las instituciones bancarias autorizadas",
+      "Ingresar a la página de la Universidad en Servicios Escolares en Línea",
+      "Elegir tu carrera y tipo de documento solicitado",
+      "Contestar el formulario con número de referencia de pago",
+      "Presentarse en ventanilla con el comprobante de pago original",
+    ],
+    documentos: [
+      "Identificarse con credencial de estudiante o INE",
+      "Original y copia de la orden y comprobante de pago",
+    ],
+    tiempo: "1 día",
+    costo: "$49.00",
+  };
+
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    alert("Solicitud enviada correctamente");
+    setFormData({
+      nombre: "",
+      matricula: "",
+      correo: "",
+      telefono: "",
+      carrera: "",
+      nivel: "",
+      entrega: "",
+      referencia: "",
+      documentos: [],
+    });
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-yellow-50 to-green-50 py-8 px-4">
+      <div className="max-w-6xl mx-auto">
+        {/* Encabezado */}
+        <div className="text-center mb-10">
+          <h1 className="text-3xl md:text-4xl font-bold text-green-800 mb-2">
+            Solicitud de Constancia de Estudios o Kardex
+          </h1>
+          <div className="w-24 h-1 bg-yellow-500 mx-auto mb-4"></div>
+          <p className="text-yellow-700">
+            Departamento de Servicios Escolares - Universidad Tecnológica de Tecamachalco
+          </p>
+        </div>
+
+        <div className="flex flex-col lg:flex-row gap-8">
+          {/* Sección Informativa */}
+          <div className="lg:w-1/2 bg-white rounded-xl shadow-lg border border-green-100 overflow-hidden">
+            <div className="bg-gradient-to-r from-green-600 to-green-700 text-white py-4 px-6">
+              <h2 className="text-xl font-bold flex items-center">
+                <ClipboardList className="mr-2" size={24} />
+                Información importante sobre este trámite
+              </h2>
+            </div>
+
+            <div className="p-6">
+              {/* Tiempo de entrega */}
+              <div className="flex items-center justify-between mb-6 p-3 bg-yellow-50 rounded-lg">
+                <div className="flex items-center">
+                  <Clock className="text-yellow-700 mr-2" size={20} />
+                  <span className="font-semibold text-yellow-800">Tiempo de entrega</span>
+                </div>
+                <span className="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full font-bold">
+                  {tramiteInfo.tiempo}
+                </span>
+              </div>
+
+              {/* Requisitos */}
+              <div className="border-b border-green-200 mb-6">
+                <h3 className="font-bold text-green-800 mb-3 flex items-center">
+                  <FileText className="mr-2 text-green-600" size={20} />
+                  Requisitos
+                </h3>
+                <ol className="list-decimal list-inside space-y-2 mb-4 pl-2 text-gray-700">
+                  {tramiteInfo.requisitos.map((req, index) => (
+                    <li key={index} className="flex items-start">
+                      <ArrowRight className="mr-2 mt-1 flex-shrink-0 text-green-600" size={16} />
+                      {req}
+                    </li>
+                  ))}
+                </ol>
+              </div>
+
+              {/* Costo */}
+              <div className="flex items-center justify-between mb-6 p-3 bg-yellow-50 rounded-lg">
+                <div className="flex items-center">
+                  <DollarSign className="text-yellow-700 mr-2" size={20} />
+                  <span className="font-semibold text-yellow-800">Costo</span>
+                </div>
+                <span className="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full font-bold">
+                  {tramiteInfo.costo}
+                </span>
+              </div>
+
+              {/* Pasos a seguir */}
+              <div className="border-b border-green-200 mb-6">
+                <h3 className="font-bold text-green-800 mb-3 flex items-center">
+                  <ClipboardList className="mr-2 text-green-600" size={20} />
+                  Pasos a seguir
+                </h3>
+                <ol className="list-decimal list-inside space-y-2 mb-4 pl-2 text-gray-700">
+                  {tramiteInfo.pasos.map((paso, index) => (
+                    <li key={index} className="flex items-start">
+                      <ArrowRight className="mr-2 mt-1 flex-shrink-0 text-green-600" size={16} />
+                      {paso}
+                    </li>
+                  ))}
+                </ol>
+              </div>
+
+              {/* Documentos a presentar */}
+              <div className="mb-4">
+                <h3 className="font-bold text-green-800 mb-3 flex items-center">
+                  <FileText className="mr-2 text-green-600" size={20} />
+                  Documentos a presentar
+                </h3>
+                <ol className="list-decimal list-inside space-y-2 pl-2 text-gray-700">
+                  {tramiteInfo.documentos.map((doc, index) => (
+                    <li key={index} className="flex items-start">
+                      <ArrowRight className="mr-2 mt-1 flex-shrink-0 text-green-600" size={16} />
+                      {doc}
+                    </li>
+                  ))}
+                </ol>
+              </div>
+
+              {/* Botón para redirigir a la página de pagos */}
+              <div className="flex justify-center mt-6">
+                <a
+                  href="https://rl.puebla.gob.mx/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-3 px-8 rounded-lg focus:outline-none focus:shadow-outline transition duration-300 flex items-center shadow-md"
+                >
+                  <ArrowRight className="mr-2" size={18} />
+                  Ir a la página de pagos Puebla
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* Formulario */}
+          <div className="lg:w-1/2 bg-white rounded-xl shadow-lg border border-green-100 overflow-hidden">
+            <div className="bg-gradient-to-r from-yellow-500 to-yellow-600 text-white py-4 px-6">
+              <h2 className="text-xl font-bold">FORMULARIO</h2>
+              <p>Solicitud de Constancia de Estudios o Kardex</p>
+            </div>
+
+            <div className="p-1 bg-green-700">
+              <p className="text-xs text-center text-white py-1">
+                Departamento de Servicios Escolares - Universidad Tecnológica de Tecamachalco
+              </p>
+            </div>
+
+            <form onSubmit={handleSubmit} className="p-6">
+              <h3 className="text-lg font-bold text-green-800 mb-6 pb-2 border-b border-green-200 flex items-center">
+                <User className="mr-2 text-green-600" size={20} />
+                Datos del estudiante
+              </h3>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5">
+                {/* Nombre */}
+                <div>
+                  <label htmlFor="nombre" className="block text-sm font-medium text-gray-700 mb-1">
+                    Nombre:
+                  </label>
+                  <div className="relative">
+                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                      <User className="text-green-600" size={16} />
+                    </div>
+                    <input
+                      type="text"
+                      id="nombre"
+                      name="nombre"
+                      value={formData.nombre}
+                      onChange={handleChange}
+                      className="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                      placeholder="Nombre completo"
+                      required
+                    />
+                  </div>
+                </div>
+
+                {/* Matrícula */}
+                <div>
+                  <label htmlFor="matricula" className="block text-sm font-medium text-gray-700 mb-1">
+                    Matrícula:
+                  </label>
+                  <div className="relative">
+                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                      <BookOpen className="text-green-600" size={16} />
+                    </div>
+                    <input
+                      type="text"
+                      id="matricula"
+                      name="matricula"
+                      value={formData.matricula}
+                      onChange={handleChange}
+                      className="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                      placeholder="Número de matrícula"
+                      required
+                    />
+                  </div>
+                </div>
+
+                {/* Correo */}
+                <div>
+                  <label htmlFor="correo" className="block text-sm font-medium text-gray-700 mb-1">
+                    Correo:
+                  </label>
+                  <div className="relative">
+                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                      <Mail className="text-green-600" size={16} />
+                    </div>
+                    <input
+                      type="email"
+                      id="correo"
+                      name="correo"
+                      value={formData.correo}
+                      onChange={handleChange}
+                      className="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                      placeholder="correo@institucional.edu.mx"
+                      required
+                    />
+                  </div>
+                </div>
+
+                {/* Teléfono */}
+                <div>
+                  <label htmlFor="telefono" className="block text-sm font-medium text-gray-700 mb-1">
+                    Tel. de contacto:
+                  </label>
+                  <div className="relative">
+                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                      <Phone className="text-green-600" size={16} />
+                    </div>
+                    <input
+                      type="tel"
+                      id="telefono"
+                      name="telefono"
+                      value={formData.telefono}
+                      onChange={handleChange}
+                      className="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                      placeholder="(000) 000-0000"
+                      required
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Carrera */}
+              <div className="mb-5">
+                <label htmlFor="carrera" className="block text-sm font-medium text-gray-700 mb-1">
+                  Carrera:
+                </label>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <GraduationCap className="text-green-600" size={16} />
+                  </div>
+                  <select
+                    id="carrera"
+                    name="carrera"
+                    value={formData.carrera}
+                    onChange={handleChange}
+                    className="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                    required
+                  >
+                    <option value="">Selecciona tu carrera</option>
+                    {carreras.map((carrera, index) => (
+                      <option key={index} value={carrera}>
+                        {carrera}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
+              {/* Nivel */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5">
+                <div>
+                  <span className="block text-sm font-medium text-gray-700 mb-1">Nivel:</span>
+                  <div className="flex space-x-4">
+                    <label className="inline-flex items-center">
+                      <input
+                        type="radio"
+                        name="nivel"
+                        value="TSU"
+                        checked={formData.nivel === "TSU"}
+                        onChange={handleChange}
+                        className="form-radio h-4 w-4 text-green-600"
+                        required
+                      />
+                      <span className="ml-2">TSU</span>
+                    </label>
+                    <label className="inline-flex items-center">
+                      <input
+                        type="radio"
+                        name="nivel"
+                        value="LIC"
+                        checked={formData.nivel === "LIC"}
+                        onChange={handleChange}
+                        className="form-radio h-4 w-4 text-green-600"
+                      />
+                      <span className="ml-2">LIC</span>
+                    </label>
+                  </div>
+                </div>
+
+                {/* Entrega */}
+                <div>
+                  <span className="block text-sm font-medium text-gray-700 mb-1">Entrega:</span>
+                  <div className="flex space-x-4">
+                    <label className="inline-flex items-center">
+                      <input
+                        type="radio"
+                        name="entrega"
+                        value="presencial"
+                        checked={formData.entrega === "presencial"}
+                        onChange={handleChange}
+                        className="form-radio h-4 w-4 text-green-600"
+                        required
+                      />
+                      <span className="ml-2">Presencial</span>
+                    </label>
+                    <label className="inline-flex items-center">
+                      <input
+                        type="radio"
+                        name="entrega"
+                        value="electronico"
+                        checked={formData.entrega === "electronico"}
+                        onChange={handleChange}
+                        className="form-radio h-4 w-4 text-green-600"
+                      />
+                      <span className="ml-2">Electrónico</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              {/* Documento solicitado */}
+              <div className="mb-5">
+                <span className="block text-sm font-medium text-gray-700 mb-1">Documento que solicita:</span>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                  {[
+                    { value: "Constancia de Estudios", label: "Constancia de Estudios", icon: <FileText className="mr-2" size={16} /> },
+                    { value: "Constancia de trámite de título", label: "Constancia de trámite de título", icon: <FileBox className="mr-2" size={16} /> },
+                    { value: "Kardex", label: "Kardex", icon: <FileArchive className="mr-2" size={16} /> },
+                  ].map((option) => (
+                    <label key={option.value} className="inline-flex items-center bg-green-50 p-2 rounded-lg border border-green-200 cursor-pointer hover:bg-green-100 transition">
+                      <input
+                        type="checkbox"
+                        name="documentos"
+                        value={option.value}
+                        checked={formData.documentos.includes(option.value)}
+                        onChange={(e) => {
+                          const documentos = [...formData.documentos];
+                          if (e.target.checked) {
+                            documentos.push(e.target.value);
+                          } else {
+                            const index = documentos.indexOf(e.target.value);
+                            if (index > -1) documentos.splice(index, 1);
+                          }
+                          setFormData((prev) => ({ ...prev, documentos }));
+                        }}
+                        className="form-checkbox h-4 w-4 text-green-600 rounded"
+                      />
+                      <span className="ml-2 inline-flex items-center text-sm">
+                        {option.icon}
+                        {option.label}
+                      </span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+
+              {/* Referencia */}
+              <div className="mb-6">
+                <label htmlFor="referencia" className="block text-sm font-medium text-gray-700 mb-1">
+                  Número de Referencia:
+                </label>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <FileText className="text-green-600" size={16} />
+                  </div>
+                  <input
+                    type="text"
+                    id="referencia"
+                    name="referencia"
+                    value={formData.referencia}
+                    onChange={handleChange}
+                    className="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                    placeholder="Número de referencia"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div className="bg-green-50 border-l-4 border-green-500 p-4 mb-6 rounded-lg">
+                <p className="text-sm text-green-800">
+                  <span className="font-semibold">Nota:</span> Una vez enviada la solicitud deberás presentarte en el departamento de Servicios Escolares, 
+                  en la ventanilla de tu Programa Educativo en un lapso no mayor de 1 día hábil para la entrega del documento solicitado.
+                </p>
+              </div>
+
+              <div className="flex justify-center">
+                <button
+                  type="submit"
+                  className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-3 px-8 rounded-lg focus:outline-none focus:shadow-outline transition duration-300 flex items-center shadow-md"
+                >
+                  <Send className="mr-2" size={18} />
+                  Enviar solicitud
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
