@@ -1,29 +1,29 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { MapPin, Phone, Clock, Mail, ChevronRight } from "lucide-react";
 
 export default function Footer() {
-    const [currentDate, setCurrentDate] = useState("");
+    // const [currentDate, setCurrentDate] = useState("");
 
     useEffect(() => {
         const fetchLastModified = async () => {
             try {
-                const res = await fetch("/last-update.json");
-                const data = await res.json();
+                // const res = await fetch("/last-update.json");
+                // const data = await res.json();
 
-                const date = new Date(data.lastModified);
-                const formattedDate = date.toLocaleDateString("es-MX", {
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric",
-                });
-                const formattedTime = date.toLocaleTimeString("es-MX", {
-                    hour: "2-digit",
-                    minute: "2-digit",
-                    second: "2-digit",
-                    hour12: false,
-                });
+                // const date = new Date(data.lastModified);
+                // const formattedDate = date.toLocaleDateString("es-MX", {
+                //     year: "numeric",
+                //     month: "long",
+                //     day: "numeric",
+                // });
+                // const formattedTime = date.toLocaleTimeString("es-MX", {
+                //     hour: "2-digit",
+                //     minute: "2-digit",
+                //     second: "2-digit",
+                //     hour12: false,
+                // });
 
-                setCurrentDate(`${formattedDate} ${formattedTime}`);
+                // setCurrentDate(`${formattedDate} ${formattedTime}`);
             } catch (error) {
                 console.error("Error al cargar la fecha:", error);
             }
@@ -130,7 +130,7 @@ export default function Footer() {
                 {/* Fecha de modificación */}
                 <div className="mt-10 text-center">
                     <p className="text-sm text-[#008066] font-medium">
-                        Última modificación del sitio: {currentDate}
+                        Última modificación del sitio:  <span className="font-bold text-sm"> 17 de junio de 2025 a las 12:46 hrs.</span> 
                     </p>
                 </div>
             </div>

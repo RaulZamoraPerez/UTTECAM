@@ -1178,7 +1178,7 @@ El egresado en Contaduría tiene las competencias profesionales de verificar inf
           "Evaluación Financiera",
           "Auditoría Fiscal",
           "Seminario de Defensa Fiscal",
-          "Administración de Costos e Inventarios Para la Toma de Decisiones",
+          "Administración de Costos e Inventarios Para la Toma de Decisiones Clave",
           "Proyecto Integrador III"
         ]
       },
