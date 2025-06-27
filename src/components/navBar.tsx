@@ -44,9 +44,6 @@ export default function Navbar() {
                 {
                     label: "Nosotros",
                     href: "/nosotros",
-
-
-
                 },
                 {
                     label: "Directorios",

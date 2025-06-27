@@ -20,8 +20,10 @@ import { Organigrama } from "@/views/Directorios/Organigrama";
 import ServiciosEscolares from "./views/ServiciosEscolares/ServiciosEscolares";
 import {PIT} from '@/views/Sigc/PIT';
 import { PdfPIT } from "./components/Pdf/PdfPIT";
-import { Gaceta } from "./views/gacetas/Gaceta";
+import { Gaceta } from "./views/extensionUniversitaria/prensaydifusion/Gaceta";
 import { PdfGaceta } from "./components/Pdf/pdfGaceta";
+import PromocioIntitucional from "./views/extensionUniversitaria/difusionDivulgacion/promocioIntitucional";
+import { PdfPromocionInstitucional } from "./components/Pdf/PdfPromocionInstitucional";
 
 export default function Router() {
   return (
@@ -41,9 +43,7 @@ export default function Router() {
           <Route path="/vinculacion" element={<Vinculacion />} />
           <Route path="/calendario" element={<Calendario/>} />
           <Route path="/programa-institucional-tutorias" element={<PIT/>} />
-          <Route path="/gacetas" element={<Gaceta/>} />
-          <Route path="/ver-documento-gaceta/:title" element={<PdfGaceta />} />
-
+          
           {
             //*Rutas de nosotros
           }
@@ -64,6 +64,14 @@ export default function Router() {
           <Route path="/becas-academicas" element={<Becas/>} />
           <Route path="/Becas" element={<Calendario/>} />
           <Route path="/Organigrama" element={<Organigrama/>} />
+          {//* extension universitaria
+          }
+           <Route path="/gacetas" element={<Gaceta/>} />
+           <Route path="/ver-documento-gaceta/:title" element={<PdfGaceta />} />
+
+           <Route path="/promocion-institucional" element={<PromocioIntitucional/>} />
+          <Route path="/ver-documento-promocion/:title" element={<PdfPromocionInstitucional/>} />
+         
         </Route>
         <Route path="*" element={<Page_404 />} />
       </Routes>
