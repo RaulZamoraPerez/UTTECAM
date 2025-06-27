@@ -22,6 +22,13 @@ import {PIT} from '@/views/Sigc/PIT';
 import { PdfPIT } from "./components/Pdf/PdfPIT";
 import { Gaceta } from "./views/extensionUniversitaria/prensaydifusion/Gaceta";
 import { PdfGaceta } from "./components/Pdf/pdfGaceta";
+<<<<<<< Updated upstream
+import MiembrosSnii from "./views/Vinculacion/miembrosSnii";
+import CafeCientifico from "./views/Vinculacion/cafeCientifico";
+import ServiciosTecnologicos from "./views/Vinculacion/ServiciosTecnologicos";
+=======
+import Cordinacion from "@/views/COORDINACIÓN DE GÉNERO/CoordinacionGenero";
+>>>>>>> Stashed changes
 import PromocioIntitucional from "./views/extensionUniversitaria/difusionDivulgacion/promocioIntitucional";
 import { PdfPromocionInstitucional } from "./components/Pdf/PdfPromocionInstitucional";
 
@@ -43,7 +50,9 @@ export default function Router() {
           <Route path="/vinculacion" element={<Vinculacion />} />
           <Route path="/calendario" element={<Calendario/>} />
           <Route path="/programa-institucional-tutorias" element={<PIT/>} />
-          
+          <Route path="/gacetas" element={<Gaceta/>} />
+          <Route path="/ver-documento-gaceta/:title" element={<PdfGaceta />} />
+
           {
             //*Rutas de nosotros
           }
@@ -53,7 +62,12 @@ export default function Router() {
           }
           <Route path="/proceso-admision" element={<ConvocatoriaAdmision />} />
           <Route path="/serviciosEscolares" element={<ServiciosEscolares />} />
-
+          {
+            //*Vinculación
+          }
+          <Route path="/MiembrosSnii" element={<MiembrosSnii/>}/>
+          <Route path="/CafeCientifico" element={<CafeCientifico/>}/>
+          <Route path="/ServiciosTecnologicos" element={<ServiciosTecnologicos/>}/>
           
           {
             //*Rutas de accesos
