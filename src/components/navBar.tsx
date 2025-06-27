@@ -162,7 +162,7 @@ export default function Navbar() {
         },
         {
           label: "Servicios Tecnológicos",
-          href: "/convenios",
+          href: "/ServiciosTecnologicos",
           submenu: [
             {
               label: "Catálogo de servicios tecnológicosón",
@@ -195,13 +195,13 @@ export default function Navbar() {
         {
           label:
             "Docente miembros del Sistema Nacional de Investigadoras e Investigadores SNII",
-          href: "/estadias",
+          href: "/MiembrosSnii",
         },
         {
           label: "Repositorio digital de productos de investigación",
           href: "/vinculacion",
         },
-        { label: "Seminario café científico", href: "/convenios" },
+        { label: "Seminario café científico", href: "/CafeCientifico" },
       ],
     },
     {

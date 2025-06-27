@@ -22,6 +22,9 @@ import {PIT} from '@/views/Sigc/PIT';
 import { PdfPIT } from "./components/Pdf/PdfPIT";
 import { Gaceta } from "./views/gacetas/Gaceta";
 import { PdfGaceta } from "./components/Pdf/pdfGaceta";
+import MiembrosSnii from "./views/Vinculacion/miembrosSnii";
+import CafeCientifico from "./views/Vinculacion/cafeCientifico";
+import ServiciosTecnologicos from "./views/Vinculacion/ServiciosTecnologicos";
 
 export default function Router() {
   return (
@@ -53,7 +56,12 @@ export default function Router() {
           }
           <Route path="/proceso-admision" element={<ConvocatoriaAdmision />} />
           <Route path="/serviciosEscolares" element={<ServiciosEscolares />} />
-
+          {
+            //*Vinculación
+          }
+          <Route path="/MiembrosSnii" element={<MiembrosSnii/>}/>
+          <Route path="/CafeCientifico" element={<CafeCientifico/>}/>
+          <Route path="/ServiciosTecnologicos" element={<ServiciosTecnologicos/>}/>
           
           {
             //*Rutas de accesos
