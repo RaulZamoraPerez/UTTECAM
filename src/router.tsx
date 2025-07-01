@@ -22,13 +22,9 @@ import {PIT} from '@/views/Sigc/PIT';
 import { PdfPIT } from "./components/Pdf/PdfPIT";
 import { Gaceta } from "./views/gacetas/Gaceta";
 import { PdfGaceta } from "./components/Pdf/pdfGaceta";
-<<<<<<< Updated upstream
 import MiembrosSnii from "./views/Vinculacion/miembrosSnii";
 import CafeCientifico from "./views/Vinculacion/cafeCientifico";
 import ServiciosTecnologicos from "./views/Vinculacion/ServiciosTecnologicos";
-=======
-import Cordinacion from "@/views/COORDINACIÓN DE GÉNERO/CoordinacionGenero";
->>>>>>> Stashed changes
 
 export default function Router() {
   return (
@@ -50,7 +46,6 @@ export default function Router() {
           <Route path="/programa-institucional-tutorias" element={<PIT/>} />
           <Route path="/gacetas" element={<Gaceta/>} />
           <Route path="/ver-documento-gaceta/:title" element={<PdfGaceta />} />
-          <Route path="/COORDINACIÓN DE GÉNERO" element={<Cordinacion />} />
 
           {
             //*Rutas de nosotros
