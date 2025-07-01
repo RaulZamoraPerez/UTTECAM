@@ -98,7 +98,7 @@ const datos = [
 
 
 ];
-export default function RecursosHumanos() {
+export default function Coordinacion() {
     return (
         <TablaDocumentosReutilizable2
             secciones={datos}

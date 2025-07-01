@@ -27,6 +27,7 @@ import CafeCientifico from "./views/Vinculacion/cafeCientifico";
 import ServiciosTecnologicos from "./views/Vinculacion/ServiciosTecnologicos";
 import PromocioIntitucional from "./views/extensionUniversitaria/difusionDivulgacion/promocioIntitucional";
 import { PdfPromocionInstitucional } from "./components/Pdf/PdfPromocionInstitucional";
+import Coordinacion from "./views/COORDINACIÓN DE GÉNERO/CoordinacionGenero";
 
 export default function Router() {
   return (
@@ -65,6 +66,8 @@ export default function Router() {
           <Route path="/CafeCientifico" element={<CafeCientifico/>}/>
           <Route path="/ServiciosTecnologicos" element={<ServiciosTecnologicos/>}/>
           
+
+          <Route path="/Coordinacion" element={<Coordinacion/>}/>
           {
             //*Rutas de accesos
           }
