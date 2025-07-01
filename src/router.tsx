@@ -25,6 +25,8 @@ import { PdfGaceta } from "./components/Pdf/pdfGaceta";
 import MiembrosSnii from "./views/Vinculacion/miembrosSnii";
 import CafeCientifico from "./views/Vinculacion/cafeCientifico";
 import ServiciosTecnologicos from "./views/Vinculacion/ServiciosTecnologicos";
+import PromocioIntitucional from "./views/extensionUniversitaria/difusionDivulgacion/promocioIntitucional";
+import { PdfPromocionInstitucional } from "./components/Pdf/PdfPromocionInstitucional";
 
 export default function Router() {
   return (
@@ -72,6 +74,14 @@ export default function Router() {
           <Route path="/becas-academicas" element={<Becas/>} />
           <Route path="/Becas" element={<Calendario/>} />
           <Route path="/Organigrama" element={<Organigrama/>} />
+            {//* extension universitaria
+          }
+           <Route path="/gacetas" element={<Gaceta/>} />
+           <Route path="/ver-documento-gaceta/:title" element={<PdfGaceta />} />
+
+           <Route path="/promocion-institucional" element={<PromocioIntitucional/>} />
+          <Route path="/ver-documento-promocion/:title" element={<PdfPromocionInstitucional/>} />
+         
         </Route>
         <Route path="*" element={<Page_404/>} />
       </Routes>
