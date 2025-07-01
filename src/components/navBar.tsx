@@ -300,7 +300,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="bg-white shadow-lg relative z-20 w-full">
+    <nav className="bg-white shadow-lg relative z-20 w-full rounded-b-3xl">
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
