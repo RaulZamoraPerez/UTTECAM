@@ -20,7 +20,7 @@ import { Organigrama } from "@/views/Directorios/Organigrama";
 import ServiciosEscolares from "./views/ServiciosEscolares/ServiciosEscolares";
 import {PIT} from '@/views/Sigc/PIT';
 import { PdfPIT } from "./components/Pdf/PdfPIT";
-import { Gaceta } from "./views/gacetas/Gaceta";
+import { Gaceta } from "./views/extensionUniversitaria/prensaydifusion/Gaceta";
 import { PdfGaceta } from "./components/Pdf/pdfGaceta";
 import MiembrosSnii from "./views/Vinculacion/miembrosSnii";
 import CafeCientifico from "./views/Vinculacion/cafeCientifico";
