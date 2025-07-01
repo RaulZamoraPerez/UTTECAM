@@ -73,7 +73,7 @@ export default function Router() {
           <Route path="/Becas" element={<Calendario/>} />
           <Route path="/Organigrama" element={<Organigrama/>} />
         </Route>
-        <Route path="*" element={<Page_404 />} />
+        <Route path="*" element={<Page_404/>} />
       </Routes>
     </BrowserRouter>
   );
