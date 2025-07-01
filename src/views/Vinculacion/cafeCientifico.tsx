@@ -10,7 +10,7 @@ export default function CafeCientifico() {
     const imagenes = [
         "/CafeCientifico/Café científico 12 de mayo de 2025.jpeg",
         "/CafeCientifico/Café científico 19 de mayo de 2025.jpeg",
-        "/CafeCientifico/Café cientifico  26 de mayo de 2025.jpeg",
+        "/CafeCientifico/Café cientifico 26 de mayo de 2025.jpeg",
         "/CafeCientifico/Café cientíico 2 de junio de 2025.jpeg",
         "/CafeCientifico/Café científico 9 de junio de 2025.jpeg",
         "/CafeCientifico/Café científio 16 de junio de 2025.jpeg",

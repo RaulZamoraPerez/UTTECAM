@@ -243,8 +243,12 @@ const datos = [
             { id: "doc36", titulo: "IT Sistema de Gestión Ambiental Institucional.pdf", archivo: "/SIG/INSTRUCCIONES DE TRABAJO/IT Sistema de Gestión Ambiental Institucional.pdf" },
             { id: "doc37", titulo: "IT Solicitud y Expedición de Cheques y-o Transferencia.pdf", archivo: "/SIG/INSTRUCCIONES DE TRABAJO/IT Solicitud y Expedición de Cheques y-o Transferencia.pdf" },
             { id: "doc38", titulo: "IT Tramite de Titulo Profesional Electronico.pdf", archivo: "/SIG/INSTRUCCIONES DE TRABAJO/IT Tramite de Titulo Profesional Electronico.pdf" },
-            { id: "doc39", titulo: "Procedimiento para el funcionamiento del Comité de Control y Desempeño Institucional.pdf", archivo: "/SIG/INSTRUCCIONES DE TRABAJO/Procedimiento para el funcionamiento del Comité de Control y Desempeño Institucional.pdf" },
-            { id: "doc40", titulo: "Protocolo de Acción Situaciones Potenciales de Emergencia.pdf", archivo: "/SIG/INSTRUCCIONES DE TRABAJO/Protocolo de Acción Situaciones Potenciales de Emergencia.pdf" }
+            { id: "doc39", titulo: "IT DEL USO DE LABORATORIOS, TALLERES E INVERNADEROS 2023.pdf", archivo: "/SIG/INSTRUCCIONES DE TRABAJO/IT DEL USO DE LABORATORIOS, TALLERES E INVERNADEROS 2023.pdf" },
+            { id: "doc40", titulo: "Procedimiento para el funcionamiento del Comité de Control y Desempeño Institucional.pdf", archivo: "/SIG/INSTRUCCIONES DE TRABAJO/Procedimiento para el funcionamiento del Comité de Control y Desempeño Institucional.pdf" },
+            { id: "doc41", titulo: "Protocolo de Acción Situaciones Potenciales de Emergencia.pdf", archivo: "/SIG/INSTRUCCIONES DE TRABAJO/Protocolo de Acción Situaciones Potenciales de Emergencia.pdf" },
+            { id: "doc42", titulo: "REGLAMENTO USO DE LABORATORIO TI.docx", archivo: "/SIG/INSTRUCCIONES DE TRABAJO/REGLAMENTO USO DE LABORATORIO TI.docx" },
+            { id: "doc43", titulo: "protocolo de actuacion en caso de emergencias.pdf", archivo: "/SIG/INSTRUCCIONES DE TRABAJO/protocolo de actuacion en caso de emergencias.pdf" },
+            
         ],
     },
 ]

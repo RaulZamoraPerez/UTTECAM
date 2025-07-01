@@ -38,46 +38,11 @@ export default function Navbar() {
       href: "/quienes-somos",
       submenu: [
         {
-            label: "Quiénes somos",
-            href: "/quienes-somos",
-            submenu: [
-                {
-                    label: "Nosotros",
-                    href: "/nosotros",
-                },
-                {
-                    label: "Directorios",
-
-                    submenu: [
-                        { label: "Directorio ", href: "/directorios" },
-                        { label: "Organigrama", href: "/organigrama" },
-                    ],
-                },
-                { label: "Calendario", href: "/calendario" },
-                {
-                    label: "Disposición jurídica", href: "/normatividad"},
-
-        
-                {
-                    label: "Programas de desarrollo",
-                    href: "/programas-desarrollo",
-
-                },
-                {
-                    label: "Comités",
-
-                    submenu: [
-                        { label: "Comité Académico", href: "/comite-academico" },
-                        { label: "Comité de Vinculación", href: "/comite-vinculacion" },
-                        { label: "Comité de Calidad", href: "/comite-calidad" },
-                        { label: "Comité de Investigación", href: "/comite-investigacion" },
-                    ],
-                },
-            ],
+          label: "Nosotros",
+          href: "/nosotros",
         },
         {
           label: "Directorios",
-
           submenu: [
             { label: "Directorio ", href: "/directorios" },
             { label: "Organigrama", href: "/organigrama" },
@@ -85,18 +50,12 @@ export default function Navbar() {
         },
         { label: "Calendario", href: "/calendario" },
         {
-          label: "Disposición jurídica",
-
-          submenu: [
-            { label: "Reglamentos", href: "/reglamentos" },
-            { label: "Lineamientos", href: "/lineamientos" },
-            { label: "Políticas", href: "/politicas" },
-            { label: "Normatividad", href: "/normatividad" },
-          ],
+          label: "Disposición jurídica", href: "/normatividad"
         },
         {
           label: "Programas de desarrollo",
           href: "/programas-desarrollo",
+
         },
         {
           label: "Comités",
@@ -372,14 +331,13 @@ export default function Navbar() {
                   <button
                     type="button"
                     className="text-[#000000] hover:text-[#0A9782]/80 px-2 py-2 text-sm font-semibold flex items-center transition-colors duration-200 focus:outline-none"
-                    // Cambié px-4 py-3 text-base por px-2 py-2 text-sm
+                  // Cambié px-4 py-3 text-base por px-2 py-2 text-sm
                   >
                     {item.label}
                     {item.submenu && (
                       <ChevronDown
-                        className={`ml-2 h-5 w-5 text-[#0A9782] transition-transform duration-200 ${
-                          hoveredItem === item.label ? "rotate-180" : ""
-                        }`}
+                        className={`ml-2 h-5 w-5 text-[#0A9782] transition-transform duration-200 ${hoveredItem === item.label ? "rotate-180" : ""
+                          }`}
                       />
                     )}
                   </button>
@@ -423,11 +381,10 @@ export default function Navbar() {
                                     initial="hidden"
                                     animate="visible"
                                     exit="exit"
-                                    className={`absolute top-0 w-72 bg-white rounded-xl shadow-xl border border-gray-200 py-3 ${
-                                      subMenuDirection === "right"
-                                        ? "left-full ml-2"
-                                        : "right-full mr-2"
-                                    }`}
+                                    className={`absolute top-0 w-72 bg-white rounded-xl shadow-xl border border-gray-200 py-3 ${subMenuDirection === "right"
+                                      ? "left-full ml-2"
+                                      : "right-full mr-2"
+                                      }`}
                                   >
                                     {subItem.submenu.map((subSubItem) => (
                                       <a
@@ -503,9 +460,8 @@ export default function Navbar() {
                         className="text-[#0A9782] p-1"
                       >
                         <ChevronDown
-                          className={`h-5 w-5 transition-transform duration-200 ${
-                            openMobileSubmenu === item.label ? "rotate-180" : ""
-                          }`}
+                          className={`h-5 w-5 transition-transform duration-200 ${openMobileSubmenu === item.label ? "rotate-180" : ""
+                            }`}
                         />
                       </button>
                     )}
@@ -537,11 +493,10 @@ export default function Navbar() {
                                   className="text-[#0A9782] p-1"
                                 >
                                   <ChevronRight
-                                    className={`h-4 w-4 transition-transform duration-200 ${
-                                      openMobileSubSubmenu === subItem.label
-                                        ? "rotate-90"
-                                        : ""
-                                    }`}
+                                    className={`h-4 w-4 transition-transform duration-200 ${openMobileSubSubmenu === subItem.label
+                                      ? "rotate-90"
+                                      : ""
+                                      }`}
                                   />
                                 </button>
                               )}
