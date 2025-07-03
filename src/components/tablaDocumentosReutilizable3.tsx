@@ -1,6 +1,5 @@
 import { useState } from "react"
 import { Search, FileText, Download, Library } from "lucide-react"
-import { Secciones } from "./Secciones"
 
 interface Documento {
     id: string
@@ -90,67 +89,50 @@ export default function tablaDocumentosReutilizable2({ secciones, titulo, descri
                                             <span className="text-xl font-bold">{seccion.titulo}</span>
                                             <span className="ml-2 px-3 text-sm rounded-full bg-[#d1672a] text-white">
                                                 {seccion.documentos.length} documentos
+
                                             </span>
+                                            
                                         </div>
                                     </div>
                                     <div className="p-0">
-                                        {filteredSecciones.map((seccion) => {
-  if (seccionActiva !== seccion.id) return null;
-
-  // Si es "Instrucciones de trabajo", renderiza el componente especial
-  if (seccion.titulo === "Instrucciones de trabajo") {
-    return (
-      <div key={seccion.id}>
-        <Secciones />
-      </div>
-    );
-  }
-
-  // Render normal para las demás secciones
-  return (
-   
-        <ul>
-          {seccion.documentos.map((documento, index) => (
-            <li
-              key={documento.id}
-              className="p-4 border-b border-gray-100 last:border-b-0 hover:bg-gray-50 transition-colors duration-150"
-            >
-              <div className="flex items-start gap-3">
-                <div className="flex items-center justify-center h-8 w-8 rounded-full bg-[#0A9782]/10 text-[#0A9782] font-medium">
-                  {index + 1}
-                </div>
-                <div className="flex-1">
-                  <div className="flex items-start justify-between gap-4">
-                    <div className="flex items-start gap-2">
-                      <FileText className="h-5 w-5 mt-0.5 flex-shrink-0 text-[#D1672A]" />
-                      <a
-                        href="#"
-                        onClick={(e) => {
-                          e.preventDefault();
-                          if (documento.archivo) setPdfSeleccionado(encodeURI(documento.archivo));
-                        }}
-                        className="font-medium text-gray-800 hover:text-[#D1672A] hover:underline transition-colors duration-150"
-                      >
-                        {documento.titulo}
-                      </a>
-                    </div>
-                    <a
-                      href={encodeURI(documento.archivo)}
-                      download
-                      className="flex-shrink-0 p-2 text-[#D1672A] hover:bg-[#D1672A]/10 rounded-lg transition-colors duration-150"
-                    >
-                      <Download className="h-4 w-4" />
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </li>
-          ))}
-        </ul>
-    
-  );
-})}
-
+                                        <ul>
+                                            {seccion.documentos.map((documento, index) => (
+                                                <li
+                                                    key={documento.id}
+                                                    className="p-4 border-b border-gray-100 last:border-b-0 hover:bg-gray-50 transition-colors duration-150"
+                                                >
+                                                    <div className="flex items-start gap-3">
+                                                        <div className="flex items-center justify-center h-8 w-8 rounded-full bg-[#0A9782]/10 text-[#0A9782] font-medium">
+                                                            {index + 1}
+                                                        </div>
+                                                        <div className="flex-1">
+                                                            <div className="flex items-start justify-between gap-4">
+                                                                <div className="flex items-start gap-2">
+                                                                    <FileText className="h-5 w-5 mt-0.5 flex-shrink-0 text-[#D1672A]" />
+                                                                    <a
+                                                                        href="#"
+                                                                        onClick={(e) => {
+                                                                            e.preventDefault();
+                                                                            if (documento.archivo) setPdfSeleccionado(encodeURI(documento.archivo));
+                                                                        }}
+                                                                        className="font-medium text-gray-800 hover:text-[#D1672A] hover:underline transition-colors duration-150"
+                                                                    >
+                                                                        {documento.titulo}
+                                                                    </a>
+                                                                </div>
+                                                                <a
+                                                                    href={encodeURI(documento.archivo)}
+                                                                    download
+                                                                    className="flex-shrink-0 p-2 text-[#D1672A] hover:bg-[#D1672A]/10 rounded-lg transition-colors duration-150"
+                                                                >
+                                                                    <Download className="h-4 w-4" />
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            ))}
+                                        </ul>
                                     </div>
                                 </div>
                             )
@@ -193,3 +175,4 @@ export default function tablaDocumentosReutilizable2({ secciones, titulo, descri
         </div>
     );
 }
+
