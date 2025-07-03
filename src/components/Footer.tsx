@@ -107,6 +107,11 @@ export default function Footer() {
                                     <ChevronRight /> Sistema de Gestión de la Calidad
                                 </a>
                             </li>
+                            <li className="mb-8">
+                                <a href="/Coordinacion" className="text-[#0A9782] hover:text-[#D1672A] text-base font-semibold flex items-center transition-colors duration-200">
+                                    <ChevronRight /> Sitio Web Coordinacion De Género
+                                </a>
+                            </li>
                         </ul>
                     </div>
 

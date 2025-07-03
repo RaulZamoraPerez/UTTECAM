@@ -20,8 +20,14 @@ import { Organigrama } from "@/views/Directorios/Organigrama";
 import ServiciosEscolares from "./views/ServiciosEscolares/ServiciosEscolares";
 import {PIT} from '@/views/Sigc/PIT';
 import { PdfPIT } from "./components/Pdf/PdfPIT";
-import { Gaceta } from "./views/gacetas/Gaceta";
+import { Gaceta } from "./views/extensionUniversitaria/prensaydifusion/Gaceta";
 import { PdfGaceta } from "./components/Pdf/pdfGaceta";
+import MiembrosSnii from "./views/Vinculacion/miembrosSnii";
+import CafeCientifico from "./views/Vinculacion/cafeCientifico";
+import ServiciosTecnologicos from "./views/Vinculacion/ServiciosTecnologicos";
+import PromocioIntitucional from "./views/extensionUniversitaria/difusionDivulgacion/promocioIntitucional";
+import { PdfPromocionInstitucional } from "./components/Pdf/PdfPromocionInstitucional";
+import Coordinacion from "./views/COORDINACIÓN DE GÉNERO/CoordinacionGenero";
 
 
 export default function Router() {
@@ -59,8 +65,15 @@ export default function Router() {
           }
           <Route path="/proceso-admision" element={<ConvocatoriaAdmision />} />
           <Route path="/serviciosEscolares" element={<ServiciosEscolares />} />
-
+          {
+            //*Vinculación
+          }
+          <Route path="/MiembrosSnii" element={<MiembrosSnii/>}/>
+          <Route path="/CafeCientifico" element={<CafeCientifico/>}/>
+          <Route path="/ServiciosTecnologicos" element={<ServiciosTecnologicos/>}/>
           
+
+          <Route path="/Coordinacion" element={<Coordinacion/>}/>
           {
             //*Rutas de accesos
           }
@@ -70,11 +83,18 @@ export default function Router() {
           <Route path="/becas-academicas" element={<Becas/>} />
           <Route path="/Becas" element={<Calendario/>} />
           <Route path="/Organigrama" element={<Organigrama/>} />
+            {//* extension universitaria
+          }
+           <Route path="/gacetas" element={<Gaceta/>} />
+           <Route path="/ver-documento-gaceta/:title" element={<PdfGaceta />} />
+
+           <Route path="/promocion-institucional" element={<PromocioIntitucional/>} />
+          <Route path="/ver-documento-promocion/:title" element={<PdfPromocionInstitucional/>} />
+         
         </Route>
-        <Route path="*" element={<Page_404 />} />
+        <Route path="*" element={<Page_404/>} />
       </Routes>
     </BrowserRouter>
   );
 }
 
-//TODO  imagenes de semblanza , directorios

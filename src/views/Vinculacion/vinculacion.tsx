@@ -1,11 +1,145 @@
-import TablaDocumentosReutilizable from "@/components/tablaDocumentosReutilizable"
-import datos from '@/data/data_vinculacion';
+import TablaDocumentosReutilizable2 from "@/components/tablaDocumentosReutilizable2"
 
-
+    const datos = [
+        {
+        id: "2018",
+        titulo: "Productos de Investigación 2018",
+        documentos: [
+            { id: "doc1", titulo: "El efecto de la deliciencia en las estrategias de gestión", archivo: "/REPOSITORIOINVESTIGACION/PRODUCTOS DE INVESTIGACIÓN 2018/El efecto de la deliciencia en las estrategias de gestión.pdf" },
+            { id: "doc2", titulo: "Potencial tecnológico de las micro y pequeñas empresas latinoamericanas", archivo: "/REPOSITORIOINVESTIGACION/PRODUCTOS DE INVESTIGACIÓN 2018/Potencial tecnológico de las micro y pequeñas empresas latinoamericanas.pdf" },
+            { id: "doc3", titulo: "Modelo de control interno admnistrativo como estrategia para miempresas", archivo: "/REPOSITORIOINVESTIGACION/PRODUCTOS DE INVESTIGACIÓN 2018/Modelo de control interno admnistrativo como estrategia para miempresas.pdf" },
+        ],
+    },
+    {
+        id: "2019",
+        titulo: "Productos de Investigación 2019",
+        documentos: [
+            { id: "doc4", titulo: "Aplicación de las dos primeras etapas del modelo Lewin", archivo: "/REPOSITORIOINVESTIGACION/PRODUCTOS DE INVESTIGACIÓN 2019/Aplicación de las dos primeras etapas del modelo Lewin.pdf" },
+            { id: "doc5", titulo: "Remesas y migración en el municipio de Tecamachalco, Pue.", archivo: "/REPOSITORIOINVESTIGACION/PRODUCTOS DE INVESTIGACIÓN 2019/Remesas y migración en el municipio de Tecamachalco.pdf" },
+            { id: "doc6", titulo: "El efecto de la corrupción en las estrategias de gestión de las micro y pequeñas empresas", archivo: "/REPOSITORIOINVESTIGACION/PRODUCTOS DE INVESTIGACIÓN 2019/El efecto de la corrupción en las estrategias de gestión de las micro y pequeñas empresas.pdf" },
+            { id: "doc7", titulo: "Strategies for the competitiveness of the trade in", archivo: "/REPOSITORIOINVESTIGACION/PRODUCTOS DE INVESTIGACIÓN 2019/Strategies for the competitiveness of the trade in.pdf" },
+        ],
+    },
+    {
+        id: "2020",
+        titulo: "Productos de Investigación 2020",
+        documentos: [
+            { id: "doc8", titulo: "Aspectos culturales del comercio informal de la ciudad de Tecamachalco, Puebla, México", archivo: "/REPOSITORIOINVESTIGACION/PRODUCTOS DE INVESTIGACIÓN 2020/Aspectos culturales del comercio informal de la ciudad de Tecamachalco, Puebla, México.pdf" },
+            { id: "doc9", titulo: "Challenges and perspectives for the implementation of industry 4.0 in the Mexican industrial sector", archivo: "/REPOSITORIOINVESTIGACION/PRODUCTOS DE INVESTIGACIÓN 2020/Challenges and perspectives for the implementation of industry 4.0 in the Mexican industrial sector.pdf" },
+            { id: "doc10", titulo: "Coffee production and marketing in the municipality of Cuetzalan del Progreso, Puebla, México", archivo: "/REPOSITORIOINVESTIGACION/PRODUCTOS DE INVESTIGACIÓN 2020/Coffee production and marketing in the municipality of Cuetzalan del Progreso, Puebla, México.pdf" },
+            { id: "doc11", titulo: "Deterioro de la salud por causa de las vibraciones mecánicas en los centros de trabajo de la zona de Tecamachalco", archivo: "/REPOSITORIOINVESTIGACION/PRODUCTOS DE INVESTIGACIÓN 2020/Deterioro de la salud por causa de las vibraciones mecánicas en los centros de trabajo de la zona de Tecamachalco.pdf" },
+            { id: "doc12", titulo: "Drone sembrador", archivo: "/REPOSITORIOINVESTIGACION/PRODUCTOS DE INVESTIGACIÓN 2020/Drone sembrador.pdf" },
+            { id: "doc13", titulo: "Imagen pública de la micro y pequeña empresa", archivo: "/REPOSITORIOINVESTIGACION/PRODUCTOS DE INVESTIGACIÓN 2020/Imagen pública de la micro y pequeña empresa.pdf" },
+            { id: "doc14", titulo: "Impacto de las tecnologías de procesamiento", archivo: "/REPOSITORIOINVESTIGACION/PRODUCTOS DE INVESTIGACIÓN 2020/Impacto de las tecnologías de procesamiento del brócoli sobre compuestos fitoquímicos relevantes en salud humana.pdf" },
+            { id: "doc15", titulo: "Propuesta de un plan de negocios para papel picado Huixcolotla", archivo: "/REPOSITORIOINVESTIGACION/PRODUCTOS DE INVESTIGACIÓN 2020/Propuesta de un plan de negocios para papel picado Huixcolotla.pdf" },
+            { id: "doc16", titulo: "Sentido artificial ultrasónico", archivo: "/REPOSITORIOINVESTIGACION/PRODUCTOS DE INVESTIGACIÓN 2020/Sentido artificial ultrasónico.pdf" },
+            { id: "doc17", titulo: "Volviendo a trabajar prótesis electrónica", archivo: "/REPOSITORIOINVESTIGACION/PRODUCTOS DE INVESTIGACIÓN 2020/Volviendo a trabajar prótesis electrónica.pdf" },
+        ],
+    },
+    {
+        id: "2021",
+        titulo: "Productos de Investigación 2021",
+        documentos: [
+            { id: "doc18", titulo: "Dialogo de saberes sobre pertinencia de la educación", archivo: "/REPOSITORIOINVESTIGACION/PRODUCTOS DE INVESTIGACIÓN 2021/Dialogo de saberes sobre pertinencia de la educación.pdf" },
+            { id: "doc19", titulo: "Review on the effect on phytochemical compounds relevant to human health by broccoli processing technologies", archivo: "/REPOSITORIOINVESTIGACION/PRODUCTOS DE INVESTIGACIÓN 2021/Review on the effect on phytochemical compounds relevant to human health by broccoli processing technologies.pdf" },
+            { id: "doc20", titulo: "Implementación de mantenimiento proactivo a moldes de inyección de plásticos", archivo: "/REPOSITORIOINVESTIGACION/PRODUCTOS DE INVESTIGACIÓN 2021/Implementación de mantenimiento proactivo a moldes de inyección de plásticos.pdf" },
+            { id: "doc21", titulo: "Diseño y construcción de celda de manufactura flexible con energía fotovoltaica", archivo: "/REPOSITORIOINVESTIGACION/PRODUCTOS DE INVESTIGACIÓN 2021/Diseño y construcción de celda de manufactura flexible con energía fotovoltaica.pdf" },
+            { id: "01", titulo: "El impacto de la aplicación de estrategias mercadológicas en las utilidades de una unidad económica", archivo: "/REPOSITORIOINVESTIGACION/PRODUCTOS DE INVESTIGACIÓN 2021/El impacto de la aplicación de estrategias mercadológicas en las utilidades de una unidad económica.pdf" },
+        ],
+    },
+    {
+        id: "2022",
+        titulo: "Productos de Investigación 2022",
+        documentos: [
+            { id: "doc22", titulo: "Análisis del impacto de las asignaturas de ingeniería en mantenimiento industrial en sus egresados", archivo: "/REPOSITORIOINVESTIGACION/PRODUCTOS DE INVESTIGACION 2022/Analisis.pdf"},
+            { id: "doc23", titulo: "Analysis of the extraction process of eugenol from pepper (pimenta dioica l.) Using quantum chemistry", archivo: "/REPOSITORIOINVESTIGACION/PRODUCTOS DE INVESTIGACION 2022/Analysis of the extraction process of eugenol from pepper (pimenta dioica l.) Using quantum chemistry.pdf" },
+            { id: "doc24", titulo: "Analysis of the low level of achievement in the english subject of the UTTECAM", archivo: "/REPOSITORIOINVESTIGACION/PRODUCTOS DE INVESTIGACION 2022/Analysis of the low level of achievement in the english subject of the UTTECAM.pdf" },
+            { id: "doc25", titulo: "Capacitación y desarrollo de habilidades de los directores de las mypes de Tecamachalco, Puebla, México", archivo: "/REPOSITORIOINVESTIGACION/PRODUCTOS DE INVESTIGACION 2022/Capacitacion.pdf" },
+            { id: "doc26", titulo: "Diseño de un sistema de suministro eléctrico", archivo: "/REPOSITORIOINVESTIGACION/PRODUCTOS DE INVESTIGACION 2022/Diseño de un sistema de suministro eléctrico.pdf" },
+            { id: "doc27", titulo: "Diseño, cálculo e instalación de equipo fotovoltaico de 20 kw ", archivo: "/REPOSITORIOINVESTIGACION/PRODUCTOS DE INVESTIGACION 2022/Diseño, cálculo e instalación de equipo fotovoltaico de 20 kw .pdf" },
+            { id: "doc28", titulo: "Efecto de un fitoestimulador a base de manihot esculenta y erithrina coralloides en cultivo de tomate bajo estrés hídrico", archivo: "/REPOSITORIOINVESTIGACION/PRODUCTOS DE INVESTIGACION 2022/Efecto de un fitoestimulador a base de manihot esculenta y erithrina coralloides en cultivo de tomate bajo estrés hídrico.pdf" },
+            { id: "doc29", titulo: "Evaluación de calcicomprimidos como preventivo de la pudrición apical en frutos de tomate", archivo: "/REPOSITORIOINVESTIGACION/PRODUCTOS DE INVESTIGACION 2022/Evaluación de calcicomprimidos como preventivo de la pudrición apical en frutos de tomate.pdf" },
+            { id: "doc30", titulo: "Impacto laboral de la covid 19 en las familias de los estudiantes de la UTTECAM", archivo: "/REPOSITORIOINVESTIGACION/PRODUCTOS DE INVESTIGACION 2022/Impacto laboral de la covid 19 en las familias de los estudiantes de la UTTECAM.pdf" },
+            { id: "doc31", titulo: "Production structure and commercialization of green vegetables in the valley of Tecamachalco, Puebla, Mexico", archivo: "/REPOSITORIOINVESTIGACION/PRODUCTOS DE INVESTIGACION 2022/Production structure and commercialization of green vegetables in the valley of Tecamachalco, Puebla, Mexico.pdf" },
+            { id: "doc32", titulo: "Quantum chemical analysis of the interactions of eugenol vs. Nitrogenous bases of the nucleic acids RNA and DNA", archivo: "/REPOSITORIOINVESTIGACION/PRODUCTOS DE INVESTIGACION 2022/Quantum chemical analysis of the interactions of eugenol vs. Nitrogenous bases of the nucleic acids RNA and DNA.pdf"},
+            { id: "doc33", titulo: "Revisión de herramientas para crear entornos personalizados de aprendizaje", archivo: "/REPOSITORIOINVESTIGACION/PRODUCTOS DE INVESTIGACION 2022/Revisión de herramientas para crear entornos personalizados de aprendizaje .pdf" },
+            { id: "02", titulo: "Study of the energy performance of solar biocells", archivo: "/REPOSITORIOINVESTIGACION/PRODUCTOS DE INVESTIGACION 2022/Study of the energy performance of solar biocells.pdf" },
+            { id: "03", titulo: "Tlaolli chipahuac", archivo: "/REPOSITORIOINVESTIGACION/PRODUCTOS DE INVESTIGACION 2022/Tlaolli chipahuac.pdf" },
+        ],
+    },
+    {
+        id: "2023",
+        titulo: "Productos de Investigación 2023",
+        documentos: [
+            { id: "doc34", titulo: "Analysis of the interactions of capsaicin with and and rna using computational chemistry", archivo: "/REPOSITORIOINVESTIGACION/PRODUCTOS DE INVESTIGACIÓN 2023/Analysis of the interactions of capsaicin with and and rna using computational chemistry.pdf" },
+            { id: "doc35", titulo: "Banco de estudio de casos de electroneumática avanzada", archivo: "/REPOSITORIOINVESTIGACION/PRODUCTOS DE INVESTIGACIÓN 2023/Banco de estudio de casos de electroneumática avanzada.pdf" },
+            { id: "doc36", titulo: "Chemical-quantum study", archivo: "/REPOSITORIOINVESTIGACION/PRODUCTOS DE INVESTIGACIÓN 2023/Chemical-quantum study of the interactions of sulforaphane vs. Amino acids of the human being.pdf" },
+            { id: "doc37", titulo: "Creación, documentación y registro de la marca cuatzo lácteos y derivados", archivo: "/REPOSITORIOINVESTIGACION/PRODUCTOS DE INVESTIGACIÓN 2023/Creación, documentación y registro de la marca cuatzo lácteos y derivados.pdf" },
+            { id: "doc38", titulo: "Design and construction of a knife sharpening machine", archivo: "/REPOSITORIOINVESTIGACION/PRODUCTOS DE INVESTIGACIÓN 2023/Design and construction of a knife sharpening machine.pdf" },
+            { id: "doc39", titulo: "Design and construction of a pid control", archivo: "/REPOSITORIOINVESTIGACION/PRODUCTOS DE INVESTIGACIÓN 2023/Design and construction of a pid control for the prevention of sudden infant death syndrome through the use of the raspberry pi pico card.pdf" },
+            { id: "doc40", titulo: "El trabajo decente desde la perspectiva de directores y directoras en las micro y pequeñas empresas de Tecamachalco, Puebla, México", archivo: "/REPOSITORIOINVESTIGACION/PRODUCTOS DE INVESTIGACIÓN 2023/El trabajo decente desde la perspectiva de directores y directoras en las micro y pequeñas empresas de Tecamachalco, Puebla, México.pdf" },
+            { id: "doc41", titulo: "Export of vegetables in the rural development district of Tecamachalco, Puebla, within the framework of the usmca", archivo: "/REPOSITORIOINVESTIGACION/PRODUCTOS DE INVESTIGACIÓN 2023/Export of vegetables in the rural development district of Tecamachalco, Puebla, within the framework of the usmca.pdf" },
+            { id: "doc42", titulo: "Implementación de manual de mantenimiento preventivo y correctivo de la máquina peletizadora zheng chang szh678d", archivo: "/REPOSITORIOINVESTIGACION/PRODUCTOS DE INVESTIGACIÓN 2023/Implementación de manual de mantenimiento preventivo y correctivo de la máquina peletizadora zheng chang szh678d.pdf" },
+            { id: "doc43", titulo: "Importancia del monitoreo de vibraciones en línea para equipos vitales", archivo: "/REPOSITORIOINVESTIGACION/PRODUCTOS DE INVESTIGACIÓN 2023/Importancia del monitoreo de vibraciones en línea para equipos vitales.pdf" },
+            { id: "doc44", titulo: "Las habilidades directivas y el clima organizacional en los micro y pequeñas empresas", archivo: "/REPOSITORIOINVESTIGACION/PRODUCTOS DE INVESTIGACIÓN 2023/Las habilidades directivas y el clima organizacional en los micro y pequeñas empresas de Tecamachalco, Puebla, México.pdf" },
+            { id: "doc45", titulo: "Locator system for lost pets based", archivo: "/REPOSITORIOINVESTIGACION/PRODUCTOS DE INVESTIGACIÓN 2023/Locator system for lost pets based on a cell phone app and the gps platform.pdf" },
+            { id: "doc46", titulo: "Planteamiento de aprendizaje basado en proyectos en el programa educativo de tecnologías de información de la universidad tecnológica de Tecamachalco", archivo: "/REPOSITORIOINVESTIGACION/PRODUCTOS DE INVESTIGACIÓN 2023/Planteamiento de aprendizaje basado en proyectos en el programa educativo de tecnologías de información de la universidad tecnológica de Tecamachalco.pdf" },
+            { id: "doc47", titulo: "Type of tourism in Tecamachalco and zone of influence", archivo: "/REPOSITORIOINVESTIGACION/PRODUCTOS DE INVESTIGACIÓN 2023/Type of tourism in Tecamachalco and zone of influence.pdf" },
+            { id: "doc48", titulo: "Metabolitos secundarios de entomopatógenos como herramienta biotecnológica para una agricultura sustentable", archivo: "/REPOSITORIOINVESTIGACION/PRODUCTOS DE INVESTIGACIÓN 2023/Metabolitos secundarios de entomopatógenos como herramienta biotecnológica para una agricultura sustentable.pdf" },
+        ],
+    },
+    {
+        id: "2024",
+        titulo: "Productos de Investigación 2024",
+        documentos: [
+            { id: "doc49", titulo: "Análisis in silico de las interacciones químico-cuánticas de los aminoácidos del Factor nuclear kappa-B y el ácido Zoledrónico", archivo: "/REPOSITORIOINVESTIGACION/PRODUCTOS DE INVESTIGACION 2024/Análisis in silico de las interacciones químico-cuánticas de los aminoácidos del Factor nuclear kappa-B y el ácido Zoledrónico.pdf" },
+            { id: "doc50", titulo: "Analysis of caffeine and its interaction with the sleep hormone, applying quantum chemistry", archivo: "/REPOSITORIOINVESTIGACION/PRODUCTOS DE INVESTIGACION 2024/Analysis of caffeine and its interaction with the sleep hormone, applying quantum chemistry.pdf" },
+            { id: "doc51", titulo: "Analysis of hyperglycemia comparing cortisol, glucose and insulin, using quatum chemistry", archivo: "/REPOSITORIOINVESTIGACION/PRODUCTOS DE INVESTIGACION 2024/Analysis of hyperglycemia comparing cortisol, glucose and insulin, using quatum chemistry.pdf" },
+            { id: "doc52", titulo: "Analysis of ivermectin and the relationship with neurotransmitters using quantum chemistry", archivo: "/REPOSITORIOINVESTIGACION/PRODUCTOS DE INVESTIGACION 2024/Analysis of ivermectin and the relationship with neurotransmitters using quantum chemistry.pdf" },
+            { id: "doc53", titulo: "Analysis of the sites of quantum chemical interactions of cortisol on unsulin", archivo: "/REPOSITORIOINVESTIGACION/PRODUCTOS DE INVESTIGACION 2024/Analysis of the sites of quantum chemical interactions of cortisol on unsulin.pdf" },
+            { id: "doc54", titulo: "Analysis of the sites of quantum chemical interactions of glucose on insulin", archivo: "/REPOSITORIOINVESTIGACION/PRODUCTOS DE INVESTIGACION 2024/Analysis of the sites of quantum chemical interactions of glucose on insulin.pdf" },
+            { id: "doc55", titulo: "Construyendo puentes de diálogo el rol de las universidades para mitigar la polarización social", archivo: "/REPOSITORIOINVESTIGACION/PRODUCTOS DE INVESTIGACION 2024/Construyendo puentes de diálogo el rol de las universidades para mitigar la polarización social.pdf" },
+            { id: "doc56", titulo: "Demonstration of nicotine dependency by interacting with neurotransmitters using quantum chemistry", archivo: "/REPOSITORIOINVESTIGACION/PRODUCTOS DE INVESTIGACION 2024/Demonstration of nicotine dependency by interacting with neurotransmitters using quantum chemistry.pdf" },
+            { id: "doc57", titulo: "Desarrollo comunitario sostenible en las mypes del municipio de Tecamachalco, Puebla", archivo: "/REPOSITORIOINVESTIGACION/PRODUCTOS DE INVESTIGACION 2024/Desarrollo comunitario sostenible en las mypes del municipio de Tecamachalco, Puebla.pdf" },
+            { id: "doc58", titulo: "Diagnóstico de inclusión financiera en el Municipio de Tecamachalco, Pue", archivo: "/REPOSITORIOINVESTIGACION/Diagnóstico de inclusión financiera en el Municipio de Tecamachalco.pdf" },
+            { id: "doc59", titulo: "Diseño y fabricación de un prototipo secador de lecho fluidizado para especies", archivo: "/REPOSITORIOINVESTIGACION/PRODUCTOS DE INVESTIGACION 2024/Diseño y fabricación de un prototipo secador de lecho fluidizado para especies.pdf" },
+            { id: "doc60", titulo: "Diseño y fabricación de un prototipo secador para frutas y hortalizas por sistema de convección", archivo: "/REPOSITORIOINVESTIGACION/PRODUCTOS DE INVESTIGACION 2024/Diseño y fabricación de un prototipo secador para frutas y hortalizas por sistema de convección.pdf" },
+            { id: "doc61", titulo: "Estudio de las interacciones químico-cuánticas del ácido elágico y su influencia óxido-reductiva en el her2 y el cáncer de seno", archivo: "/REPOSITORIOINVESTIGACION/PRODUCTOS DE INVESTIGACION 2024/Estudio de las interacciones químico-cuánticas del ácido elágico y su influencia óxido-reductiva en el her2 y el cáncer de seno.pdf" },
+            { id: "doc62", titulo: "Estudio del comportamiento de la velocidad de migración de alcoholes alifánicos...", archivo: "/REPOSITORIOINVESTIGACION/PRODUCTOS DE INVESTIGACION 2024/Estudio del comportamiento de la velocidad de migración de alcoholes alifánicos.pdf" },
+            { id: "doc63", titulo: "Heliopsis longipes s.f. blake., una planta indígena con raíces de oro generalidades y potencial biotecnológico", archivo: "/REPOSITORIOINVESTIGACION/PRODUCTOS DE INVESTIGACION 2024/Heliopsis longipes s.f. blake., una planta indígena con raíces de oro generalidades y potencial biotecnológico.pdf" },
+            { id: "doc64", titulo: "Implementación de metodología para la clasificación de trabajos de alto y bajo riesgo en entornos industriales y de construcción", archivo: "/REPOSITORIOINVESTIGACION/PRODUCTOS DE INVESTIGACION 2024/Implementación de metodología para la clasificación de trabajos de alto y bajo riesgo en entornos industriales y de construcción.pdf" },
+            { id: "doc65", titulo: "In silico demonstrations of anti-aging with use of resveratrol associate with nitrogen baes applying quantum chemistry", archivo: "/REPOSITORIOINVESTIGACION/PRODUCTOS DE INVESTIGACION 2024/In silico demonstrations of anti-aging with use of resveratrol associate with nitrogen baes applying quantum chemistry.pdf" },
+            { id: "doc66", titulo: "La ventaja competitiva una perspectiva desde la teoría de Sistemas. Micro y Pequeñas Empresas en Tecamachalco, Puebla, México", archivo: "/REPOSITORIOINVESTIGACION/PRODUCTOS DE INVESTIGACION 2024/La ventaja competitiva una perspectiva desde la teoría de Sistemas. Micro y Pequeñas Empresas en Tecamachalco, Puebla, México.pdf" },
+            { id: "doc67", titulo: "Las estrategias operativas y su influencia con el ", archivo: "/REPOSITORIOINVESTIGACION/PRODUCTOS DE INVESTIGACION 2024/Las estrategias operativas y su influencia con el .pdf" },
+            { id: "doc68", titulo: "Modelado del proceso de secado en lecho fluidizado de hojas de pirul ", archivo: "/REPOSITORIOINVESTIGACION/PRODUCTOS DE INVESTIGACION 2024/Modelado del proceso de secado en lecho fluidizado de hojas de pirul .pdf" },
+            { id: "doc69", titulo: "Resultados de la investigación sobre los factores docentes que afectan la actitud de los estudiantes en el aula", archivo: "/REPOSITORIOINVESTIGACION/PRODUCTOS DE INVESTIGACION 2024/Resultados de la investigación sobre los factores docentes que afectan la actitud de los estudiantes en el aula.pdf" },
+            { id: "doc70", titulo: "Revalorización de hojas de canela mediante un compuesto fenólico proceso de extracción: una optimización mediante caja-diseño Behnken", archivo: "/REPOSITORIOINVESTIGACION/PRODUCTOS DE INVESTIGACION 2024/Revalorización de hojas de canela mediante un compuesto fenólico proceso de extracción una optimización mediante caja-diseño behnken.pdf" },
+            { id: "doc71", titulo: "Re-valorization of red habanero chili pepper  waste by recovery of bioactive compounds effects of different extraction processes", archivo: "/REPOSITORIOINVESTIGACION/PRODUCTOS DE INVESTIGACION 2024/Re-valorization of red habanero chili pepper  waste by recovery of bioactive compounds effects of different extraction processes.pdf" },
+            { id: "doc72", titulo: "Spray-drying of Escontria chiotilla", archivo: "/REPOSITORIOINVESTIGACION/PRODUCTOS DE INVESTIGACION 2024/Spray-drying of escontria chiotilla fruit juice effect of the process variables on yield and physicochemical properties.pdf" },
+            { id: "doc73", titulo: "Study of the chemical-quantum", archivo: "/REPOSITORIOINVESTIGACION/PRODUCTOS DE INVESTIGACION 2024/Study of the chemical-quantum interactions of allicin  and amino acids in the human body.pdf" },
+            { id: "doc74", titulo: "Valoración in silico e in vivo de la toxicidad del Acetamiprid en lombrices Eisenia fetida S. y el posible daño en el ser humano", archivo: "/REPOSITORIOINVESTIGACION/PRODUCTOS DE INVESTIGACION 2024/Valoración in silico e in vivo de la toxicidad del Acetamiprid en lombrices Eisenia fetida S. y el posible daño en el ser humano.pdf" },
+        ],
+    },
+    {
+        id: "2025",
+        titulo: "Productos de Investigación 2025",
+        documentos: [
+            { id: "doc75", titulo: "Actividad antimicrobiana de aceite de pimienta gorda para el control de bacterias patógenas evaluación in vitro e in silico", archivo: "/REPOSITORIOINVESTIGACION/PRODUCTOS DE INVESTIGACION 2025/Actividad antimicrobiana de aceite de pimienta gorda para el control de bacterias patógenas evaluación in vitro e in silico.pdf" },
+            { id: "doc76", titulo: "Gastronomía en Tecamachalco, Puebla, México y zona de influencia", archivo: "/REPOSITORIOINVESTIGACION/PRODUCTOS DE INVESTIGACION 2025/Gastronomía en Tecamachalco, Puebla, México y zona de influencia.pdf" },
+            { id: "doc77", titulo: "¿Por qué tenemos que dormir mucho y_profundo? Una comprobación de la bondad antioxidante de la melatonina (hormona del sueño) usando química cuántica", archivo: "/REPOSITORIOINVESTIGACION/PRODUCTOS DE INVESTIGACION 2025/Por qué tenemos que dormir mucho y profundo. Una comprobación de la bondad antioxidante de la melatonina  usando química cuántica.pdf" },
+            { id: "doc78", titulo: "Affective embodied agent for patient assistance in virtual rehabilitation", archivo: "/REPOSITORIOINVESTIGACION/PRODUCTOS DE INVESTIGACION 2025/Affective embodied agent for patient assistance in virtual rehabilitation.pdf" },
+            { id: "doc79", titulo: "Pertinencia del financiamiento en las MIPyMES de la cabecera municipal de Tecamachalco", archivo: "/REPOSITORIOINVESTIGACION/PRODUCTOS DE INVESTIGACION 2025/Pertinencia del financiamiento en las MIPyMES de la cabecera municipal de Tecamachalco.pdf" },
+            { id: "doc80", titulo: "Manufacturing of zno semiconductors from the zn 2•2h2o precursor via a polyol-mediated thermolysis process", archivo: "/REPOSITORIOINVESTIGACION/PRODUCTOS DE INVESTIGACION 2025/Manufacturing of zno semiconductors from the zn 2•2h2o precursor via a polyol-mediated thermolysis process.pdf" },
+            { id: "doc81", titulo: "Evaluación de interacciones del ácido galacturónico con aminoácidos a través de química cuántica-cuántica computacional", archivo: "/REPOSITORIOINVESTIGACION/PRODUCTOS DE INVESTIGACION 2025/Evaluación de interacciones del ácido galacturónico con aminoácidos a través de química cuántica-cuántica computacional.pdf" },
+            { id: "doc82", titulo: "El papel de la cebolla en el tratamiento de enfermedades a través de sus componentes principales  usando química cuántica in sillico", archivo: "/REPOSITORIOINVESTIGACION/PRODUCTOS DE INVESTIGACION 2025/El papel de la cebolla en el tratamiento de enfermedades a través de sus componentes principales  usando química cuántica in sillico.pdf" },
+            { id: "doc83", titulo: "Composición del papel de celulosa como factor clave en el rendimiento de las tejas verdes ecológicas", archivo: "/REPOSITORIOINVESTIGACION/PRODUCTOS DE INVESTIGACION 2025/Composición del papel de celulosa como factor clave en el rendimiento de las tejas verdes ecológicas.pdf" },
+        ],
+    },
+    ]
 
 export default function Vinculacion() {
     return (
-        <TablaDocumentosReutilizable
+        <TablaDocumentosReutilizable2
             secciones={datos}
             titulo="Repositorio Digital de Productos de Investigación"
             descripcion="Explora los productos de investigación generados por la comunidad académica de la institución, organizados por año y tipo de documento."
