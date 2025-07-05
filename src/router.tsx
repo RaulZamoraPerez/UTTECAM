@@ -69,7 +69,7 @@ export default function Router() {
             <Route path="/ver-documento-promocion/:title" element={<PdfPromocionInstitucional />} />
           </Route>
           <Route path="*" element={<Page_404 />} />
-          <Route path="/loader" element={<LoaderSuspense />} />
+     
         </Routes>
       </Suspense>
     </BrowserRouter>
