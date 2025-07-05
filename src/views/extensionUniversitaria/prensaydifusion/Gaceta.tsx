@@ -1,7 +1,7 @@
 import TablaDocumentosReutilizable from "@/components/tablaDocumentosReutilizable";
 import datosGaceta from "@/data/gaceta.data";
 
-export const Gaceta = () => {
+ const Gaceta = () => {
   return (
     <TablaDocumentosReutilizable
       nextUrl="-GACETA"
@@ -11,3 +11,5 @@ export const Gaceta = () => {
     />
   );
 };
+
+export default Gaceta;

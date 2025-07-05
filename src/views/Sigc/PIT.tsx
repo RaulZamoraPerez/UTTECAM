@@ -1,7 +1,7 @@
 import TablaDocumentosReutilizable from "@/components/tablaDocumentosReutilizable"
 import datos from '@/data/pit.data';
 
-export const PIT = () => {
+ const PIT = () => {
   return (
   <TablaDocumentosReutilizable
             nextUrl="-PIT"
@@ -14,3 +14,5 @@ export const PIT = () => {
 
 
 
+
+export default PIT;

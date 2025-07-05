@@ -3,7 +3,7 @@ import { Search } from "lucide-react";
 import { useState } from "react";
 import { contactData } from "@/data/directorios.data"; 
 
-export const Directorios = () => {
+const Directorios = () => {
   const [searchTerm, setSearchTerm] = useState("");
 
   const filteredData = contactData.filter((item) =>
@@ -49,3 +49,6 @@ export const Directorios = () => {
     </div>
   );
 };
+
+
+export default Directorios;

@@ -6,7 +6,7 @@ import { ContenedorPDF } from "@/components/Pdf/ContenedorPDF";
 import {  formatearTitulo } from "../../util/Formatt"
 
 
-export const PdfGaceta = () => {
+const PdfGaceta = () => {
   
   const [isLoading, setIsLoading] = useState(true);
 const { title } = useParams(); 
@@ -42,3 +42,5 @@ const { title } = useParams();
     </div>
     );
 }
+
+export default PdfGaceta;

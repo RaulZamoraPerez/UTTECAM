@@ -6,7 +6,7 @@ import { formatearTitulo } from "../../util/Formatt";
 import Zoom from "react-medium-image-zoom";
 import "react-medium-image-zoom/dist/styles.css";
 
-export const PdfPromocionInstitucional = () => {
+ const PdfPromocionInstitucional = () => {
   const [isLoading, setIsLoading] = useState(true);
   const { title } = useParams();
   const navigate = useNavigate();
@@ -142,3 +142,5 @@ export const PdfPromocionInstitucional = () => {
     </div>
   );
 };
+
+export default PdfPromocionInstitucional;

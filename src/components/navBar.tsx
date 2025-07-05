@@ -161,7 +161,7 @@ export default function Navbar() {
       ],
     },
     {
-      label: "Extencion universitaria",
+      label: "Extension universitaria",
 
       submenu: [
         {
