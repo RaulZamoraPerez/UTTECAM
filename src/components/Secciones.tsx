@@ -495,12 +495,10 @@ const data = {
     },
   ],
 };
-
 export const Secciones = () => {
   return (
-    <div className="max-w-6xl mx-auto pt-3 px-6">
-      <div className="bg-gradient-to-br from-white via-slate-50 to-slate-100 border border-slate-200 shadow-2xl rounded-3xl p-10">
-        
+    <div className="w-full max-w-6xl mx-auto pt-3 px-4 sm:px-6">
+      <div className="bg-gradient-to-br from-white via-slate-50 to-slate-100 border border-slate-200 shadow-2xl rounded-3xl p-6 sm:p-10">
         <div className="space-y-4">
           {data.subCarpetas.map((nivel1, index) => (
             <Carpeta key={index} carpeta={nivel1} nivel={1} />
@@ -516,13 +514,19 @@ const Carpeta = ({ carpeta, nivel }: any) => {
   const tieneSub = carpeta.subcarpetas?.length > 0;
   const tieneDocs = carpeta.documentos?.length > 0;
 
-  const paddingLeft = nivel * 20;
+  const paddingClasses : any= {
+    1: "pl-4",
+    2: "pl-6",
+    3: "pl-8",
+    4: "pl-10",
+    5: "pl-12",
+  };
 
   return (
-    <div style={{ paddingLeft }} className="transition-all">
+    <div className={`transition-all ${paddingClasses[nivel] || "pl-12"}`}>
       <button
         onClick={() => setAbierto(!abierto)}
-        className="flex items-center w-full text-left bg-white hover:bg-slate-100 border border-slate-300 rounded-xl px-4 py-3 shadow-sm transition-all"
+        className="flex flex-wrap items-center w-full text-left bg-white hover:bg-slate-100 border border-slate-300 rounded-xl px-4 py-3 shadow-sm transition-all"
       >
         {abierto ? (
           <ChevronDown size={18} className="text-slate-600 mr-2" />
@@ -530,11 +534,11 @@ const Carpeta = ({ carpeta, nivel }: any) => {
           <ChevronRight size={18} className="text-slate-600 mr-2" />
         )}
         <Folder size={20} className="text-yellow-500 mr-3" />
-        <span className="text-slate-800 font-medium">{carpeta.title}</span>
+        <span className="text-slate-800 font-medium break-words">{carpeta.title}</span>
       </button>
 
       {abierto && (
-        <div className="mt-3 ml-6 pl-4 border-l-2 border-dashed border-slate-300 space-y-3">
+        <div className="mt-3 ml-2 sm:ml-6 pl-3 sm:pl-4 border-l-2 border-dashed border-slate-300 space-y-3">
           {tieneDocs &&
             carpeta.documentos.map((doc: any) => (
               <a
@@ -548,7 +552,7 @@ const Carpeta = ({ carpeta, nivel }: any) => {
                   size={18}
                   className="mr-2 text-blue-500 group-hover:text-blue-700"
                 />
-                <span className="underline underline-offset-2 decoration-blue-300 group-hover:decoration-blue-500">
+                <span className="underline underline-offset-2 decoration-blue-300 group-hover:decoration-blue-500 break-words">
                   {doc.titulo}
                 </span>
               </a>
