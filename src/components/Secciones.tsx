@@ -130,7 +130,7 @@ const data = {
               titulo:
                 "IT Evaluación de los Servicios Académicos y de Apoyo a los Estudiantes.pdf",
               archivo:
-                "/SIG/INSTRUCCIONES DE TRABAJO/IT Evaluacion de los Servicios Academicos y de Apoyo a los Estudiantes.pdf",
+                "/SIG/INSTRUCCIONES DE TRABAJO/IT Evaluación de los Servicios Académicos y de Apoyo a los Estudiantes.pdf",
             },
           ],
         },
@@ -154,7 +154,7 @@ const data = {
               titulo:
                 "IT Solicitud y Expedición de Cheques y/o Transferencia.pdf",
               archivo:
-                "/SIG/INSTRUCCIONES DE TRABAJO/IT Solicitud y Expedicion de Cheques y_o Transferencia Electronica Bancaria.pdf",
+                "/SIG/INSTRUCCIONES DE TRABAJO/IT Solicitud y Expedición de Cheques y_o Transferencias Eléctronica Bancaria.pdf",
             },
           ],
         },
@@ -178,7 +178,7 @@ const data = {
               titulo:
                 "Control Operacional para el Uso Eficiente de la Energia.pdf",
               archivo:
-                "/SIG/INSTRUCCIONES DE TRABAJO/Control Operacional para el Uso Eficiente de la Energia Electrica.pdf",
+                "/SIG/INSTRUCCIONES DE TRABAJO/Control Operacional para el Uso Eficiente de la Energía Eléctrica.pdf",
             },
             {
               id: "doc6",
