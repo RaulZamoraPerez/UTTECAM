@@ -36,6 +36,40 @@ const datos = [
         ]
     },
     {
+        id: "2025_T2",
+        titulo: "2. Estados Financieros 2° Trimestre 2025",
+        documentos: [
+            { id: "doc1", titulo: "Ayudas.PDF", archivo: "/EstadosFinancieros/2.Estados Financieros 2° Trimestre 2025/1. Ayudas.PDF" },
+            { id: "doc2", titulo: "Edo. de Actividades.PDF", archivo: "/EstadosFinancieros/2.Estados Financieros 2° Trimestre 2025/2. Edo. de Actividades.PDF" },
+            { id: "doc3", titulo: "Edo. Situación Financiera.PDF", archivo: "/EstadosFinancieros/2.Estados Financieros 2° Trimestre 2025/3. Edo. Situación Financiera.PDF" },
+            { id: "doc4", titulo: "Edo. Cambios en la Sit Fin_.PDF", archivo: "/EstadosFinancieros/2.Estados Financieros 2° Trimestre 2025/4. Edo. Cambios en la Sit Fin_.PDF" },
+            { id: "doc5", titulo: "Edo de Flujos de efectivos.PDF", archivo: "/EstadosFinancieros/2.Estados Financieros 2° Trimestre 2025/5. Edo de Flujos de efectivos.PDF" },
+            { id: "doc6", titulo: "Edo. Variación en la Hda Púb.PDF", archivo: "/EstadosFinancieros/2.Estados Financieros 2° Trimestre 2025/6. Edo. Variación en la Hda Púb.PDF" },
+            { id: "doc7", titulo: "Pasivos laborales.PDF", archivo: "/EstadosFinancieros/2.Estados Financieros 2° Trimestre 2025/7. Pasivos laborales.PDF" },
+            { id: "doc8", titulo: "Notas a los Edos. Financieros.PDF", archivo: "/EstadosFinancieros/2.Estados Financieros 2° Trimestre 2025/8. Notas a los Edos. Financieros.PDF" },
+            { id: "doc9", titulo: "Edo. Analítico del Activo.PDF", archivo: "/EstadosFinancieros/2.Estados Financieros 2° Trimestre 2025/9. Edo. Analítico del Activo.PDF" },
+            { id: "doc10", titulo: "Analítico de la Deuda y otros Pasivo.PDF", archivo: "/EstadosFinancieros/2.Estados Financieros 2° Trimestre 2025/10. Analítico de la Deuda y otros Pasivo.PDF" },
+            { id: "doc11", titulo: "Estado Analítico de Ingresos.PDF", archivo: "/EstadosFinancieros/2.Estados Financieros 2° Trimestre 2025/11. Estado Analítico de Ingresos.PDF" },
+            { id: "doc12", titulo: "Clasificación Administrativa.PDF", archivo: "/EstadosFinancieros/2.Estados Financieros 2° Trimestre 2025/12. Clasificación Administrativa.PDF" },
+            { id: "doc13", titulo: "Clasificación Económica.PDF", archivo: "/EstadosFinancieros/2.Estados Financieros 2° Trimestre 2025/13. Clasificación Económica.PDF" },
+            { id: "doc14", titulo: "Clasificación por objeto del Gasto.PDF", archivo: "/EstadosFinancieros/2.Estados Financieros 2° Trimestre 2025/14. Clasificación por objeto del Gasto.PDF" },
+            { id: "doc15", titulo: "Clasificación Funcional.PDF", archivo: "/EstadosFinancieros/2.Estados Financieros 2° Trimestre 2025/15. Clasificación Funcional.PDF" },
+            { id: "doc16", titulo: "Endeudamiento Neto.PDF", archivo: "/EstadosFinancieros/2.Estados Financieros 2° Trimestre 2025/16. Endeudamiento Neto.PDF" },
+            { id: "doc17", titulo: "Intereses de la deuda.PDF", archivo: "/EstadosFinancieros/2.Estados Financieros 2° Trimestre 2025/17. Intereses de la deuda.PDF" },
+            { id: "doc18", titulo: "Gasto por Categoría Programática.PDF", archivo: "/EstadosFinancieros/2.Estados Financieros 2° Trimestre 2025/18. Gasto por Categoría Programática.PDF" },
+            { id: "doc19", titulo: "Indicadores para resultados.PDF", archivo: "/EstadosFinancieros/2.Estados Financieros 2° Trimestre 2025/19. Indicadores para resultados.PDF" },
+            { id: "doc20", titulo: "Proyectos de inversión.PDF", archivo: "/EstadosFinancieros/2.Estados Financieros 2° Trimestre 2025/20. Proyectos de inversión.PDF" },
+            { id: "doc21", titulo: "Analítico del Ingreso Junio 2025.PDF", archivo: "/EstadosFinancieros/2.Estados Financieros 2° Trimestre 2025/21. Analítico del Ingreso Junio 2025.PDF" },
+            { id: "doc22", titulo: "Analítico de Egresos 2501_Junio 2025.PDF", archivo: "/EstadosFinancieros/2.Estados Financieros 2° Trimestre 2025/22. Analítico de Egresos 2501_Junio 2025.PDF" },
+            { id: "doc23", titulo: "Analítico de Egresos 2502_Junio 2025.PDF", archivo: "/EstadosFinancieros/2.Estados Financieros 2° Trimestre 2025/23. Analítico de Egresos 2502_Junio 2025.PDF" },
+            { id: "doc24", titulo: "Formatos de LDF 2do Trimestres.PDF", archivo: "/EstadosFinancieros/2.Estados Financieros 2° Trimestre 2025/24. Formatos de LDF 2do Trimestres.PDF" },
+            { id: "doc25", titulo: "Edo Analítico pto cap gasto.PDF", archivo: "/EstadosFinancieros/2.Estados Financieros 2° Trimestre 2025/25. Edo Analítico pto cap gasto.pdf" },
+            { id: "doc26", titulo: "Fuente de financiamiento.PDF", archivo: "/EstadosFinancieros/2.Estados Financieros 2° Trimestre 2025/26. Fuente de financiamiento.PDF" },
+            { id: "doc27", titulo: "Flujo de fondos_Jun.PDF", archivo: "/EstadosFinancieros/2.Estados Financieros 2° Trimestre 2025/27. Flujo de fondos_Jun.pdf" }
+            
+        ]
+    },
+    {
         id: "2024_T4",
         titulo: "4. Estados Financieros 4° Trimestre 2024",
         documentos: [
