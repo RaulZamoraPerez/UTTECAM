@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { Search, FileText, Download, Library } from "lucide-react"
 import { Secciones } from "./Secciones"
+import { Secciones2 } from "./Secciones2"
 
 interface Documento {
     id: string
@@ -102,6 +103,15 @@ export default function tablaDocumentosReutilizable2({ secciones, titulo, descri
     return (
       <div key={seccion.id}>
         <Secciones />
+      </div>
+    );
+  }
+
+  // Si es otra sección específica, renderiza Secciones2
+  if (seccion.titulo === "Convocatorias para Profesor de Asignatura SEP-DIC-2025") {
+    return (
+      <div key={seccion.id}>
+        <Secciones2 />
       </div>
     );
   }
