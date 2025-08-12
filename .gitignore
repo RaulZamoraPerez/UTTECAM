@@ -33,3 +33,6 @@ VIDEOS
 *.mov
 *.avi
 *.mkv
+
+# Variables de entorno
+.env

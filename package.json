@@ -10,8 +10,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emailjs/browser": "^4.4.1",
     "@headlessui/react": "^2.2.4",
     "@tailwindcss/vite": "^4.1.7",
+    "dotenv": "^16.5.0",
+    "env-var": "^7.5.0",
     "framer-motion": "^12.15.0",
     "lucide-react": "^0.511.0",
     "primeflex": "^4.0.0",
@@ -26,7 +29,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.25.0",
-    "@types/node": "^22.15.26",
+    "@types/node": "^22.15.33",
     "@types/react": "^19.1.2",
     "@types/react-dom": "^19.1.2",
     "@vitejs/plugin-react-swc": "^3.9.0",

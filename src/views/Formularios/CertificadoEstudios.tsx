@@ -1,4 +1,6 @@
-import React, { useState, type ChangeEvent, type FormEvent, } from 'react';
+import { useState, type ChangeEvent, type FormEvent } from 'react';
+import { enviarFormularioReact } from '@/util/sendEmailForms';
+import { useAlert } from '@/components/alerts/Formularios';
 import carreras from '@/util/carreras';
 import { 
   Clock, 
@@ -43,7 +45,8 @@ const CertificadoEstudios: React.FC = () => {
     referencia: ''
   });
 
-  
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { showAlert, AlertComponent } = useAlert();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value, type } = e.target;
@@ -65,28 +68,145 @@ const CertificadoEstudios: React.FC = () => {
     } else if (type === 'radio') {
       setFormData({ ...formData, [name]: value });
     } else {
-      setFormData({ ...formData, [name]: value });
+      // Aplicar validaciones específicas por campo
+      let validatedValue = value;
+
+      switch (name) {
+        case 'nombre':
+          // Solo letras, espacios y acentos
+          validatedValue = value.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ\s]/g, '');
+          break;
+        
+        case 'matricula':
+          // Solo números y máximo 10 dígitos
+          validatedValue = value.replace(/[^0-9]/g, '').slice(0, 10);
+          break;
+        
+        case 'telefono':
+          // Solo números y máximo 10 dígitos
+          validatedValue = value.replace(/[^0-9]/g, '').slice(0, 10);
+          break;
+        
+        case 'correo':
+          // Permitir caracteres válidos para email
+          validatedValue = value.replace(/[^a-zA-Z0-9@._-]/g, '');
+          break;
+        
+        default:
+          validatedValue = value;
+      }
+
+      setFormData({ ...formData, [name]: validatedValue });
     }
   };
 
-  const handleSubmit = (e: FormEvent) => {
+  // Función para validar email
+  const validateEmail = (email: string): boolean => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  // Función para validar matrícula (10 dígitos exactos)
+  const validateMatricula = (matricula: string): boolean => {
+    return matricula.length === 10 && /^\d{10}$/.test(matricula);
+  };
+
+  // Función para validar teléfono (10 dígitos exactos)
+  const validateTelefono = (telefono: string): boolean => {
+    return telefono.length === 10 && /^\d{10}$/.test(telefono);
+  };
+
+  // Función para validar nombre (solo letras y espacios)
+  const validateNombre = (nombre: string): boolean => {
+    return /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(nombre) && nombre.trim().length >= 3;
+  };
+
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    alert('Solicitud enviada correctamente');
-    setFormData({
-      nombre: '',
-      matricula: '',
-      correo: '',
-      telefono: '',
-      carrera: '',
-      nivel: '',
-      documentos: [],
-      entrega: '',
-      referencia: ''
-    });
+    
+    // Validar que todos los campos requeridos estén llenos
+    if (!formData.nombre || !formData.matricula || !formData.correo || !formData.telefono || 
+        !formData.carrera || !formData.nivel || !formData.entrega || !formData.referencia) {
+      showAlert('warning', '¡Campos incompletos!', 'Por favor, completa todos los campos requeridos antes de continuar.');
+      return;
+    }
+
+    // Validaciones específicas
+    if (!validateNombre(formData.nombre)) {
+      showAlert('error', 'Error en el nombre', 'El nombre debe contener solo letras y tener al menos 3 caracteres.');
+      return;
+    }
+
+    if (!validateMatricula(formData.matricula)) {
+      showAlert('error', 'Error en la matrícula', 'La matrícula debe tener exactamente 10 dígitos numéricos.');
+      return;
+    }
+
+    if (!validateEmail(formData.correo)) {
+      showAlert('error', 'Error en el correo', 'Por favor, ingresa un correo electrónico válido (ejemplo: nombre@dominio.com).');
+      return;
+    }
+
+    if (!validateTelefono(formData.telefono)) {
+      showAlert('error', 'Error en el teléfono', 'El teléfono debe tener exactamente 10 dígitos numéricos.');
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      // Preparar los datos para enviar
+      const datosEnvio = {
+        nombre: formData.nombre,
+        matricula: formData.matricula,
+        correo: formData.correo,
+        email_destination: 'mstrwalfe@gmail.com',
+        titulo: 'Solicitud de Certificado de Estudios',
+        telefono: formData.telefono,
+        carrera: formData.carrera,
+        nivel: formData.nivel,
+        entrega: formData.entrega,
+        numero_referencia: formData.referencia,
+        documentos: formData.documentos.join(', ') || 'No especificado',
+        fecha: new Date().toLocaleDateString('es-MX'),
+        hora: new Date().toLocaleTimeString('es-MX'),
+        tipo_solicitud: 'Certificado de Estudios'
+      };
+
+      console.log('Intentando enviar:', datosEnvio);
+
+      await enviarFormularioReact(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+        datosEnvio
+      );
+
+      showAlert('success', '¡Solicitud enviada exitosamente!', 'Tu solicitud ha sido procesada correctamente. Recuerda presentarte en Servicios Escolares con tus fotografías en un máximo de 5 días hábiles.');
+      
+      setFormData({
+        nombre: '',
+        matricula: '',
+        correo: '',
+        telefono: '',
+        carrera: '',
+        nivel: '',
+        documentos: [],
+        entrega: '',
+        referencia: ''
+      });
+    } catch (error) {
+      console.error('Error en handleSubmit:', error);
+      showAlert('error', 'Error al enviar la solicitud', 'Ocurrió un error al procesar tu solicitud. Por favor, verifica tu conexión a internet e inténtalo de nuevo.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-green-50 to-orange-50 py-8 px-4">
+      {/* Componente de alerta personalizada */}
+      <AlertComponent />
+      
       <div className="max-w-6xl mx-auto">
         {/* Encabezado */}
         <div className="text-center mb-10">
@@ -115,7 +235,7 @@ const CertificadoEstudios: React.FC = () => {
                   <Clock className="text-green-700 mr-2" size={20} />
                   <span className="font-semibold text-green-800">Tiempo de entrega</span>
                 </div>
-                <span className="bg-orange-100 text-orange-800 px-3 py-1 rounded-full font-bold">20 dias</span>
+                <span className="bg-orange-100 text-orange-800 px-3 py-1 rounded-full font-bold">20 días</span>
               </div>
               
               <div className="border-b border-green-200 mb-6">
@@ -228,7 +348,7 @@ const CertificadoEstudios: React.FC = () => {
           <div className="lg:w-1/2 bg-white rounded-xl shadow-lg border border-green-100 overflow-hidden">
             <div className="bg-gradient-to-r from-orange-500 to-orange-600 text-white py-4 px-6">
               <h2 className="text-xl font-bold">FORMULARIO</h2>
-              <p>Solicitud de Constancia de Estudios o Kardex</p>
+              <p>Solicitud de Certificado de Estudios</p>
             </div>
             
             <div className="p-1 bg-green-700">
@@ -237,16 +357,17 @@ const CertificadoEstudios: React.FC = () => {
               </p>
             </div>
             
-            <form onSubmit={handleSubmit} className="p-6">
+            <form onSubmit={handleSubmit} className="p-6" id='certificado'>
               <h3 className="text-lg font-bold text-green-800 mb-6 pb-2 border-b border-green-200 flex items-center">
                 <User className="mr-2 text-green-600" size={20} />
                 Datos del estudiante
               </h3>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5">
+                {/* Nombre */}
                 <div>
                   <label htmlFor="nombre" className="block text-sm font-medium text-gray-700 mb-1">
-                    Nombre:
+                    Nombre: <span className="text-red-500">*</span>
                   </label>
                   <div className="relative">
                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -258,16 +379,24 @@ const CertificadoEstudios: React.FC = () => {
                       name="nombre"
                       value={formData.nombre}
                       onChange={handleChange}
-                      className="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
-                      placeholder="Nombre completo"
+                      className={`pl-10 w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 ${
+                        formData.nombre && !validateNombre(formData.nombre) 
+                          ? 'border-red-500 bg-red-50' 
+                          : 'border-gray-300'
+                      }`}
+                      placeholder="Nombre completo (solo letras)"
                       required
                     />
                   </div>
+                  {formData.nombre && !validateNombre(formData.nombre) && (
+                    <p className="text-red-500 text-xs mt-1">Solo se permiten letras y espacios</p>
+                  )}
                 </div>
                 
+                {/* Matrícula */}
                 <div>
                   <label htmlFor="matricula" className="block text-sm font-medium text-gray-700 mb-1">
-                    Matrícula:
+                    Matrícula: <span className="text-red-500">*</span>
                   </label>
                   <div className="relative">
                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -279,16 +408,28 @@ const CertificadoEstudios: React.FC = () => {
                       name="matricula"
                       value={formData.matricula}
                       onChange={handleChange}
-                      className="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
-                      placeholder="Número de matrícula"
+                      className={`pl-10 w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 ${
+                        formData.matricula && !validateMatricula(formData.matricula) 
+                          ? 'border-red-500 bg-red-50' 
+                          : 'border-gray-300'
+                      }`}
+                      placeholder="1234567890 (10 dígitos)"
+                      maxLength={10}
                       required
                     />
                   </div>
+                  <p className="text-xs text-gray-500 mt-1">
+                    {formData.matricula.length}/10 dígitos
+                  </p>
+                  {formData.matricula && !validateMatricula(formData.matricula) && formData.matricula.length > 0 && (
+                    <p className="text-red-500 text-xs mt-1">La matrícula debe tener exactamente 10 dígitos</p>
+                  )}
                 </div>
                 
+                {/* Correo */}
                 <div>
                   <label htmlFor="correo" className="block text-sm font-medium text-gray-700 mb-1">
-                    Correo:
+                    Correo: <span className="text-red-500">*</span>
                   </label>
                   <div className="relative">
                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -300,16 +441,24 @@ const CertificadoEstudios: React.FC = () => {
                       name="correo"
                       value={formData.correo}
                       onChange={handleChange}
-                      className="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                      className={`pl-10 w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 ${
+                        formData.correo && !validateEmail(formData.correo) 
+                          ? 'border-red-500 bg-red-50' 
+                          : 'border-gray-300'
+                      }`}
                       placeholder="correo@institucional.edu.mx"
                       required
                     />
                   </div>
+                  {formData.correo && !validateEmail(formData.correo) && (
+                    <p className="text-red-500 text-xs mt-1">Ingresa un correo válido</p>
+                  )}
                 </div>
                 
+                {/* Teléfono */}
                 <div>
                   <label htmlFor="telefono" className="block text-sm font-medium text-gray-700 mb-1">
-                    Tel. de contacto:
+                    Tel. de contacto: <span className="text-red-500">*</span>
                   </label>
                   <div className="relative">
                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -321,17 +470,29 @@ const CertificadoEstudios: React.FC = () => {
                       name="telefono"
                       value={formData.telefono}
                       onChange={handleChange}
-                      className="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
-                      placeholder="(000) 000-0000"
+                      className={`pl-10 w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 ${
+                        formData.telefono && !validateTelefono(formData.telefono) 
+                          ? 'border-red-500 bg-red-50' 
+                          : 'border-gray-300'
+                      }`}
+                      placeholder="1234567890 (10 dígitos)"
+                      maxLength={10}
                       required
                     />
                   </div>
+                  <p className="text-xs text-gray-500 mt-1">
+                    {formData.telefono.length}/10 dígitos
+                  </p>
+                  {formData.telefono && !validateTelefono(formData.telefono) && formData.telefono.length > 0 && (
+                    <p className="text-red-500 text-xs mt-1">El teléfono debe tener exactamente 10 dígitos</p>
+                  )}
                 </div>
               </div>
               
+              {/* Carrera */}
               <div className="mb-5">
                 <label htmlFor="carrera" className="block text-sm font-medium text-gray-700 mb-1">
-                  Carrera:
+                  Carrera: <span className="text-red-500">*</span>
                 </label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -353,9 +514,10 @@ const CertificadoEstudios: React.FC = () => {
                 </div>
               </div>
               
+              {/* Nivel y Entrega */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5">
                 <div>
-                  <span className="block text-sm font-medium text-gray-700 mb-1">Nivel:</span>
+                  <span className="block text-sm font-medium text-gray-700 mb-1">Nivel: <span className="text-red-500">*</span></span>
                   <div className="flex space-x-4">
                     <label className="inline-flex items-center">
                       <input
@@ -384,7 +546,7 @@ const CertificadoEstudios: React.FC = () => {
                 </div>
                 
                 <div>
-                  <span className="block text-sm font-medium text-gray-700 mb-1">Entrega:</span>
+                  <span className="block text-sm font-medium text-gray-700 mb-1">Entrega: <span className="text-red-500">*</span></span>
                   <div className="flex space-x-4">
                     <label className="inline-flex items-center">
                       <input
@@ -413,10 +575,10 @@ const CertificadoEstudios: React.FC = () => {
                 </div>
               </div>
               
-              
+              {/* Número de Referencia */}
               <div className="mb-6">
                 <label htmlFor="referencia" className="block text-sm font-medium text-gray-700 mb-1">
-                  Número de Referencia:
+                  Número de Referencia: <span className="text-red-500">*</span>
                 </label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -445,10 +607,13 @@ const CertificadoEstudios: React.FC = () => {
               <div className="flex justify-center">
                 <button
                   type="submit"
-                  className="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-bold py-3 px-8 rounded-lg focus:outline-none focus:shadow-outline transition duration-300 flex items-center shadow-md"
+                  disabled={isSubmitting}
+                  className={`bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-bold py-3 px-8 rounded-lg focus:outline-none focus:shadow-outline transition duration-300 flex items-center shadow-md ${
+                    isSubmitting ? 'opacity-50 cursor-not-allowed' : ''
+                  }`}
                 >
                   <Send className="mr-2" size={18} />
-                  Enviar solicitud
+                  {isSubmitting ? 'Enviando...' : 'Enviar solicitud'}
                 </button>
               </div>
             </form>

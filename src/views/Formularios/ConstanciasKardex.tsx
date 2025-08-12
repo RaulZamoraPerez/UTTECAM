@@ -1,4 +1,6 @@
 import { useState, type ChangeEvent, type FormEvent } from "react";
+import { enviarFormularioReact } from '@/util/sendEmailForms';
+import { useAlert } from '@/components/alerts/Formularios';
 import carreras from "@/util/carreras";
 import {
   Clock,
@@ -16,8 +18,20 @@ import {
   FileArchive,
 } from "lucide-react";
 
+interface FormData {
+  nombre: string;
+  matricula: string;
+  correo: string;
+  telefono: string;
+  carrera: string;
+  nivel: 'TSU' | 'LIC' | '';
+  entrega: 'presencial' | 'electronico' | '';
+  referencia: string;
+  documentos: string[];
+}
+
 export default function ConstanciasKardex() {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     nombre: "",
     matricula: "",
     correo: "",
@@ -26,10 +40,11 @@ export default function ConstanciasKardex() {
     nivel: "",
     entrega: "",
     referencia: "",
-    documentos: [] as string[],
+    documentos: [],
   });
 
-  
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { showAlert, AlertComponent } = useAlert();
 
   const tramiteInfo = {
     titulo: "Solicitud de Constancia de Estudios o Kardex",
@@ -57,31 +72,168 @@ export default function ConstanciasKardex() {
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
   ) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    const { name, value, type } = e.target;
+    const target = e.target as HTMLInputElement;
+
+    if (type === 'checkbox') {
+      const documentos = [...formData.documentos];
+      if (target.checked) {
+        documentos.push(value);
+      } else {
+        const index = documentos.indexOf(value);
+        if (index > -1) {
+          documentos.splice(index, 1);
+        }
+      }
+      setFormData(prev => ({ ...prev, documentos }));
+    } else if (type === 'radio') {
+      setFormData(prev => ({ ...prev, [name]: value }));
+    } else {
+      // Aplicar validaciones específicas por campo
+      let validatedValue = value;
+
+      switch (name) {
+        case 'nombre':
+          // Solo letras, espacios y acentos
+          validatedValue = value.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ\s]/g, '');
+          break;
+        
+        case 'matricula':
+          // Solo números y máximo 10 dígitos
+          validatedValue = value.replace(/[^0-9]/g, '').slice(0, 10);
+          break;
+        
+        case 'telefono':
+          // Solo números y máximo 10 dígitos
+          validatedValue = value.replace(/[^0-9]/g, '').slice(0, 10);
+          break;
+        
+        case 'correo':
+          // Permitir caracteres válidos para email
+          validatedValue = value.replace(/[^a-zA-Z0-9@._-]/g, '');
+          break;
+        
+        default:
+          validatedValue = value;
+      }
+
+      setFormData(prev => ({ ...prev, [name]: validatedValue }));
+    }
   };
 
-  const handleSubmit = (e: FormEvent) => {
+  // Función para validar email
+  const validateEmail = (email: string): boolean => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  // Función para validar matrícula (10 dígitos exactos)
+  const validateMatricula = (matricula: string): boolean => {
+    return matricula.length === 8 && /^\d{8}$/.test(matricula);
+  };
+
+  // Función para validar teléfono (10 dígitos exactos)
+  const validateTelefono = (telefono: string): boolean => {
+    return telefono.length === 10 && /^\d{10}$/.test(telefono);
+  };
+
+  // Función para validar nombre (solo letras y espacios)
+  const validateNombre = (nombre: string): boolean => {
+    return /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(nombre) && nombre.trim().length >= 3;
+  };
+
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    alert("Solicitud enviada correctamente");
-    setFormData({
-      nombre: "",
-      matricula: "",
-      correo: "",
-      telefono: "",
-      carrera: "",
-      nivel: "",
-      entrega: "",
-      referencia: "",
-      documentos: [],
-    });
+    
+    // Validar que todos los campos requeridos estén llenos
+    if (!formData.nombre || !formData.matricula || !formData.correo || !formData.telefono || 
+        !formData.carrera || !formData.nivel || !formData.entrega || !formData.referencia) {
+      showAlert('warning', '¡Campos incompletos!', 'Por favor, completa todos los campos requeridos antes de continuar.');
+      return;
+    }
+
+    // Validaciones específicas
+    if (!validateNombre(formData.nombre)) {
+      showAlert('error', 'Error en el nombre', 'El nombre debe contener solo letras y tener al menos 3 caracteres.');
+      return;
+    }
+
+    if (!validateMatricula(formData.matricula)) {
+      showAlert('error', 'Error en la matrícula', 'La matrícula debe tener exactamente 8 dígitos numéricos.');
+      return;
+    }
+
+    if (!validateEmail(formData.correo)) {
+      showAlert('error', 'Error en el correo', 'Por favor, ingresa un correo electrónico válido (ejemplo: nombre@dominio.com).');
+      return;
+    }
+
+    if (!validateTelefono(formData.telefono)) {
+      showAlert('error', 'Error en el teléfono', 'El teléfono debe tener exactamente 10 dígitos numéricos.');
+      return;
+    }
+
+    // Validar que al menos un documento esté seleccionado
+    if (formData.documentos.length === 0) {
+      showAlert('warning', '¡Documentos no seleccionados!', 'Por favor, selecciona al menos un documento que deseas solicitar.');
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      // Preparar los datos para enviar
+      const datosEnvio = {
+        nombre: formData.nombre,
+        matricula: formData.matricula,
+        correo: formData.correo,
+        email_destination: 'js750565@gmail.com',
+        titulo: 'Solicitud de Constancia de Estudios o Kardex',
+        telefono: formData.telefono,
+        carrera: formData.carrera,
+        nivel: formData.nivel,
+        entrega: formData.entrega,
+        numero_referencia: formData.referencia,
+        documentos: formData.documentos.join(', '),
+        fecha: new Date().toLocaleDateString('es-MX'),
+        hora: new Date().toLocaleTimeString('es-MX'),
+        tipo_solicitud: 'Constancia de Estudios o Kardex'
+      };
+
+      console.log('Intentando enviar:', datosEnvio);
+
+      await enviarFormularioReact(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+        datosEnvio
+      );
+
+      showAlert('success', '¡Solicitud enviada exitosamente!', 'Tu solicitud ha sido procesada correctamente. Recibirás una confirmación por correo electrónico en breve.');
+      
+      setFormData({
+        nombre: "",
+        matricula: "",
+        correo: "",
+        telefono: "",
+        carrera: "",
+        nivel: "",
+        entrega: "",
+        referencia: "",
+        documentos: [],
+      });
+    } catch (error) {
+      console.error('Error en handleSubmit:', error);
+      showAlert('error', 'Error al enviar la solicitud', 'Ocurrió un error al procesar tu solicitud. Por favor, verifica tu conexión a internet e inténtalo de nuevo.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-yellow-50 to-green-50 py-8 px-4">
+      {/* Componente de alerta personalizada */}
+      <AlertComponent />
+      
       <div className="max-w-6xl mx-auto">
         {/* Encabezado */}
         <div className="text-center mb-10">
@@ -213,7 +365,7 @@ export default function ConstanciasKardex() {
                 {/* Nombre */}
                 <div>
                   <label htmlFor="nombre" className="block text-sm font-medium text-gray-700 mb-1">
-                    Nombre:
+                    Nombre: <span className="text-red-500">*</span>
                   </label>
                   <div className="relative">
                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -225,17 +377,24 @@ export default function ConstanciasKardex() {
                       name="nombre"
                       value={formData.nombre}
                       onChange={handleChange}
-                      className="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
-                      placeholder="Nombre completo"
+                      className={`pl-10 w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 ${
+                        formData.nombre && !validateNombre(formData.nombre) 
+                          ? 'border-red-500 bg-red-50' 
+                          : 'border-gray-300'
+                      }`}
+                      placeholder="Nombre completo (solo letras)"
                       required
                     />
                   </div>
+                  {formData.nombre && !validateNombre(formData.nombre) && (
+                    <p className="text-red-500 text-xs mt-1">Solo se permiten letras y espacios</p>
+                  )}
                 </div>
 
                 {/* Matrícula */}
                 <div>
                   <label htmlFor="matricula" className="block text-sm font-medium text-gray-700 mb-1">
-                    Matrícula:
+                    Matrícula: <span className="text-red-500">*</span>
                   </label>
                   <div className="relative">
                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -247,17 +406,28 @@ export default function ConstanciasKardex() {
                       name="matricula"
                       value={formData.matricula}
                       onChange={handleChange}
-                      className="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
-                      placeholder="Número de matrícula"
+                      className={`pl-10 w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 ${
+                        formData.matricula && !validateMatricula(formData.matricula) 
+                          ? 'border-red-500 bg-red-50' 
+                          : 'border-gray-300'
+                      }`}
+                      placeholder="1234567890 (10 dígitos)"
+                      maxLength={10}
                       required
                     />
                   </div>
+                  <p className="text-xs text-gray-500 mt-1">
+                    {formData.matricula.length}/10 dígitos
+                  </p>
+                  {formData.matricula && !validateMatricula(formData.matricula) && formData.matricula.length > 0 && (
+                    <p className="text-red-500 text-xs mt-1">La matrícula debe tener exactamente 10 dígitos</p>
+                  )}
                 </div>
 
                 {/* Correo */}
                 <div>
                   <label htmlFor="correo" className="block text-sm font-medium text-gray-700 mb-1">
-                    Correo:
+                    Correo: <span className="text-red-500">*</span>
                   </label>
                   <div className="relative">
                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -269,17 +439,24 @@ export default function ConstanciasKardex() {
                       name="correo"
                       value={formData.correo}
                       onChange={handleChange}
-                      className="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                      className={`pl-10 w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 ${
+                        formData.correo && !validateEmail(formData.correo) 
+                          ? 'border-red-500 bg-red-50' 
+                          : 'border-gray-300'
+                      }`}
                       placeholder="correo@institucional.edu.mx"
                       required
                     />
                   </div>
+                  {formData.correo && !validateEmail(formData.correo) && (
+                    <p className="text-red-500 text-xs mt-1">Ingresa un correo válido</p>
+                  )}
                 </div>
 
                 {/* Teléfono */}
                 <div>
                   <label htmlFor="telefono" className="block text-sm font-medium text-gray-700 mb-1">
-                    Tel. de contacto:
+                    Tel. de contacto: <span className="text-red-500">*</span>
                   </label>
                   <div className="relative">
                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -291,18 +468,29 @@ export default function ConstanciasKardex() {
                       name="telefono"
                       value={formData.telefono}
                       onChange={handleChange}
-                      className="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
-                      placeholder="(000) 000-0000"
+                      className={`pl-10 w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 ${
+                        formData.telefono && !validateTelefono(formData.telefono) 
+                          ? 'border-red-500 bg-red-50' 
+                          : 'border-gray-300'
+                      }`}
+                      placeholder="1234567890 (10 dígitos)"
+                      maxLength={10}
                       required
                     />
                   </div>
+                  <p className="text-xs text-gray-500 mt-1">
+                    {formData.telefono.length}/10 dígitos
+                  </p>
+                  {formData.telefono && !validateTelefono(formData.telefono) && formData.telefono.length > 0 && (
+                    <p className="text-red-500 text-xs mt-1">El teléfono debe tener exactamente 10 dígitos</p>
+                  )}
                 </div>
               </div>
 
               {/* Carrera */}
               <div className="mb-5">
                 <label htmlFor="carrera" className="block text-sm font-medium text-gray-700 mb-1">
-                  Carrera:
+                  Carrera: <span className="text-red-500">*</span>
                 </label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -329,7 +517,7 @@ export default function ConstanciasKardex() {
               {/* Nivel */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5">
                 <div>
-                  <span className="block text-sm font-medium text-gray-700 mb-1">Nivel:</span>
+                  <span className="block text-sm font-medium text-gray-700 mb-1">Nivel: <span className="text-red-500">*</span></span>
                   <div className="flex space-x-4">
                     <label className="inline-flex items-center">
                       <input
@@ -359,7 +547,7 @@ export default function ConstanciasKardex() {
 
                 {/* Entrega */}
                 <div>
-                  <span className="block text-sm font-medium text-gray-700 mb-1">Entrega:</span>
+                  <span className="block text-sm font-medium text-gray-700 mb-1">Entrega: <span className="text-red-500">*</span></span>
                   <div className="flex space-x-4">
                     <label className="inline-flex items-center">
                       <input
@@ -390,7 +578,7 @@ export default function ConstanciasKardex() {
 
               {/* Documento solicitado */}
               <div className="mb-5">
-                <span className="block text-sm font-medium text-gray-700 mb-1">Documento que solicita:</span>
+                <span className="block text-sm font-medium text-gray-700 mb-1">Documento que solicita: <span className="text-red-500">*</span></span>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                   {[
                     { value: "Constancia de Estudios", label: "Constancia de Estudios", icon: <FileText className="mr-2" size={16} /> },
@@ -403,16 +591,7 @@ export default function ConstanciasKardex() {
                         name="documentos"
                         value={option.value}
                         checked={formData.documentos.includes(option.value)}
-                        onChange={(e) => {
-                          const documentos = [...formData.documentos];
-                          if (e.target.checked) {
-                            documentos.push(e.target.value);
-                          } else {
-                            const index = documentos.indexOf(e.target.value);
-                            if (index > -1) documentos.splice(index, 1);
-                          }
-                          setFormData((prev) => ({ ...prev, documentos }));
-                        }}
+                        onChange={handleChange}
                         className="form-checkbox h-4 w-4 text-green-600 rounded"
                       />
                       <span className="ml-2 inline-flex items-center text-sm">
@@ -427,7 +606,7 @@ export default function ConstanciasKardex() {
               {/* Referencia */}
               <div className="mb-6">
                 <label htmlFor="referencia" className="block text-sm font-medium text-gray-700 mb-1">
-                  Número de Referencia:
+                  Número de Referencia: <span className="text-red-500">*</span>
                 </label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -456,10 +635,13 @@ export default function ConstanciasKardex() {
               <div className="flex justify-center">
                 <button
                   type="submit"
-                  className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-3 px-8 rounded-lg focus:outline-none focus:shadow-outline transition duration-300 flex items-center shadow-md"
+                  disabled={isSubmitting}
+                  className={`bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-3 px-8 rounded-lg focus:outline-none focus:shadow-outline transition duration-300 flex items-center shadow-md ${
+                    isSubmitting ? 'opacity-50 cursor-not-allowed' : ''
+                  }`}
                 >
                   <Send className="mr-2" size={18} />
-                  Enviar solicitud
+                  {isSubmitting ? 'Enviando...' : 'Enviar solicitud'}
                 </button>
               </div>
             </form>

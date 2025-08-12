@@ -1,4 +1,6 @@
 import { useState, type ChangeEvent, type FormEvent } from "react";
+import { enviarFormularioReact } from '@/util/sendEmailForms';
+import { useAlert } from '@/components/alerts/Formularios';
 import carreras from "@/util/carreras";
 import {
   Clock,
@@ -6,6 +8,10 @@ import {
   ClipboardList,
   FileText,
   User,
+  BookOpen,
+  Mail,
+  Phone,
+  GraduationCap,
   Send,
   ArrowRight,
 } from "lucide-react";
@@ -29,28 +35,144 @@ export default function CartaPasante() {
     referencia: "",
   });
 
-  
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { showAlert, AlertComponent } = useAlert();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    
+    // Aplicar validaciones específicas por campo
+    let validatedValue = value;
+
+    switch (name) {
+      case 'nombre':
+        // Solo letras, espacios y acentos
+        validatedValue = value.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ\s]/g, '');
+        break;
+      
+      case 'matricula':
+        // Solo números y máximo 10 dígitos
+        validatedValue = value.replace(/[^0-9]/g, '').slice(0, 10);
+        break;
+      
+      case 'telefono':
+        // Solo números y máximo 10 dígitos
+        validatedValue = value.replace(/[^0-9]/g, '').slice(0, 10);
+        break;
+      
+      case 'correo':
+        // Permitir caracteres válidos para email
+        validatedValue = value.replace(/[^a-zA-Z0-9@._-]/g, '');
+        break;
+      
+      default:
+        validatedValue = value;
+    }
+
+    setFormData((prev) => ({ ...prev, [name]: validatedValue }));
   };
 
-  const handleSubmit = (e: FormEvent) => {
+  // Función para validar email
+  const validateEmail = (email: string): boolean => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  // Función para validar matrícula (10 dígitos exactos)
+  const validateMatricula = (matricula: string): boolean => {
+    return matricula.length === 10 && /^\d{10}$/.test(matricula);
+  };
+
+  // Función para validar teléfono (10 dígitos exactos)
+  const validateTelefono = (telefono: string): boolean => {
+    return telefono.length === 10 && /^\d{10}$/.test(telefono);
+  };
+
+  // Función para validar nombre (solo letras y espacios)
+  const validateNombre = (nombre: string): boolean => {
+    return /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(nombre) && nombre.trim().length >= 3;
+  };
+
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    alert("Solicitud enviada correctamente");
-    setFormData({
-      nombre: "",
-      matricula: "",
-      correo: "",
-      telefono: "",
-      carrera: "",
-      referencia: "",
-    });
+    
+    // Validar que todos los campos requeridos estén llenos
+    if (!formData.nombre || !formData.matricula || !formData.correo || 
+        !formData.telefono || !formData.carrera || !formData.referencia) {
+      showAlert('warning', '¡Campos incompletos!', 'Por favor, completa todos los campos requeridos antes de continuar.');
+      return;
+    }
+
+    // Validaciones específicas
+    if (!validateNombre(formData.nombre)) {
+      showAlert('error', 'Error en el nombre', 'El nombre debe contener solo letras y tener al menos 3 caracteres.');
+      return;
+    }
+
+    if (!validateMatricula(formData.matricula)) {
+      showAlert('error', 'Error en la matrícula', 'La matrícula debe tener exactamente 10 dígitos numéricos.');
+      return;
+    }
+
+    if (!validateEmail(formData.correo)) {
+      showAlert('error', 'Error en el correo', 'Por favor, ingresa un correo electrónico válido (ejemplo: nombre@dominio.com).');
+      return;
+    }
+
+    if (!validateTelefono(formData.telefono)) {
+      showAlert('error', 'Error en el teléfono', 'El teléfono debe tener exactamente 10 dígitos numéricos.');
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      // Preparar los datos para enviar
+      const datosEnvio = {
+        nombre: formData.nombre,
+        matricula: formData.matricula,
+        correo: formData.correo,
+        email_destination: 'js750565@gmail.com',
+        titulo: 'Solicitud de Carta Pasante',
+        telefono: formData.telefono,
+        carrera: formData.carrera,
+        numero_referencia: formData.referencia,
+        fecha: new Date().toLocaleDateString('es-MX'),
+        hora: new Date().toLocaleTimeString('es-MX'),
+        tipo_solicitud: 'Carta Pasante'
+      };
+
+      console.log('Intentando enviar:', datosEnvio);
+
+      await enviarFormularioReact(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+        datosEnvio
+      );
+
+      showAlert('success', '¡Solicitud enviada exitosamente!', 'Tu solicitud ha sido procesada correctamente. Recuerda presentarte en Servicios Escolares con tus fotografías en un máximo de 5 días hábiles.');
+      
+      setFormData({
+        nombre: "",
+        matricula: "",
+        correo: "",
+        telefono: "",
+        carrera: "",
+        referencia: "",
+      });
+    } catch (error) {
+      console.error('Error en handleSubmit:', error);
+      showAlert('error', 'Error al enviar la solicitud', 'Ocurrió un error al procesar tu solicitud. Por favor, verifica tu conexión a internet e inténtalo de nuevo.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-yellow-50 py-8 px-4">
+      {/* Componente de alerta personalizada */}
+      <AlertComponent />
+      
       <div className="max-w-6xl mx-auto">
         {/* Encabezado */}
         <div className="text-center mb-10">
@@ -179,109 +301,175 @@ export default function CartaPasante() {
                 {/* Nombre */}
                 <div>
                   <label htmlFor="nombre" className="block text-sm font-medium text-gray-700 mb-1">
-                    Nombre:
+                    Nombre: <span className="text-red-500">*</span>
                   </label>
-                  <input
-                    type="text"
-                    id="nombre"
-                    name="nombre"
-                    value={formData.nombre}
-                    onChange={handleChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                    placeholder="Nombre completo"
-                    required
-                  />
+                  <div className="relative">
+                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                      <User className="text-blue-600" size={16} />
+                    </div>
+                    <input
+                      type="text"
+                      id="nombre"
+                      name="nombre"
+                      value={formData.nombre}
+                      onChange={handleChange}
+                      className={`pl-10 w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
+                        formData.nombre && !validateNombre(formData.nombre) 
+                          ? 'border-red-500 bg-red-50' 
+                          : 'border-gray-300'
+                      }`}
+                      placeholder="Nombre completo (solo letras)"
+                      required
+                    />
+                  </div>
+                  {formData.nombre && !validateNombre(formData.nombre) && (
+                    <p className="text-red-500 text-xs mt-1">Solo se permiten letras y espacios</p>
+                  )}
                 </div>
 
                 {/* Matrícula */}
                 <div>
                   <label htmlFor="matricula" className="block text-sm font-medium text-gray-700 mb-1">
-                    Matrícula:
+                    Matrícula: <span className="text-red-500">*</span>
                   </label>
-                  <input
-                    type="text"
-                    id="matricula"
-                    name="matricula"
-                    value={formData.matricula}
-                    onChange={handleChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                    placeholder="Número de matrícula"
-                    required
-                  />
+                  <div className="relative">
+                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                      <BookOpen className="text-blue-600" size={16} />
+                    </div>
+                    <input
+                      type="text"
+                      id="matricula"
+                      name="matricula"
+                      value={formData.matricula}
+                      onChange={handleChange}
+                      className={`pl-10 w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
+                        formData.matricula && !validateMatricula(formData.matricula) 
+                          ? 'border-red-500 bg-red-50' 
+                          : 'border-gray-300'
+                      }`}
+                      placeholder="1234567890 (10 dígitos)"
+                      maxLength={10}
+                      required
+                    />
+                  </div>
+                  <p className="text-xs text-gray-500 mt-1">
+                    {formData.matricula.length}/10 dígitos
+                  </p>
+                  {formData.matricula && !validateMatricula(formData.matricula) && formData.matricula.length > 0 && (
+                    <p className="text-red-500 text-xs mt-1">La matrícula debe tener exactamente 10 dígitos</p>
+                  )}
                 </div>
 
                 {/* Correo */}
                 <div>
                   <label htmlFor="correo" className="block text-sm font-medium text-gray-700 mb-1">
-                    Correo:
+                    Correo: <span className="text-red-500">*</span>
                   </label>
-                  <input
-                    type="email"
-                    id="correo"
-                    name="correo"
-                    value={formData.correo}
-                    onChange={handleChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                    placeholder="correo@institucional.edu.mx"
-                    required
-                  />
+                  <div className="relative">
+                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                      <Mail className="text-blue-600" size={16} />
+                    </div>
+                    <input
+                      type="email"
+                      id="correo"
+                      name="correo"
+                      value={formData.correo}
+                      onChange={handleChange}
+                      className={`pl-10 w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
+                        formData.correo && !validateEmail(formData.correo) 
+                          ? 'border-red-500 bg-red-50' 
+                          : 'border-gray-300'
+                      }`}
+                      placeholder="correo@institucional.edu.mx"
+                      required
+                    />
+                  </div>
+                  {formData.correo && !validateEmail(formData.correo) && (
+                    <p className="text-red-500 text-xs mt-1">Ingresa un correo válido</p>
+                  )}
                 </div>
 
                 {/* Teléfono */}
                 <div>
                   <label htmlFor="telefono" className="block text-sm font-medium text-gray-700 mb-1">
-                    Tel. de contacto:
+                    Tel. de contacto: <span className="text-red-500">*</span>
                   </label>
-                  <input
-                    type="tel"
-                    id="telefono"
-                    name="telefono"
-                    value={formData.telefono}
-                    onChange={handleChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                    placeholder="(000) 000-0000"
-                    required
-                  />
+                  <div className="relative">
+                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                      <Phone className="text-blue-600" size={16} />
+                    </div>
+                    <input
+                      type="tel"
+                      id="telefono"
+                      name="telefono"
+                      value={formData.telefono}
+                      onChange={handleChange}
+                      className={`pl-10 w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
+                        formData.telefono && !validateTelefono(formData.telefono) 
+                          ? 'border-red-500 bg-red-50' 
+                          : 'border-gray-300'
+                      }`}
+                      placeholder="1234567890 (10 dígitos)"
+                      maxLength={10}
+                      required
+                    />
+                  </div>
+                  <p className="text-xs text-gray-500 mt-1">
+                    {formData.telefono.length}/10 dígitos
+                  </p>
+                  {formData.telefono && !validateTelefono(formData.telefono) && formData.telefono.length > 0 && (
+                    <p className="text-red-500 text-xs mt-1">El teléfono debe tener exactamente 10 dígitos</p>
+                  )}
                 </div>
               </div>
 
               {/* Carrera */}
               <div className="mb-5">
                 <label htmlFor="carrera" className="block text-sm font-medium text-gray-700 mb-1">
-                  Carrera:
+                  Carrera: <span className="text-red-500">*</span>
                 </label>
-                <select
-                  id="carrera"
-                  name="carrera"
-                  value={formData.carrera}
-                  onChange={handleChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                  required
-                >
-                  <option value="">Selecciona tu carrera</option>
-                  {carreras.map((carrera, index) => (
-                    <option key={index} value={carrera}>
-                      {carrera}
-                    </option>
-                  ))}
-                </select>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <GraduationCap className="text-blue-600" size={16} />
+                  </div>
+                  <select
+                    id="carrera"
+                    name="carrera"
+                    value={formData.carrera}
+                    onChange={handleChange}
+                    className="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    required
+                  >
+                    <option value="">Selecciona tu carrera</option>
+                    {carreras.map((carrera, index) => (
+                      <option key={index} value={carrera}>
+                        {carrera}
+                      </option>
+                    ))}
+                  </select>
+                </div>
               </div>
 
               {/* Referencia */}
               <div className="mb-6">
                 <label htmlFor="referencia" className="block text-sm font-medium text-gray-700 mb-1">
-                  Número de Referencia:
+                  Número de Referencia: <span className="text-red-500">*</span>
                 </label>
-                <input
-                  type="text"
-                  id="referencia"
-                  name="referencia"
-                  value={formData.referencia}
-                  onChange={handleChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                  placeholder="Número de referencia"
-                  required
-                />
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <FileText className="text-blue-600" size={16} />
+                  </div>
+                  <input
+                    type="text"
+                    id="referencia"
+                    name="referencia"
+                    value={formData.referencia}
+                    onChange={handleChange}
+                    className="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    placeholder="Número de referencia"
+                    required
+                  />
+                </div>
               </div>
 
               <div className="bg-blue-50 border-l-4 border-blue-500 p-4 mb-6 rounded-lg">
@@ -294,10 +482,13 @@ export default function CartaPasante() {
               <div className="flex justify-center">
                 <button
                   type="submit"
-                  className="bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-600 hover:to-yellow-700 text-white font-bold py-3 px-8 rounded-lg focus:outline-none focus:shadow-outline transition duration-300 flex items-center shadow-md"
+                  disabled={isSubmitting}
+                  className={`bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-600 hover:to-yellow-700 text-white font-bold py-3 px-8 rounded-lg focus:outline-none focus:shadow-outline transition duration-300 flex items-center shadow-md ${
+                    isSubmitting ? 'opacity-50 cursor-not-allowed' : ''
+                  }`}
                 >
                   <Send className="mr-2" size={18} />
-                  Enviar solicitud
+                  {isSubmitting ? 'Enviando...' : 'Enviar solicitud'}
                 </button>
               </div>
             </form>
