@@ -3,6 +3,7 @@ import { Suspense, lazy } from "react";
 import { AppLayout } from "@/layouts/AppLayout";
 import { Page_404 } from "@/components/404";
 import LoaderSuspense from "./components/Loader/LoaderSuspense";
+import InformacionEstadistica from "./views/InformacionEstadistica/InformacionEstadistica";
 
 // Lazy imports de vistas
 const Home = lazy(() => import("@/views/Inicial/Home"));
@@ -64,6 +65,7 @@ export default function Router() {
             <Route path="/portal-estudiantes" element={<MiEscuela />} />
             <Route path="/becas-academicas" element={<Becas />} />
             <Route path="/Becas" element={<Calendario />} />
+            <Route path="/InformacionEstadistica" element={<InformacionEstadistica />} />
             <Route path="/Organigrama" element={<Organigrama />} />
             <Route path="/promocion-institucional" element={<PromocioIntitucional />} />
             <Route path="/ver-documento-promocion/:title" element={<PdfPromocionInstitucional />} />

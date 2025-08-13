@@ -90,6 +90,11 @@ export default function Footer() {
                                     <ChevronRight /> Recursos Humanos
                                 </a>
                             </li>
+                            <li className="mb-8">
+                                <a href="/InformacionEstadistica" className="text-[#0A9782] hover:text-[#D1672A] text-base font-semibold flex items-center transition-colors duration-200">
+                                    <ChevronRight /> Información y Estadística
+                                </a>
+                            </li>
                         </ul>
                     </div>
 
