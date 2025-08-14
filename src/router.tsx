@@ -37,7 +37,7 @@ const Organigrama = lazy(() => import("@/views/Directorios/Organigrama"));
 export default function Router() {
   return (
     <BrowserRouter basename="/">
-      <Suspense fallback={<LoaderSuspense/>}>
+      <Suspense fallback={<LoaderSuspense />}>
         <Routes>
           <Route element={<AppLayout />}>
             <Route index element={<Home />} />
@@ -59,7 +59,7 @@ export default function Router() {
             <Route path="/proceso-admision" element={<ConvocatoriaAdmision />} />
             <Route path="/serviciosEscolares" element={<ServiciosEscolares />} />
             <Route path="/MiembrosSnii" element={<MiembrosSnii />} />
-            <Route path="/CafeCientifico" element={<CafeCientifico />} />
+            <Route path="/seminario-cafe-cientifico" element={<CafeCientifico />} />
             <Route path="/ServiciosTecnologicos" element={<ServiciosTecnologicos />} />
             <Route path="/Coordinacion" element={<Coordinacion />} />
             <Route path="/portal-estudiantes" element={<MiEscuela />} />
@@ -71,7 +71,7 @@ export default function Router() {
             <Route path="/ver-documento-promocion/:title" element={<PdfPromocionInstitucional />} />
           </Route>
           <Route path="*" element={<Page_404 />} />
-     
+
         </Routes>
       </Suspense>
     </BrowserRouter>

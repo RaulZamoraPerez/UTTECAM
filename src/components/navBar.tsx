@@ -118,11 +118,10 @@ export default function Navbar() {
         },
         {
           label: "Servicios Tecnológicos",
-          href: "/ServiciosTecnologicos",
           submenu: [
             {
               label: "Catálogo de servicios tecnológicosón",
-              href: "/laboratorio-innovacion",
+              href: "/ServiciosTecnologicos",
             },
             {
               label: "Servicios tecnológicos realizados ",
@@ -157,7 +156,7 @@ export default function Navbar() {
           label: "Repositorio digital de productos de investigación",
           href: "/vinculacion",
         },
-        { label: "Seminario café científico", href: "/CafeCientifico" },
+        { label: "Seminario café científico", href: "/seminario-cafe-cientifico" },
       ],
     },
     {
