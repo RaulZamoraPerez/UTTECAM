@@ -70,11 +70,11 @@ export default function Navbar() {
       ],
     },
     {
-      label: "Admisión",
+      label: "Servicios escolares",
       href: "/admision",
       submenu: [
         { label: "Proceso de admisión", href: "/proceso-admision" },
-        { label: "Servicios escolares", href: "/serviciosEscolares" },
+        { label: "Trámites", href: "/serviciosEscolares" },
         {
           label: "Requisitos",
           href: "/requisitos",
