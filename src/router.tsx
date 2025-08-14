@@ -30,7 +30,7 @@ const Coordinacion = lazy(() => import("@/views/COORDINACIÓN DE GÉNERO/Coordin
 const MiEscuela = lazy(() => import("@/views/MiEscuela/MiEscuela"));
 const Nosotros = lazy(() => import("@/views/Nosotros/Nosotros"));
 const ConvocatoriaAdmision = lazy(() => import("@/views/Convocatoria/ConvocatoriaAdmision"));
-const ServiciosEscolares = lazy(() => import("@/views/ServiciosEscolares/ServiciosEscolares"));
+const Tramites = lazy(() => import("@/views/Tramites/Tramites"));
 const Becas = lazy(() => import("@/views/Becas2/Becas"));
 const Organigrama = lazy(() => import("@/views/Directorios/Organigrama"));
 
@@ -57,7 +57,7 @@ export default function Router() {
             <Route path="/ver-documento-gaceta/:title" element={<PdfGaceta />} />
             <Route path="/nosotros" element={<Nosotros />} />
             <Route path="/proceso-admision" element={<ConvocatoriaAdmision />} />
-            <Route path="/serviciosEscolares" element={<ServiciosEscolares />} />
+            <Route path="/tramites" element={<Tramites />} />
             <Route path="/MiembrosSnii" element={<MiembrosSnii />} />
             <Route path="/seminario-cafe-cientifico" element={<CafeCientifico />} />
             <Route path="/ServiciosTecnologicos" element={<ServiciosTecnologicos />} />

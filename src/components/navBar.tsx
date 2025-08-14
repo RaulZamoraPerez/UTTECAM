@@ -76,13 +76,7 @@ export default function Navbar() {
         { label: "Proceso de admisión", href: "/proceso-admision" },
         {
           label: "Trámites",
-          href: "/serviciosEscolares",
-          submenu: [
-            {
-              label: "Reinscripción a Ingeniería/Licenciatura (7º cuatrimestre)",
-              href: "/reinscripcion-ingenieria-licenciatura"
-            }
-          ]
+          href: "/tramites"
         },
         {
           label: "Convocatoria a trámite de título profesional",
@@ -98,13 +92,13 @@ export default function Navbar() {
           ],
         },
         {
-          label: "Requisitos",
-          href: "/requisitos",
-        },
-        {
           label: "Becas y apoyos",
           href: "/becas-apoyos",
           submenu: [{ label: "Becas académicas", href: "/becas-academicas" }],
+        },
+        {
+          label: "Biblioteca digital",
+          href: "https://elibro.net/es/lc/uttecam/login_usuario/?next=/es/lc/uttecam/inicio/",
         },
       ],
     },
@@ -227,11 +221,7 @@ export default function Navbar() {
           href: "/programa-institucional-tutorias",
         },
 
-        { label: "Portal administrativo", href: "/portal-administrativo" },
-        {
-          label: "Biblioteca digital",
-          href: "https://elibro.net/es/lc/uttecam/login_usuario/?next=/es/lc/uttecam/inicio/",
-        },
+        { label: "Portal administrativo", href: "/portal-administrativo" }
       ],
     },
   ];
