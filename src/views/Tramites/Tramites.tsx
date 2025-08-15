@@ -17,7 +17,7 @@ export default function ServiciosEscolares() {
       active: false,
     },
     {
-      title: "Reinscripción",
+      title: "Reinscripción a Ingeniería/Licenciatura (7º cuatrimestre)",
       description: "Actualización de datos y continuidad de estudios.",
       icon: <RefreshCcw />,
       active: false,
@@ -149,7 +149,7 @@ export default function ServiciosEscolares() {
         </div>
 
         {/* Modal flotante para las subcards de Reinscripción */}
-        {activeService && activeService.title === "Reinscripción" && (
+        {activeService && activeService.title === "Reinscripción a Ingeniería/Licenciatura (7º cuatrimestre)" && (
           <div className="fixed inset-0 flex items-center justify-center z-50 p-4">
             <div className="bg-amber-50/95 backdrop-blur-sm rounded-2xl shadow-2xl border border-amber-200 max-w-5xl w-full max-h-[90vh] overflow-y-auto relative">
               {/* Botón de cerrar */}
