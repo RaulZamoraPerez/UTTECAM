@@ -243,7 +243,7 @@ export default function Navbar() {
       scale: 1,
       transition: {
         duration: 0.25,
-        ease: "easeOut",
+        ease: [0.04, 0.62, 0.23, 0.98],
       },
     },
     exit: {
@@ -252,7 +252,7 @@ export default function Navbar() {
       scale: 0.95,
       transition: {
         duration: 0.2,
-        ease: "easeIn",
+        ease: [0.4, 0, 0.6, 1],
       },
     },
   };
@@ -269,7 +269,7 @@ export default function Navbar() {
       scale: 1,
       transition: {
         duration: 0.25,
-        ease: "easeOut",
+        ease: [0.04, 0.62, 0.23, 0.98],
       },
     },
     exit: {
@@ -278,7 +278,7 @@ export default function Navbar() {
       scale: 0.95,
       transition: {
         duration: 0.2,
-        ease: "easeIn",
+        ease: [0.4, 0, 0.6, 1],
       },
     },
   };
