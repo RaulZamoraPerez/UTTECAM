@@ -80,16 +80,7 @@ export default function Navbar() {
         },
         {
           label: "Convocatoria a trámite de título profesional",
-          submenu: [
-            {
-              label: "CONVOCATORIA A TRÁMITE DE TÍTULO PROFESIONAL. Egresados de 11º cuatrimestre",
-              href: "/Convocatoria%20a%20tr%C3%A1mite%20de%20t%C3%ADtulo%20profesional/2%20Convocatoria%20LIC%202025%2011o%20cuatrimestre.pdf",
-            },
-            {
-              label: "CONVOCATORIA A TRÁMITE DE TÍTULO PROFESIONAL. Egresados de 6º cuatrimestre",
-              href: "/Convocatoria%20a%20tr%C3%A1mite%20de%20t%C3%ADtulo%20profesional/Convocatoria%20TSU%202025%206o%20cuatrimestre.pdf",
-            },
-          ],
+          href: "/convocatoria-titulo"
         },
         {
           label: "Becas y apoyos",
