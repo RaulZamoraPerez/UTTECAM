@@ -1,5 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Suspense, lazy } from "react";
+const ConvocatoriaTitulo = lazy(() => import("@/views/Convocatoria/ConvocatoriaTitulo"));
+const PdfConvocatoriaTitulo = lazy(() => import("@/views/Convocatoria/PdfConvocatoriaTitulo"));
 import { AppLayout } from "@/layouts/AppLayout";
 import { Page_404 } from "@/components/404";
 import LoaderSuspense from "./components/Loader/LoaderSuspense";
@@ -58,6 +60,8 @@ export default function Router() {
             <Route path="/nosotros" element={<Nosotros />} />
             <Route path="/proceso-admision" element={<ConvocatoriaAdmision />} />
             <Route path="/tramites" element={<Tramites />} />
+            <Route path="/convocatoria-titulo" element={<ConvocatoriaTitulo />} />
+            <Route path="/ver-documento-CONVOCATORIA-TITULO/:title" element={<PdfConvocatoriaTitulo />} />
             <Route path="/MiembrosSnii" element={<MiembrosSnii />} />
             <Route path="/seminario-cafe-cientifico" element={<CafeCientifico />} />
             <Route path="/ServiciosTecnologicos" element={<ServiciosTecnologicos />} />
