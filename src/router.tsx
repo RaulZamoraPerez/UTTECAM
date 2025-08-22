@@ -59,7 +59,7 @@ export default function Router() {
             <Route path="/ver-documento-gaceta/:title" element={<PdfGaceta />} />
             <Route path="/nosotros" element={<Nosotros />} />
             <Route path="/proceso-admision" element={<ConvocatoriaAdmision />} />
-            <Route path="/tramites" element={<Tramites />} />
+            <Route path="/tramites-escolares" element={<Tramites />} />
             <Route path="/convocatoria-titulo" element={<ConvocatoriaTitulo />} />
             <Route path="/ver-documento-CONVOCATORIA-TITULO/:title" element={<PdfConvocatoriaTitulo />} />
             <Route path="/MiembrosSnii" element={<MiembrosSnii />} />

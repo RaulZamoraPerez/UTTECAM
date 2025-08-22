@@ -76,7 +76,7 @@ export default function Navbar() {
         { label: "Proceso de admisión", href: "/proceso-admision" },
         {
           label: "Trámites",
-          href: "/tramites"
+          href: "/tramites-escolares"
         },
         {
           label: "Convocatoria a trámite de título profesional",
