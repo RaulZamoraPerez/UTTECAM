@@ -84,7 +84,7 @@ const DecorativeBorder = () => (
 )
 
 const Countdown: React.FC = () => {
- const targetDate = new Date(2025, 8, 6, 0, 0, 0) // 6 de septiembre de 2025 (mes 8 porque enero = 0)
+ const targetDate = new Date(2026, 8, 6, 0, 0, 0) // 6 de septiembre de 2026 (mes 8 porque enero = 0)
 
   const calculateTimeLeft = () => {
     const now = new Date()
@@ -144,10 +144,10 @@ const Countdown: React.FC = () => {
 
             <div className="relative mb-8">
               <h2 className="font-serif text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-yellow-400 to-amber-200 text-4xl md:text-5xl lg:text-6xl font-bold mb-2">
-                29° Aniversario UTTECAM
+                30° Aniversario UTTECAM
               </h2>
               <p className="text-amber-300 text-lg md:text-xl font-medium">
-                6 de septiembre 2025
+                6 de septiembre 2026
               </p>
               <div className="absolute -inset-1 -z-10 blur-md bg-gradient-to-r from-amber-600/20 via-yellow-400/20 to-amber-600/20 opacity-70"></div>
             </div>

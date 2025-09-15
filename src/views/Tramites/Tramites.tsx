@@ -8,7 +8,7 @@ interface ServicioExtendido extends ServicioCardProps {
   active: boolean;
 }
 
-export default function ServiciosEscolares() {
+export default function Tramites() {
   const [servicios, setServicios] = useState<ServicioExtendido[]>([
     {
       title: "Inscripción",
