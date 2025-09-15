@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import type { Variants } from "framer-motion";
 import { ChevronDown, ChevronRight, Menu, X } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -76,7 +77,7 @@ export default function Navbar() {
         { label: "Proceso de admisión", href: "/proceso-admision" },
         {
           label: "Trámites",
-          href: "/tramites"
+          href: "/tramites-escolares"
         },
         {
           label: "Convocatoria a trámite de título profesional",
@@ -206,7 +207,8 @@ export default function Navbar() {
       label: "Accesos",
       href: "/accesos",
       submenu: [
-        { label: "Portal estudiantes", href: "/portal-estudiantes" },
+        { label: "Portal estudiantes Mi Escuela", href: "/portal-estudiantes" },
+        {label: "Moodle UTTECAM", href:"http://187.217.125.213/server/moodle/"},
         {
           label: "PIT - Programa Institucional de Tutorías/Portal docentes",
           href: "/programa-institucional-tutorias",
@@ -231,7 +233,7 @@ export default function Navbar() {
     }
   }, [hoveredSubItem]);
 
-  const dropdownVariants = {
+  const dropdownVariants: Variants = {
     hidden: {
       opacity: 0,
       y: -15,
@@ -243,7 +245,7 @@ export default function Navbar() {
       scale: 1,
       transition: {
         duration: 0.25,
-        ease: "easeOut",
+        ease: [0.04, 0.62, 0.23, 0.98] as [number, number, number, number],
       },
     },
     exit: {
@@ -252,12 +254,12 @@ export default function Navbar() {
       scale: 0.95,
       transition: {
         duration: 0.2,
-        ease: "easeIn",
+        ease: [0.4, 0, 0.6, 1] as [number, number, number, number],
       },
     },
   };
 
-  const subDropdownVariants = {
+  const subDropdownVariants: Variants = {
     hidden: {
       opacity: 0,
       x: subMenuDirection === "right" ? -15 : 15,
@@ -269,7 +271,7 @@ export default function Navbar() {
       scale: 1,
       transition: {
         duration: 0.25,
-        ease: "easeOut",
+        ease: [0.04, 0.62, 0.23, 0.98] as [number, number, number, number],
       },
     },
     exit: {
@@ -278,7 +280,7 @@ export default function Navbar() {
       scale: 0.95,
       transition: {
         duration: 0.2,
-        ease: "easeIn",
+        ease: [0.4, 0, 0.6, 1] as [number, number, number, number],
       },
     },
   };
