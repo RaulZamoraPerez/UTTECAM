@@ -35,21 +35,21 @@ export const Card = ({ node }: Props) => {
 
   return (
     <div
-      className="relative mt-10"
+      className="relative mt-4"
       onMouseEnter={() => setShowTooltip(true)}
       onMouseLeave={() => setShowTooltip(false)}
     >
       {/* Card */}
-      <div className="bg-gray-50 border hover:scale-105  border-gray-300 rounded-xl p-5 w-44 text-center hover:shadow-md transition-shadow duration-200">
+      <div className="bg-gradient-to-b from-white via-gray-50 to-white rounded-xl p-5 w-52 text-center hover:shadow-2xl transition-all duration-500 hover:scale-105 hover:-translate-y-1 shadow-lg">
         <img
           alt={name}
           src={image}
-          className="mx-auto mb-4 w-16 h-16 rounded-full object-cover border-2 border-[#0A9782]"
+          className="mx-auto mb-4 w-24 h-28 rounded-lg object-cover shadow-md hover:shadow-lg transition-shadow duration-300"
         />
-        <div className="text-sm font-semibold text-gray-900 capitalize">
+        <div className="text-sm font-bold text-gray-900 capitalize leading-tight mb-1">
           {name}
         </div>
-        <div className="mt-1 text-xs font-medium text-[#0A9782] tracking-wide capitalize">
+        <div className="text-xs font-medium text-gray-700 tracking-wide capitalize bg-gray-100 px-3 py-1 rounded-full">
           {title?.toLowerCase()}
         </div>
       </div>
@@ -57,16 +57,16 @@ export const Card = ({ node }: Props) => {
       {showTooltip && (
         <div
           className="absolute bottom-full mb-3 left-1/2 transform -translate-x-1/2 
-                  bg-white text-sm text-gray-800 shadow-xl rounded-xl px-4 py-3 z-20 
-                  w-72 max-w-xs transition-all duration-300 border border-gray-200"
+                  bg-white text-sm shadow-xl rounded-xl px-4 py-3 z-20 
+                  w-72 max-w-xs transition-all duration-300"
         >
-          <div className="mb-1 font-semibold text-base text-indigo-600">
+          <div className="mb-1 font-bold text-sm text-gray-900 capitalize leading-tight">
             {name}
           </div>
           {title && (
-            <div className="mb-2 text-sm text-gray-500 italic ">
+            <div className="mb-2 text-xs font-medium text-gray-700 tracking-wide capitalize">
               <strong>Cargo:</strong>{" "}
-              <p className="capitalize">{title.toLowerCase()}</p>
+              <span className="capitalize">{title.toLowerCase()}</span>
             </div>
           )}
           {text && (
