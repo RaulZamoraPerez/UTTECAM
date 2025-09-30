@@ -1,0 +1,201 @@
+import { motion } from 'framer-motion';
+import { 
+  Palette, 
+  Calendar, 
+  Clock, 
+  MapPin, 
+  Users, 
+  Phone, 
+  Mail,
+  Download,
+  Info
+} from 'lucide-react';
+
+const TalleresCulturales = () => {
+  const handleDownloadPDF = () => {
+    // Crear un enlace temporal para descargar la imagen como PDF
+    const link = document.createElement('a');
+    link.href = '/Actividades_Culturales_Deport/culturales.JPG';
+    link.download = 'Catalogo_Talleres_Culturales_UTTECAM.jpg';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-orange-50">
+      {/* Header Section */}
+      <section className="py-12 md:py-20 px-4 md:px-6">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-8 md:mb-16">
+            <motion.h1 
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 via-pink-600 to-orange-600 mb-4 md:mb-6 leading-tight"
+            >
+              Talleres Culturales
+            </motion.h1>
+            <div className="h-1 w-20 md:w-32 mx-auto mb-6 md:mb-8 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full"></div>
+            <motion.p 
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-700 max-w-4xl mx-auto leading-relaxed px-4"
+            >
+              Desarrolla tu creatividad y talento artístico en nuestros talleres especializados
+            </motion.p>
+          </div>
+        </div>
+      </section>
+
+      {/* Imagen Principal del Catálogo */}
+      <section className="py-6 md:py-12 px-4 md:px-6">
+        <div className="max-w-7xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.4 }}
+            className="bg-white rounded-2xl md:rounded-3xl shadow-xl md:shadow-2xl overflow-hidden"
+          >
+            {/* Encabezado de la imagen */}
+            <div className="bg-gradient-to-r from-purple-600 via-pink-600 to-orange-600 px-4 md:px-8 py-4 md:py-6">
+              <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+                <div className="flex items-center gap-3 md:gap-4">
+                  <div className="bg-white/20 p-2 md:p-3 rounded-full flex-shrink-0">
+                    <Palette className="h-6 w-6 md:h-8 md:w-8 text-white" />
+                  </div>
+                  <div className="min-w-0">
+                    <h2 className="text-lg md:text-2xl font-bold text-white truncate">Catálogo de Talleres Culturales</h2>
+                    <p className="text-sm md:text-base text-white/90 leading-tight">Información completa de horarios, ubicaciones y requisitos</p>
+                  </div>
+                </div>
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={handleDownloadPDF}
+                  className="bg-white/20 hover:bg-white/30 text-white px-4 md:px-6 py-2 md:py-3 rounded-full font-semibold transition-colors duration-300 flex items-center gap-2 text-sm md:text-base whitespace-nowrap"
+                >
+                  <Download className="h-4 w-4 md:h-5 md:w-5" />
+                  <span className="hidden sm:inline">Descargar</span> Catálogo
+                </motion.button>
+              </div>
+            </div>
+
+            {/* Imagen del catálogo */}
+            <div className="p-4 md:p-8">
+              <div className="relative group">
+                <img 
+                  src="/Actividades_Culturales_Deport/culturales.JPG" 
+                  alt="Catálogo de Talleres Culturales - Información completa"
+                  className="w-full h-auto rounded-xl md:rounded-2xl shadow-md md:shadow-lg group-hover:shadow-xl md:group-hover:shadow-2xl transition-shadow duration-500"
+                />
+                {/* Overlay informativo */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent rounded-xl md:rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <div className="absolute bottom-4 md:bottom-6 left-4 md:left-6 right-4 md:right-6">
+                    <div className="bg-white/95 backdrop-blur-sm rounded-lg md:rounded-xl p-3 md:p-4">
+                      <div className="flex items-center gap-2 text-purple-600 mb-2">
+                        <Info className="h-4 w-4 md:h-5 md:w-5" />
+                        <span className="font-semibold text-sm md:text-base">Información detallada</span>
+                      </div>
+                      <p className="text-gray-700 text-xs md:text-sm leading-relaxed">
+                        Esta imagen contiene toda la información oficial sobre horarios, instructores, 
+                        ubicaciones y requisitos para cada taller cultural.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Información de Contacto */}
+      <section className="py-12 md:py-20 px-4 md:px-6">
+        <div className="max-w-6xl mx-auto">
+          <div className="bg-white rounded-2xl md:rounded-3xl shadow-xl p-6 md:p-12">
+            <h3 className="text-2xl md:text-3xl font-bold text-center mb-6 md:mb-8 text-gray-800">
+              Información e Inscripciones
+            </h3>
+            
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
+              {/* Datos de contacto */}
+              <div className="space-y-4 md:space-y-6">
+                <div className="flex items-center gap-3 md:gap-4 p-3 md:p-4 bg-purple-50 rounded-xl">
+                  <div className="bg-purple-100 p-2 md:p-3 rounded-full flex-shrink-0">
+                    <Clock className="h-5 w-5 md:h-6 md:w-6 text-purple-600" />
+                  </div>
+                  <div className="min-w-0">
+                    <h4 className="font-semibold text-gray-800 text-sm md:text-base">Horario de Atención</h4>
+                    <p className="text-gray-600 text-sm md:text-base">Lunes a Viernes: 9:00 - 17:00</p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-3 md:gap-4 p-3 md:p-4 bg-pink-50 rounded-xl">
+                  <div className="bg-pink-100 p-2 md:p-3 rounded-full flex-shrink-0">
+                    <MapPin className="h-5 w-5 md:h-6 md:w-6 text-pink-600" />
+                  </div>
+                  <div className="min-w-0">
+                    <h4 className="font-semibold text-gray-800 text-sm md:text-base">Ubicación</h4>
+                    <p className="text-gray-600 text-sm md:text-base">Edificio de Extensión Universitaria</p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-3 md:gap-4 p-3 md:p-4 bg-orange-50 rounded-xl">
+                  <div className="bg-orange-100 p-2 md:p-3 rounded-full flex-shrink-0">
+                    <Phone className="h-5 w-5 md:h-6 md:w-6 text-orange-600" />
+                  </div>
+                  <div className="min-w-0">
+                    <h4 className="font-semibold text-gray-800 text-sm md:text-base">Contacto</h4>
+                    <p className="text-gray-600 text-sm md:text-base">Extensión Universitaria</p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-3 md:gap-4 p-3 md:p-4 bg-purple-50 rounded-xl">
+                  <div className="bg-purple-100 p-2 md:p-3 rounded-full flex-shrink-0">
+                    <Mail className="h-5 w-5 md:h-6 md:w-6 text-purple-600" />
+                  </div>
+                  <div className="min-w-0">
+                    <h4 className="font-semibold text-gray-800 text-sm md:text-base">Información</h4>
+                    <p className="text-gray-600 text-sm md:text-base">Consultar directamente en oficinas</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Requisitos generales */}
+              <div className="space-y-4 md:space-y-6">
+                <div className="bg-gradient-to-br from-purple-100 to-pink-100 p-4 md:p-6 rounded-xl">
+                  <h4 className="font-bold text-gray-800 mb-3 md:mb-4 flex items-center gap-2 text-sm md:text-base">
+                    <Users className="h-4 w-4 md:h-5 md:w-5 text-purple-600" />
+                    Requisitos Generales
+                  </h4>
+                  <ul className="space-y-1 md:space-y-2 text-gray-700 text-sm md:text-base">
+                    <li>• Ser estudiante activo de UTTECAM</li>
+                    <li>• Credencial vigente</li>
+                    <li>• Llenar formato de inscripción</li>
+                    <li>• Compromiso de asistencia regular</li>
+                  </ul>
+                </div>
+
+                <div className="bg-gradient-to-br from-orange-100 to-yellow-100 p-4 md:p-6 rounded-xl">
+                  <h4 className="font-bold text-gray-800 mb-3 md:mb-4 flex items-center gap-2 text-sm md:text-base">
+                    <Calendar className="h-4 w-4 md:h-5 md:w-5 text-orange-600" />
+                    Periodo de Inscripciones
+                  </h4>
+                  <p className="text-gray-700 mb-2 text-sm md:text-base">
+                    <strong>Inicio:</strong> Primera semana de cada cuatrimestre
+                  </p>
+                  <p className="text-gray-700 text-sm md:text-base">
+                    <strong>Duración:</strong> Todo el periodo cuatrimestral
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+};
+
+export default TalleresCulturales;

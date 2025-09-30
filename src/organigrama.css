@@ -46,23 +46,33 @@
   color: #364153 !important;
 }
 
-/* Botones de zoom con estilo elegante */
+/* Botones de zoom - Ahora manejados con Tailwind en el componente */
 .organigrama-zoom-btn {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
-  border: none !important;
-  border-radius: 12px !important;
-  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4) !important;
-  color: white !important;
-  cursor: pointer !important;
-  font-size: 16px !important;
-  font-weight: bold !important;
-  height: 48px !important;
-  transition: all 0.3s ease !important;
-  width: 48px !important;
+  /* Estilos base ahora en Tailwind CSS en el componente */
 }
 
-.organigrama-zoom-btn:hover {
-  background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%) !important;
-  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6) !important;
-  transform: translateY(-2px) scale(1.05) !important;
+/* Mejorar la experiencia de scroll en el contenedor */
+.organigrama-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 #f1f5f9;
+}
+
+.organigrama-scroll::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.organigrama-scroll::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 4px;
+}
+
+.organigrama-scroll::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+  transition: background 0.3s ease;
+}
+
+.organigrama-scroll::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
 }

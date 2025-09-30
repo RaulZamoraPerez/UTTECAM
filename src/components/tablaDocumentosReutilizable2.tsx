@@ -2,6 +2,7 @@ import { useState } from "react"
 import { Search, FileText, Download, Library } from "lucide-react"
 import { Secciones } from "./Secciones"
 import { Secciones2 } from "./Secciones2"
+import {  data, dataFormatos } from "@/data/CapetaStructura.data"
 
 interface Documento {
     id: string
@@ -102,7 +103,21 @@ export default function tablaDocumentosReutilizable2({ secciones, titulo, descri
   if (seccion.titulo === "Instrucciones de trabajo") {
     return (
       <div key={seccion.id}>
-        <Secciones />
+        <Secciones 
+          data={data}
+          searchTerm={searchTerm}
+        />
+      </div>
+    );
+  }
+
+  if( seccion.titulo === "Formatos") {
+    return (
+      <div key={seccion.id}>
+        <Secciones 
+          data={dataFormatos}
+          searchTerm={searchTerm}
+        />
       </div>
     );
   }
@@ -111,7 +126,9 @@ export default function tablaDocumentosReutilizable2({ secciones, titulo, descri
   if (seccion.titulo === "Convocatorias para Profesor de Asignatura SEP-DIC-2025") {
     return (
       <div key={seccion.id}>
-        <Secciones2 />
+        <Secciones2 
+          searchTerm={searchTerm}
+        />
       </div>
     );
   }

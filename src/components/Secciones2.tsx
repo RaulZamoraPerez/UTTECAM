@@ -1,5 +1,9 @@
 import { useState } from "react";
-import { ChevronDown, ChevronRight, Folder, FileText } from "lucide-react";
+import { ChevronDown, ChevronRight, Folder, FileText, Search } from "lucide-react";
+
+interface Props {
+  searchTerm?: string;
+}
 
 const data = {
   id: "seccion2",
@@ -130,13 +134,47 @@ const data = {
   ],
 };
 
-export const Secciones2 = () => {
+export const Secciones2 = ({ searchTerm = "" }: Props) => {
+  // Función para filtrar carpetas
+  const filtrarCarpetas = (carpetas: any[]): any[] => {
+    if (!searchTerm) return carpetas;
+    
+    return carpetas
+      .map(carpeta => {
+        const documentosFiltrados = carpeta.documentos ? carpeta.documentos.filter((doc: any) => 
+          doc.titulo.toLowerCase().includes(searchTerm.toLowerCase())
+        ) : [];
+        
+        if (documentosFiltrados.length > 0) {
+          return {
+            ...carpeta,
+            documentos: documentosFiltrados
+          };
+        }
+        return null;
+      })
+      .filter(Boolean);
+  };
+
+  const datosFiltrados = filtrarCarpetas(data.subCarpetas);
+
+  if (datosFiltrados.length === 0 && searchTerm) {
+    return (
+      <div className="text-center p-10 bg-white rounded-lg border-2 border-dashed border-[#0A9782]">
+        <Search className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+        <div className="text-gray-600 mb-2">
+          No se encontraron documentos que coincidan con "{searchTerm}"
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="w-full max-w-6xl mx-auto pt-3 px-4 sm:px-6">
       <div className="bg-gradient-to-br from-white via-slate-50 to-slate-100 border border-slate-200 shadow-2xl rounded-3xl p-6 sm:p-10">
         <div className="space-y-4">
-          {data.subCarpetas.map((nivel1, index) => (
-            <Carpeta key={index} carpeta={nivel1} nivel={1} />
+          {datosFiltrados.map((nivel1, index) => (
+            <Carpeta key={index} carpeta={nivel1} nivel={1} searchTerm={searchTerm} />
           ))}
         </div>
       </div>
@@ -144,10 +182,24 @@ export const Secciones2 = () => {
   );
 };
 
-const Carpeta = ({ carpeta, nivel }: any) => {
-  const [abierto, setAbierto] = useState(false);
+const Carpeta = ({ carpeta, nivel, searchTerm = "" }: any) => {
+  const [abierto, setAbierto] = useState(searchTerm ? true : false); // Auto-expandir si hay búsqueda
   const tieneSub = carpeta.subcarpetas?.length > 0;
   const tieneDocs = carpeta.documentos?.length > 0;
+
+  // Función para resaltar texto
+  const resaltarTexto = (texto: string, termino: string) => {
+    if (!termino) return texto;
+    
+    const regex = new RegExp(`(${termino})`, 'gi');
+    const partes = texto.split(regex);
+    
+    return partes.map((parte, index) => 
+      regex.test(parte) ? 
+        <mark key={index} className="bg-yellow-200 px-1 rounded">{parte}</mark> : 
+        parte
+    );
+  };
 
   const paddingClasses: any = {
     1: "pl-4",
@@ -169,7 +221,7 @@ const Carpeta = ({ carpeta, nivel }: any) => {
           <ChevronRight size={18} className="text-slate-600 mr-2" />
         )}
         <Folder size={20} className="text-yellow-500 mr-3" />
-        <span className="text-slate-800 font-medium break-words">{carpeta.title}</span>
+        <span className="text-slate-800 font-medium break-words">{resaltarTexto(carpeta.title, searchTerm)}</span>
       </button>
 
       {abierto && (
@@ -188,14 +240,14 @@ const Carpeta = ({ carpeta, nivel }: any) => {
                   className="mr-2 text-blue-500 group-hover:text-blue-700"
                 />
                 <span className="underline underline-offset-2 decoration-blue-300 group-hover:decoration-blue-500 break-words">
-                  {doc.titulo}
+                  {resaltarTexto(doc.titulo, searchTerm)}
                 </span>
               </a>
             ))}
 
           {tieneSub &&
             carpeta.subcarpetas.map((sub: any, idx: any) => (
-              <Carpeta key={idx} carpeta={sub} nivel={nivel + 1} />
+              <Carpeta key={idx} carpeta={sub} nivel={nivel + 1} searchTerm={searchTerm} />
             ))}
         </div>
       )}

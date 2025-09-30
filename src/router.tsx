@@ -35,6 +35,8 @@ const ConvocatoriaAdmision = lazy(() => import("@/views/Convocatoria/Convocatori
 const Tramites = lazy(() => import("@/views/Tramites/Tramites"));
 const Becas = lazy(() => import("@/views/Becas2/Becas"));
 const Organigrama = lazy(() => import("@/views/Directorios/Organigrama"));
+const TalleresCulturales = lazy(() => import("@/views/TalleresCulturales/TalleresCulturales"));
+const TalleresDeportivos = lazy(() => import("@/views/TalleresDeportivos/TalleresDeportivos"));
 
 export default function Router() {
   return (
@@ -71,6 +73,8 @@ export default function Router() {
             <Route path="/Becas" element={<Calendario />} />
             <Route path="/InformacionEstadistica" element={<InformacionEstadistica />} />
             <Route path="/Organigrama" element={<Organigrama />} />
+            <Route path="/talleres-culturales" element={<TalleresCulturales />} />
+            <Route path="/talleres-deportivos" element={<TalleresDeportivos />} />
             <Route path="/promocion-institucional" element={<PromocioIntitucional />} />
             <Route path="/ver-documento-promocion/:title" element={<PdfPromocionInstitucional />} />
           </Route>

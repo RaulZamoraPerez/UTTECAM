@@ -174,6 +174,10 @@ export default function Navbar() {
         {
           label: "Actividades Culturales y Deportivas",
           href: "/actividades-culturales-y-deportivas",
+          submenu:[
+            { label: "Talleres Culturales", href: "/talleres-culturales" },
+            { label: "Talleres Deportivos", href: "/talleres-deportivos" },
+          ]
         },
         {
           label: "Difusión y Divulgación",

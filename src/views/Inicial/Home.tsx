@@ -15,7 +15,7 @@ const Home = () => {
   // Efecto que detecta si hay un hash en la URL y hace scroll a esa sección
   useEffect(() => {
     if (location.hash === "#carreras") {
-      // Pequeño retraso para asegurar que el DOM esté cargado
+   
       setTimeout(() => {
         const el = document.getElementById("carreras");
         if (el) {
