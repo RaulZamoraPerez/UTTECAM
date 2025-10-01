@@ -15,3 +15,54 @@
 .p-organizationchart .p-organizationchart-line-right {
   height: 1rem !important;
 }
+
+/* Solo evitar cambios de color al seleccionar - mantener texto original */
+.p-organizationchart .p-organizationchart-node-content.p-highlight {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.p-organizationchart .p-organizationchart-node-content:focus {
+  outline: none !important;
+}
+
+/* Mantener color original del texto al seleccionar */
+.p-organizationchart .p-organizationchart-node-content.p-highlight *,
+.p-organizationchart .p-organizationchart-node-content.p-highlight,
+.p-organizationchart .p-organizationchart-node-content:focus *,
+.p-organizationchart .p-organizationchart-node-content:active * {
+  color: inherit !important;
+}
+
+/* Forzar que mantenga los colores de Tailwind específicos */
+.p-organizationchart .p-organizationchart-node-content.p-highlight .text-gray-900,
+.p-organizationchart .p-organizationchart-node-content:focus .text-gray-900 {
+  color: #111827 !important;
+}
+
+.p-organizationchart .p-organizationchart-node-content.p-highlight .text-gray-700,
+.p-organizationchart .p-organizationchart-node-content:focus .text-gray-700 {
+  color: #364153 !important;
+}
+
+/* Botones de zoom con estilo elegante */
+.organigrama-zoom-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  border: none !important;
+  border-radius: 12px !important;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4) !important;
+  color: white !important;
+  cursor: pointer !important;
+  font-size: 16px !important;
+  font-weight: bold !important;
+  height: 48px !important;
+  transition: all 0.3s ease !important;
+  width: 48px !important;
+}
+
+.organigrama-zoom-btn:hover {
+  background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%) !important;
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6) !important;
+  transform: translateY(-2px) scale(1.05) !important;
+}

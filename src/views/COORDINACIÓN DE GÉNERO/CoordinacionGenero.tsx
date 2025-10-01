@@ -7,7 +7,7 @@ const datos = [
         documentos: [
             { id: "doc1", titulo: "ORGANIGRAMA CILYND.pdf", archivo: "/Coordiancion de genero/Apartado1politicadeigualdadlaboralynodiscriminacion/ORGANIGRAMACILYND.pdf" },
             { id: "doc2", titulo: "POLITICA DE IGUALDAD LABORAL Y NO DISCRIMINACIÓN.pdf", archivo: "/Coordiancion de genero/Apartado1politicadeigualdadlaboralynodiscriminacion/POLITICA DE IGUALDAD LABORAL Y NO DISCRIMINACIÓN.pdf" },
-            { id: "doc3", titulo: "Ingeniería Electromecánica", archivo: "/ProfesorAsociadoA/Ingeniería Electromecánica.pdf" },
+            { id: "doc3", titulo: " Ombudsperson", archivo: "/ProfesorAsociadoA/Ingeniería Electromecánica.pdf" },
            
         ],
     },
