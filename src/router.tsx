@@ -6,9 +6,10 @@ import { AppLayout } from "@/layouts/AppLayout";
 import { Page_404 } from "@/components/404";
 import LoaderSuspense from "./components/Loader/LoaderSuspense";
 import InformacionEstadistica from "./views/InformacionEstadistica/InformacionEstadistica";
+// Import directo para Home (sin lazy) para carga MÁS RÁPIDA
+import Home from "@/views/Inicial/Home";
 
-// Lazy imports de vistas
-const Home = lazy(() => import("@/views/Inicial/Home"));
+// Lazy imports de otras vistas
 const ProgramDetail = lazy(() => import("@/views/DetallesCarrera/ProgramDetail"));
 const NormatividadSeccion = lazy(() => import("@/views/Normatividad/Normatividad"));
 const PDF = lazy(() => import("@/views/Nosotros/PDF"));
@@ -17,7 +18,7 @@ const Finanzas = lazy(() => import("@/views/Finanzas/finazas"));
 const RecursosHumanos = lazy(() => import("@/views/RecursosHumanos/recursosHumanos"));
 const Sga = lazy(() => import("@/views/Sga/sga"));
 const Sigc = lazy(() => import("@/views/Sigc/sigc"));
-const Directorios = lazy(() => import("@/views/Nosotros/Directorios"));
+// const Directorios = lazy(() => import("@/views/Nosotros/Directorios"));
 const Vinculacion = lazy(() => import("@/views/Vinculacion/vinculacion"));
 const Calendario = lazy(() => import("@/views/Nosotros/Calendario"));
 const PIT = lazy(() => import("@/views/Sigc/PIT"));
@@ -34,7 +35,7 @@ const Nosotros = lazy(() => import("@/views/Nosotros/Nosotros"));
 const ConvocatoriaAdmision = lazy(() => import("@/views/Convocatoria/ConvocatoriaAdmision"));
 const Tramites = lazy(() => import("@/views/Tramites/Tramites"));
 const Becas = lazy(() => import("@/views/Becas2/Becas"));
-const Organigrama = lazy(() => import("@/views/Directorios/Organigrama"));
+// const Organigrama = lazy(() => import("@/views/Directorios/Organigrama"));
 const TalleresCulturales = lazy(() => import("@/views/TalleresCulturales/TalleresCulturales"));
 const TalleresDeportivos = lazy(() => import("@/views/TalleresDeportivos/TalleresDeportivos"));
 
@@ -53,7 +54,7 @@ export default function Router() {
             <Route path="/recursosHumanos" element={<RecursosHumanos />} />
             <Route path="/sga" element={<Sga />} />
             <Route path="/sigc" element={<Sigc />} />
-            <Route path="/directorios" element={<Directorios />} />
+            {/* <Route path="/directorios" element={<Directorios />} /> */}
             <Route path="/vinculacion" element={<Vinculacion />} />
             <Route path="/calendario" element={<Calendario />} />
             <Route path="/programa-institucional-tutorias" element={<PIT />} />
@@ -72,7 +73,7 @@ export default function Router() {
             <Route path="/becas-academicas" element={<Becas />} />
             <Route path="/Becas" element={<Calendario />} />
             <Route path="/InformacionEstadistica" element={<InformacionEstadistica />} />
-            <Route path="/Organigrama" element={<Organigrama />} />
+            {/* <Route path="/Organigrama" element={<Organigrama />} /> */}
             <Route path="/talleres-culturales" element={<TalleresCulturales />} />
             <Route path="/talleres-deportivos" element={<TalleresDeportivos />} />
             <Route path="/promocion-institucional" element={<PromocioIntitucional />} />

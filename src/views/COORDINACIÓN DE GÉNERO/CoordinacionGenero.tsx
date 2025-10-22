@@ -2,102 +2,104 @@ import TablaDocumentosReutilizable2 from "@/components/tablaDocumentosReutilizab
 
 const datos = [
     {
-        id: "1",
-        titulo: "Apartado 1 politica de igualdad laboral y no discriminacion",
-        documentos: [
-            { id: "doc1", titulo: "ORGANIGRAMA CILYND.pdf", archivo: "/Coordiancion de genero/Apartado1politicadeigualdadlaboralynodiscriminacion/ORGANIGRAMACILYND.pdf" },
-            { id: "doc2", titulo: "POLITICA DE IGUALDAD LABORAL Y NO DISCRIMINACIÓN.pdf", archivo: "/Coordiancion de genero/Apartado1politicadeigualdadlaboralynodiscriminacion/POLITICA DE IGUALDAD LABORAL Y NO DISCRIMINACIÓN.pdf" },
-            { id: "doc3", titulo: " Ombudsperson", archivo: "/ProfesorAsociadoA/Ingeniería Electromecánica.pdf" },
-           
-        ],
-    },
-    {
         id: "2",
-        titulo: "Apartado 2 Protocolo de prevencion, actuacion y sancion en casos de violencia",
-        documentos: [], 
+        titulo: "Apartado Protocolo de prevención, actuación y sanción en casos de violencia",
+        documentos: [
+            { 
+                id: "doc2", 
+                titulo: "POLITICA DE IGUALDAD LABORAL Y NO DISCRIMINACIÓN.pdf", 
+                archivo: "/Coordiancion de genero/2.- PROTOCOLO DE PREVENCIÓN, ACTUACIÓN Y SANCIÓN EN CASOS DE VIOLENCIA/POLITICA DE IGUALDAD LABORAL Y NO DISCRIMINACIÓN.pdf" 
+            },
+        ],
     },
     {
         id: "3",
-        titulo: "Apartado 3 programa de capaitación con persepectiva de género",
+        titulo: "Apartado Plan de capacitación anual coordinación de género 2025",
         documentos: [
-            { id: "doc9", titulo: "Apartado 3 programa de capaitación con persepectiva de género", archivo: "/Coordiancion de genero/Apartado 3 programa de capaitación con persepectiva de género/programa de capacitacion coordinacion de género 2025.pdf" }
-           
+            { 
+                id: "doc3", 
+                titulo: "PLAN DE CAPACITACION ANUAL COORDINACION DE GENERO 2025.pdf", 
+                archivo: "/Coordiancion de genero/3.-PLAN DE CAPACITACIÓN ANUAL  COORDINACION DE GENERO 2025/PLAN DE CAPACITACION ANUAL  COORDINACION DE GENERO 2025.pdf" 
+            }
         ],
-
-        
     },
-
-      {
+    {
         id: "4",
-        titulo: "Apartado 4 Guía de lenguaje incluyente para la administracion del Estado de Puebla",
+        titulo: "Apartado Guía de lenguaje incluyente para la administración pública del Estado de Puebla",
         documentos: [
-            { id: "doc10", titulo: "Guía_de_Lenguaje_Incluyente_para_la_Administración_Pública_del_Estado_de_Puebla.pdf", archivo: "/Coordiancion de genero/Apartado 4 Guía de lenguaje incluyente para la administracion del Estado de Puebla/GuíadeLenguajeIncluyenteparalaAdministraciónPúblicadelEstadodePuebla.pdf" }
-           
+            { 
+                id: "doc4a", 
+                titulo: "Guía_de_Lenguaje_Incluyente_para_la_Administración_Pública_del_Estado_de_Puebla.pdf", 
+                archivo: "/Coordiancion de genero/4.-Guía de Lenguaje Incluyente para la Administración Pública del Estado de Puebla/Guía_de_Lenguaje_Incluyente_para_la_Administración_Pública_del_Estado_de_Puebla.pdf" 
+            },
+            { 
+                id: "doc4b", 
+                titulo: "Lineamientos Lenguaje Incluyente.pdf", 
+                archivo: "/Coordiancion de genero/4.-Guía de Lenguaje Incluyente para la Administración Pública del Estado de Puebla/Lineamientos Lenguaje Incluyente.pdf" 
+            },
+            { 
+                id: "doc4c", 
+                titulo: "Lineamientos que deberan Observar las Dependencias y Entidades Paraestatales del Gob del Edo de Puebla en materia de Igualdad Sustantiva_2032020.pdf", 
+                archivo: "/Coordiancion de genero/4.-Guía de Lenguaje Incluyente para la Administración Pública del Estado de Puebla/Lineamientos que deberan Observar las Dependencias y Entidades Paraestatales del Gob del Edo de Puebla en materia de Igualdad Sustantiva_2032020.pdf" 
+            }
         ],
-
-        
     },
-
-
-       {
+    {
         id: "5",
-        titulo: "Apartado 5 Violentometro",
+        titulo: "Apartado Violentómetro UTTECAM",
         documentos: [
-            { id: "doc11", titulo: "violentometro.jfif", archivo: "/Coordiancion de genero/Apartado 5 Violentometro/violentometro.jfif" }
-           
+            { 
+                id: "doc5", 
+                titulo: "VIOLENTÓMETRO UTTECAM.pdf", 
+                archivo: "/Coordiancion de genero/5.- VIOLENTÓMETRO UTTECAM/VIOLENTÓMETRO UTTECAM.pdf" 
+            }
         ],
-
-        
     },
-
-        {
+    {
+        id: "6",
+        titulo: "Apartado Acosómetro UTTECAM",
+        documentos: [
+            { 
+                id: "doc6", 
+                titulo: "ACOSOMETRO UTTECAM.pdf", 
+                archivo: "/Coordiancion de genero/6.- ACOSOMETRO UTTECAM/ACOSOMETRO UTTECAM.pdf" 
+            }
+        ],
+    },
+    {
         id: "7",
-        titulo: "Apartado 7 Lactario",
+        titulo: "Apartado Lactario",
         documentos: [
-            { id: "doc12", titulo: "Acosometro universitario.png", archivo: "/Coordiancion de genero/Apartado 7 Lactario/lactario.png" },
-           { id: "doc13", titulo: "permiso de paternidad.jfif", archivo: "/Coordiancion de genero/Apartado 7 Lactario/permiso de paternidad.jfif" },
-           { id: "doc14", titulo: "posicion de cuna.jfif", archivo: "/Coordiancion de genero/Apartado 7 Lactario/permiso de paternidad.jfif" },
-           { id: "doc15", titulo: "publicacion taller de lactancia en marzo.jfif", archivo: "/Coordiancion de genero/Apartado 7 Lactario/publicacion taller de lactancia en marzo.jfif" },
-           { id: "doc16", titulo: "Reglamento Lactario.jfif", archivo: "/Coordiancion de genero/Apartado 7 Lactario/Reglamento Lactario.jfif" }
-        ],
-
-        
+            { 
+                id: "doc7a", 
+                titulo: "Reglamento de Lactario.pdf", 
+                archivo: "/Coordiancion de genero/7.- LACTARIO/Reglamento de Lactario.pdf" 
+            },
+            { 
+                id: "doc7b", 
+                titulo: " Galería del Lactario - Ver en Facebook", 
+                archivo: "/Coordiancion de genero/7.- LACTARIO/lactario.jpg",
+                facebookLink: "https://www.facebook.com/share/p/1JCimPbdD4/?mibextid=wwXIfr"
+            }
+        ]
     },
-
-         {
+    {
         id: "8",
-        titulo: "Apartado 8 #Dia Naranja",
+        titulo: "Apartado Día Naranja",
         documentos: [
-         { id: "doc17", titulo: "Acosometro universitario.jpg", archivo: "/Coordiancion de genero/Apartado8DiaNaranja/25deenero2025.jpg" },
-           { id: "doc18", titulo: "25 de febrero dia naranja FOTO VOLUNTARIADO.jfif", archivo: "/Coordiancion de genero/Apartado8DiaNaranja/25 de febrero dia naranja FOTO VOLUNTARIADO.jfif" },
-           { id: "doc19", titulo: "25 de marzo dia naranja.jfif", archivo: "/Coordiancion de genero/Apartado8DiaNaranja/25 de marzo dia naranja.jfif" },
-           { id: "doc20", titulo: "cero tolerancia al acoso.jfif", archivo: "/Coordiancion de genero/Apartado8DiaNaranja/cero tolerancia al acoso.jfif" },
-           { id: "doc21", titulo: "con respeto y sin violencia.jfif", archivo: "/Coordiancion de genero/Apartado8DiaNaranja/con respeto y sin violencia.jfif" },
-         { id: "doc22", titulo: "dia internacional de lamujer.jfif", archivo: "/Coordiancion de genero/Apartado8DiaNaranja//dia internacional de lamujer.jfif" },
-           { id: "doc23", titulo: "dia naranja febrero.jfif", archivo: "/Coordiancion de genero/Apartado8DiaNaranja/dia naranja febrero.jfif" },
-           { id: "doc24", titulo: "dia naranja marzo.jfif", archivo: "/Coordiancion de genero/Apartado8DiaNaranja/dia naranja marzo.jfif" },
-           { id: "doc25", titulo: "dia naranja.jfif", archivo: "/Coordiancion de genero/Apartado8DiaNaranja/dia naranja.jfif" },
-           { id: "doc26", titulo: "diversidad sexual.jpg", archivo: "/Coordiancion de genero/Apartado8DiaNaranja/diversidad sexual.jpg" },
-            { id: "doc27", titulo: "igualdad de genero.jfif", archivo: "/Coordiancion de genero/Apartado8DiaNaranja/igualdad de genero.jfif" },
-           { id: "doc28", titulo: "la violencia tambien es cosa de hombres.jfif", archivo: "/Coordiancion de genero/Apartado8DiaNaranja/la violencia tambien es cosa de hombres.jfif" },
-           { id: "doc29", titulo: "no a la discriminación racial.jfif", archivo: "/Coordiancion de genero/Apartado8DiaNaranja/no a la discriminación racial.jfif" },
-           { id: "doc30", titulo: "pinta el mundo de naranja.jfif", archivo: "/Coordiancion de genero/Apartado8DiaNaranja/pinta el mundo de naranja.jfif" },
-           { id: "doc31", titulo: "por un noviazgo sin violencia.jfif", archivo: "/Coordiancion de genero/Apartado8DiaNaranja/por un noviazgo sin violencia.jfif" },
-           { id: "doc32", titulo: "tolerancia cero.jfif", archivo: "/Coordiancion de genero/Apartado8DiaNaranja/tolerancia cero.jfif" },
-           { id: "doc33", titulo: "unete alto a la violencia.jfif", archivo: "/Coordiancion de genero/Apartado8DiaNaranja/unete alto a la violencia.jfif" }
-
-        
-        ],
-
-        
+          
+           
+            { 
+                id: "doc8d", 
+                titulo: "🎭 Obra Voces en Naranja - Ver en Facebook", 
+                archivo: "/Coordiancion de genero/8.- DÍA NARANJA/Obra Voces en Naranja/dia naranja.jpg",
+                facebookLink: "https://m.facebook.com/story.php?story_fbid=1204590451701511&id=100064517027031&mibextid=wwXIfr"
+            }
+        ]
     },
-
-
-     
-
-
-
 ];
+
+
 export default function Coordinacion() {
     return (
         <TablaDocumentosReutilizable2

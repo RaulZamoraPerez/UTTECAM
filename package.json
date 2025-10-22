@@ -7,6 +7,7 @@
     "dev": "vite",
     "update-last-modified": "node update-last-modified.js",
     "build": "npm run update-last-modified && tsc -b && vite build",
+    "start": "vite preview",
     "lint": "eslint .",
     "preview": "vite preview"
   },

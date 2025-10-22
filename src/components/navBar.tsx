@@ -173,7 +173,7 @@ export default function Navbar() {
       submenu: [
         {
           label: "Actividades Culturales y Deportivas",
-          href: "/actividades-culturales-y-deportivas",
+          // href eliminado para que no sea clickeable
           submenu:[
             { label: "Talleres Culturales", href: "/talleres-culturales" },
             { label: "Talleres Deportivos", href: "/talleres-deportivos" },

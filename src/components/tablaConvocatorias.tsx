@@ -13,46 +13,36 @@ interface Documento {
 interface Seccion {
   id: string;
   titulo: string;
-
   documentos: Documento[];
 }
 
-interface RepositorioTablaProps {
+interface ConvocatoriaTablaProps {
   secciones: Seccion[];
   titulo: string;
   descripcion?: string;
-  nextUrl?: string; // Para otros componentes que no son PIT
 }
 
-export default function tablaDocumentosReutilizable({
+export default function tablaConvocatorias({
   secciones,
   titulo,
   descripcion,
-  nextUrl,
-}: RepositorioTablaProps) {
+}: ConvocatoriaTablaProps) {
   const [searchTerm, setSearchTerm] = useState("");
   const [seccionActiva, setSeccionActiva] = useState<string | null>(
     secciones[0]?.id ?? null
   );
 
-  // Función para manejar la descarga de documentos
+
   const descargarDocumento = (documento: Documento) => {
-    try {
-      // Usa el archivo específico si está definido, sino usa el titulo
-      const nombreArchivo = documento.archivo || documento.titulo;
-      // Si hay nextUrl lo usa, sino usa PIT por defecto (para compatibilidad)
-      const carpeta = nextUrl ? nextUrl.replace('-', '') : 'PIT';
-      const rutaArchivo = `/${carpeta}/${nombreArchivo}`;
-      const link = document.createElement('a');
-      link.href = rutaArchivo;
-      link.download = nombreArchivo;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    } catch (error) {
-      console.error('Error al descargar el documento:', error);
-      alert('Error al descargar el documento. Por favor, inténtalo de nuevo.');
-    }
+    // Usa el archivo específico si está definido, sino usa el titulo
+    const nombreArchivo = documento.archivo || documento.titulo;
+    const rutaArchivo = `/convocatoria Titulo/${nombreArchivo}`;
+    const link = document.createElement('a');
+    link.href = rutaArchivo;
+    link.download = nombreArchivo;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   const filteredSecciones = secciones
@@ -145,7 +135,7 @@ export default function tablaDocumentosReutilizable({
                                 <div className="flex items-start gap-2">
                                   <FileText className="h-5 w-5 mt-0.5 flex-shrink-0 text-[#D1672A]" />
                                   <span className="font-medium text-gray-800">
-                                    {formatearTitulo(documento.titulo)}
+                                    {formatearTitulo(documento.titulo.replace(/\.[^/.]+$/, ""))}
                                   </span>
                                 </div>
                               
