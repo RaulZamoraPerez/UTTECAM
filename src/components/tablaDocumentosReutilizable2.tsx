@@ -235,12 +235,21 @@ export default function tablaDocumentosReutilizable2({ secciones, titulo, descri
                             {/* Imagen centrada y alineada */}
                             <div className="flex-1 p-6 flex items-center justify-center">
                                 <div className="w-full max-w-3xl">
-                                    <iframe
-                                        src={pdfSeleccionado}
-                                        className="w-full h-[65vh] rounded-lg border border-gray-300 mx-auto block"
-                                        title="documento"
-                                        style={{ border: "1px solid #d1d5db" }}
-                                    ></iframe>
+                  {pdfSeleccionado && (pdfSeleccionado.match(/\.(jpg|jpeg|png|webp|gif)$/i) ? (
+                    <img
+                      src={pdfSeleccionado}
+                      alt={documentoSeleccionado?.titulo || "Imagen"}
+                      className="w-full h-[65vh] object-contain rounded-lg border border-gray-300 mx-auto block bg-white"
+                      style={{ border: "1px solid #d1d5db", background: '#fff' }}
+                    />
+                  ) : (
+                    <iframe
+                      src={pdfSeleccionado}
+                      className="w-full h-[65vh] rounded-lg border border-gray-300 mx-auto block"
+                      title="documento"
+                      style={{ border: "1px solid #d1d5db" }}
+                    ></iframe>
+                  ))}
                                 </div>
                             </div>
                             

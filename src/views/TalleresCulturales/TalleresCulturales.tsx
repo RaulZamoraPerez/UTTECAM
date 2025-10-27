@@ -1,12 +1,14 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { 
-    Calendar, 
+ 
+  Calendar, 
   Clock, 
   MapPin, 
   Users, 
   Phone, 
   Mail,
+
   X
 } from 'lucide-react';
 
@@ -14,46 +16,23 @@ const TalleresCulturales = () => {
   const [imagenSeleccionada, setImagenSeleccionada] = useState<string | null>(null);
 
   // Datos de las fotos de talleres culturales
-  const fotosIndividuales = [
-    {
-      src: "/Actividades Culturales y Deportivas/Culturales/AJEDREZ_5.jpg",
-      titulo: "Taller de Ajedrez",
-      descripcion: "Desarrollo del pensamiento estratégico y lógico"
-    },
-    {
-      src: "/Actividades Culturales y Deportivas/Culturales/CANTO_1.jpg",
-      titulo: "Taller de Canto",
-      descripcion: "Técnicas vocales y expresión musical"
-    },
-    {
-      src: "/Actividades Culturales y Deportivas/Culturales/DANZA FOLCLÓRICA_2_2.jpg",
-      titulo: "Danza Folclórica",
-      descripcion: "Tradiciones mexicanas en movimiento"
-    },
-    {
-      src: "/Actividades Culturales y Deportivas/Culturales/DANZA URBANA_1_1.jpg",
-      titulo: "Danza Urbana",
-      descripcion: "Expresión contemporánea y urbana"
-    },
-    {
-      src: "/Actividades Culturales y Deportivas/Culturales/ENSAMBLE MUSICAL_2.jpg",
-      titulo: "Ensamble Musical",
-      descripcion: "Música en conjunto y armonía"
-    },
-    {
-      src: "/Actividades Culturales y Deportivas/Culturales/ORATORIA_3_3.jpg",
-      titulo: "Taller de Oratoria",
-      descripcion: "Arte de hablar en público con confianza"
-    },
-    {
-      src: "/Actividades Culturales y Deportivas/Culturales/TEATRO_4.jpg",
-      titulo: "Taller de Teatro",
-      descripcion: "Expresión teatral y dramática"
-    }
-  ];
+
 
   // Banner destacado
-    // ...existing code...
+  //  export const banner = {
+  //   src: "/Actividades Culturales y Deportivas/Culturales/BANNER DEPORTIVOS CULTURALES_UTTECAM.jpg",
+  //   titulo: "Banner Oficial de Talleres Culturales",
+  //   descripcion: "Información general y promocional"
+  // };
+
+  // export const handleDownloadBanner = () => {
+  //   const link = document.createElement('a');
+  //   link.href = '/Actividades Culturales y Deportivas/Culturales/BANNER DEPORTIVOS CULTURALES_UTTECAM.jpg';
+  //   link.download = 'Banner_Talleres_Culturales_UTTECAM.jpg';
+  //   document.body.appendChild(link);
+  //   link.click();
+  //   document.body.removeChild(link);
+  // };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-orange-50">
@@ -82,44 +61,17 @@ const TalleresCulturales = () => {
         </div>
       </section>
 
-      {/* Banner Principal Destacado - solo link */}
-      <section className="py-6 md:py-12 px-4 md:px-6 flex flex-col items-center">
-        <div className="max-w-4xl mx-auto w-full flex flex-col items-center gap-2">
-        </div>
-      </section>
-
-      {/* Galería de Talleres */}
-      <section className="py-12 md:py-20 px-4 md:px-6">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12">
-            <div className="h-1 w-24 mx-auto bg-gradient-to-r from-purple-600 to-pink-600 rounded-full"></div>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-            {fotosIndividuales.map((foto, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3, delay: index * 0.06 }}
-                className="relative group"
-                style={{ maxWidth: '600px', margin: '0 auto' }}
-              >
-                <img 
-                  src={foto.src}
-                  alt={foto.titulo}
-                  className="block w-full h-auto rounded-none md:rounded-xl md:shadow-md md:border-2 md:border-purple-200 md:bg-white md:hover:shadow-2xl md:hover:border-purple-500 transition-all duration-300 md:h-80 md:object-contain"
-                  onClick={() => setImagenSeleccionada(foto.src)}
-                  style={{ display: 'block' }}
-                />
-                <button
-                  onClick={() => setImagenSeleccionada(foto.src)}
-                  className="hidden md:block absolute top-3 right-3 bg-purple-600 text-white px-3 py-1 rounded-full shadow hover:bg-purple-700 transition-colors text-xs opacity-0 group-hover:opacity-100"
-                  style={{ transition: 'opacity 0.2s' }}
-                >
-                  Ver completa
-                </button>
-              </motion.div>
-            ))}
+      {/* Banner Principal Destacado */}
+      <section className="py-6 md:py-12 px-0 md:px-0 flex flex-col items-center w-full">
+        <div className="w-full flex justify-center">
+          <div className="w-7/10 overflow-hidden rounded-md">
+            <img
+              src="/Actividades Culturales y Deportivas/Culturales/BANNER DEPORTIVOS CULTURALES_UTTECAM.jpg"
+              alt="Banner Talleres Culturales UTTECAM"
+              className="w-full block bg-white transition-transform duration-500"
+              // En móviles mostramos completo (object-contain), en pantallas md+ usamos object-cover para llenar
+             
+            />
           </div>
         </div>
       </section>

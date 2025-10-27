@@ -1,3 +1,7 @@
+import VinculacionBanner from "./views/Vinculacion/VinculacionBanner";
+          
+import PracticasEstadias from "./views/Vinculacion/PracticasEstadias";
+           
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Suspense, lazy } from "react";
 const ConvocatoriaTitulo = lazy(() => import("@/views/Convocatoria/ConvocatoriaTitulo"));
@@ -8,6 +12,10 @@ import LoaderSuspense from "./components/Loader/LoaderSuspense";
 import InformacionEstadistica from "./views/InformacionEstadistica/InformacionEstadistica";
 // Import directo para Home (sin lazy) para carga MÁS RÁPIDA
 import Home from "@/views/Inicial/Home";
+
+import ServicioMedico from "./views/extensionUniversitaria/ServicioMedico/ServicioMedico";
+import EducacionContinua from "./views/EducacionContinua/EducacionContinua";
+import CursosEducacionContinua from "./views/EducacionContinua/CursosEducacionContinua";
 
 // Lazy imports de otras vistas
 const ProgramDetail = lazy(() => import("@/views/DetallesCarrera/ProgramDetail"));
@@ -78,8 +86,14 @@ export default function Router() {
             <Route path="/talleres-deportivos" element={<TalleresDeportivos />} />
             <Route path="/promocion-institucional" element={<PromocioIntitucional />} />
             <Route path="/ver-documento-promocion/:title" element={<PdfPromocionInstitucional />} />
+            <Route path="/servicio-medico" element={<ServicioMedico />} />
+            <Route path="/educacion-continua" element={<EducacionContinua />} />
+            <Route path="/educacion-continua/cursos" element={<CursosEducacionContinua />} />
+             <Route path="/practicas-y-estadias" element={<PracticasEstadias />} />
+               <Route path="/vinculacion-banner" element={<VinculacionBanner />} />
           </Route>
           <Route path="*" element={<Page_404 />} />
+
 
         </Routes>
       </Suspense>

@@ -37,10 +37,17 @@ const Home = () => {
   const location = useLocation();
   const [isPageLoading, setIsPageLoading] = useState(true);
   const [showVideo, setShowVideo] = useState(true);
+  const startTime = performance.now();
+
   useEffect(() => {
     const isMobile = window.innerWidth <= 768;
-    setIsPageLoading(false);
-    setShowVideo(!isMobile); // Siempre muestra el video en escritorio
+    const loadingTime = isMobile ? 800 : 1500;
+    const timer = setTimeout(() => {
+      const endTime = performance.now();
+      const elapsed = endTime - startTime;
+      setIsPageLoading(false);
+      setShowVideo(elapsed < 1500); // Si carga rápido, muestra video
+    }, loadingTime);
 
     if (location.hash === "#carreras") {
       setTimeout(() => {
@@ -50,6 +57,7 @@ const Home = () => {
         }
       }, 100);
     }
+    return () => clearTimeout(timer);
   }, [location]);
 
   if (isPageLoading) {

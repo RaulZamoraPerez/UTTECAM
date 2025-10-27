@@ -1,6 +1,28 @@
 import TablaDocumentosReutilizable2 from "@/components/tablaDocumentosReutilizable2";
 
 const datos = [
+    {   
+        id: "1",
+        titulo: "Apartado 1",
+        documentos: [ 
+            { 
+                id: "Protocolo del comite de igualdad", 
+                titulo: "Protocolo del comité de igualdad",
+                archivo: "/Coordiancion de genero/apartado 1/Protocolo del comite de igualdad laboral.jpg"
+            },
+            {
+                id: "Nombramiento",
+                titulo: "Nombramientos del comite de igualdad laboral",
+                archivo: "/Coordiancion de genero/apartado 1/nombramiento.jpg"
+            },
+            {
+                id: "Organigrama comite de igualdad laboral",
+                titulo: "Organigrama comite de igualdad laboral",
+                archivo: "/Coordiancion de genero/apartado 1/organigrama comite de igualdad laboral.jpg"
+            }
+
+        ]
+    },
     {
         id: "2",
         titulo: "Apartado Protocolo de prevención, actuación y sanción en casos de violencia",
