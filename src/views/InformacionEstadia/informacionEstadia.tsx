@@ -14,13 +14,13 @@ interface Seccion {
   documentos: Documento[];
 }
 
-export default function Sga() {
+export default function InformacionEstadia() {
   const [secciones, setSecciones] = useState<Seccion[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const loadDocuments = async () => {
-      const area = await fetchArea(3); // ID for Gestión Ambiental area
+      const area = await fetchArea(4); // ID for Información de Estadía area
       if (area) {
         const seccionesMapped: Seccion[] = area.categorias.map(categoria => ({
           id: categoria.ID_Categorias.toString(),
@@ -45,8 +45,8 @@ export default function Sga() {
   return (
     <TablaDocumentosReutilizable
       secciones={secciones}
-      titulo="Sistema de Gestión Ambiental"
-      descripcion="Documentos relacionados con el sistema de gestión ambiental de la institución."
+      titulo="Información de Estadía"
+      descripcion="Documentos relacionados con la información de estadía en la institución."
     />
   );
 }

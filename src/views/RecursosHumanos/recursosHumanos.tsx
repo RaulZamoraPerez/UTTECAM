@@ -1,42 +1,52 @@
+import { useEffect, useState } from "react";
 import TablaDocumentosReutilizable from "@/components/tablaDocumentosReutilizable";
+import { fetchArea } from "@/util/documentosApi";
 
-;
+interface Documento {
+  id: string;
+  titulo: string;
+  ruta: string;
+}
 
-const datos = [
-    {
-        id: "1",
-        titulo: "Profesor Asociado “A”",
-        documentos: [
-            { id: "doc1", titulo: "Programa Educativo de Mecatrónica" },
-            { id: "doc2", titulo: "Ingeniería Electromecánica" },
-            { id: "doc3", titulo: "Maestría en Ciencias de la Electrónica" },
-        ],
-    },
-    {
-        id: "2",
-        titulo: "Profesor de Asignatura",
-        documentos: [
-            { id: "doc4", titulo: "Programa Educativo de contaduría" },
-            { id: "doc5", titulo: "Programa Educativo Negocios y Mercadotecnia" },
-            { id: "doc6", titulo: "Programa Educativo Tecnologías de la Información" },
-            { id: "doc7", titulo: "Programa Educativo Ingeniería Industrial" },
-            { id: "doc8", titulo: "Programa Educativo Mecatrónica" },
-        ],
-    },
-    {
-        id: "3",
-        titulo: "Convocatorias para Profesor de Asignatura B",
-        documentos: [
-            { id: "doc9", titulo: "Programa Educativo de Agricultura Sustentable y Protegida" },
-        ],
-    },
-];
+interface Seccion {
+  id: string;
+  titulo: string;
+  documentos: Documento[];
+}
+
 export default function RecursosHumanos() {
-    return (
-        <TablaDocumentosReutilizable
-            secciones={datos}
-            titulo="Convocatorias para Profesor"
-            descripcion="Explora las convocatorias y recursos disponibles para el desarrollo profesional del personal docente, organizados por año y tipo de documento."
-        />
-    )
+  const [secciones, setSecciones] = useState<Seccion[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const loadDocuments = async () => {
+      const area = await fetchArea(2); // ID for Recursos Humanos area
+      if (area) {
+        const seccionesMapped: Seccion[] = area.categorias.map(categoria => ({
+          id: categoria.ID_Categorias.toString(),
+          titulo: categoria.Nombre,
+          documentos: categoria.archivos.map(archivo => ({
+            id: archivo.ID.toString(),
+            titulo: archivo.Nombre,
+            ruta: `${import.meta.env.VITE_BACKENDURL}${archivo.Ruta_Documento}`,
+          })),
+        }));
+        setSecciones(seccionesMapped);
+      }
+      setLoading(false);
+    };
+    loadDocuments();
+  }, []);
+
+  if (loading) {
+    return <div className="min-h-screen flex items-center justify-center">Cargando documentos...</div>;
+  }
+
+  return (
+    <TablaDocumentosReutilizable
+      secciones={secciones}
+      titulo="Convocatorias para Profesor"
+      descripcion="Explora las convocatorias y recursos disponibles para el desarrollo profesional del personal docente, organizados por año y tipo de documento."
+    />
+  );
 }

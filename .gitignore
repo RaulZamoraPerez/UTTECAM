@@ -36,3 +36,6 @@ VIDEOS
 
 # Variables de entorno
 .env
+
+# Documentos
+*.pdf

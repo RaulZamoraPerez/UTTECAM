@@ -1,13 +1,12 @@
 import { useState } from "react";
 import { Search, FileText, Download, Library } from "lucide-react";
-import { Link } from "react-router-dom";
 import { formatearTitulo } from "../util/Formatt";
 
 interface Documento {
   id: string;
   titulo: string;
   año?: string;
- 
+  ruta?: string;
 }
 
 interface Seccion {
@@ -124,16 +123,18 @@ export default function tablaDocumentosReutilizable({
                               <div className="flex items-start justify-between gap-4">
                                 <div className="flex items-start gap-2">
                                   <FileText className="h-5 w-5 mt-0.5 flex-shrink-0 text-[#D1672A]" />
-                                  <Link
-                                    to={`/ver-documento${nextUrl? nextUrl : ''}/${(documento.titulo)}${documento.año? `?año=${documento.año}`: ""}`}
+                                  <a
+                                    href={documento.ruta || `/ver-documento${nextUrl? nextUrl : ''}/${(documento.titulo)}${documento.año? `?año=${documento.año}`: ""}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
                                     className="font-medium text-gray-800 hover:text-[#D1672A] hover:underline transition-colors duration-150 text-"
                                   >
                                     { formatearTitulo(documento.titulo)}
-                                  </Link>
+                                  </a>
                                 </div>
                               
                                 <a
-                                  href={`/${documento.id}.pdf`}
+                                  href={documento.ruta || `/${documento.id}.pdf`}
                                   download
                                   className="flex-shrink-0 p-2 text-[#D1672A] hover:bg-[#D1672A]/10 rounded-lg transition-colors duration-150"
                                 >

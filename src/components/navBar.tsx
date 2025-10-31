@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useRef, useEffect } from "react"
-import { motion, AnimatePresence } from "framer-motion"
+import { motion, AnimatePresence, easeOut, easeIn } from "framer-motion"
 import { ChevronDown, ChevronRight, Menu, X } from "lucide-react"
 import { Link } from "react-router-dom"
 
@@ -200,7 +200,7 @@ export default function Navbar() {
             scale: 1,
             transition: {
                 duration: 0.25,
-                ease: "easeOut",
+                ease: easeOut,
             },
         },
         exit: {
@@ -209,7 +209,7 @@ export default function Navbar() {
             scale: 0.95,
             transition: {
                 duration: 0.2,
-                ease: "easeIn",
+                ease: easeIn,
             },
         },
     }
@@ -226,7 +226,7 @@ export default function Navbar() {
             scale: 1,
             transition: {
                 duration: 0.25,
-                ease: "easeOut",
+                ease: easeOut,
             },
         },
         exit: {
@@ -235,7 +235,7 @@ export default function Navbar() {
             scale: 0.95,
             transition: {
                 duration: 0.2,
-                ease: "easeIn",
+                ease: easeIn,
             },
         },
     }

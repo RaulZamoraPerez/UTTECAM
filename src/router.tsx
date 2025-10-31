@@ -11,6 +11,8 @@ import Vinculacion from "@/views/Vinculacion/vinculacion";
 import RecursosHumanos from "@/views/RecursosHumanos/recursosHumanos";
 import Sga from "@/views/Sga/sga";
 import Sigc from "@/views/Sigc/sigc";
+import InformacionEstadia from "@/views/InformacionEstadia/informacionEstadia";
+import CoordinacionGenero from "@/views/CoordinacionGenero/coordinacionGenero";
 import ProgramDetail from "./views/DetallesCarrera/ProgramDetail";
 import ConvocatoriaAdmision from "@/views/Convocatoria/ConvocatoriaAdmision";
 import MiEscuela from "@/views/MiEscuela/MiEscuela";
@@ -42,6 +44,8 @@ export default function Router() {
           <Route path ="/recursosHumanos" element ={<RecursosHumanos/>}/>
           <Route path ="/sga" element ={<Sga/>}/>
           <Route path ="/sigc" element ={<Sigc/>}/>
+          <Route path ="/informacion-estadia" element ={<InformacionEstadia/>}/>
+          <Route path ="/coordinacion-genero" element ={<CoordinacionGenero/>}/>
           <Route path="/directorios" element={<Directorios />} />
           <Route path="/vinculacion" element={<Vinculacion />} />
           <Route path="/calendario" element={<Calendario/>} />
