@@ -1,18 +1,42 @@
+import { useState } from 'react';
+
 type FeatureCardProps = {
   title: string;
   description: string | string[];
   imageSrc: string;
 }
 
+const getDefaultImage = (title: string): string => {
+  switch (title) {
+    case 'Visión':
+      return 'nosotros/vision.jpg';
+    case 'Misión':
+      return 'nosotros/mision.webp';
+    case 'Valores':
+      return 'nosotros/valores.avif';
+    default:
+      return 'nosotros/default.jpg';
+  }
+};
 
 export default function FeatureCardNosotros({ title, description, imageSrc }: FeatureCardProps) {
+  const [imgSrc, setImgSrc] = useState(imageSrc);
+
+  const handleImageError = () => {
+    const defaultImg = getDefaultImage(title);
+    if (imgSrc !== defaultImg) {
+      setImgSrc(defaultImg);
+    }
+  };
+
   return (
     <div className="flex flex-col items-center text-center p-4">
       <div className="w-100 h-50 mb-4">
         <img
-          src={imageSrc}
+          src={imgSrc}
           alt={title}
           className="w-full h-full object-contain"
+          onError={handleImageError}
         />
       </div>
       <h3 className="text-3xl font-bold text-amber-700 mb-2">{title}</h3>
