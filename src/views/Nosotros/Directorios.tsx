@@ -1,14 +1,26 @@
 import { ContactCard } from "@/components/ContactCard";
 import { Search } from "lucide-react";
-import { useState } from "react";
-import { contactData } from "@/data/directorios.data"; 
+import { useState, useEffect } from "react";
+import { fetchDirectorios, type DirectorioItem } from "@/util/directorioApi";
 
 export const Directorios = () => {
   const [searchTerm, setSearchTerm] = useState("");
+  const [contactData, setContactData] = useState<DirectorioItem[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const loadDirectorios = async () => {
+      setLoading(true);
+      const data = await fetchDirectorios();
+      setContactData(data);
+      setLoading(false);
+    };
+    loadDirectorios();
+  }, []);
 
   const filteredData = contactData.filter((item) =>
-    item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    item.title.toLowerCase().includes(searchTerm.toLowerCase())
+    item.nombre.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    item.titulo.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
@@ -34,17 +46,31 @@ export const Directorios = () => {
           />
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 p-2 py-10 shadow px-10 mb-5">
-          {filteredData.length > 0 ? (
-            filteredData.map((item, index) => (
-              <ContactCard key={index} {...item} />
-            ))
-          ) : (
-            <p className="col-span-full text-center text-gray-500 text-xl">
-              No se encontraron resultados.
-            </p>
-          )}
-        </div>
+        {loading ? (
+          <div className="text-center py-10">
+            <p className="text-gray-500 text-xl">Cargando directorios...</p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 p-2 py-10 shadow px-10 mb-5">
+            {filteredData.length > 0 ? (
+              filteredData.map((item) => (
+                <ContactCard 
+                  key={item.id}
+                  title={item.titulo}
+                  name={item.nombre}
+                  phone={item.telefono}
+                  extension={item.extension}
+                  email={item.correo}
+                  imagenUrl={item.imagen}
+                />
+              ))
+            ) : (
+              <p className="col-span-full text-center text-gray-500 text-xl">
+                No se encontraron resultados.
+              </p>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );

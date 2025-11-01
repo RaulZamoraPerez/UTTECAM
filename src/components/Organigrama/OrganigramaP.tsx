@@ -6,12 +6,14 @@ import {
 import "primereact/resources/themes/lara-light-indigo/theme.css";
 import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
-import { dataOrganigrama } from "@/data/Organigrama.data";
+import { fetchOrganigrama, type OrganigramaNode } from "@/util/organigramaApi";
 import { Card } from "./Card";
 import type { OrgNode } from "types/Program";
 
 export default function OrganigramaP() {
   const [zoom, setZoom] = useState(0.6);
+  const [data, setData] = useState<OrganigramaNode[]>([]);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     const container = document.querySelector(".organigrama-wrapper");
 
@@ -51,8 +53,21 @@ export default function OrganigramaP() {
     OrganizationChartNodeData | OrganizationChartNodeData[] | null
   >(null);
 
-  const [data] = useState(dataOrganigrama);
+  // Cargar organigrama desde API
   useEffect(() => {
+    const loadOrganigrama = async () => {
+      setLoading(true);
+      const orgData = await fetchOrganigrama();
+      setData(orgData);
+      setLoading(false);
+    };
+    loadOrganigrama();
+  }, []);
+
+  // Centrar el scroll después de cargar
+  useEffect(() => {
+    if (loading || data.length === 0) return;
+
     const container = document.querySelector(
       ".organigrama-scroll"
     ) as HTMLElement;
@@ -67,7 +82,7 @@ export default function OrganigramaP() {
           (content.scrollHeight - container.clientHeight) / 2;
       }, 100);
     }
-  }, []);
+  }, [loading, data]);
 
   const nodeTemplate = (node: OrgNode) => {
     //template o card jefes
@@ -101,7 +116,16 @@ export default function OrganigramaP() {
         Organigrama{" "}
       </p>
 
-      <div className="organigrama-scroll overflow-auto max-w-max mx-auto max-h-screen p-4 mb-10 bg-white border border-gray-300">
+      {loading ? (
+        <div className="text-center py-10">
+          <p className="text-gray-500 text-xl">Cargando organigrama...</p>
+        </div>
+      ) : data.length === 0 ? (
+        <div className="text-center py-10">
+          <p className="text-gray-500 text-xl">No hay datos de organigrama disponibles.</p>
+        </div>
+      ) : (
+        <div className="organigrama-scroll overflow-auto max-w-max mx-auto max-h-screen p-4 mb-10 bg-white border border-gray-300">
         <div
           className="organigrama-wrapper origin-top-center inline-flex flex-col items-center justify-center mt-10 transition-transform duration-300"
           style={{ transform: `scale(${zoom})` }}
@@ -124,6 +148,7 @@ export default function OrganigramaP() {
           />
         </div>
       </div>
+      )}
     </div>
   );
 }

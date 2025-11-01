@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Mail, Phone } from "lucide-react";
 import { ContactModal } from "./Modal/ContactModal";
 import { formatPhone } from "@/util/Formatt";
+import { getDirectorioImageUrl } from "@/util/directorioApi";
 
 
 interface Props {
@@ -70,7 +71,7 @@ export const ContactCard = ({
         phone={phone}
         extension={extension}
         email={email}
-        imageUrl={imagenUrl}
+        imageUrl={getDirectorioImageUrl(imagenUrl)}
       />
     </>
   );

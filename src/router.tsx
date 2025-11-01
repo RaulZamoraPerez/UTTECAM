@@ -77,7 +77,9 @@ export default function Router() {
           {/* Rutas de becas */}
           <Route path="/becas-academicas" element={<Becas/>} />
           <Route path="/Becas" element={<Calendario/>} />
+          {/* Soportar ambas variantes de URL para evitar 404 por diferencia de mayúsculas */}
           <Route path="/Organigrama" element={<Organigrama/>} />
+          <Route path="/organigrama" element={<Organigrama/>} />
         </Route>
         <Route path="*" element={<Page_404 />} />
       </Routes>

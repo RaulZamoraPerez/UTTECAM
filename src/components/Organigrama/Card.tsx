@@ -1,5 +1,6 @@
 import { useState } from "react";
 import type { OrgNode } from "types/Program";
+import { getOrganigramaImageUrl } from "@/util/organigramaApi";
 
 interface Props {
   node: OrgNode;
@@ -29,9 +30,11 @@ export const Card = ({ node }: Props) => {
     ? node.label?.split(" - ")[2] || ""
     : "";
 
-  const image = isPerson
-    ? node.data?.image || "./Profesores/image.png"
-    : "./Profesores/image.png";
+  const imagePath = isPerson
+    ? node.data?.image || ""
+    : "";
+  
+  const image = getOrganigramaImageUrl(imagePath);
 
   return (
     <div
