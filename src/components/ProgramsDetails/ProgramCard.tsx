@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom"
 import type { Program } from "../../types/Program"
+import { getCarreraImageUrl } from "../../services/carreraApi"
 
 interface ProgramCardProps {
   program: Program
@@ -12,6 +13,13 @@ const ProgramCard = ({ program }: ProgramCardProps) => {
     navigate(`/programa/${program.id}`)
   }
 
+  // Verificar si la imagen ya es una URL completa o solo el nombre del archivo
+  const imageUrl = program.image && program.image.startsWith('http') 
+    ? program.image 
+    : program.image 
+      ? getCarreraImageUrl(program.image)
+      : '/placeholder-carrera.jpg'
+
   return (
     <div
       onClick={handleClick}
@@ -23,7 +31,7 @@ const ProgramCard = ({ program }: ProgramCardProps) => {
       }}
     >
       <img
-        src={program.image}
+        src={imageUrl}
         alt={program.title}
         className="w-full h-full object-cover rounded-[20px]"
       />

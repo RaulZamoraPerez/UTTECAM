@@ -1,18 +1,48 @@
 import { Carousel } from 'react-responsive-carousel'
 import 'react-responsive-carousel/lib/styles/carousel.min.css'
-import {  useState } from 'react'
+import { useState, useEffect } from 'react'
+import { getHeroSlides, getHeroSlideFileUrl, type HeroSlide } from '../services/homeApi'
 
 const HeroCarousel: React.FC = () => {
   const [selectedIndex, setSelectedIndex] = useState(0)
   const [autoPlay, setAutoPlay] = useState(true)
+  const [slides, setSlides] = useState<HeroSlide[]>([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    const fetchSlides = async () => {
+      try {
+        const data = await getHeroSlides()
+        setSlides(data)
+      } catch (error) {
+        console.error('Error al cargar hero slides:', error)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchSlides()
+  }, [])
 
   const handleVideoPlay = () => {
-    setAutoPlay(false) // Detiene autoplay cuando inicia el video
+    setAutoPlay(false)
   }
 
   const handleVideoEnd = () => {
-    setSelectedIndex((prevIndex) => (prevIndex + 1) % 3) // Cambia manualmente al siguiente slide
-    setAutoPlay(true) // Reactiva autoplay
+    setSelectedIndex((prevIndex) => (prevIndex + 1) % slides.length)
+    setAutoPlay(true)
+  }
+
+  if (loading) {
+    return (
+      <section className="w-full bg-gray-200 h-96 flex items-center justify-center">
+        <p className="text-gray-600">Cargando...</p>
+      </section>
+    )
+  }
+
+  if (slides.length === 0) {
+    return null
   }
 
   return (
@@ -29,37 +59,31 @@ const HeroCarousel: React.FC = () => {
         emulateTouch
         className="relative"
       >
-        <div>
-          <img
-            src="/hero1.jpg"
-            alt="Proceso de ingreso UTTECAM 2025"
-            className="w-full h-auto object-cover"
-          />
-        </div>
-
-        <div>
-          <video
-            autoPlay
-            controls
-            muted
-            playsInline
-            preload="auto"
-            className="w-full h-auto object-cover"
-            onPlay={handleVideoPlay}
-            onEnded={handleVideoEnd}
-          >
-            <source src="/VIDEOS/UTTECAM.mp4" type="video/mp4" />
-            Tu navegador no soporta videos HTML5.
-          </video>
-        </div>
-
-        <div>
-          <img
-            src="/hero2.jpg"
-            alt="Beca Exención de Pago UTTECAM"
-            className="w-full h-auto object-cover"
-          />
-        </div>
+        {slides.map((slide) => (
+          <div key={slide.id}>
+            {slide.tipo === 'imagen' ? (
+              <img
+                src={getHeroSlideFileUrl(slide.archivo)}
+                alt={slide.titulo}
+                className="w-full h-auto object-cover"
+              />
+            ) : (
+              <video
+                autoPlay
+                controls
+                muted
+                playsInline
+                preload="auto"
+                className="w-full h-auto object-cover"
+                onPlay={handleVideoPlay}
+                onEnded={handleVideoEnd}
+              >
+                <source src={getHeroSlideFileUrl(slide.archivo)} type="video/mp4" />
+                Tu navegador no soporta videos HTML5.
+              </video>
+            )}
+          </div>
+        ))}
       </Carousel>
     </section>
   )

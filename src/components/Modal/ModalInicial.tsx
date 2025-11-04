@@ -2,17 +2,33 @@
 
 import { useState, useEffect } from "react"
 import { X } from "lucide-react"
+import { getAnuncioActivo, getAnuncioFileUrl, type Anuncio } from "../../services/homeApi"
 
 export default function NewsModal() {
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [isClosing, setIsClosing] = useState(false)
+    const [anuncio, setAnuncio] = useState<Anuncio | null>(null)
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
-        const timer = setTimeout(() => {
-            setIsModalOpen(true)
-        }, 300)
+        const fetchAnuncio = async () => {
+            try {
+                const data = await getAnuncioActivo()
+                setAnuncio(data)
+                if (data) {
+                    const timer = setTimeout(() => {
+                        setIsModalOpen(true)
+                    }, 300)
+                    return () => clearTimeout(timer)
+                }
+            } catch (error) {
+                console.error('Error al cargar anuncio:', error)
+            } finally {
+                setLoading(false)
+            }
+        }
 
-        return () => clearTimeout(timer)
+        fetchAnuncio()
     }, [])
 
     const closeModal = () => {
@@ -23,7 +39,7 @@ export default function NewsModal() {
         }, 500)
     }
 
-    if (!isModalOpen) return null
+    if (loading || !anuncio || !isModalOpen) return null
 
     return (
         <>
@@ -55,8 +71,8 @@ export default function NewsModal() {
                     </button>
                     <div className="relative" style={{ height: "400px", overflow: "hidden" }}>
                         <img
-                            src="/INGRESOUTTECAM2025.jpg"
-                            alt="Noticia importante"
+                            src={getAnuncioFileUrl(anuncio.imagen)}
+                            alt={anuncio.titulo}
                             width={600}
                             height={100}
                             className="w-full h-full object-cover"
@@ -70,9 +86,11 @@ export default function NewsModal() {
                             }}
                         ></div>
                         <div className="absolute bottom-4 left-6 right-6">
-                            <h3 className="text-white text-2xl font-bold mb-2 drop-shadow-lg">¡Noticia Importante!</h3>
+                            <h3 className="text-white text-2xl font-bold mb-2 drop-shadow-lg">{anuncio.titulo}</h3>
                             <p className="text-white text-sm drop-shadow-md mb-4">
-                                Mantente informado con las últimas novedades de nuestra plataforma
+                                {new Date(anuncio.fecha_inicio).toLocaleDateString('es-MX', { year: 'numeric', month: 'long', day: 'numeric' })}
+                                {' - '}
+                                {new Date(anuncio.fecha_fin).toLocaleDateString('es-MX', { year: 'numeric', month: 'long', day: 'numeric' })}
                             </p>
                         </div>
                     </div>

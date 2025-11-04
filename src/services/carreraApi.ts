@@ -1,0 +1,51 @@
+const API_URL = import.meta.env.VITE_API_URL || '';
+
+export interface Carrera {
+  id: number;
+  nombre: string;
+  siglas: string;
+  nivel: 'TSU' | 'Ingenieria' | 'Licenciatura';
+  modalidad: 'Escolarizada' | 'Ejecutiva' | 'Mixta';
+  duracion: string;
+  objetivo: string;
+  perfil_ingreso: string;
+  perfil_egreso: string;
+  campo_laboral: string;
+  imagen: string;
+  plan_estudios_url?: string;
+  orden: number;
+  activo: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+
+// GET - Obtener todas las carreras activas
+export const getCarreras = async (): Promise<Carrera[]> => {
+  const response = await fetch(`${API_URL}/api/carreras`);
+  if (!response.ok) throw new Error('Error al obtener carreras');
+  return response.json();
+};
+
+// GET - Obtener carreras por nivel
+export const getCarrerasByNivel = async (nivel: 'TSU' | 'Ingenieria' | 'Licenciatura'): Promise<Carrera[]> => {
+  const response = await fetch(`${API_URL}/api/carreras/nivel/${nivel}`);
+  if (!response.ok) throw new Error('Error al obtener carreras por nivel');
+  return response.json();
+};
+
+// GET - Obtener una carrera por ID
+export const getCarreraById = async (id: number): Promise<Carrera> => {
+  const response = await fetch(`${API_URL}/api/carreras/${id}`);
+  if (!response.ok) throw new Error('Error al obtener carrera');
+  return response.json();
+};
+
+// Helper para obtener URL de imagen
+export const getCarreraImageUrl = (filename: string): string => {
+  return `${API_URL}/uploads/carreras/${filename}`;
+};
+
+// Helper para obtener URL de plan de estudios
+export const getCarreraPlanUrl = (filename: string): string => {
+  return `${API_URL}/uploads/carreras/planes/${filename}`;
+};

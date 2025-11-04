@@ -1,5 +1,6 @@
 import type React from "react"
 import { useEffect, useState } from "react"
+import { getEventoActivo, type Evento } from "../services/homeApi"
 
 interface CountdownCircleProps {
   label: string
@@ -84,7 +85,25 @@ const DecorativeBorder = () => (
 )
 
 const Countdown: React.FC = () => {
- const targetDate = new Date(2025, 8, 6, 0, 0, 0) // 6 de septiembre de 2025 (mes 8 porque enero = 0)
+  const [evento, setEvento] = useState<Evento | null>(null)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    const fetchEvento = async () => {
+      try {
+        const data = await getEventoActivo()
+        setEvento(data)
+      } catch (error) {
+        console.error('Error al cargar evento:', error)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchEvento()
+  }, [])
+
+  const targetDate = evento ? new Date(evento.fecha_evento) : new Date()
 
   const calculateTimeLeft = () => {
     const now = new Date()
@@ -102,16 +121,30 @@ const Countdown: React.FC = () => {
   const [timeLeft, setTimeLeft] = useState(calculateTimeLeft())
 
   useEffect(() => {
+    if (!evento) return
+
     const timer = setInterval(() => {
       setTimeLeft(calculateTimeLeft())
     }, 1000)
     return () => clearInterval(timer)
-  }, [])
+  }, [evento])
 
   // Cálculo dinámico del máximo de días
   const today = new Date()
   const todayMidnight = new Date(today.getFullYear(), today.getMonth(), today.getDate())
   const maxDays = Math.ceil((targetDate.getTime() - todayMidnight.getTime()) / (1000 * 60 * 60 * 24))
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-black">
+        <p className="text-amber-300">Cargando evento...</p>
+      </div>
+    )
+  }
+
+  if (!evento) {
+    return null
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center text-center py-16 px-4 relative overflow-hidden">
@@ -144,18 +177,23 @@ const Countdown: React.FC = () => {
 
             <div className="relative mb-8">
               <h2 className="font-serif text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-yellow-400 to-amber-200 text-4xl md:text-5xl lg:text-6xl font-bold mb-2">
-                29° Aniversario UTTECAM
+                {evento.titulo}
               </h2>
               <p className="text-amber-300 text-lg md:text-xl font-medium">
-                6 de septiembre 2025
+                {new Date(evento.fecha_evento).toLocaleDateString('es-MX', {
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric'
+                })}
               </p>
               <div className="absolute -inset-1 -z-10 blur-md bg-gradient-to-r from-amber-600/20 via-yellow-400/20 to-amber-600/20 opacity-70"></div>
             </div>
 
-
-            <p className="text-amber-300/80 text-lg md:text-xl mb-12 max-w-2xl mx-auto">
-              Celebrando casi tres décadas de excelencia académica y compromiso con la educación
-            </p>
+            {evento.descripcion && (
+              <p className="text-amber-300/80 text-lg md:text-xl mb-12 max-w-2xl mx-auto">
+                {evento.descripcion}
+              </p>
+            )}
 
             <div className="flex flex-wrap justify-center gap-6 md:gap-10">
               <CountdownCircle label="DÍAS" value={timeLeft.days} max={maxDays} />

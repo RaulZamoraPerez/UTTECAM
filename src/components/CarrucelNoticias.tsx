@@ -2,18 +2,28 @@
 
 import { useState, useEffect } from "react"
 import { ChevronLeft, ChevronRight } from "lucide-react"
+import { getNoticias, getNoticiaFileUrl, type Noticia } from "../services/homeApi"
 
 export default function EducationalCarousel() {
     const [currentSlide, setCurrentSlide] = useState(0)
     const [imagesPerSlide, setImagesPerSlide] = useState(3)
+    const [noticias, setNoticias] = useState<Noticia[]>([])
+    const [loading, setLoading] = useState(true)
 
-    const courses = [
-        { id: 1, image: "/noticias/consejo.jpg" },
-        { id: 2, image: "/noticias/Tequios8.jpg" },
-        { id: 3, image: "/noticias/ConsejoV.jpg" },
-        { id: 7, image: "/noticias/Expo2.jpg" },
-        { id: 8, image: "/noticias/Expo1.jpg" },
-    ]
+    useEffect(() => {
+        const fetchNoticias = async () => {
+            try {
+                const data = await getNoticias()
+                setNoticias(data)
+            } catch (error) {
+                console.error('Error al cargar noticias:', error)
+            } finally {
+                setLoading(false)
+            }
+        }
+
+        fetchNoticias()
+    }, [])
 
     // Detecta el tamaño de pantalla y ajusta imágenes por slide
     useEffect(() => {
@@ -29,14 +39,14 @@ export default function EducationalCarousel() {
         return () => window.removeEventListener("resize", handleResize)
     }, [])
 
-    // Agrupa los cursos según imagesPerSlide
-    const extendedCourses = [...courses, ...courses, ...courses]
+    // Agrupa las noticias según imagesPerSlide
+    const extendedNoticias = [...noticias, ...noticias, ...noticias]
     const slides = []
-    for (let i = 0; i < extendedCourses.length; i += imagesPerSlide) {
-        slides.push(extendedCourses.slice(i, i + imagesPerSlide))
+    for (let i = 0; i < extendedNoticias.length; i += imagesPerSlide) {
+        slides.push(extendedNoticias.slice(i, i + imagesPerSlide))
     }
 
-    const totalSlides = Math.ceil(courses.length / imagesPerSlide)
+    const totalSlides = Math.ceil(noticias.length / imagesPerSlide)
     const startIndex = totalSlides
 
     const nextSlide = () => setCurrentSlide((prev) => prev + 1)
@@ -59,6 +69,18 @@ export default function EducationalCarousel() {
         return () => clearInterval(interval)
     }, [imagesPerSlide])
 
+    if (loading) {
+        return (
+            <div className="flex flex-col items-center bg-[#f1f1f1] py-12">
+                <p className="text-gray-600">Cargando noticias...</p>
+            </div>
+        )
+    }
+
+    if (noticias.length === 0) {
+        return null
+    }
+
     return (
         <div className="flex flex-col items-center bg-[#f1f1f1]">
             <div className="text-center mb-8">
@@ -76,13 +98,13 @@ export default function EducationalCarousel() {
                     >
                         {slides.map((slideGroup, slideIndex) => (
                             <div key={slideIndex} className="w-full flex-shrink-0 flex gap-4 px-2">
-                                {slideGroup.map((course, courseIndex) => (
-                                    <div key={`${course.id}-${slideIndex}-${courseIndex}`} className="flex-1">
+                                {slideGroup.map((noticia, noticiaIndex) => (
+                                    <div key={`${noticia.id}-${slideIndex}-${noticiaIndex}`} className="flex-1">
                                         <div className="overflow-hidden rounded-lg shadow-lg bg-white">
                                             <div className="relative h-64 sm:h-80 md:h-[28rem] lg:h-[32rem] w-full">
                                                 <img
-                                                    src={course.image || "/placeholder.svg?height=300&width=400"}
-                                                    alt={`Curso ${course.id}`}
+                                                    src={getNoticiaFileUrl(noticia.imagen)}
+                                                    alt={noticia.titulo}
                                                     className="w-full h-full object-cover"
                                                 />
                                             </div>
