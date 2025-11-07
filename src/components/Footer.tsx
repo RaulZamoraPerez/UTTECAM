@@ -1,11 +1,43 @@
-import { MapPin, Phone, Clock, Mail, ChevronRight } from "lucide-react"
+import { useEffect } from "react";
+import { MapPin, Phone, Clock, Mail, ChevronRight } from "lucide-react";
 
 export default function Footer() {
+    // const [currentDate, setCurrentDate] = useState("");
+
+    useEffect(() => {
+        const fetchLastModified = async () => {
+            try {
+                // const res = await fetch("/last-update.json");
+                // const data = await res.json();
+
+                // const date = new Date(data.lastModified);
+                // const formattedDate = date.toLocaleDateString("es-MX", {
+                //     year: "numeric",
+                //     month: "long",
+                //     day: "numeric",
+                // });
+                // const formattedTime = date.toLocaleTimeString("es-MX", {
+                //     hour: "2-digit",
+                //     minute: "2-digit",
+                //     second: "2-digit",
+                //     hour12: false,
+                // });
+
+                // setCurrentDate(`${formattedDate} ${formattedTime}`);
+            } catch (error) {
+                console.error("Error al cargar la fecha:", error);
+            }
+        };
+
+        fetchLastModified();
+    }, []);
+
     return (
         <footer className="bg-[#e6f7f2] py-8 px-4 md:px-8">
             <div className="container mx-auto">
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-                    <div className="md:col-span-">
+                    {/* Información de contacto */}
+                    <div>
                         <div className="mb-6">
                             <img src="/logo.png" alt="UTTECAM Logo" width={180} height={60} className="mb-4" />
                         </div>
@@ -15,7 +47,7 @@ export default function Footer() {
                                 <MapPin className="h-5 w-5 text-[#008066] mr-2 mt-1 flex-shrink-0" />
                                 <div>
                                     <p className="text-[#008066] font-medium">Dirección:</p>
-                                    <p className="text-[#008066]">Avenida, Universidad Tecnológica 1, Barrio la Villita, 75483 Tecamachalco,Pue.</p>
+                                    <p className="text-[#008066]">Avenida, Universidad Tecnológica 1, Barrio la Villita, 75483 Tecamachalco, Pue.</p>
                                 </div>
                             </div>
 
@@ -44,34 +76,52 @@ export default function Footer() {
                         </div>
                     </div>
 
-                    {/* categorias */}
-                    <div className="md:col-span-1">
+                    {/* Categorías */}
+                    <div>
                         <h3 className="text-xl font-bold text-[#333] mb-4"></h3>
                         <ul className="space-y-2">
                             <li className="mb-8">
-                                <a href="/finanzas" className="text-[#0A9782] hover:text-[#D1672A] text-base font-semibold flex items-center transition-colors duration-200"><ChevronRight /> Finanzas</a>
+                                <a href="/finanzas" className="text-[#0A9782] hover:text-[#D1672A] text-base font-semibold flex items-center transition-colors duration-200">
+                                    <ChevronRight /> Finanzas
+                                </a>
                             </li>
                             <li className="mb-8">
-                                <a href="/recursosHumanos" className="text-[#0A9782] hover:text-[#D1672A] text-base font-semibold flex items-center transition-colors duration-200"><ChevronRight /> Recursos Humanos</a>
+                                <a href="/recursosHumanos" className="text-[#0A9782] hover:text-[#D1672A] text-base font-semibold flex items-center transition-colors duration-200">
+                                    <ChevronRight /> Recursos Humanos
+                                </a>
+                            </li>
+                            <li className="mb-8">
+                                <a href="/InformacionEstadistica" className="text-[#0A9782] hover:text-[#D1672A] text-base font-semibold flex items-center transition-colors duration-200">
+                                    <ChevronRight /> Información y Estadística
+                                </a>
                             </li>
                         </ul>
                     </div>
 
                     {/* Links */}
-                    <div className="md:col-span-1">
+                    <div>
                         <h3 className="text-xl font-bold text-[#333] mb-4"></h3>
                         <ul className="space-y-2">
                             <li className="mb-8">
-                                <a href="/sga" className="text-[#0A9782] hover:text-[#D1672A] text-base font-semibold flex items-center transition-colors duration-200"><ChevronRight /> Sistema de Gestión Ambiental</a>
+                                <a href="/sga" className="text-[#0A9782] hover:text-[#D1672A] text-base font-semibold flex items-center transition-colors duration-200">
+                                    <ChevronRight /> Sistema de Gestión Ambiental
+                                </a>
                             </li>
                             <li className="mb-8">
-                                <a href="/sigc" className="text-[#0A9782] hover:text-[#D1672A] text-base font-semibold flex items-center transition-colors duration-200"><ChevronRight /> Sistema de Gestión de la Calidad</a>
+                                <a href="/sigc" className="text-[#0A9782] hover:text-[#D1672A] text-base font-semibold flex items-center transition-colors duration-200">
+                                    <ChevronRight /> Sistema de Gestión de la Calidad
+                                </a>
+                            </li>
+                            <li className="mb-8">
+                                <a href="/Coordinacion" className="text-[#0A9782] hover:text-[#D1672A] text-base font-semibold flex items-center transition-colors duration-200">
+                                    <ChevronRight /> Sitio Web Coordinacion De Género
+                                </a>
                             </li>
                         </ul>
                     </div>
 
-                    {/* Map */}
-                    <div className="md:col-span-1">
+                    {/* Mapa */}
+                    <div>
                         <div className="h-[200px] w-full rounded-md overflow-hidden">
                             <iframe
                                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3416.651011064499!2d-97.72351492533981!3d18.863898058597947!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85c5631524041a17%3A0x43073fb16f64edc2!2sUTTcam!5e1!3m2!1sen!2smx!4v1749089731375!5m2!1sen!2smx"
@@ -86,7 +136,14 @@ export default function Footer() {
                         </div>
                     </div>
                 </div>
+
+                {/* Fecha de modificación */}
+                <div className="mt-10 text-center">
+                    <p className="text-sm text-[#008066] font-medium">
+                        Última modificación del sitio:  <span className="font-bold text-sm"> 17 de junio de 2025 a las 12:46 hrs.</span> 
+                    </p>
+                </div>
             </div>
         </footer>
-    )
+    );
 }

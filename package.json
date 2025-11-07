@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "update-last-modified": "node update-last-modified.js",
+    "build": "npm run update-last-modified && tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
@@ -22,7 +23,8 @@
     "primereact": "^10.9.6",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "react-hook-form": "^7.65.0",
+    "react-hook-form": "^7.57.0",
+    "react-medium-image-zoom": "^5.2.14",
     "react-responsive-carousel": "^3.2.23",
     "react-router-dom": "^7.6.1",
     "react-toastify": "^11.0.5"
@@ -32,6 +34,7 @@
     "@types/node": "^22.15.33",
     "@types/react": "^19.1.2",
     "@types/react-dom": "^19.1.2",
+    "@types/react-medium-image-zoom": "^3.0.3",
     "@vitejs/plugin-react-swc": "^3.9.0",
     "autoprefixer": "^10.4.21",
     "eslint": "^9.25.0",

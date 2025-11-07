@@ -36,3 +36,27 @@ VIDEOS
 
 # Variables de entorno
 .env
+
+GACETA
+*.pdf
+*.doc
+*.docx
+*.xls
+*.xlsx
+*.ppt
+*.pptx
+
+# Image files
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.bmp
+*.svg
+*.webp
+*.ico
+*.tiff
+*.tif
+
+#Variales de entorno
+.env

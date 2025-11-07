@@ -7,7 +7,7 @@ export default function Nosotros() {
       imageSrc: 'nosotros/vision.jpg', // Reemplaza con tu ruta
       title: 'Visión',
       description:
-        'En el año 2027 ser una institución de excelencia, reconocida Nacional e Internacionalmente por su eficiencia, eficacia, pertinencia, equidad, inclusión, vinculación y cuerpos académicos consolidados y comprometidos con las expectativas de los aprendientes y de la sociedad, al brindar educación de calidad y profesionistas con alto sentido humano, competitivos e integrados en el ámbito productivo'
+        'En el año 2027, ser una institución de excelencia, reconocida Nacional e Internacionalmente por su eficiencia, eficacia, pertinencia, equidad, inclusión, vinculación y cuerpos académicos consolidados y comprometidos con las expectativas de los aprendientes y de la sociedad, al brindar educación de calidad y profesionistas con alto sentido humano, competitivos e integrados en el ámbito productivo. Siendo una Universidad abierta, flexible, innovadora, promotora de cultura, ciencia y tecnología, vinculada con los sectores social y productivo; que contribuya al desarrollo integral de la región, el estado y del país, distinguida por su compromiso social, desempeño académico, procesos consolidados de evaluación, acreditación de sus programas educativos y transparencia en la rendición de cuentas.'
     },
     {
       imageSrc: 'nosotros/mision.webp',

@@ -6,6 +6,7 @@ import {
 import "primereact/resources/themes/lara-light-indigo/theme.css";
 import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
+import "../../organigrama.css";
 import { dataOrganigrama } from "@/data/Organigrama.data";
 import { Card } from "./Card";
 import type { OrgNode } from "types/Program";
@@ -80,20 +81,20 @@ export default function OrganigramaP() {
 
   return (
     <div className="organigrama-wrapper relative w-full h-full">
-      <div className="fixed right-4 bottom-0 z-50 flex flex-col gap-2 transform -translate-y-1/2">
+      <div className="fixed right-6 bottom-6 z-50 flex flex-col gap-3">
         <button
           onClick={() => setZoom((z) => Math.min(z + 0.1, 2))}
-          className="bg-indigo-600 hover:bg-indigo-700 text-white p-3 rounded-full w-10 h-10  shadow-md"
-          title="Zoom +"
+          className="organigrama-zoom-btn"
+          title="Acercar"
         >
-          +
+          <span>+</span>
         </button>
         <button
           onClick={() => setZoom((z) => Math.max(z - 0.1, 0.3))}
-          className="bg-indigo-600 hover:bg-indigo-700 text-white p-3 rounded-full shadow-md w-10 h-10"
-          title="Zoom -"
+          className="organigrama-zoom-btn"
+          title="Alejar"
         >
-          −
+          <span>−</span>
         </button>
       </div>
 
@@ -115,7 +116,7 @@ export default function OrganigramaP() {
           </div>
 
           <OrganizationChart
-          className="capitalize"
+            className="capitalize"
             value={data}
             selectionMode="single"
             selection={selection}

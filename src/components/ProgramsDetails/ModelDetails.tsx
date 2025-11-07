@@ -24,9 +24,9 @@ const ModelDetails = () => {
 
   return (
     <div>
-      <h2 className="text-2xl font-bold text-orange-500 mb-6">Modelo Educativo 2025</h2>
+      <h2 className="text-2xl font-bold text-orange-500 mb-6">Modelo Educativo</h2>
       <p className="text-gray-600 mb-8 leading-relaxed">
-        El modelo educativo 2025 representa una evolución hacia la educación del futuro, incorporando tecnologías
+        El modelo educativo  representa una evolución hacia la educación del futuro, incorporando tecnologías
         emergentes, metodologías innovadoras y un enfoque en la sostenibilidad y responsabilidad social. Preparamos a
         nuestros estudiantes para los retos del mañana.
       </p>

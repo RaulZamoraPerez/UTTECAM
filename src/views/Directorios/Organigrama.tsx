@@ -1,7 +1,7 @@
 import OrganigramaP from "@/components/Organigrama/OrganigramaP"
 
 
-export const Organigrama = () => {
+ const Organigrama = () => {
   return (
    
     <div >
@@ -9,3 +9,5 @@ export const Organigrama = () => {
     </div>
   )
 }
+
+export default Organigrama;

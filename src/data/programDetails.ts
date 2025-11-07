@@ -1099,7 +1099,7 @@ El egresado en Contaduría tiene las competencias profesionales de verificar inf
         subjects: [
           "Inglés II",
           "Habilidades Socioemocionales y Manejo de Conflictos",
-          "Estadística para Negocios",
+          "Estadística Para Negocios",
           "Derecho Laboral",
           "Derecho Mercantil y Civil",
           "Contabilidad Intermedia",
@@ -1178,7 +1178,7 @@ El egresado en Contaduría tiene las competencias profesionales de verificar inf
           "Evaluación Financiera",
           "Auditoría Fiscal",
           "Seminario de Defensa Fiscal",
-          "Administración de Costos e Inventarios",
+          "Administración de Costos e Inventarios Para la Toma de Decisiones Clave",
           "Proyecto Integrador III"
         ]
       },

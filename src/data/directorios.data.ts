@@ -1,4 +1,12 @@
 export const contactData = [
+    {
+    title: "Encargado de Secretaría Académica",
+    name: "Mtro. Carlos Islas Contreras",
+    phone: "2494223300",
+    extension: "135",
+    email: "secretariaacademica@uttecam.edu.mx",
+    imagenUrl: "Organigrama/secretariaAcademica.png",
+  },
   {
     title: "Secretaría de Vinculación",
     name: "Mtro. Daniel Huerta Conde",
@@ -7,14 +15,7 @@ export const contactData = [
     email: "vinculacion@uttecam.edu.mx",
     imagenUrl: "Organigrama/secretarioVinculacion.png",
   },
-  {
-    title: "Encargado de Secretaría Académica",
-    name: "Mtro. Carlos Islas Contreras",
-    phone: "2494223300",
-    extension: "135",
-    email: "secretariaacademica@uttecam.edu.mx",
-    imagenUrl: "Organigrama/secretariaAcademica.png",
-  },
+
   {
     title: "Encargado del Área de Abogado General",
     name: "Mtro. Eleazar Carrillo Camacho",
