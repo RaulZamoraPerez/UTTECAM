@@ -1,5 +1,5 @@
 import { useState, type ChangeEvent, type FormEvent } from "react";
-import { enviarFormularioReact } from '@/util/sendEmailForms';
+import { enviarFormulario } from '@/util/apiFormularios';
 import { useAlert } from '@/components/alerts/Formularios';
 import carreras from "@/util/carreras";
 import { 
@@ -36,8 +36,19 @@ export default function TramiteTitulo() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { showAlert, AlertComponent } = useAlert();
 
+  // Estado para errores del servidor
+  const [serverErrors, setServerErrors] = useState<Record<string, string[]>>({});
+
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
+    
+    // Limpiar error del servidor para este campo
+    setServerErrors(prev => {
+      if (!(name in prev)) return prev;
+      const copy = { ...prev };
+      delete copy[name];
+      return copy;
+    });
     
     // Aplicar validaciones específicas por campo
     let validatedValue = value;
@@ -49,8 +60,8 @@ export default function TramiteTitulo() {
         break;
       
       case 'matricula':
-        // Solo números y máximo 10 dígitos
-        validatedValue = value.replace(/[^0-9]/g, '').slice(0, 10);
+        // Solo números y máximo 8 dígitos
+        validatedValue = value.replace(/[^0-9]/g, '').slice(0, 8);
         break;
       
       case 'telefono':
@@ -76,9 +87,9 @@ export default function TramiteTitulo() {
     return emailRegex.test(email);
   };
 
-  // Función para validar matrícula (10 dígitos exactos)
+  // Función para validar matrícula (8 dígitos exactos)
   const validateMatricula = (matricula: string): boolean => {
-    return matricula.length === 10 && /^\d{10}$/.test(matricula);
+    return matricula.length === 8 && /^\d{8}$/.test(matricula);
   };
 
   // Función para validar teléfono (10 dígitos exactos)
@@ -108,7 +119,7 @@ export default function TramiteTitulo() {
     }
 
     if (!validateMatricula(formData.matricula)) {
-      showAlert('error', 'Error en la matrícula', 'La matrícula debe tener exactamente 10 dígitos numéricos.');
+      showAlert('error', 'Error en la matrícula', 'La matrícula debe tener exactamente 8 dígitos numéricos.');
       return;
     }
 
@@ -123,41 +134,49 @@ export default function TramiteTitulo() {
     }
 
     setIsSubmitting(true);
+    setServerErrors({}); // Limpiar errores previos
 
     try {
-      // Preparar los datos para enviar
-      const datosEnvio = {
+      // Enviar formulario usando la utilidad reutilizable
+      const resultado = await enviarFormulario({
+        'titulo-formulario': 'Trámite de Título',
         nombre: formData.nombre,
         matricula: formData.matricula,
-        correo: formData.correo,
-        email_destination: 'js750565@gmail.com',
-        titulo: 'Solicitud de Trámite de Título Profesional',
+        email: formData.correo,
         telefono: formData.telefono,
         carrera: formData.carrera,
-        fecha: new Date().toLocaleDateString('es-MX'),
-        hora: new Date().toLocaleTimeString('es-MX'),
-        tipo_solicitud: 'Trámite de Título Profesional'
-      };
-
-      console.log('Intentando enviar:', datosEnvio);
-
-      await enviarFormularioReact(
-        import.meta.env.VITE_EMAILJS_SERVICE_ID,
-        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
-        datosEnvio
-      );
-
-      showAlert('success', '¡Solicitud enviada exitosamente!', 'Tu solicitud ha sido procesada correctamente. Te contactaremos para agendar tu cita en un plazo de 72 horas hábiles.');
-      
-      setFormData({
-        nombre: "",
-        matricula: "",
-        correo: "",
-        telefono: "",
-        carrera: "",
       });
+
+      if (resultado.exito) {
+        // ✅ Éxito
+        showAlert('success', '¡Solicitud enviada exitosamente!', resultado.mensaje || 'Tu solicitud ha sido procesada correctamente. Te contactaremos para agendar tu cita en un plazo de 72 horas hábiles.');
+        
+        // Resetear formulario
+        setFormData({
+          nombre: "",
+          matricula: "",
+          correo: "",
+          telefono: "",
+          carrera: "",
+        });
+      } else {
+        // ❌ Error
+        if (resultado.erroresPorCampo) {
+          // Errores de validación por campo
+          setServerErrors(resultado.erroresPorCampo);
+          
+          const detalle = Object.entries(resultado.erroresPorCampo)
+            .map(([campo, mensajes]) => `• ${campo}: ${mensajes.join(' ')}`)
+            .join('\n');
+          
+          showAlert('error', 'Errores de validación', detalle || 'Revisa los campos marcados.');
+        } else {
+          // Error genérico
+          showAlert('error', 'Error al enviar', resultado.mensaje);
+        }
+      }
     } catch (error) {
-      console.error('Error en handleSubmit:', error);
+      console.error('Error inesperado:', error);
       showAlert('error', 'Error al enviar la solicitud', 'Ocurrió un error al procesar tu solicitud. Por favor, verifica tu conexión a internet e inténtalo de nuevo.');
     } finally {
       setIsSubmitting(false);
@@ -359,16 +378,16 @@ export default function TramiteTitulo() {
                           ? 'border-red-500 bg-red-50' 
                           : 'border-gray-300'
                       }`}
-                      placeholder="1234567890 (10 dígitos)"
-                      maxLength={10}
+                      placeholder="12345678 (8 dígitos)"
+                      maxLength={8}
                       required
                     />
                   </div>
-                  <p className="text-xs text-gray-500 mt-1">
-                    {formData.matricula.length}/10 dígitos
+                  <p className={`text-xs mt-1 ${formData.matricula.length === 8 ? 'text-green-600' : 'text-gray-500'}`}>
+                    {formData.matricula.length}/8 dígitos
                   </p>
                   {formData.matricula && !validateMatricula(formData.matricula) && formData.matricula.length > 0 && (
-                    <p className="text-red-500 text-xs mt-1">La matrícula debe tener exactamente 10 dígitos</p>
+                    <p className="text-red-500 text-xs mt-1">La matrícula debe tener exactamente 8 dígitos</p>
                   )}
                 </div>
 
@@ -426,7 +445,7 @@ export default function TramiteTitulo() {
                       required
                     />
                   </div>
-                  <p className="text-xs text-gray-500 mt-1">
+                  <p className={`text-xs mt-1 ${formData.telefono.length === 10 ? 'text-green-600' : 'text-gray-500'}`}>
                     {formData.telefono.length}/10 dígitos
                   </p>
                   {formData.telefono && !validateTelefono(formData.telefono) && formData.telefono.length > 0 && (

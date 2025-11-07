@@ -88,8 +88,8 @@ export default function Navbar() {
                         { label: "Carta pasante", href: "/requisitos/carta-pasante" },
                         { label: "Reposición de credencial", href: "/requisitos/reposicion-credencial" },
                         { label: "Alta y baja IMSS", href: "/requisitos/alta-baja-imss" },
-                        { label: "Trámite de título", href: "/requisitos/tramite-titulo" },
-                        { label: "Reinscripción", href: "/requisitos/reinscripcion" },
+                        /* { label: "Trámite de título", href: "/requisitos/tramite-titulo" },
+                        { label: "Reinscripción", href: "/requisitos/reinscripcion" }, */
                     ]
 
 

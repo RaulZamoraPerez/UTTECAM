@@ -1,7 +1,7 @@
 import { useState, type ChangeEvent, type FormEvent } from "react";
-import { enviarFormularioReact } from '@/util/sendEmailForms';
+import { enviarFormulario } from '@/util/apiFormularios';
 import { useAlert } from '@/components/alerts/Formularios';
-import carreras from "@/util/carreras";
+import carreras, { carrerasPorNivel } from "@/util/carreras";
 import {
   Clock,
   DollarSign,
@@ -16,6 +16,9 @@ import {
   ArrowRight,
   FileBox,
   FileArchive,
+  FileUp,
+  X,
+  CheckCircle2,
 } from "lucide-react";
 
 interface FormData {
@@ -24,10 +27,12 @@ interface FormData {
   correo: string;
   telefono: string;
   carrera: string;
-  nivel: 'TSU' | 'LIC' | '';
+  nivel: 'TSU' | 'LIC/ING' | '';
   entrega: 'presencial' | 'electronico' | '';
-  referencia: string;
+  comprobantePago: File[];
   documentos: string[];
+  numeroReferencia: string;
+  comentarios: string;
 }
 
 export default function ConstanciasKardex() {
@@ -39,12 +44,20 @@ export default function ConstanciasKardex() {
     carrera: "",
     nivel: "",
     entrega: "",
-    referencia: "",
+    comprobantePago: [],
     documentos: [],
+    numeroReferencia: "",
+    comentarios: "",
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { showAlert, AlertComponent } = useAlert();
+
+  // Estado para errores del servidor
+  const [serverErrors, setServerErrors] = useState<Record<string, string[]>>({});
+  
+  const hasServerError = (field: keyof FormData | 'file' | 'attachment') => Boolean(serverErrors[field]?.length);
+  const getServerErrorText = (field: keyof FormData | 'file' | 'attachment') => serverErrors[field]?.join(' ') || '';
 
   const tramiteInfo = {
     titulo: "Solicitud de Constancia de Estudios o Kardex",
@@ -69,11 +82,32 @@ export default function ConstanciasKardex() {
     costo: "$49.00",
   };
 
+  // Función para filtrar carreras según el nivel seleccionado
+  const getCarrerasPorNivel = () => {
+    if (!formData.nivel) return carreras;
+    
+    if (formData.nivel === 'TSU') {
+      return carrerasPorNivel.TSU;
+    } else if (formData.nivel === 'LIC/ING') {
+      return [...carrerasPorNivel.LIC, ...carrerasPorNivel.ING];
+    }
+    
+    return carreras;
+  };
+
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
   ) => {
     const { name, value, type } = e.target;
     const target = e.target as HTMLInputElement;
+
+    // Limpiar error del servidor para este campo
+    setServerErrors(prev => {
+      if (!(name in prev)) return prev;
+      const copy = { ...prev };
+      delete copy[name];
+      return copy;
+    });
 
     if (type === 'checkbox') {
       const documentos = [...formData.documentos];
@@ -87,7 +121,12 @@ export default function ConstanciasKardex() {
       }
       setFormData(prev => ({ ...prev, documentos }));
     } else if (type === 'radio') {
-      setFormData(prev => ({ ...prev, [name]: value }));
+      // Si cambia el nivel, resetear la carrera
+      if (name === 'nivel') {
+        setFormData(prev => ({ ...prev, [name]: value as 'TSU' | 'LIC/ING', carrera: '' }));
+      } else {
+        setFormData(prev => ({ ...prev, [name]: value }));
+      }
     } else {
       // Aplicar validaciones específicas por campo
       let validatedValue = value;
@@ -99,8 +138,8 @@ export default function ConstanciasKardex() {
           break;
         
         case 'matricula':
-          // Solo números y máximo 10 dígitos
-          validatedValue = value.replace(/[^0-9]/g, '').slice(0, 10);
+          // Solo números y máximo 8 dígitos
+          validatedValue = value.replace(/[^0-9]/g, '').slice(0, 8);
           break;
         
         case 'telefono':
@@ -113,12 +152,97 @@ export default function ConstanciasKardex() {
           validatedValue = value.replace(/[^a-zA-Z0-9@._-]/g, '');
           break;
         
+        case 'numeroReferencia':
+          // Solo números y máximo 20 dígitos
+          validatedValue = value.replace(/[^0-9]/g, '').slice(0, 20);
+          break;
+        
+        case 'comentarios':
+          // Limitar a 300 caracteres
+          validatedValue = value.slice(0, 300);
+          break;
+        
         default:
           validatedValue = value;
       }
 
       setFormData(prev => ({ ...prev, [name]: validatedValue }));
     }
+  };
+
+  // Función para manejar cambio de archivo
+  // Función para manejar cambio de archivos (múltiples)
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(e.target.files || []);
+    
+    if (files.length === 0) return;
+    
+    const allowedTypes = ['application/pdf', 'image/jpeg', 'image/jpg', 'image/png'];
+    const maxSizePerFile = 5 * 1024 * 1024; // 5MB por archivo
+    const maxTotalSize = 5 * 1024 * 1024; // 5MB en total para todos los archivos
+    const maxFiles = 5; // Máximo 5 archivos
+    
+    // Validar cantidad de archivos
+    if (formData.comprobantePago.length + files.length > maxFiles) {
+      showAlert('error', 'Demasiados archivos', `Solo puedes adjuntar un máximo de ${maxFiles} archivos.`);
+      e.target.value = '';
+      return;
+    }
+    
+    // Calcular tamaño actual de archivos ya adjuntados
+    const currentTotalSize = formData.comprobantePago.reduce((sum, file) => sum + file.size, 0);
+    
+    // Calcular tamaño de los nuevos archivos
+    const newFilesSize = files.reduce((sum, file) => sum + file.size, 0);
+    
+    // Validar tamaño total
+    if (currentTotalSize + newFilesSize > maxTotalSize) {
+      const totalMB = ((currentTotalSize + newFilesSize) / (1024 * 1024)).toFixed(2);
+      showAlert('error', 'Tamaño total excedido', `El tamaño total de todos los archivos (${totalMB} MB) excede el límite de 5MB. Por favor, selecciona archivos más pequeños.`);
+      e.target.value = '';
+      return;
+    }
+    
+    // Validar cada archivo
+    for (const file of files) {
+      if (!allowedTypes.includes(file.type)) {
+        showAlert('error', 'Formato no válido', `El archivo "${file.name}" no es válido. Solo se permiten PDF, JPG, JPEG o PNG.`);
+        e.target.value = '';
+        return;
+      }
+      
+      if (file.size > maxSizePerFile) {
+        showAlert('error', 'Archivo muy grande', `El archivo "${file.name}" excede los 5MB de tamaño.`);
+        e.target.value = '';
+        return;
+      }
+    }
+    
+    // Agregar archivos válidos
+    setFormData((prev) => ({ 
+      ...prev, 
+      comprobantePago: [...prev.comprobantePago, ...files] 
+    }));
+    
+    // Limpiar input para permitir seleccionar los mismos archivos de nuevo si se eliminan
+    e.target.value = '';
+  };
+
+  // Función para eliminar un archivo específico
+  const handleRemoveFile = (index: number) => {
+    setFormData((prev) => ({
+      ...prev,
+      comprobantePago: prev.comprobantePago.filter((_, i) => i !== index)
+    }));
+  };
+
+  // Función para formatear tamaño de archivo
+  const formatFileSize = (bytes: number): string => {
+    if (bytes === 0) return '0 Bytes';
+    const k = 1024;
+    const sizes = ['Bytes', 'KB', 'MB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return Math.round(bytes / Math.pow(k, i) * 100) / 100 + ' ' + sizes[i];
   };
 
   // Función para validar email
@@ -147,8 +271,8 @@ export default function ConstanciasKardex() {
     
     // Validar que todos los campos requeridos estén llenos
     if (!formData.nombre || !formData.matricula || !formData.correo || !formData.telefono || 
-        !formData.carrera || !formData.nivel || !formData.entrega || !formData.referencia) {
-      showAlert('warning', '¡Campos incompletos!', 'Por favor, completa todos los campos requeridos antes de continuar.');
+        !formData.carrera || !formData.nivel || !formData.entrega || formData.comprobantePago.length === 0) {
+      showAlert('warning', '¡Campos incompletos!', 'Por favor, completa todos los campos requeridos y adjunta al menos un archivo antes de continuar.');
       return;
     }
 
@@ -180,49 +304,65 @@ export default function ConstanciasKardex() {
     }
 
     setIsSubmitting(true);
+    setServerErrors({}); // Limpiar errores previos
 
     try {
-      // Preparar los datos para enviar
-      const datosEnvio = {
+      // Enviar formulario usando la utilidad reutilizable
+      const resultado = await enviarFormulario({
+        'titulo-formulario': 'Constancias y Kardex',
         nombre: formData.nombre,
         matricula: formData.matricula,
-        correo: formData.correo,
-        email_destination: 'js750565@gmail.com',
-        titulo: 'Solicitud de Constancia de Estudios o Kardex',
+        email: formData.correo,
         telefono: formData.telefono,
         carrera: formData.carrera,
-        nivel: formData.nivel,
-        entrega: formData.entrega,
-        numero_referencia: formData.referencia,
-        documentos: formData.documentos.join(', '),
-        fecha: new Date().toLocaleDateString('es-MX'),
-        hora: new Date().toLocaleTimeString('es-MX'),
-        tipo_solicitud: 'Constancia de Estudios o Kardex'
-      };
-
-      console.log('Intentando enviar:', datosEnvio);
-
-      await enviarFormularioReact(
-        import.meta.env.VITE_EMAILJS_SERVICE_ID,
-        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
-        datosEnvio
-      );
-
-      showAlert('success', '¡Solicitud enviada exitosamente!', 'Tu solicitud ha sido procesada correctamente. Recibirás una confirmación por correo electrónico en breve.');
-      
-      setFormData({
-        nombre: "",
-        matricula: "",
-        correo: "",
-        telefono: "",
-        carrera: "",
-        nivel: "",
-        entrega: "",
-        referencia: "",
-        documentos: [],
+        nivel: formData.nivel as 'TSU' | 'LIC/ING',
+        entrega: formData.entrega as 'presencial' | 'electronico',
+        referencia: formData.numeroReferencia,
+        comentarios: formData.comentarios,
+        attachment: formData.comprobantePago, // Enviar todos los archivos
+        'documentos-solicitados': formData.documentos.join(', '),
       });
+
+      if (resultado.exito) {
+        // ✅ Éxito
+        showAlert('success', '¡Solicitud enviada exitosamente!', resultado.mensaje || 'Tu solicitud ha sido procesada correctamente. Recibirás una confirmación por correo electrónico en breve.');
+        
+        // Resetear formulario
+        setFormData({
+          nombre: "",
+          matricula: "",
+          correo: "",
+          telefono: "",
+          carrera: "",
+          nivel: "",
+          entrega: "",
+          comprobantePago: [],
+          documentos: [],
+          numeroReferencia: "",
+          comentarios: "",
+        });
+        
+        // Limpiar input de archivo
+        const fileInput = document.getElementById('attachment') as HTMLInputElement | null;
+        if (fileInput) fileInput.value = '';
+      } else {
+        // ❌ Error
+        if (resultado.erroresPorCampo) {
+          // Errores de validación por campo
+          setServerErrors(resultado.erroresPorCampo);
+          
+          const detalle = Object.entries(resultado.erroresPorCampo)
+            .map(([campo, mensajes]) => `• ${campo}: ${mensajes.join(' ')}`)
+            .join('\n');
+          
+          showAlert('error', 'Errores de validación', detalle || 'Revisa los campos marcados.');
+        } else {
+          // Error genérico
+          showAlert('error', 'Error al enviar', resultado.mensaje);
+        }
+      }
     } catch (error) {
-      console.error('Error en handleSubmit:', error);
+      console.error('Error inesperado:', error);
       showAlert('error', 'Error al enviar la solicitud', 'Ocurrió un error al procesar tu solicitud. Por favor, verifica tu conexión a internet e inténtalo de nuevo.');
     } finally {
       setIsSubmitting(false);
@@ -411,16 +551,16 @@ export default function ConstanciasKardex() {
                           ? 'border-red-500 bg-red-50' 
                           : 'border-gray-300'
                       }`}
-                      placeholder="1234567890 (10 dígitos)"
-                      maxLength={10}
+                      placeholder="12345678 (8 dígitos)"
+                      maxLength={8}
                       required
                     />
                   </div>
-                  <p className="text-xs text-gray-500 mt-1">
-                    {formData.matricula.length}/10 dígitos
+                  <p className={`text-xs mt-1 ${formData.matricula.length === 8 ? 'text-green-600' : 'text-gray-500'}`}>
+                    {formData.matricula.length}/8 dígitos
                   </p>
                   {formData.matricula && !validateMatricula(formData.matricula) && formData.matricula.length > 0 && (
-                    <p className="text-red-500 text-xs mt-1">La matrícula debe tener exactamente 10 dígitos</p>
+                    <p className="text-red-500 text-xs mt-1">La matrícula debe tener exactamente 8 dígitos</p>
                   )}
                 </div>
 
@@ -478,39 +618,12 @@ export default function ConstanciasKardex() {
                       required
                     />
                   </div>
-                  <p className="text-xs text-gray-500 mt-1">
+                  <p className={`text-xs mt-1 ${formData.telefono.length === 10 ? 'text-green-600' : 'text-gray-500'}`}>
                     {formData.telefono.length}/10 dígitos
                   </p>
                   {formData.telefono && !validateTelefono(formData.telefono) && formData.telefono.length > 0 && (
                     <p className="text-red-500 text-xs mt-1">El teléfono debe tener exactamente 10 dígitos</p>
                   )}
-                </div>
-              </div>
-
-              {/* Carrera */}
-              <div className="mb-5">
-                <label htmlFor="carrera" className="block text-sm font-medium text-gray-700 mb-1">
-                  Carrera: <span className="text-red-500">*</span>
-                </label>
-                <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <GraduationCap className="text-green-600" size={16} />
-                  </div>
-                  <select
-                    id="carrera"
-                    name="carrera"
-                    value={formData.carrera}
-                    onChange={handleChange}
-                    className="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
-                    required
-                  >
-                    <option value="">Selecciona tu carrera</option>
-                    {carreras.map((carrera, index) => (
-                      <option key={index} value={carrera}>
-                        {carrera}
-                      </option>
-                    ))}
-                  </select>
                 </div>
               </div>
 
@@ -535,12 +648,12 @@ export default function ConstanciasKardex() {
                       <input
                         type="radio"
                         name="nivel"
-                        value="LIC"
-                        checked={formData.nivel === "LIC"}
+                        value="LIC/ING"
+                        checked={formData.nivel === "LIC/ING"}
                         onChange={handleChange}
                         className="form-radio h-4 w-4 text-green-600"
                       />
-                      <span className="ml-2">LIC</span>
+                      <span className="ml-2">LIC/ING</span>
                     </label>
                   </div>
                 </div>
@@ -576,6 +689,33 @@ export default function ConstanciasKardex() {
                 </div>
               </div>
 
+              {/* Carrera */}
+              <div className="mb-5">
+                <label htmlFor="carrera" className="block text-sm font-medium text-gray-700 mb-1">
+                  Carrera: <span className="text-red-500">*</span>
+                </label>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <GraduationCap className="text-green-600" size={16} />
+                  </div>
+                  <select
+                    id="carrera"
+                    name="carrera"
+                    value={formData.carrera}
+                    onChange={handleChange}
+                    className="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                    required
+                  >
+                    <option value="">Selecciona tu carrera</option>
+                    {getCarrerasPorNivel().map((carrera, index) => (
+                      <option key={index} value={carrera}>
+                        {carrera}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
               {/* Documento solicitado */}
               <div className="mb-5">
                 <span className="block text-sm font-medium text-gray-700 mb-1">Documento que solicita: <span className="text-red-500">*</span></span>
@@ -603,25 +743,115 @@ export default function ConstanciasKardex() {
                 </div>
               </div>
 
-              {/* Referencia */}
+              {/* Comprobante de Pago */}
               <div className="mb-6">
-                <label htmlFor="referencia" className="block text-sm font-medium text-gray-700 mb-1">
-                  Número de Referencia: <span className="text-red-500">*</span>
+                <label htmlFor="attachment" className="block text-sm font-medium text-gray-700 mb-1">
+                  Adjuntar Comprobante de Pago: <span className="text-red-500">*</span>
                 </label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <FileText className="text-green-600" size={16} />
+                    <FileUp className="text-green-600" size={16} />
                   </div>
                   <input
-                    type="text"
-                    id="referencia"
-                    name="referencia"
-                    value={formData.referencia}
-                    onChange={handleChange}
-                    className="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
-                    placeholder="Número de referencia"
-                    required
+                    type="file"
+                    id="attachment"
+                    name="attachment"
+                    multiple
+                    onChange={handleFileChange}
+                    accept=".pdf,.jpg,.jpeg,.png"
+                    className={`pl-10 w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 ${
+                      hasServerError('comprobantePago') || hasServerError('file') || hasServerError('attachment')
+                        ? 'border-red-500 bg-red-50'
+                        : 'border-gray-300'
+                    }`}
                   />
+                </div>
+                <p className="text-xs text-gray-500 mt-1">
+                  Formatos aceptados: PDF, JPG, JPEG, PNG. Tamaño máximo: 5MB en total. Máximo 5 archivos.
+                </p>
+                
+                {/* Lista de archivos adjuntados */}
+                {formData.comprobantePago.length > 0 && (
+                  <div className="mt-3 space-y-2">
+                    <p className="text-xs font-medium text-gray-700">
+                      {formData.comprobantePago.length} archivo(s) adjuntado(s):
+                    </p>
+                    {formData.comprobantePago.map((file, index) => (
+                      <div
+                        key={index}
+                        className="flex items-center justify-between p-3 bg-blue-50 border border-blue-200 rounded-lg hover:bg-blue-100 transition-colors"
+                      >
+                        <div className="flex items-center gap-2 flex-1 min-w-0">
+                          <CheckCircle2 className="text-blue-600 flex-shrink-0" size={18} />
+                          <span className="text-sm text-gray-700 truncate">
+                            {file.name}
+                          </span>
+                          <span className="text-xs text-gray-500">
+                            • {formatFileSize(file.size)}
+                          </span>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => handleRemoveFile(index)}
+                          className="ml-2 p-1 hover:bg-red-100 rounded-full transition-colors flex-shrink-0"
+                          title="Eliminar archivo"
+                        >
+                          <X className="text-red-600" size={18} />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                )}
+                
+                {(hasServerError('comprobantePago') || hasServerError('file') || hasServerError('attachment')) && (
+                  <p className="text-red-500 text-xs mt-1">
+                    {getServerErrorText('comprobantePago') || getServerErrorText('file') || getServerErrorText('attachment')}
+                  </p>
+                )}
+              </div>
+
+              {/* Número de Referencia */}
+              <div className="mb-6">
+                <label htmlFor="numeroReferencia" className="block text-sm font-medium text-gray-700 mb-1">
+                  Número de Referencia (opcional)
+                </label>
+                <input
+                  type="text"
+                  id="numeroReferencia"
+                  name="numeroReferencia"
+                  value={formData.numeroReferencia}
+                  onChange={handleChange}
+                  maxLength={20}
+                  placeholder="Ingresa el número de referencia si lo tienes"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                />
+                <p className="text-xs text-gray-500 mt-1">
+                  Solo números • Máximo 20 dígitos
+                </p>
+              </div>
+
+              {/* Comentarios */}
+              <div className="mb-6">
+                <label htmlFor="comentarios" className="block text-sm font-medium text-gray-700 mb-1">
+                  Comentarios (Opcional)
+                </label>
+                <textarea
+                  id="comentarios"
+                  name="comentarios"
+                  value={formData.comentarios}
+                  onChange={handleChange}
+                  rows={4}
+                  maxLength={300}
+                  placeholder="Si tienes algún comentario adicional sobre tu solicitud, escríbelo aquí (máximo 300 caracteres)..."
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 resize-none"
+                />
+                <div className="flex justify-between items-center mt-1">
+                  <p className="text-xs text-gray-500">
+                    Máximo 300 caracteres
+                  </p>
+                  <p className="text-xs text-gray-500">
+                    {formData.comentarios.length} / 300 caracteres
+                  </p>
                 </div>
               </div>
 

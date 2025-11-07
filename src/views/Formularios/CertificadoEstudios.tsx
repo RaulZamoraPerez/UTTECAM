@@ -1,7 +1,7 @@
 import { useState, type ChangeEvent, type FormEvent } from 'react';
-import { enviarFormularioReact } from '@/util/sendEmailForms';
+import { enviarFormulario } from '@/util/apiFormularios';
 import { useAlert } from '@/components/alerts/Formularios';
-import carreras from '@/util/carreras';
+import carreras, { carrerasPorNivel } from '@/util/carreras';
 import { 
   Clock, 
   DollarSign, 
@@ -14,90 +14,181 @@ import {
   Phone, 
   GraduationCap,
   Send,
-  FileDigit,
-  ArrowRight
+  ArrowRight,
+  FileUp,
+  X,
+  CheckCircle2,
 } from 'lucide-react';
 
 interface FormData {
   nombre: string;
   matricula: string;
-  correo: string;
+  email: string;
   telefono: string;
   carrera: string;
-  nivel: 'TSU' | 'LIC' | '';
-  documentos: string[];
+  nivel: 'TSU' | 'LIC/ING' | '';
   entrega: 'presencial' | 'electronico' | '';
-  referencia: string;
+  comprobantePago: File[];
+  numeroReferencia: string;
+  comentarios: string;
 }
-
-type DocumentoOption = 'constancia_estudios' | 'constancia_titulo' | 'kardex' | 'certificado_estudios';
 
 const CertificadoEstudios: React.FC = () => {
   const [formData, setFormData] = useState<FormData>({
     nombre: '',
     matricula: '',
-    correo: '',
+    email: '',
     telefono: '',
     carrera: '',
     nivel: '',
-    documentos: [],
     entrega: '',
-    referencia: ''
+    comprobantePago: [],
+    numeroReferencia: '',
+    comentarios: '',
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { showAlert, AlertComponent } = useAlert();
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const { name, value, type } = e.target;
-    const target = e.target as HTMLInputElement;
+  // Errores devueltos por el backend (agrupados por campo)
+  const [serverErrors, setServerErrors] = useState<Record<string, string[]>>({});
+  const hasServerError = (field: keyof FormData | 'file' | 'attachment') => Boolean(serverErrors[field]?.length);
+  const getServerErrorText = (field: keyof FormData | 'file' | 'attachment') => serverErrors[field]?.join(' ') || '';
 
-    if (type === 'checkbox') {
-      const documentos = [...formData.documentos];
-      const documentoValue = target.value as DocumentoOption;
-      
-      if (target.checked) {
-        documentos.push(documentoValue);
+  // Función para filtrar carreras según el nivel seleccionado
+  const getCarrerasPorNivel = () => {
+    if (!formData.nivel) return carreras;
+    
+    if (formData.nivel === 'TSU') {
+      return carrerasPorNivel.TSU;
+    } else if (formData.nivel === 'LIC/ING') {
+      return [...carrerasPorNivel.LIC, ...carrerasPorNivel.ING];
+    }
+    
+    return carreras;
+  };
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+    const { name, value, type } = e.target as HTMLInputElement;
+
+    // limpiar error del backend para el campo editado
+    setServerErrors(prev => {
+      if (!(name in prev)) return prev;
+      const copy = { ...prev };
+      delete copy[name as keyof FormData];
+      return copy;
+    });
+
+    if (type === 'radio') {
+      // Si cambia el nivel, resetear la carrera
+      if (name === 'nivel') {
+        setFormData({ ...formData, [name]: value as 'TSU' | 'LIC/ING', carrera: '' });
       } else {
-        const index = documentos.indexOf(documentoValue);
-        if (index > -1) {
-          documentos.splice(index, 1);
-        }
+        setFormData({ ...formData, [name]: value });
       }
-      setFormData({ ...formData, documentos });
-    } else if (type === 'radio') {
-      setFormData({ ...formData, [name]: value });
     } else {
-      // Aplicar validaciones específicas por campo
+      // Validaciones por campo
       let validatedValue = value;
 
       switch (name) {
         case 'nombre':
-          // Solo letras, espacios y acentos
           validatedValue = value.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ\s]/g, '');
           break;
-        
         case 'matricula':
-          // Solo números y máximo 10 dígitos
-          validatedValue = value.replace(/[^0-9]/g, '').slice(0, 10);
+          validatedValue = value.replace(/[^0-9]/g, '').slice(0, 8);
           break;
-        
         case 'telefono':
-          // Solo números y máximo 10 dígitos
           validatedValue = value.replace(/[^0-9]/g, '').slice(0, 10);
           break;
-        
-        case 'correo':
-          // Permitir caracteres válidos para email
+        case 'email':
           validatedValue = value.replace(/[^a-zA-Z0-9@._-]/g, '');
           break;
-        
+        case 'numeroReferencia':
+          // Solo números y máximo 20 dígitos
+          validatedValue = value.replace(/[^0-9]/g, '').slice(0, 20);
+          break;
+        case 'comentarios':
+          // Limitar a 300 caracteres
+          validatedValue = value.slice(0, 300);
+          break;
         default:
           validatedValue = value;
       }
 
       setFormData({ ...formData, [name]: validatedValue });
     }
+  };
+
+  // Función para manejar cambio de archivos (múltiples)
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(e.target.files || []);
+    
+    if (files.length === 0) return;
+
+    const allowedTypes = ['application/pdf', 'image/jpeg', 'image/jpg', 'image/png'];
+    const maxSizePerFile = 5 * 1024 * 1024; // 5MB por archivo
+    const maxTotalSize = 5 * 1024 * 1024; // 5MB en total para todos los archivos
+    const maxFiles = 5;
+
+    // Validar número máximo de archivos
+    const totalFiles = formData.comprobantePago.length + files.length;
+    if (totalFiles > maxFiles) {
+      showAlert('warning', 'Límite de archivos excedido', `Solo puedes adjuntar un máximo de ${maxFiles} archivos.`);
+      e.target.value = '';
+      return;
+    }
+
+    // Calcular tamaño actual de archivos ya adjuntados
+    const currentTotalSize = formData.comprobantePago.reduce((sum, file) => sum + file.size, 0);
+    
+    // Calcular tamaño de los nuevos archivos
+    const newFilesSize = files.reduce((sum, file) => sum + file.size, 0);
+    
+    // Validar tamaño total
+    if (currentTotalSize + newFilesSize > maxTotalSize) {
+      const totalMB = ((currentTotalSize + newFilesSize) / (1024 * 1024)).toFixed(2);
+      showAlert('error', 'Tamaño total excedido', `El tamaño total de todos los archivos (${totalMB} MB) excede el límite de 5MB. Por favor, selecciona archivos más pequeños.`);
+      e.target.value = '';
+      return;
+    }
+
+    // Validar cada archivo
+    for (const file of files) {
+      if (!allowedTypes.includes(file.type)) {
+        showAlert('error', 'Formato no válido', `El archivo "${file.name}" no es válido. Solo se permiten archivos PDF, JPG, JPEG o PNG.`);
+        e.target.value = '';
+        return;
+      }
+      
+      if (file.size > maxSizePerFile) {
+        showAlert('error', 'Archivo muy grande', `El archivo "${file.name}" excede los 5MB de tamaño.`);
+        e.target.value = '';
+        return;
+      }
+    }
+    
+    setFormData((prev) => ({ 
+      ...prev, 
+      comprobantePago: [...prev.comprobantePago, ...files] 
+    }));
+    e.target.value = '';
+  };
+
+  // Función para eliminar un archivo de la lista
+  const handleRemoveFile = (index: number) => {
+    setFormData((prev) => ({
+      ...prev,
+      comprobantePago: prev.comprobantePago.filter((_, i) => i !== index),
+    }));
+  };
+
+  // Función para formatear el tamaño del archivo
+  const formatFileSize = (bytes: number): string => {
+    if (bytes === 0) return '0 Bytes';
+    const k = 1024;
+    const sizes = ['Bytes', 'KB', 'MB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return Math.round(bytes / Math.pow(k, i) * 100) / 100 + ' ' + sizes[i];
   };
 
   // Función para validar email
@@ -108,7 +199,7 @@ const CertificadoEstudios: React.FC = () => {
 
   // Función para validar matrícula (10 dígitos exactos)
   const validateMatricula = (matricula: string): boolean => {
-    return matricula.length === 10 && /^\d{10}$/.test(matricula);
+    return matricula.length === 8 && /^\d{8}$/.test(matricula);
   };
 
   // Función para validar teléfono (10 dígitos exactos)
@@ -121,13 +212,21 @@ const CertificadoEstudios: React.FC = () => {
     return /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(nombre) && nombre.trim().length >= 3;
   };
 
+  // Validaciones nuevas
+  const validateCarrera = (carrera: string): boolean => carrera.trim().length > 0;
+  const validateNivel = (nivel: string): boolean => nivel === 'TSU' || nivel === 'LIC';
+  const validateEntrega = (entrega: string): boolean => entrega === 'presencial' || entrega === 'electronico';
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+
+    // limpiar errores previos del backend
+    setServerErrors({});
     
     // Validar que todos los campos requeridos estén llenos
-    if (!formData.nombre || !formData.matricula || !formData.correo || !formData.telefono || 
-        !formData.carrera || !formData.nivel || !formData.entrega || !formData.referencia) {
-      showAlert('warning', '¡Campos incompletos!', 'Por favor, completa todos los campos requeridos antes de continuar.');
+    if (!formData.nombre || !formData.matricula || !formData.email || !formData.telefono || 
+        !formData.carrera || !formData.nivel || !formData.entrega || formData.comprobantePago.length === 0) {
+      showAlert('warning', '¡Campos incompletos!', 'Por favor, completa todos los campos requeridos y adjunta al menos un archivo antes de continuar.');
       return;
     }
 
@@ -142,7 +241,7 @@ const CertificadoEstudios: React.FC = () => {
       return;
     }
 
-    if (!validateEmail(formData.correo)) {
+    if (!validateEmail(formData.email)) {
       showAlert('error', 'Error en el correo', 'Por favor, ingresa un correo electrónico válido (ejemplo: nombre@dominio.com).');
       return;
     }
@@ -152,51 +251,81 @@ const CertificadoEstudios: React.FC = () => {
       return;
     }
 
+    // Nuevas validaciones
+    if (!validateCarrera(formData.carrera)) {
+      showAlert('error', 'Carrera requerida', 'Selecciona tu carrera.');
+      return;
+    }
+
+    if (!validateNivel(formData.nivel)) {
+      showAlert('error', 'Nivel requerido', 'Selecciona TSU o LIC.');
+      return;
+    }
+
+    if (!validateEntrega(formData.entrega)) {
+      showAlert('error', 'Entrega requerida', 'Selecciona Presencial o Electrónico.');
+      return;
+    }
+
     setIsSubmitting(true);
+    setServerErrors({}); // Limpiar errores previos
 
     try {
-      // Preparar los datos para enviar
-      const datosEnvio = {
+      // Enviar formulario usando la utilidad reutilizable
+      const resultado = await enviarFormulario({
+        'titulo-formulario': 'Certificado de Estudios',
         nombre: formData.nombre,
         matricula: formData.matricula,
-        correo: formData.correo,
-        email_destination: 'mstrwalfe@gmail.com',
-        titulo: 'Solicitud de Certificado de Estudios',
+        email: formData.email,
         telefono: formData.telefono,
         carrera: formData.carrera,
-        nivel: formData.nivel,
-        entrega: formData.entrega,
-        numero_referencia: formData.referencia,
-        documentos: formData.documentos.join(', ') || 'No especificado',
-        fecha: new Date().toLocaleDateString('es-MX'),
-        hora: new Date().toLocaleTimeString('es-MX'),
-        tipo_solicitud: 'Certificado de Estudios'
-      };
-
-      console.log('Intentando enviar:', datosEnvio);
-
-      await enviarFormularioReact(
-        import.meta.env.VITE_EMAILJS_SERVICE_ID,
-        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
-        datosEnvio
-      );
-
-      showAlert('success', '¡Solicitud enviada exitosamente!', 'Tu solicitud ha sido procesada correctamente. Recuerda presentarte en Servicios Escolares con tus fotografías en un máximo de 5 días hábiles.');
-      
-      setFormData({
-        nombre: '',
-        matricula: '',
-        correo: '',
-        telefono: '',
-        carrera: '',
-        nivel: '',
-        documentos: [],
-        entrega: '',
-        referencia: ''
+        nivel: formData.nivel as 'TSU' | 'LIC/ING',
+        entrega: formData.entrega as 'presencial' | 'electronico',
+        referencia: formData.numeroReferencia,
+        comentarios: formData.comentarios,
+        attachment: formData.comprobantePago, // Enviar todos los archivos
       });
+
+      if (resultado.exito) {
+        // ✅ Éxito
+        showAlert('success', '¡Solicitud registrada!', resultado.mensaje);
+        
+        // Resetear formulario
+        setFormData({
+          nombre: '',
+          matricula: '',
+          email: '',
+          telefono: '',
+          carrera: '',
+          nivel: '',
+          entrega: '',
+          comprobantePago: [],
+          numeroReferencia: '',
+          comentarios: '',
+        });
+        
+        // Limpiar input de archivo
+        const fileInput = document.getElementById('attachment') as HTMLInputElement | null;
+        if (fileInput) fileInput.value = '';
+      } else {
+        // ❌ Error
+        if (resultado.erroresPorCampo) {
+          // Errores de validación por campo
+          setServerErrors(resultado.erroresPorCampo);
+          
+          const detalle = Object.entries(resultado.erroresPorCampo)
+            .map(([campo, mensajes]) => `• ${campo}: ${mensajes.join(' ')}`)
+            .join('\n');
+          
+          showAlert('error', 'Errores de validación', detalle || 'Revisa los campos marcados.');
+        } else {
+          // Error genérico
+          showAlert('error', 'Error al enviar', resultado.mensaje);
+        }
+      }
     } catch (error) {
-      console.error('Error en handleSubmit:', error);
-      showAlert('error', 'Error al enviar la solicitud', 'Ocurrió un error al procesar tu solicitud. Por favor, verifica tu conexión a internet e inténtalo de nuevo.');
+      console.error('Error inesperado:', error);
+      showAlert('error', 'Error inesperado', 'Ocurrió un error al procesar tu solicitud.');
     } finally {
       setIsSubmitting(false);
     }
@@ -291,7 +420,7 @@ const CertificadoEstudios: React.FC = () => {
                   </li>
                   <li className="flex items-start">
                     <ArrowRight className="mr-2 mt-1 flex-shrink-0 text-green-600" size={16} />
-                    Elegir tu carrera y tipo de documento solicitado
+                    Elegir tu carrera
                   </li>
                   <li className="flex items-start">
                     <ArrowRight className="mr-2 mt-1 flex-shrink-0 text-green-600" size={16} />
@@ -380,16 +509,18 @@ const CertificadoEstudios: React.FC = () => {
                       value={formData.nombre}
                       onChange={handleChange}
                       className={`pl-10 w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 ${
-                        formData.nombre && !validateNombre(formData.nombre) 
-                          ? 'border-red-500 bg-red-50' 
+                        (formData.nombre && !validateNombre(formData.nombre)) || hasServerError('nombre')
+                          ? 'border-red-500 bg-red-50'
                           : 'border-gray-300'
                       }`}
                       placeholder="Nombre completo (solo letras)"
                       required
                     />
                   </div>
-                  {formData.nombre && !validateNombre(formData.nombre) && (
-                    <p className="text-red-500 text-xs mt-1">Solo se permiten letras y espacios</p>
+                  {((formData.nombre && !validateNombre(formData.nombre)) || hasServerError('nombre')) && (
+                    <p className="text-red-500 text-xs mt-1">
+                      {hasServerError('nombre') ? getServerErrorText('nombre') : 'Solo se permiten letras y espacios'}
+                    </p>
                   )}
                 </div>
                 
@@ -409,26 +540,28 @@ const CertificadoEstudios: React.FC = () => {
                       value={formData.matricula}
                       onChange={handleChange}
                       className={`pl-10 w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 ${
-                        formData.matricula && !validateMatricula(formData.matricula) 
-                          ? 'border-red-500 bg-red-50' 
+                        (formData.matricula && !validateMatricula(formData.matricula)) || hasServerError('matricula')
+                          ? 'border-red-500 bg-red-50'
                           : 'border-gray-300'
                       }`}
-                      placeholder="1234567890 (10 dígitos)"
-                      maxLength={10}
+                      placeholder="12345678 (8 dígitos)"
+                      maxLength={8}
                       required
                     />
                   </div>
-                  <p className="text-xs text-gray-500 mt-1">
-                    {formData.matricula.length}/10 dígitos
+                  <p className={`text-xs mt-1 ${formData.matricula.length === 8 ? 'text-green-600' : 'text-gray-500'}`}>
+                    {formData.matricula.length}/8 dígitos
                   </p>
-                  {formData.matricula && !validateMatricula(formData.matricula) && formData.matricula.length > 0 && (
-                    <p className="text-red-500 text-xs mt-1">La matrícula debe tener exactamente 10 dígitos</p>
+                  {(((formData.matricula && !validateMatricula(formData.matricula)) || hasServerError('matricula')) && formData.matricula.length > 0) && (
+                    <p className="text-red-500 text-xs mt-1">
+                      {hasServerError('matricula') ? getServerErrorText('matricula') : 'La matrícula debe tener exactamente 8 dígitos'}
+                    </p>
                   )}
                 </div>
                 
                 {/* Correo */}
                 <div>
-                  <label htmlFor="correo" className="block text-sm font-medium text-gray-700 mb-1">
+                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
                     Correo: <span className="text-red-500">*</span>
                   </label>
                   <div className="relative">
@@ -437,21 +570,23 @@ const CertificadoEstudios: React.FC = () => {
                     </div>
                     <input
                       type="email"
-                      id="correo"
-                      name="correo"
-                      value={formData.correo}
+                      id="email"
+                      name="email"
+                      value={formData.email}
                       onChange={handleChange}
                       className={`pl-10 w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 ${
-                        formData.correo && !validateEmail(formData.correo) 
-                          ? 'border-red-500 bg-red-50' 
+                        (formData.email && !validateEmail(formData.email)) || hasServerError('email')
+                          ? 'border-red-500 bg-red-50'
                           : 'border-gray-300'
                       }`}
                       placeholder="correo@institucional.edu.mx"
                       required
                     />
                   </div>
-                  {formData.correo && !validateEmail(formData.correo) && (
-                    <p className="text-red-500 text-xs mt-1">Ingresa un correo válido</p>
+                  {((formData.email && !validateEmail(formData.email)) || hasServerError('email')) && (
+                    <p className="text-red-500 text-xs mt-1">
+                      {hasServerError('email') ? getServerErrorText('email') : 'Ingresa un correo válido'}
+                    </p>
                   )}
                 </div>
                 
@@ -471,8 +606,8 @@ const CertificadoEstudios: React.FC = () => {
                       value={formData.telefono}
                       onChange={handleChange}
                       className={`pl-10 w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 ${
-                        formData.telefono && !validateTelefono(formData.telefono) 
-                          ? 'border-red-500 bg-red-50' 
+                        (formData.telefono && !validateTelefono(formData.telefono)) || hasServerError('telefono')
+                          ? 'border-red-500 bg-red-50'
                           : 'border-gray-300'
                       }`}
                       placeholder="1234567890 (10 dígitos)"
@@ -480,37 +615,14 @@ const CertificadoEstudios: React.FC = () => {
                       required
                     />
                   </div>
-                  <p className="text-xs text-gray-500 mt-1">
+                  <p className={`text-xs mt-1 ${formData.telefono.length === 10 ? 'text-green-600' : 'text-gray-500'}`}>
                     {formData.telefono.length}/10 dígitos
                   </p>
-                  {formData.telefono && !validateTelefono(formData.telefono) && formData.telefono.length > 0 && (
-                    <p className="text-red-500 text-xs mt-1">El teléfono debe tener exactamente 10 dígitos</p>
+                  {(((formData.telefono && !validateTelefono(formData.telefono)) || hasServerError('telefono')) && formData.telefono.length > 0) && (
+                    <p className="text-red-500 text-xs mt-1">
+                      {hasServerError('telefono') ? getServerErrorText('telefono') : 'El teléfono debe tener exactamente 10 dígitos'}
+                    </p>
                   )}
-                </div>
-              </div>
-              
-              {/* Carrera */}
-              <div className="mb-5">
-                <label htmlFor="carrera" className="block text-sm font-medium text-gray-700 mb-1">
-                  Carrera: <span className="text-red-500">*</span>
-                </label>
-                <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <GraduationCap className="text-green-600" size={16} />
-                  </div>
-                  <select
-                    id="carrera"
-                    name="carrera"
-                    value={formData.carrera}
-                    onChange={handleChange}
-                    className="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
-                    required
-                  >
-                    <option value="">Selecciona tu carrera</option>
-                    {carreras.map((carrera, index) => (
-                      <option key={index} value={carrera}>{carrera}</option>
-                    ))}
-                  </select>
                 </div>
               </div>
               
@@ -518,7 +630,9 @@ const CertificadoEstudios: React.FC = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5">
                 <div>
                   <span className="block text-sm font-medium text-gray-700 mb-1">Nivel: <span className="text-red-500">*</span></span>
-                  <div className="flex space-x-4">
+                  <div className={`flex space-x-4 p-2 rounded-lg ${
+                    (!validateNivel(formData.nivel) && isSubmitting) || hasServerError('nivel') ? 'bg-red-50 ring-1 ring-red-300' : ''
+                  }`}>
                     <label className="inline-flex items-center">
                       <input
                         type="radio"
@@ -535,19 +649,26 @@ const CertificadoEstudios: React.FC = () => {
                       <input
                         type="radio"
                         name="nivel"
-                        value="LIC"
-                        checked={formData.nivel === 'LIC'}
+                        value="LIC/ING"
+                        checked={formData.nivel === 'LIC/ING'}
                         onChange={handleChange}
                         className="form-radio h-4 w-4 text-green-600"
                       />
-                      <span className="ml-2">LIC</span>
+                      <span className="ml-2">LIC/ING</span>
                     </label>
                   </div>
+                  {((!validateNivel(formData.nivel) && isSubmitting) || hasServerError('nivel')) && (
+                    <p className="text-red-500 text-xs mt-1">
+                      {hasServerError('nivel') ? getServerErrorText('nivel') : 'Selecciona un nivel'}
+                    </p>
+                  )}
                 </div>
                 
                 <div>
                   <span className="block text-sm font-medium text-gray-700 mb-1">Entrega: <span className="text-red-500">*</span></span>
-                  <div className="flex space-x-4">
+                  <div className={`flex space-x-4 p-2 rounded-lg ${
+                    (!validateEntrega(formData.entrega) && isSubmitting) || hasServerError('entrega') ? 'bg-red-50 ring-1 ring-red-300' : ''
+                  }`}>
                     <label className="inline-flex items-center">
                       <input
                         type="radio"
@@ -572,28 +693,155 @@ const CertificadoEstudios: React.FC = () => {
                       <span className="ml-2">Electrónico</span>
                     </label>
                   </div>
+                  {((!validateEntrega(formData.entrega) && isSubmitting) || hasServerError('entrega')) && (
+                    <p className="text-red-500 text-xs mt-1">
+                      {hasServerError('entrega') ? getServerErrorText('entrega') : 'Selecciona un tipo de entrega'}
+                    </p>
+                  )}
                 </div>
               </div>
               
-              {/* Número de Referencia */}
-              <div className="mb-6">
-                <label htmlFor="referencia" className="block text-sm font-medium text-gray-700 mb-1">
-                  Número de Referencia: <span className="text-red-500">*</span>
+              {/* Carrera */}
+              <div className="mb-5">
+                <label htmlFor="carrera" className="block text-sm font-medium text-gray-700 mb-1">
+                  Carrera: <span className="text-red-500">*</span>
                 </label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <FileDigit className="text-green-600" size={16} />
+                    <GraduationCap className="text-green-600" size={16} />
+                  </div>
+                  <select
+                    id="carrera"
+                    name="carrera"
+                    value={formData.carrera}
+                    onChange={handleChange}
+                    className={`pl-10 w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 ${
+                      (!formData.carrera && isSubmitting) || hasServerError('carrera') ? 'border-red-500 bg-red-50' : 'border-gray-300'
+                    }`}
+                    required
+                  >
+                    <option value="">Selecciona tu carrera</option>
+                    {getCarrerasPorNivel().map((carrera, index) => (
+                      <option key={index} value={carrera}>{carrera}</option>
+                    ))}
+                  </select>
+                </div>
+                {((!formData.carrera && isSubmitting) || hasServerError('carrera')) && (
+                  <p className="text-red-500 text-xs mt-1">
+                    {hasServerError('carrera') ? getServerErrorText('carrera') : 'Selecciona tu carrera'}
+                  </p>
+                )}
+              </div>
+              
+              {/* Comprobante de Pago */}
+              <div className="mb-6">
+                <label htmlFor="attachment" className="block text-sm font-medium text-gray-700 mb-1">
+                  Adjuntar Comprobante de Pago: <span className="text-red-500">*</span>
+                </label>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <FileUp className="text-green-600" size={16} />
                   </div>
                   <input
-                    type="text"
-                    id="referencia"
-                    name="referencia"
-                    value={formData.referencia}
-                    onChange={handleChange}
-                    className="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
-                    placeholder="Número de referencia"
-                    required
+                    type="file"
+                    id="attachment"
+                    name="attachment"
+                    multiple
+                    onChange={handleFileChange}
+                    accept=".pdf,.jpg,.jpeg,.png"
+                    className={`pl-10 w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 ${
+                      hasServerError('comprobantePago') || hasServerError('file') || hasServerError('attachment')
+                        ? 'border-red-500 bg-red-50'
+                        : 'border-gray-300'
+                    }`}
                   />
+                </div>
+                <p className="text-xs text-gray-500 mt-1">
+                  Formatos aceptados: PDF, JPG, JPEG, PNG. Tamaño máximo: 5MB en total. Máximo 5 archivos.
+                </p>
+                
+                {/* Lista de archivos adjuntados */}
+                {formData.comprobantePago.length > 0 && (
+                  <div className="mt-3 space-y-2">
+                    <p className="text-xs font-medium text-gray-700">
+                      {formData.comprobantePago.length} archivo(s) adjuntado(s):
+                    </p>
+                    {formData.comprobantePago.map((file, index) => (
+                      <div
+                        key={index}
+                        className="flex items-center justify-between p-3 bg-blue-50 border border-blue-200 rounded-lg hover:bg-blue-100 transition-colors"
+                      >
+                        <div className="flex items-center gap-2 flex-1 min-w-0">
+                          <CheckCircle2 className="text-blue-600 flex-shrink-0" size={18} />
+                          <span className="text-sm text-gray-700 truncate">
+                            {file.name}
+                          </span>
+                          <span className="text-xs text-gray-500">
+                            • {formatFileSize(file.size)}
+                          </span>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => handleRemoveFile(index)}
+                          className="ml-2 p-1 hover:bg-red-100 rounded-full transition-colors flex-shrink-0"
+                          title="Eliminar archivo"
+                        >
+                          <X className="text-red-600" size={18} />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                )}
+                
+                {(hasServerError('comprobantePago') || hasServerError('file') || hasServerError('attachment')) && (
+                  <p className="text-red-500 text-xs mt-1">
+                    {getServerErrorText('comprobantePago') || getServerErrorText('file') || getServerErrorText('attachment')}
+                  </p>
+                )}
+              </div>
+
+              {/* Número de Referencia */}
+              <div className="mb-6">
+                <label htmlFor="numeroReferencia" className="block text-sm font-medium text-gray-700 mb-1">
+                  Número de Referencia (opcional)
+                </label>
+                <input
+                  type="text"
+                  id="numeroReferencia"
+                  name="numeroReferencia"
+                  value={formData.numeroReferencia}
+                  onChange={handleChange}
+                  maxLength={20}
+                  placeholder="Ingresa el número de referencia si lo tienes"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                />
+                <p className="text-xs text-gray-500 mt-1">
+                  Solo números • Máximo 20 dígitos
+                </p>
+              </div>
+
+              {/* Comentarios */}
+              <div className="mb-6">
+                <label htmlFor="comentarios" className="block text-sm font-medium text-gray-700 mb-1">
+                  Comentarios (Opcional)
+                </label>
+                <textarea
+                  id="comentarios"
+                  name="comentarios"
+                  value={formData.comentarios}
+                  onChange={handleChange}
+                  rows={4}
+                  maxLength={300}
+                  placeholder="Si tienes algún comentario adicional sobre tu solicitud, escríbelo aquí (máximo 300 caracteres)..."
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 resize-none"
+                />
+                <div className="flex justify-between items-center mt-1">
+                  <p className="text-xs text-gray-500">
+                    Máximo 300 caracteres
+                  </p>
+                  <p className="text-xs text-gray-500">
+                    {formData.comentarios.length} / 300 caracteres
+                  </p>
                 </div>
               </div>
               

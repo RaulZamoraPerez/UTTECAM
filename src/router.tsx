@@ -60,8 +60,8 @@ export default function Router() {
           <Route path="/requisitos/carta-pasante" element={<CartaPasante/>} />
           <Route path="/requisitos/reposicion-credencial" element={<ReposicionCredencial/>} />
           <Route path="/requisitos/alta-baja-IMSS" element={<AltaBajaIMSS/>} />
-          <Route path="/requisitos/tramite-titulo" element={<TramiteTitulo/>} />
-          <Route path="/requisitos/reinscripcion" element={<Reinscripcion/>} />
+          {/* <Route path="/requisitos/tramite-titulo" element={<TramiteTitulo/>} />
+          <Route path="/requisitos/reinscripcion" element={<Reinscripcion/>} /> */}
 
 
           
