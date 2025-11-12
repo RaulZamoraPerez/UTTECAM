@@ -150,10 +150,19 @@ const HeroCarousel: React.FC<{ showVideo?: boolean }> = ({ showVideo = true }) =
               muted
               playsInline
               loop
-              preload="metadata"
+              preload="none"
               className="w-full h-[85vh] sm:h-[75vh] md:h-[80vh] lg:h-[85vh] xl:h-[90vh] object-cover"
               onPlay={handleVideoPlay}
               onEnded={handleVideoEnd}
+              onError={(e) => {
+                console.error('Error loading video:', e);
+                // Fallback to image if video fails
+                setSelectedIndex(2); // Switch to next slide
+              }}
+              onLoadStart={() => {
+                // Add loading state if needed
+                console.log('Video loading started');
+              }}
               style={{
                 background: 'linear-gradient(135deg, #000 0%, #1a1a1a 50%, #000 100%)',
               }}

@@ -574,8 +574,8 @@ export const dataFormatos = {
           documentos: [
             {
               id: "DAF_DMI_doc1",
-              titulo: "MNIT01-R01 Orden de trabajo.xlsx",
-              archivo: "/SIG/FORMATOS/Dirección de Administración y Finanzas/Departamento de Mantenimiento e Instalaciones/MNIT01-R01 Orden de trabajo.xlsx"
+              titulo: "MNIT01-R01 Orden de trabajo",
+              archivo: "/SIG/FORMATOS/Dirección de Administración y Finanzas/Departamento de Mantenimiento e Instalaciones/MNIT01-R01 ORDEN DE TRABAJO.xlsx"
             },
             {
               id: "DAF_DMI_doc2",
@@ -644,8 +644,13 @@ export const dataFormatos = {
           documentos: [
             {
               id: "DAF_DRFC_doc1",
-              titulo: "RFIOT01 -R01 ENCUESTA DE SATISFACCIÓN.docx",
-              archivo: "/SIG/FORMATOS/Dirección de Administración y Finanzas/Departamento de Recursos Financieros y Contabilidad/RFIT01-R01 ENCUESTA DE SATISFACCIÓN.docx"
+              titulo: "RFIT01-R01 Encuesta de satisfacción solicitud y expedición de cheques.docx",
+              archivo: "/SIG/FORMATOS/Dirección de Administración y Finanzas/Departamento de Recursos Financieros y Contabilidad/RFIT01-R01 Encuesta de satisfacción solicitud y expedición de cheques.docx"
+            },
+            {
+              id: "DAF_DRFC_doc2",
+              titulo: "RFIT02-R02 Encuesta satisfacción conciliación bancaria.docx",
+              archivo: "/SIG/FORMATOS/Dirección de Administración y Finanzas/Departamento de Recursos Financieros y Contabilidad/RFIT02-R02 Encuesta satisfacción conciliación bancaria.docx"
             }
           ]
         },
@@ -1353,13 +1358,13 @@ export const dataFormatos = {
           documentos: [
             {
               id: "SSE_DSB_doc1",
-              titulo: "SBIT01-R01 Formato de Requisición de Mat biblio..docx",
-              archivo: "/SIG/FORMATOS/Subdirección de Servicios Escolares/Departamento de Servicios Bibliotecarios/SBIT01-R01  Formato de Requisición de Mat biblio.docx"
+              titulo: "SBIT01-R01 Requisición de Material bibliografico",
+              archivo: "/SIG/FORMATOS/Subdirección de Servicios Escolares/Departamento de Servicios Bibliotecarios/SBIT01-R01 Requisición de Material bibliografico.docx"
             },
             {
               id: "SSE_DSB_doc2",
-              titulo: "SBIT01-R02 Preguntas de encuesta de satisfacción de usuarios.xlsx",
-              archivo: "/SIG/FORMATOS/Subdirección de Servicios Escolares/Departamento de Servicios Bibliotecarios/SBIT01-R02  Preguntas de encuesta de satisfacción de usuarios.xlsx"
+              titulo: "SBIT01-R02 Registro de Usuarios y Evaluación de satifacción",
+              archivo: "/SIG/FORMATOS/Subdirección de Servicios Escolares/Departamento de Servicios Bibliotecarios/SBIT01-R02 Registro de Usuarios y Evaluación de satifacción.docx"
             }
           ]
         },
@@ -1383,28 +1388,39 @@ export const dataFormatos = {
           documentos: [
             {
               id: "SSE_DSEST_doc1",
-              titulo: "STIT01-R01 FORMATO SOLICITUD DE BECA DE EXENCIÓN.docx",
-              archivo: "/SIG/FORMATOS/Subdirección de Servicios Escolares/Departamento de Servicios Estudiantiles/STIT01-R01 FORMATO SOLICITUD DE BECA DE EXENCIÓN.docx"
+              titulo: "STIT01-R01 FORMATO SOLICITUD DE BECA DE EXENCIÓN 2025",
+              archivo: "/SIG/FORMATOS/Subdirección de Servicios Escolares/Departamento de Servicios Estudiantiles/STIT01-R01 FORMATO SOLICITUD DE BECA DE EXENCIÓN 2025.pdf"
             },
             {
               id: "SSE_DSEST_doc2",
-              titulo: "STIT01-R02 CUESTIONARIO SOCIOECONÓMICO UTTECAM.docx",
-              archivo: "/SIG/FORMATOS/Subdirección de Servicios Escolares/Departamento de Servicios Estudiantiles/STIT01-R02 CUESTIONARIO SOCIOECONÓMICO UTTECAM.docx"
+              titulo: "STIT01-R02 ESTUDIO SOCIOECONOMICO UTTECAM",
+              archivo: "/SIG/FORMATOS/Subdirección de Servicios Escolares/Departamento de Servicios Estudiantiles/STIT01-R02 ESTUDIO SOCIOECONOMICO UTTECAM.pdf"
             },
+            // {
+            //   id: "SSE_DSEST_doc2",
+            //   titulo: "STIT01-R02 CUESTIONARIO SOCIOECONÓMICO UTTECAM.docx",
+            //   archivo: "/SIG/FORMATOS/Subdirección de Servicios Escolares/Departamento de Servicios Estudiantiles/STIT01-R02 CUESTIONARIO SOCIOECONÓMICO UTTECAM.docx"
+            // },
             {
               id: "SSE_DSEST_doc3",
-              titulo: "STIT01-R03 CARTA BAJO PROTESTA.docx",
-              archivo: "/SIG/FORMATOS/Subdirección de Servicios Escolares/Departamento de Servicios Estudiantiles/STIT01-R03 CARTA BAJO PROTESTA.docx"
+              titulo: "STIT01-R03 CARTA BAJO PROTESTA ",
+              archivo: "/SIG/FORMATOS/Subdirección de Servicios Escolares/Departamento de Servicios Estudiantiles/STIT01-R03 CARTA PROTESTA.pdf"
             },
             {
               id: "SSE_DSEST_doc4",
-              titulo: "STIT01-R04 CARTA COMPROMISO (EXENCION 50%).docx",
+              titulo: "STIT01-R04 CARTA COMPROMISO (EXENCION 50%) ",
               archivo: "/SIG/FORMATOS/Subdirección de Servicios Escolares/Departamento de Servicios Estudiantiles/STIT01-R04 CARTA COMPROMISO (EXENCION 50_).docx"
             },
+           
             {
-              id: "SSE_DSEST_doc5",
-              titulo: "STIT01-R06 Relación para registro de servicio (1).xlsx",
-              archivo: "/SIG/FORMATOS/Subdirección de Servicios Escolares/Departamento de Servicios Estudiantiles/STIT01-R06 Relación para registro de servicio.xlsx"
+              id: "SSE_DSEST_doc6",
+              titulo: "STIT01-R06 Relación para registro de servicio",
+              archivo: "/SIG/FORMATOS/Subdirección de Servicios Escolares/Departamento de Servicios Estudiantiles/STIT01-R06 Relacion para registro de servicio.xlsx"
+            },
+            {
+              id: "SSE_DSEST_doc7",
+              titulo: "STIT01-R07 Formato de Asistencia_Platica Informativa 2025",
+              archivo: "/SIG/FORMATOS/Subdirección de Servicios Escolares/Departamento de Servicios Estudiantiles/STIT01-R07 Formato de Asistencia_Platica Informativa 2025.pdf"
             }
           ]
         },

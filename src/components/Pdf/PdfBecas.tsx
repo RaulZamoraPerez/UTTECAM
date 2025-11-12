@@ -39,7 +39,7 @@ const PdfBecasExcencion = ({ title, description, pdfSrc }: PDFViewerProps) => {
 
       {/* Modal para mostrar el PDF */}
       {isModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div className="fixed inset-0 bg-black/10 bg-opacity-50 flex items-center justify-center z-50">
           <div className="relative bg-white rounded-lg overflow-hidden max-h-[95vh] max-w-[95vw] shadow-lg">
             <button 
               className="absolute top-2 right-2 bg-amber-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-xl font-bold hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-amber-500"

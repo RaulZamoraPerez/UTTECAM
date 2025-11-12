@@ -100,6 +100,7 @@ const datos = [
         { id: "doc58", titulo: "Edo Analítico pto cap gasto.PDF", archivo: "/EstadosFinancieros/3. Estados Financieros 3° Trimestre 2025/25. Edo Analítico pto cap gasto.PDF" },
         { id: "doc59", titulo: "Fuente de financiamiento.PDF", archivo: "/EstadosFinancieros/3. Estados Financieros 3° Trimestre 2025/26. Fuente de financiamiento.PDF" },
         { id: "doc60", titulo: "Flujo de fondos_Sept.PDF", archivo: "/EstadosFinancieros/3. Estados Financieros 3° Trimestre 2025/27. Flujo de fondos_Sept.PDF" },
+        {id: "doc61", titulo: "Manual de contabilidad.PDF", archivo: "/EstadosFinancieros/3. Estados Financieros 3° Trimestre 2025/28. Manual de Contabilidad.pdf" }
     ]
 },
     {

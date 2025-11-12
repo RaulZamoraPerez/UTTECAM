@@ -26,6 +26,166 @@ const Becas = () => {
           </p>
         </div>
 
+        {/* NUEVA SECCIÓN: RESULTADOS DE BECA EXENCIÓN DE PAGO CUATRIMESTRAL SEP-DIC 2025 */}
+        <div className="mb-12 bg-[#0A9782] rounded-xl shadow-lg overflow-hidden">
+          <div className="p-6">
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div className="flex items-center">
+                <div className="bg-white rounded-full p-3 mr-3">
+                  <Award className="text-[#0A9782]" size={32} />
+                </div>
+                <div>
+                  <h2 className="text-2xl sm:text-3xl font-bold text-white">
+                    Resultados Publicados
+                  </h2>
+                  <p className="text-white/90 text-sm sm:text-base">
+                    Beca Exención Sep-Dic 2025
+                  </p>
+                </div>
+              </div>
+              <div className="bg-white rounded-lg px-4 py-2">
+                <p className="text-[#0A9782] font-bold">📅 Nov 2025</p>
+              </div>
+            </div>
+          </div>
+          
+          <div className="bg-white p-6">
+            <p className="text-gray-700 mb-4 text-sm">
+              Resultados de la Beca de Exención de Pago Cuatrimestral para el periodo <strong>septiembre-diciembre 2025</strong>:
+            </p>
+
+            {/* Documentos en layout horizontal compacto */}
+            <div className="space-y-3 mb-4">
+              {/* Documento 1: Resultados Generales */}
+              <a
+                href="becas/RESULTADOS BECA EXENCION DE PAGO CUATRIMESTRAL SEP-DIC2025 (2).pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-between p-4 bg-white border-2 border-gray-200 rounded-lg hover:border-[#D1672A] hover:shadow-md transition-all group"
+              >
+                <div className="flex items-center gap-3 flex-1">
+                  <div className="bg-[#D1672A] rounded-lg p-2 flex-shrink-0">
+                    <FileCheck className="text-white" size={20} />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <h4 className="font-bold text-gray-800 text-sm group-hover:text-[#D1672A] transition-colors">Resultados Generales</h4>
+                    <p className="text-xs text-gray-600 truncate">Lista de beneficiados Sep-Dic 2025</p>
+                  </div>
+                </div>
+                <svg className="w-5 h-5 text-gray-400 group-hover:text-[#D1672A] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </a>
+
+              {/* Documento 2: Casos Especiales */}
+              <a
+                href="becas/RESULTADOS CASOS ESPECIALES SEP-DIC2025 (1).pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-between p-4 bg-white border-2 border-gray-200 rounded-lg hover:border-[#0A9782] hover:shadow-md transition-all group"
+              >
+                <div className="flex items-center gap-3 flex-1">
+                  <div className="bg-[#0A9782] rounded-lg p-2 flex-shrink-0">
+                    <Award className="text-white" size={20} />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <h4 className="font-bold text-gray-800 text-sm group-hover:text-[#0A9782] transition-colors">Casos Especiales</h4>
+                    <p className="text-xs text-gray-600 truncate">Situaciones evaluadas individualmente</p>
+                  </div>
+                </div>
+                <svg className="w-5 h-5 text-gray-400 group-hover:text-[#0A9782] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </a>
+
+              {/* Documento 3: Carta Compromiso */}
+              <a
+                href="becas/STIT01-R04 CARTA COMPROMISO (EXENCION 50_) (1).pdf"
+                download
+                className="flex items-center justify-between p-4 bg-white border-2 border-gray-200 rounded-lg hover:border-[#D1672A] hover:shadow-md transition-all group"
+              >
+                <div className="flex items-center gap-3 flex-1">
+                  <div className="bg-[#D1672A] rounded-lg p-2 flex-shrink-0">
+                    <FileCheck className="text-white" size={20} />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <h4 className="font-bold text-gray-800 text-sm group-hover:text-[#D1672A] transition-colors">Carta Compromiso (Solo 50%)</h4>
+                    <p className="text-xs text-gray-600 truncate">Formato para beneficiarios de Exención 50%</p>
+                  </div>
+                </div>
+                <svg className="w-5 h-5 text-gray-400 group-hover:text-[#D1672A] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3" />
+                </svg>
+              </a>
+
+              {/* Documento 4: Excel */}
+              <a
+                href="becas/formato de solicitud de prensa Publicacion-Resultados septiembre diciembre 2025.xlsx"
+                download
+                className="flex items-center justify-between p-4 bg-white border-2 border-gray-200 rounded-lg hover:border-green-600 hover:shadow-md transition-all group"
+              >
+                <div className="flex items-center gap-3 flex-1">
+                  <div className="bg-green-600 rounded-lg p-2 flex-shrink-0">
+                    <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z"/>
+                    </svg>
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <h4 className="font-bold text-gray-800 text-sm group-hover:text-green-600 transition-colors">Formato Solicitud (Excel)</h4>
+                    <p className="text-xs text-gray-600 truncate">Publicación Resultados Sep-Dic 2025</p>
+                  </div>
+                </div>
+                <svg className="w-5 h-5 text-gray-400 group-hover:text-green-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3" />
+                </svg>
+              </a>
+
+              {/* Documento 5: Word */}
+              <a
+                href="becas/POST Resultados de la Beca de Exención de Pago Cuatrimestral Septiembre.docx"
+                download
+                className="flex items-center justify-between p-4 bg-white border-2 border-gray-200 rounded-lg hover:border-blue-600 hover:shadow-md transition-all group"
+              >
+                <div className="flex items-center gap-3 flex-1">
+                  <div className="bg-blue-600 rounded-lg p-2 flex-shrink-0">
+                    <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z"/>
+                    </svg>
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <h4 className="font-bold text-gray-800 text-sm group-hover:text-blue-600 transition-colors">POST Resultados (Word)</h4>
+                    <p className="text-xs text-gray-600 truncate">Texto oficial de publicación</p>
+                  </div>
+                </div>
+                <svg className="w-5 h-5 text-gray-400 group-hover:text-blue-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3" />
+                </svg>
+              </a>
+            </div>
+
+            {/* Nota importante compacta */}
+            <div className="bg-red-50 rounded-lg p-4 border-l-4 border-red-500 mb-4">
+              <p className="text-sm text-gray-700">
+                <strong className="text-red-700">⚠️ Importante:</strong> La Carta Compromiso es <strong>solo para beneficiarios de Exención 50%</strong>. 
+                Si tienes beca del 100% o no apareces en resultados, no necesitas este formato.
+              </p>
+            </div>
+
+            {/* Información de contacto compacta */}
+            <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
+              <p className="text-sm text-gray-700 mb-2">
+                <strong>Dudas:</strong> Departamento de Servicios Estudiantiles
+              </p>
+              <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-gray-600">
+                <a href="mailto:serviciosestudiantiles@uttecam.edu.mx" className="text-[#0A9782] hover:underline font-medium">
+                  📧 serviciosestudiantiles@uttecam.edu.mx
+                </a>
+                <span>📞 249 422 3300 Ext. 161</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* Grid de secciones */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           
@@ -54,7 +214,7 @@ const Becas = () => {
 
           {/* Modal para mostrar la imagen en grande con scroll */}
           {isModalOpen && (
-            <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50">
               <div className="relative bg-white rounded-lg overflow-auto max-h-[90vh] max-w-[90vw] shadow-lg">
                 <button 
                   className="absolute top-2 right-2 bg-amber-600 text-white rounded-full w-10 h-10 flex items-center justify-center text-lg font-bold hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-amber-500"
