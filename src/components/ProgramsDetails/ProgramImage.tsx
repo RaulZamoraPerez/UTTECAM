@@ -5,10 +5,7 @@ interface ProgramImageProps {
     profileImage?: string;
     // add other properties of details if needed
   };
-  program: {
-    title: string;
-    // add other properties of program if needed
-  };
+  program: any;
 }
 
 const ProgramImage = ({ details, program }: ProgramImageProps) => {
@@ -50,7 +47,7 @@ const ProgramImage = ({ details, program }: ProgramImageProps) => {
             <img
               className="relative rounded-3xl w-full max-w-6xl mx-auto shadow-2xl border border-white/20"
               src={details.profileImage}
-              alt={`Imagen de perfil del programa ${program.title}`}
+              alt={`Imagen de perfil del programa ${program.nombre}`}
               loading="lazy"
             />
             <div className="flex justify-end mt-6">
@@ -75,7 +72,7 @@ const ProgramImage = ({ details, program }: ProgramImageProps) => {
           {/* Modal pantalla completa */}
           {isZoomed && (
             <div
-              className="fixed inset-0 z-50 bg-black bg-opacity-90 flex items-center justify-center cursor-zoom-out"
+              className="fixed inset-0 z-[99999] bg-black bg-opacity-90 flex items-center justify-center cursor-zoom-out"
               onClick={() => setIsZoomed(false)}
             >
               <button
@@ -88,7 +85,7 @@ const ProgramImage = ({ details, program }: ProgramImageProps) => {
 
               <img
                 src={details.profileImage}
-                alt={`Imagen ampliada del programa ${program.title}`}
+                alt={`Imagen ampliada del programa ${program.nombre}`}
                 className="max-w-full max-h-full object-contain transition-transform duration-300 hover:scale-105"
                 onClick={(e) => e.stopPropagation()} // evita cerrar al hacer clic en la imagen
               />

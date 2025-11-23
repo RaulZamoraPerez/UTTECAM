@@ -1,6 +1,4 @@
-import type { Program } from "../types/Program"
-
-export const programs: Program[] = [
+export const programs = [
   {
     id: 1,
     title: "TICS DESARROLLO DE SOFTWARE_2025",

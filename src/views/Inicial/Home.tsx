@@ -33,6 +33,8 @@ const Home = () => {
       {/* Contador regresivo para algún evento importante */}
       <Countdown />
 
+      {/* Reloj Digital removed (no mostrar arriba de Modelos Educativos) */}
+
       {/* Sección de modelos educativos */}
       <EducationalModels />
 

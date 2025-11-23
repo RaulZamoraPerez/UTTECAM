@@ -51,7 +51,7 @@ const CustomAlert: React.FC<AlertProps> = ({ type, title, message, onClose, isVi
   const style = alertStyles[type];
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center pointer-events-none">
+    <div className="fixed inset-0 z-[99999] flex items-center justify-center pointer-events-none">
       <div className={`bg-white ${style.border} border-2 rounded-2xl p-6 m-4 max-w-md w-full shadow-2xl transform transition-all duration-300 scale-100 pointer-events-auto`}>
         <div className="flex items-start space-x-4">
           <div className="flex-shrink-0">

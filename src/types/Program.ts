@@ -1,10 +1,18 @@
 export interface Program {
   id: number
-  title: string
-  duration: string
-  video?: string
-  image?: string
-  category: string
+  nombre: string
+  siglas: string
+  nivel: string
+  duracion: string
+  objetivo: string
+  perfil_ingreso: string
+  perfil_egreso: string
+  campo_laboral: string
+  imagen?: string
+  orden: number
+  activo: boolean
+  createdAt?: string
+  updatedAt?: string
 }
 
 

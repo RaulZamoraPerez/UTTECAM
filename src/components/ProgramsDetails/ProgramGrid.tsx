@@ -1,8 +1,8 @@
 import ProgramCard from "./ProgramCard"
-import type { Program } from "../../types/Program"
+import type { Carrera } from "../../services/carreraApi"
 
 interface ProgramListProps {
-  programs: Program[]
+  programs: Carrera[]
 }
 
 const ProgramList = ({ programs }: ProgramListProps) => {

@@ -5,14 +5,19 @@ export interface Carrera {
   nombre: string;
   siglas: string;
   nivel: 'TSU' | 'Ingenieria' | 'Licenciatura';
-  modalidad: 'Escolarizada' | 'Ejecutiva' | 'Mixta';
   duracion: string;
   objetivo: string;
   perfil_ingreso: string;
   perfil_egreso: string;
   campo_laboral: string;
   imagen: string;
+  imagen_portada?: string;
+  video_url?: string;
   plan_estudios_url?: string;
+  mapa_curricular?: any;
+  competencias?: string;
+  atributos_egreso?: string;
+  objetivos_educacionales?: string;
   orden: number;
   activo: boolean;
   createdAt: string;
@@ -48,4 +53,9 @@ export const getCarreraImageUrl = (filename: string): string => {
 // Helper para obtener URL de plan de estudios
 export const getCarreraPlanUrl = (filename: string): string => {
   return `${API_URL}/uploads/carreras/planes/${filename}`;
+};
+
+// Helper para obtener URL de video
+export const getCarreraVideoUrl = (filename: string): string => {
+  return `${API_URL}/uploads/carreras/videos/${filename}`;
 };

@@ -111,9 +111,7 @@ export default function Navbar() {
                 {
                     label: "Carreras",
                     href: "/#carreras",
-
                 },
-                { label: "Profesores", href: "/profesores" },
             ],
         },
         {

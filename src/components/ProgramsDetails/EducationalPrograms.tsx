@@ -34,13 +34,6 @@ const EducationalPrograms = () => {
 
   const filteredPrograms = carreras
     .filter((carrera) => carrera.nivel === filterToNivel[selectedFilter])
-    .map((carrera) => ({
-      id: carrera.id,
-      title: carrera.nombre,
-      duration: carrera.duracion,
-      image: carrera.imagen,
-      category: selectedFilter,
-    }))
 
   if (loading) {
     return (

@@ -229,7 +229,7 @@ src/
     └── validation.ts           # Validación de datos
 
 scripts/
-└── seed-nosotros-content.js    # Script de datos iniciales
+└── node scripts/auth/create-admin.js --seed-all    # Script principal que crea admin y poblaciones de 'nosotros' y 'carreras'
 
 docs/
 └── NOSOTROS_API.md            # Especificación completa
