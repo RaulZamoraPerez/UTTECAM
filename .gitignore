@@ -54,6 +54,7 @@ GACETA
 *.ico
 *.tiff
 *.tif
+*.zip
 
 #Variales de entorno
 .env
