@@ -1,8 +1,9 @@
-import VinculacionBanner from "./views/Vinculacion/VinculacionBanner";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+
           
 import PracticasEstadias from "./views/Vinculacion/PracticasEstadias";
            
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+
 import { Suspense, lazy } from "react";
 const ConvocatoriaTitulo = lazy(() => import("@/views/Convocatoria/ConvocatoriaTitulo"));
 const PdfConvocatoriaTitulo = lazy(() => import("@/views/Convocatoria/PdfConvocatoriaTitulo"));
@@ -16,6 +17,7 @@ import Home from "@/views/Inicial/Home";
 import ServicioMedico from "./views/extensionUniversitaria/ServicioMedico/ServicioMedico";
 import EducacionContinua from "./views/EducacionContinua/EducacionContinua";
 import CursosEducacionContinua from "./views/EducacionContinua/CursosEducacionContinua";
+import Directorios from "./views/Nosotros/Directorios";
 
 // Lazy imports de otras vistas
 const ProgramDetail = lazy(() => import("@/views/DetallesCarrera/ProgramDetail"));
@@ -28,6 +30,7 @@ const Sga = lazy(() => import("@/views/Sga/sga"));
 const Sigc = lazy(() => import("@/views/Sigc/sigc"));
 // const Directorios = lazy(() => import("@/views/Nosotros/Directorios"));
 const Vinculacion = lazy(() => import("@/views/Vinculacion/vinculacion"));
+const VinculacionBanner = lazy(() => import("@/views/Vinculacion/VinculacionBanner"));
 const Calendario = lazy(() => import("@/views/Nosotros/Calendario"));
 const PIT = lazy(() => import("@/views/Sigc/PIT"));
 const Gaceta = lazy(() => import("@/views/extensionUniversitaria/prensaydifusion/Gaceta"));
@@ -42,7 +45,7 @@ const MiEscuela = lazy(() => import("@/views/MiEscuela/MiEscuela"));
 const Nosotros = lazy(() => import("@/views/Nosotros/Nosotros"));
 const ConvocatoriaAdmision = lazy(() => import("@/views/Convocatoria/ConvocatoriaAdmision"));
 const Tramites = lazy(() => import("@/views/Tramites/Tramites"));
-const Becas = lazy(() => import("@/views/Becas2/Becas"));
+const Becas = lazy(() => import("@/views/Becas/Becas"));
 // const Organigrama = lazy(() => import("@/views/Directorios/Organigrama"));
 const TalleresCulturales = lazy(() => import("@/views/TalleresCulturales/TalleresCulturales"));
 const TalleresDeportivos = lazy(() => import("@/views/TalleresDeportivos/TalleresDeportivos"));
@@ -62,8 +65,9 @@ export default function Router() {
             <Route path="/recursosHumanos" element={<RecursosHumanos />} />
             <Route path="/sga" element={<Sga />} />
             <Route path="/sigc" element={<Sigc />} />
-            {/* <Route path="/directorios" element={<Directorios />} /> */}
-            <Route path="/vinculacion" element={<Vinculacion />} />
+            <Route path="/directorios" element={<Directorios />} />
+            <Route path="/repositorio-digital-investigacion" element={<Vinculacion />} />
+             <Route path="/vinculacion-banner" element={<VinculacionBanner />} />
             <Route path="/calendario" element={<Calendario />} />
             <Route path="/programa-institucional-tutorias" element={<PIT />} />
             <Route path="/gacetas" element={<Gaceta />} />
@@ -79,7 +83,7 @@ export default function Router() {
             <Route path="/Coordinacion" element={<Coordinacion />} />
             <Route path="/portal-estudiantes" element={<MiEscuela />} />
             <Route path="/becas-academicas" element={<Becas />} />
-            <Route path="/Becas" element={<Calendario />} />
+         
             <Route path="/InformacionEstadistica" element={<InformacionEstadistica />} />
             {/* <Route path="/Organigrama" element={<Organigrama />} /> */}
             <Route path="/talleres-culturales" element={<TalleresCulturales />} />
@@ -90,7 +94,7 @@ export default function Router() {
             <Route path="/educacion-continua" element={<EducacionContinua />} />
             <Route path="/educacion-continua/cursos" element={<CursosEducacionContinua />} />
              <Route path="/practicas-y-estadias" element={<PracticasEstadias />} />
-               <Route path="/vinculacion-banner" element={<VinculacionBanner />} />
+              
           </Route>
           <Route path="*" element={<Page_404 />} />
 

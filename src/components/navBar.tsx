@@ -166,7 +166,7 @@ export default function Navbar() {
         },
         {
           label: "Repositorio digital de productos de investigación",
-          href: "/vinculacion",
+          href: "/repositorio-digital-investigacion",
         },
         { label: "Seminario café científico", href: "/seminario-cafe-cientifico" },
       ],

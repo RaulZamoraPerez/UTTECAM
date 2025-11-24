@@ -32,6 +32,7 @@ const datos = [
             { id: "cod1", titulo: "CÓDIGO DE CONDUCTA UTTECAM", archivo: "/Codigo/CÓDIGO DE CONDUCTA UTTECAM.pdf" },
             { id: "cod2", titulo: "CÓDIGO DE ÉTICA", archivo: "/Codigo/CODIGO DE ÉTICA.pdf" },
             { id: "cod3", titulo: "CÓDIGO DE ÉTICA Y LAS REGLAS DE INTEGRIDAD PARA EL EJERCICIO DE LA FUNCIÓN PÚBLICA", archivo: "/Codigo/CODIGO_DE_ETICA_Y_LAS_REGLAS_DE_INTEGRIDAD_PARA_EL_EJERCICIO_DE_LA_FUNCION_PUBLICA_17042020.pdf" },
+            { id: "cod4", titulo: "CÓDIGO DE CONDUCTA 2025", archivo: "/Codigo/Código de conducta 2025.pdf" },
         ],
     },
     {

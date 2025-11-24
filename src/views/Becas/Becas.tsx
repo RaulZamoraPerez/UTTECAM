@@ -118,49 +118,10 @@ const Becas = () => {
                 </svg>
               </a>
 
-              {/* Documento 4: Excel */}
-              <a
-                href="becas/formato de solicitud de prensa Publicacion-Resultados septiembre diciembre 2025.xlsx"
-                download
-                className="flex items-center justify-between p-4 bg-white border-2 border-gray-200 rounded-lg hover:border-green-600 hover:shadow-md transition-all group"
-              >
-                <div className="flex items-center gap-3 flex-1">
-                  <div className="bg-green-600 rounded-lg p-2 flex-shrink-0">
-                    <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z"/>
-                    </svg>
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <h4 className="font-bold text-gray-800 text-sm group-hover:text-green-600 transition-colors">Formato Solicitud (Excel)</h4>
-                    <p className="text-xs text-gray-600 truncate">Publicación Resultados Sep-Dic 2025</p>
-                  </div>
-                </div>
-                <svg className="w-5 h-5 text-gray-400 group-hover:text-green-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3" />
-                </svg>
-              </a>
+             
 
-              {/* Documento 5: Word */}
-              <a
-                href="becas/POST Resultados de la Beca de Exención de Pago Cuatrimestral Septiembre.docx"
-                download
-                className="flex items-center justify-between p-4 bg-white border-2 border-gray-200 rounded-lg hover:border-blue-600 hover:shadow-md transition-all group"
-              >
-                <div className="flex items-center gap-3 flex-1">
-                  <div className="bg-blue-600 rounded-lg p-2 flex-shrink-0">
-                    <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z"/>
-                    </svg>
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <h4 className="font-bold text-gray-800 text-sm group-hover:text-blue-600 transition-colors">POST Resultados (Word)</h4>
-                    <p className="text-xs text-gray-600 truncate">Texto oficial de publicación</p>
-                  </div>
-                </div>
-                <svg className="w-5 h-5 text-gray-400 group-hover:text-blue-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3" />
-                </svg>
-              </a>
+       
+             
             </div>
 
             {/* Nota importante compacta */}
