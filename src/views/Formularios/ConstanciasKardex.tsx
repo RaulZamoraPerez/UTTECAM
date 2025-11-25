@@ -325,7 +325,7 @@ export default function ConstanciasKardex() {
 
       if (resultado.exito) {
         // ✅ Éxito
-        showAlert('success', '¡Solicitud enviada exitosamente!', resultado.mensaje || 'Tu solicitud ha sido procesada correctamente. Recibirás una confirmación por correo electrónico en breve.');
+        showAlert('success', '¡Solicitud enviada exitosamente!', 'Tu solicitud ha sido procesada correctamente. Recibirás una confirmación por correo electrónico en breve.');
         
         // Resetear formulario
         setFormData({

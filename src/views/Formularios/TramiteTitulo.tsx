@@ -37,7 +37,7 @@ export default function TramiteTitulo() {
   const { showAlert, AlertComponent } = useAlert();
 
   // Estado para errores del servidor
-  const [serverErrors, setServerErrors] = useState<Record<string, string[]>>({});
+  const [, setServerErrors] = useState<Record<string, string[]>>({});
 
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -149,7 +149,7 @@ export default function TramiteTitulo() {
 
       if (resultado.exito) {
         // ✅ Éxito
-        showAlert('success', '¡Solicitud enviada exitosamente!', resultado.mensaje || 'Tu solicitud ha sido procesada correctamente. Te contactaremos para agendar tu cita en un plazo de 72 horas hábiles.');
+        showAlert('success', '¡Solicitud enviada exitosamente!', 'Tu solicitud ha sido procesada correctamente. Te contactaremos para agendar tu cita en un plazo de 72 horas hábiles.');
         
         // Resetear formulario
         setFormData({

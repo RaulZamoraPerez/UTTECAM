@@ -80,9 +80,17 @@ export default function Router() {
             <Route path="/Organigrama" element={<Organigrama />} />
             <Route path="/promocion-institucional" element={<PromocioIntitucional />} />
             <Route path="/ver-documento-promocion/:title" element={<PdfPromocionInstitucional />} />
+            
+            {/* Formularios */}
+            <Route path="/constancia-kardex" element={<ConstanciasKardex />} />
+            <Route path="/certificado-estudios" element={<CertificadoEstudios />} />
+            <Route path="/tramite-titulo" element={<TramiteTitulo />} />
+            <Route path="/carta-pasante" element={<CartaPasante />} />
+            <Route path="/reposicion-credencial" element={<ReposicionCredencial />} />
+            <Route path="/imss" element={<AltaBajaIMSS />} />
+            <Route path="/reinscripcion" element={<Reinscripcion />} />
           </Route>
           <Route path="*" element={<Page_404 />} />
-
         </Routes>
       </Suspense>
     </BrowserRouter>

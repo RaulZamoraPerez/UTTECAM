@@ -283,7 +283,7 @@ export default function AltaBajaIMSS() {
 
       if (resultado.exito) {
         // ✅ Éxito
-        showAlert('success', '¡Solicitud enviada exitosamente!', resultado.mensaje);
+        showAlert('success', '¡Solicitud enviada exitosamente!', 'Archivos cargados y correo electrónico enviado.');
         
         // Resetear formulario
         setFormData({

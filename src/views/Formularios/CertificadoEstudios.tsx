@@ -288,7 +288,7 @@ const CertificadoEstudios: React.FC = () => {
 
       if (resultado.exito) {
         // ✅ Éxito
-        showAlert('success', '¡Solicitud registrada!', resultado.mensaje);
+        showAlert('success', '¡Solicitud registrada!', 'Archivos cargados y correo electrónico enviado.');
         
         // Resetear formulario
         setFormData({

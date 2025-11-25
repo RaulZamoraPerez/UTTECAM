@@ -276,7 +276,7 @@ export default function CartaPasante() {
 
       if (resultado.exito) {
         // ✅ Éxito
-        showAlert('success', '¡Solicitud enviada exitosamente!', resultado.mensaje || 'Tu solicitud ha sido procesada correctamente. Recuerda presentarte en Servicios Escolares con tus fotografías en un máximo de 5 días hábiles.');
+        showAlert('success', '¡Solicitud enviada exitosamente!', 'Tu solicitud ha sido procesada correctamente. Recuerda presentarte en Servicios Escolares con tus fotografías en un máximo de 5 días hábiles.');
         
         // Resetear formulario
         setFormData({
