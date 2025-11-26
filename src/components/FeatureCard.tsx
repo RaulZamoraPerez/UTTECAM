@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { getImageUrl } from '../util/nosotrosApi';
 
 type FeatureCardProps = {
   title: string;
@@ -24,8 +25,10 @@ export default function FeatureCardNosotros({ title, description, imageSrc }: Fe
 
   const handleImageError = () => {
     const defaultImg = getDefaultImage(title);
-    if (imgSrc !== defaultImg) {
-      setImgSrc(defaultImg);
+    // Use getImageUrl so default image is resolved with API url if necessary
+    const resolvedDefault = getImageUrl(defaultImg);
+    if (imgSrc !== resolvedDefault) {
+      setImgSrc(resolvedDefault);
     }
   };
 

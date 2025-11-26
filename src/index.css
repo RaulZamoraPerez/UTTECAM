@@ -47,3 +47,15 @@
 .swal2-toast {
   z-index: 9999999 !important;
 }
+
+/* Accessibility styles for high contrast and text spacing */
+.high-contrast-mode {
+  filter: contrast(1.5) saturate(1.2);
+  background-color: #000 !important;
+  color: #fff !important;
+}
+
+.text-spacing-mode {
+  letter-spacing: 0.12rem !important;
+  word-spacing: 0.24rem !important;
+}

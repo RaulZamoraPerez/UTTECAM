@@ -39,3 +39,7 @@ VIDEOS
 
 # Documentos
 *.pdf
+#imagenes
+*.jpg
+*.png
+*.gif

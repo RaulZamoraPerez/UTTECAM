@@ -122,8 +122,8 @@ export default function Navbar() {
                     label: "Prácticas y estadías", href: "/convenios",
                     submenu: [
                         { label: "Catálogo de empresas para estadías ", href: "/practicas-profesionales" },
-                        { label: "Documentos para la gestión de estadías", href: "/estadias" },
-                        { label: "Servicio social", href: "/estadias" },
+                        { label: "Documentos para la gestión de estadías", href: "/informacion-estadia" },
+                        { label: "Servicio social", href: "/servicio-social" },
                     ],
                 },
                 {
@@ -151,10 +151,33 @@ export default function Navbar() {
                 { label: "Seminario café científico", href: "/convenios" },
             ],
         },
-        {
-            label: "Extencion universitaria",
-            href: "/extencion-universitaria",
-        },
+                {
+                        label: "Extensión Universitaria",
+                        submenu: [
+                                {
+                                    label: "Actividades Culturales y Deportivas",
+                                    submenu: [
+                                        { label: "Talleres Culturales", href: "/talleres-culturales" },
+                                        { label: "Talleres Deportivos", href: "/talleres-deportivos" },
+                                    ],
+                                },
+                                {
+                                    label: "Difusión y Divulgación",
+                                    submenu: [
+                                        { label: "Ferias Profesoigráficas", href: "/ferias-profesoigraficas" },
+                                        { label: "Promoción Institucional", href: "/promocion-institucional" },
+                                        { label: "Visitas Guiadas", href: "/visitas-guiadas" },
+                                    ],
+                                },
+                                {
+                                    label: "Prensa y Difusión",
+                                    submenu: [
+                                        { label: "Gacetas", href: "/gacetas" },
+                                    ],
+                                },
+                                { label: "Servicio Médico", href: "/servicio-medico" },
+                        ],
+                },
         {
             label: "Accesos",
             href: "/accesos",

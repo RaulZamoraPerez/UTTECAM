@@ -88,7 +88,8 @@ const ProgramDetail = () => {
   const studyPlan = Array.isArray(mapaCurricular) ? mapaCurricular : (typeof mapaCurricular === 'string' ? JSON.parse(mapaCurricular) : null)
 
   const videoUrl = carrera.video_url ? getCarreraVideoUrl(carrera.video_url) : null
-  const imageUrl = getCarreraImageUrl(carrera.imagen)
+  // Prefer the portada (cover) image if available, otherwise fallback to imagen
+  const imageUrl = getCarreraImageUrl(carrera.imagen_portada || carrera.imagen)
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50">
