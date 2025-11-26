@@ -90,17 +90,6 @@ export default function Navbar() {
             { label: "Becas académicas", href: "/becas-academicas" }
           ],
         },
-        { label: "Becas", 
-          submenu:[
-            {label: "kardex", href:"/constancia-kardex"},
-            {label: "Trámite de título", href:"/tramite-titulo"},
-            {label: "Carta pasante", href:"/carta-pasante"},
-            {label: "Alta/Baja IMSS", href:"/imss"},
-            {label: "Reposición de credencial", href:"/reposicion-credencial"},
-            {label: "Certificado de estudios", href:"/certificado-estudios"},
-            {label: "Reinscripción", href:"/reinscripcion"},
-          ]
-        },
         {
           label: "Biblioteca digital",
           href: "https://elibro.net/es/lc/uttecam/login_usuario/?next=/es/lc/uttecam/inicio/",

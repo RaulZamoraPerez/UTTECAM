@@ -1,6 +1,9 @@
-import { useState, type ChangeEvent, type FormEvent } from 'react';
+import { useState, useEffect, type ChangeEvent, type FormEvent } from 'react';
 import { enviarFormulario } from '@/util/apiFormularios';
 import { useAlert } from '@/components/alerts/Formularios';
+import { obtenerConfiguracionFormulario } from '../../services/configuracionFormulario.service';
+import type { ConfiguracionFormulario } from '../../services/configuracionFormulario.service';
+import { Spinner } from '../../components/Spinner';
 import carreras, { carrerasPorNivel } from '@/util/carreras';
 import { 
   Clock, 
@@ -18,6 +21,7 @@ import {
   FileUp,
   X,
   CheckCircle2,
+  AlertCircle,
 } from 'lucide-react';
 
 interface FormData {
@@ -34,6 +38,11 @@ interface FormData {
 }
 
 const CertificadoEstudios: React.FC = () => {
+  // Estado para la configuración del formulario (datos dinámicos)
+  const [configuracion, setConfiguracion] = useState<ConfiguracionFormulario | null>(null);
+  const [cargandoConfig, setCargandoConfig] = useState(true);
+  const [errorConfig, setErrorConfig] = useState<string | null>(null);
+
   const [formData, setFormData] = useState<FormData>({
     nombre: '',
     matricula: '',
@@ -54,6 +63,75 @@ const CertificadoEstudios: React.FC = () => {
   const [serverErrors, setServerErrors] = useState<Record<string, string[]>>({});
   const hasServerError = (field: keyof FormData | 'file' | 'attachment') => Boolean(serverErrors[field]?.length);
   const getServerErrorText = (field: keyof FormData | 'file' | 'attachment') => serverErrors[field]?.join(' ') || '';
+
+  // Valores por defecto (fallback)
+  const defaultTramiteInfo: {
+    titulo: string;
+    subtitulo: string;
+    descripcion: string;
+    requisitos: string[];
+    pasos: string[];
+    documentos: string[];
+    tiempo: string;
+    costo: string;
+  } = {
+    titulo: "Solicitud de Certificado de Estudios",
+    subtitulo: "Departamento de Servicios Escolares - Universidad Tecnológica de Tecamachalco",
+    descripcion: "",
+    requisitos: [
+      "Ser o haber sido estudiante, o en su caso egresado de la Universidad",
+      "No contar con ningún adeudo con la Institución",
+      "Pagar el costo del servicio",
+      "3 fotografías tamaño infantil a blanco y negro con adherible; toma de la fotografía con ropa formal",
+    ],
+    pasos: [
+      "Descargar la orden pago de la página pagos en línea Puebla",
+      "Realizar el pago en cualquiera de las instituciones bancarias autorizadas",
+      "Ingresar a la página de la Universidad en Servicios Escolares en Línea",
+      "Elegir tu carrera",
+      "Contestar el formulario con número de referencia de pago",
+      "Presentarse en ventanilla con el comprobante de pago original",
+    ],
+    documentos: [
+      "Identificarse con credencial de estudiante o INE",
+      "Original y copia de la orden y comprobante de pago",
+    ],
+    tiempo: "20 días",
+    costo: "$305.00",
+  };
+
+  // Datos del trámite (usa los de la API si existen, sino los default)
+  const tramiteInfo = configuracion ? {
+    titulo: configuracion.info.titulo || defaultTramiteInfo.titulo,
+    subtitulo: configuracion.info.subtitulo || defaultTramiteInfo.subtitulo,
+    descripcion: configuracion.info.descripcion || "",
+    requisitos: configuracion.requisitos.length > 0 ? configuracion.requisitos : defaultTramiteInfo.requisitos,
+    pasos: configuracion.pasos.length > 0 ? configuracion.pasos : defaultTramiteInfo.pasos,
+    documentos: configuracion.documentos.length > 0 ? configuracion.documentos : defaultTramiteInfo.documentos,
+    tiempo: configuracion.info.tiempoEntrega || defaultTramiteInfo.tiempo,
+    costo: configuracion.info.costo || defaultTramiteInfo.costo,
+  } : defaultTramiteInfo;
+
+  // Cargar configuración al montar el componente
+  useEffect(() => {
+    const cargarConfiguracion = async () => {
+      setCargandoConfig(true);
+      setErrorConfig(null);
+
+      const resultado = await obtenerConfiguracionFormulario('certificado');
+
+      if (resultado.exito && resultado.datos) {
+        setConfiguracion(resultado.datos);
+      } else {
+        console.warn('No se pudo cargar la configuración del formulario:', resultado.error);
+        setErrorConfig(resultado.error || null);
+      }
+
+      setCargandoConfig(false);
+    };
+
+    cargarConfiguracion();
+  }, []);
 
   // Función para filtrar carreras según el nivel seleccionado
   const getCarrerasPorNivel = () => {
@@ -331,6 +409,17 @@ const CertificadoEstudios: React.FC = () => {
     }
   };
 
+  // Mostrar spinner mientras carga la configuración
+  if (cargandoConfig) {
+    return (
+      <div className="min-h-screen bg-gradient-to-b from-green-50 to-orange-50 py-8 px-4">
+        <div className="max-w-6xl mx-auto flex flex-col items-center justify-center min-h-[400px]">
+          <Spinner text="Cargando información del trámite..." />
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-green-50 to-orange-50 py-8 px-4">
       {/* Componente de alerta personalizada */}
@@ -340,13 +429,36 @@ const CertificadoEstudios: React.FC = () => {
         {/* Encabezado */}
         <div className="text-center mb-10">
           <h1 className="text-3xl md:text-4xl font-bold text-green-800 mb-2">
-            Solicitud de Certificado de Estudios
+            {tramiteInfo.titulo}
           </h1>
           <div className="w-24 h-1 bg-orange-500 mx-auto mb-4"></div>
           <p className="text-green-700">
-            Departamento de Servicios Escolares - Universidad Tecnológica de Tecomachalco
+            {tramiteInfo.subtitulo}
           </p>
         </div>
+
+        {/* Aviso si hubo error cargando configuración */}
+        {errorConfig && (
+          <div className="mb-6 bg-blue-50 border border-blue-200 rounded-lg p-4 flex items-start gap-3">
+            <AlertCircle className="text-blue-500 flex-shrink-0 mt-0.5" size={20} />
+            <p className="text-sm text-blue-700">
+              Se está mostrando información predeterminada. Algunos datos pueden no estar actualizados.
+            </p>
+          </div>
+        )}
+
+        {/* Descripción extensa (si existe) */}
+        {tramiteInfo.descripcion && (
+          <div className="mb-8 bg-white border-l-4 border-green-400 rounded-r-lg p-6 shadow-md">
+            <div className="prose prose-green max-w-none">
+              {tramiteInfo.descripcion.split('\n').map((parrafo: string, index: number) => (
+                <p key={index} className="text-green-900 leading-relaxed mb-2 last:mb-0">
+                  {parrafo}
+                </p>
+              ))}
+            </div>
+          </div>
+        )}
         
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Sección Informativa */}
@@ -364,7 +476,7 @@ const CertificadoEstudios: React.FC = () => {
                   <Clock className="text-green-700 mr-2" size={20} />
                   <span className="font-semibold text-green-800">Tiempo de entrega</span>
                 </div>
-                <span className="bg-orange-100 text-orange-800 px-3 py-1 rounded-full font-bold">20 días</span>
+                <span className="bg-orange-100 text-orange-800 px-3 py-1 rounded-full font-bold">{tramiteInfo.tiempo}</span>
               </div>
               
               <div className="border-b border-green-200 mb-6">
@@ -373,31 +485,21 @@ const CertificadoEstudios: React.FC = () => {
                   Requisitos
                 </h3>
                 <ol className="list-decimal list-inside space-y-2 mb-4 pl-2 text-gray-700">
-                  <li className="flex items-start">
-                    <ArrowRight className="mr-2 mt-1 flex-shrink-0 text-green-600" size={16} />
-                    Ser o haber sido estudiante, o en su caso egresado de la Universidad
-                  </li>
-                  <li className="flex items-start">
-                    <ArrowRight className="mr-2 mt-1 flex-shrink-0 text-green-600" size={16} />
-                    No contar con ningún adeudo con la Institución
-                  </li>
-                  <li className="flex items-start">
-                    <ArrowRight className="mr-2 mt-1 flex-shrink-0 text-green-600" size={16} />
-                    Pagar el costo del servicio
-                  </li>
-                  <li className="flex items-start">
-                    <ArrowRight className="mr-2 mt-1 flex-shrink-0 text-green-600" size={16} />
-                    3 fotografías tamaño infantil a blanco y negro con adherible; toma de la fotografía con ropa formal
-                  </li>
+                  {tramiteInfo.requisitos.map((req: string, index: number) => (
+                    <li key={index} className="flex items-start">
+                      <ArrowRight className="mr-2 mt-1 flex-shrink-0 text-green-600" size={16} />
+                      {req}
+                    </li>
+                  ))}
                 </ol>
               </div>
               
               <div className="flex items-center justify-between mb-6 p-3 bg-green-50 rounded-lg">
                 <div className="flex items-center">
                   <DollarSign className="text-green-700 mr-2" size={20} />
-                  <span className="font-semibold text-green-800">Costo 2025</span>
+                  <span className="font-semibold text-green-800">Costo</span>
                 </div>
-                <span className="bg-orange-100 text-orange-800 px-3 py-1 rounded-full font-bold">$305.00</span>
+                <span className="bg-orange-100 text-orange-800 px-3 py-1 rounded-full font-bold">{tramiteInfo.costo}</span>
               </div>
               
               <div className="border-b border-green-200 mb-6">
@@ -406,30 +508,12 @@ const CertificadoEstudios: React.FC = () => {
                   Pasos a seguir
                 </h3>
                 <ol className="list-decimal list-inside space-y-2 mb-4 pl-2 text-gray-700">
-                  <li className="flex items-start">
-                    <ArrowRight className="mr-2 mt-1 flex-shrink-0 text-green-600" size={16} />
-                    Descargar la orden pago de la página pagos en línea Puebla
-                  </li>
-                  <li className="flex items-start">
-                    <ArrowRight className="mr-2 mt-1 flex-shrink-0 text-green-600" size={16} />
-                    Realizar el pago en cualquiera de las instituciones bancarias autorizadas
-                  </li>
-                  <li className="flex items-start">
-                    <ArrowRight className="mr-2 mt-1 flex-shrink-0 text-green-600" size={16} />
-                    Ingresar a la página de la Universidad en Servicios Escolares en Línea
-                  </li>
-                  <li className="flex items-start">
-                    <ArrowRight className="mr-2 mt-1 flex-shrink-0 text-green-600" size={16} />
-                    Elegir tu carrera
-                  </li>
-                  <li className="flex items-start">
-                    <ArrowRight className="mr-2 mt-1 flex-shrink-0 text-green-600" size={16} />
-                    Contestar el formulario con número de referencia de pago
-                  </li>
-                  <li className="flex items-start">
-                    <ArrowRight className="mr-2 mt-1 flex-shrink-0 text-green-600" size={16} />
-                    Presentarse en ventanilla con el comprobante de pago original
-                  </li>
+                  {tramiteInfo.pasos.map((paso: string, index: number) => (
+                    <li key={index} className="flex items-start">
+                      <ArrowRight className="mr-2 mt-1 flex-shrink-0 text-green-600" size={16} />
+                      {paso}
+                    </li>
+                  ))}
                 </ol>
               </div>
               
@@ -447,14 +531,12 @@ const CertificadoEstudios: React.FC = () => {
                   Documentos a presentar
                 </h3>
                 <ol className="list-decimal list-inside space-y-2 pl-2 text-gray-700">
-                  <li className="flex items-start">
-                    <ArrowRight className="mr-2 mt-1 flex-shrink-0 text-green-600" size={16} />
-                    Identificarse con credencial de estudiante o INE
-                  </li>
-                  <li className="flex items-start">
-                    <ArrowRight className="mr-2 mt-1 flex-shrink-0 text-green-600" size={16} />
-                    Original y copia de la orden y comprobante de pago
-                  </li>
+                  {tramiteInfo.documentos.map((doc: string, index: number) => (
+                    <li key={index} className="flex items-start">
+                      <ArrowRight className="mr-2 mt-1 flex-shrink-0 text-green-600" size={16} />
+                      {doc}
+                    </li>
+                  ))}
                 </ol>
               </div>
               

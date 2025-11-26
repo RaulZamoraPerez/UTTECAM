@@ -1,11 +1,13 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import ServicioCard from '@/components/ServiceCard';
 import {BookOpen, FileCheck, FileText, GraduationCap, Hospital, IdCard, RefreshCcw, Scroll, Users, UserCheck, X} from 'lucide-react'
 import type { ServicioCardProps } from '../../types/servicesType';
 
-// Extendemos el tipo para incluir la propiedad active
+// Extendemos el tipo para incluir la propiedad active y href
 interface ServicioExtendido extends ServicioCardProps {
   active: boolean;
+  href?: string; // URL del formulario (opcional para reinscripción)
 }
 
 export default function Tramites() {
@@ -15,48 +17,56 @@ export default function Tramites() {
       description: "Proceso de registro para nuevo ingreso a la institución.",
       icon: <FileText />,
       active: false,
+      href: "/reinscripcion",
     },
     {
       title: "Reinscripción a Ingeniería/Licenciatura (7º cuatrimestre)",
       description: "Actualización de datos y continuidad de estudios.",
       icon: <RefreshCcw />,
       active: false,
+      // Sin href - este abre el modal
     },
     {
       title: "Constancias y Kardex",
       description: "Emisión de documentos académicos oficiales.",
       icon: <FileCheck />,
       active: false,
+      href: "/constancia-kardex",
     },
     {
       title: "Certificado de Estudios",
       description: "Documento oficial del historial académico completo.",
       icon: <GraduationCap />,
       active: false,
+      href: "/certificado-estudios",
     },
     {
       title: "Carta Pasante",
       description: "Documento que acredita el término de estudios.",
       icon: <Scroll />,
       active: false,
+      href: "/carta-pasante",
     },
     {
       title: "IMSS",
       description: "Alta o baja de servicios del seguro social estudiantil.",
       icon: <Hospital />,
       active: false,
+      href: "/imss",
     },
     {
       title: "Credencialización",
       description: "Trámite y renovación de credencial estudiantil.",
       icon: <IdCard />,
       active: false,
+      href: "/reposicion-credencial",
     },
     {
       title: "Título Profesional Electrónico",
       description: "Trámite para la obtención del título profesional.",
       icon: <BookOpen />,
       active: false,
+      href: "/tramite-titulo",
     },
   ]);
 
@@ -135,17 +145,33 @@ export default function Tramites() {
         </p>
         
         <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 justify-items-center lg:mx-30">
-          {servicios.map((servicio, idx) => (
-            <div 
-              key={idx} 
-              onClick={() => handleServiceClick(servicio.title)} 
-              className={`cursor-pointer transition-all duration-200 ${
-                servicio.active ? 'scale-105 shadow-lg' : 'hover:opacity-80'
-              }`}
-            >
-              <ServicioCard {...servicio} />
-            </div>
-          ))}
+          {servicios.map((servicio, idx) => {
+            // Si tiene href y NO es reinscripción, usa Link
+            if (servicio.href && servicio.title !== "Reinscripción a Ingeniería/Licenciatura (7º cuatrimestre)") {
+              return (
+                <Link 
+                  key={idx}
+                  to={servicio.href}
+                  className="cursor-pointer transition-all duration-200 hover:scale-105 hover:shadow-lg w-full max-w-[350px]"
+                >
+                  <ServicioCard {...servicio} />
+                </Link>
+              );
+            }
+            
+            // Si es reinscripción, mantiene el onClick para el modal
+            return (
+              <div 
+                key={idx} 
+                onClick={() => handleServiceClick(servicio.title)} 
+                className={`cursor-pointer transition-all duration-200 w-full max-w-[350px] ${
+                  servicio.active ? 'scale-105 shadow-lg' : 'hover:opacity-80'
+                }`}
+              >
+                <ServicioCard {...servicio} />
+              </div>
+            );
+          })}
         </div>
 
         {/* Modal flotante para las subcards de Reinscripción */}

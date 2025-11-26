@@ -1,6 +1,9 @@
-import { useState, type ChangeEvent, type FormEvent } from "react";
+import { useState, useEffect, type ChangeEvent, type FormEvent } from "react";
 import { enviarFormulario } from '@/util/apiFormularios';
 import { useAlert } from '@/components/alerts/Formularios';
+import { obtenerConfiguracionFormulario } from '../../services/configuracionFormulario.service';
+import type { ConfiguracionFormulario } from '../../services/configuracionFormulario.service';
+import { Spinner } from '@/components/Spinner';
 import carreras, { carrerasPorNivel } from "@/util/carreras";
 import {
   Clock,
@@ -19,6 +22,7 @@ import {
   FileUp,
   X,
   CheckCircle2,
+  AlertCircle,
 } from "lucide-react";
 
 interface FormData {
@@ -36,6 +40,11 @@ interface FormData {
 }
 
 export default function ConstanciasKardex() {
+  // Estado para la configuración del formulario (datos dinámicos)
+  const [configuracion, setConfiguracion] = useState<ConfiguracionFormulario | null>(null);
+  const [cargandoConfig, setCargandoConfig] = useState(true);
+  const [errorConfig, setErrorConfig] = useState<string | null>(null);
+
   const [formData, setFormData] = useState<FormData>({
     nombre: "",
     matricula: "",
@@ -59,8 +68,20 @@ export default function ConstanciasKardex() {
   const hasServerError = (field: keyof FormData | 'file' | 'attachment') => Boolean(serverErrors[field]?.length);
   const getServerErrorText = (field: keyof FormData | 'file' | 'attachment') => serverErrors[field]?.join(' ') || '';
 
-  const tramiteInfo = {
+  // Valores por defecto (fallback)
+  const defaultTramiteInfo: {
+    titulo: string;
+    subtitulo: string;
+    descripcion: string;
+    requisitos: string[];
+    pasos: string[];
+    documentos: string[];
+    tiempo: string;
+    costo: string;
+  } = {
     titulo: "Solicitud de Constancia de Estudios o Kardex",
+    subtitulo: "Departamento de Servicios Escolares - Universidad Tecnológica de Tecamachalco",
+    descripcion: "",
     requisitos: [
       "Ser o haber sido estudiante, o en su caso egresado de la Universidad",
       "No contar con ningún adeudo con la Institución",
@@ -81,6 +102,40 @@ export default function ConstanciasKardex() {
     tiempo: "1 día",
     costo: "$49.00",
   };
+
+  // Datos del trámite (usa los de la API si existen, sino los default)
+  const tramiteInfo = configuracion ? {
+    titulo: configuracion.info.titulo || defaultTramiteInfo.titulo,
+    subtitulo: configuracion.info.subtitulo || defaultTramiteInfo.subtitulo,
+    descripcion: configuracion.info.descripcion || "",
+    requisitos: configuracion.requisitos.length > 0 ? configuracion.requisitos : defaultTramiteInfo.requisitos,
+    pasos: configuracion.pasos.length > 0 ? configuracion.pasos : defaultTramiteInfo.pasos,
+    documentos: configuracion.documentos.length > 0 ? configuracion.documentos : defaultTramiteInfo.documentos,
+    tiempo: configuracion.info.tiempoEntrega || defaultTramiteInfo.tiempo,
+    costo: configuracion.info.costo || defaultTramiteInfo.costo,
+  } : defaultTramiteInfo;
+
+  // Cargar configuración al montar el componente
+  useEffect(() => {
+    const cargarConfiguracion = async () => {
+      setCargandoConfig(true);
+      setErrorConfig(null);
+
+      const resultado = await obtenerConfiguracionFormulario('kardex_constancias');
+
+      if (resultado.exito && resultado.datos) {
+        setConfiguracion(resultado.datos);
+      } else {
+        // Si hay error, usar valores por defecto (no bloquear el formulario)
+        console.warn('No se pudo cargar la configuración del formulario:', resultado.error);
+        setErrorConfig(resultado.error || null);
+      }
+
+      setCargandoConfig(false);
+    };
+
+    cargarConfiguracion();
+  }, []);
 
   // Función para filtrar carreras según el nivel seleccionado
   const getCarrerasPorNivel = () => {
@@ -369,6 +424,17 @@ export default function ConstanciasKardex() {
     }
   };
 
+  // Mostrar spinner mientras carga la configuración
+  if (cargandoConfig) {
+    return (
+      <div className="min-h-screen bg-gradient-to-b from-yellow-50 to-green-50 py-8 px-4">
+        <div className="max-w-6xl mx-auto flex flex-col items-center justify-center min-h-[400px]">
+          <Spinner text="Cargando información del trámite..." />
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-yellow-50 to-green-50 py-8 px-4">
       {/* Componente de alerta personalizada */}
@@ -378,13 +444,36 @@ export default function ConstanciasKardex() {
         {/* Encabezado */}
         <div className="text-center mb-10">
           <h1 className="text-3xl md:text-4xl font-bold text-green-800 mb-2">
-            Solicitud de Constancia de Estudios o Kardex
+            {tramiteInfo.titulo}
           </h1>
           <div className="w-24 h-1 bg-yellow-500 mx-auto mb-4"></div>
           <p className="text-yellow-700">
-            Departamento de Servicios Escolares - Universidad Tecnológica de Tecamachalco
+            {tramiteInfo.subtitulo}
           </p>
         </div>
+
+        {/* Aviso si hubo error cargando configuración (pero se usan valores default) */}
+        {errorConfig && (
+          <div className="mb-6 bg-blue-50 border border-blue-200 rounded-lg p-4 flex items-start gap-3">
+            <AlertCircle className="text-blue-500 flex-shrink-0 mt-0.5" size={20} />
+            <p className="text-sm text-blue-700">
+              Se está mostrando información predeterminada. Algunos datos pueden no estar actualizados.
+            </p>
+          </div>
+        )}
+
+        {/* Descripción extensa (si existe) */}
+        {tramiteInfo.descripcion && (
+          <div className="mb-8 bg-white border-l-4 border-yellow-400 rounded-r-lg p-6 shadow-md">
+            <div className="prose prose-yellow max-w-none">
+              {tramiteInfo.descripcion.split('\n').map((parrafo: string, index: number) => (
+                <p key={index} className="text-yellow-900 leading-relaxed mb-2 last:mb-0">
+                  {parrafo}
+                </p>
+              ))}
+            </div>
+          </div>
+        )}
 
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Sección Informativa */}
@@ -415,7 +504,7 @@ export default function ConstanciasKardex() {
                   Requisitos
                 </h3>
                 <ol className="list-decimal list-inside space-y-2 mb-4 pl-2 text-gray-700">
-                  {tramiteInfo.requisitos.map((req, index) => (
+                  {tramiteInfo.requisitos.map((req: string, index: number) => (
                     <li key={index} className="flex items-start">
                       <ArrowRight className="mr-2 mt-1 flex-shrink-0 text-green-600" size={16} />
                       {req}
@@ -442,7 +531,7 @@ export default function ConstanciasKardex() {
                   Pasos a seguir
                 </h3>
                 <ol className="list-decimal list-inside space-y-2 mb-4 pl-2 text-gray-700">
-                  {tramiteInfo.pasos.map((paso, index) => (
+                  {tramiteInfo.pasos.map((paso: string, index: number) => (
                     <li key={index} className="flex items-start">
                       <ArrowRight className="mr-2 mt-1 flex-shrink-0 text-green-600" size={16} />
                       {paso}
@@ -458,7 +547,7 @@ export default function ConstanciasKardex() {
                   Documentos a presentar
                 </h3>
                 <ol className="list-decimal list-inside space-y-2 pl-2 text-gray-700">
-                  {tramiteInfo.documentos.map((doc, index) => (
+                  {tramiteInfo.documentos.map((doc: string, index: number) => (
                     <li key={index} className="flex items-start">
                       <ArrowRight className="mr-2 mt-1 flex-shrink-0 text-green-600" size={16} />
                       {doc}

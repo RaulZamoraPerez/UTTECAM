@@ -1,8 +1,10 @@
 
-import { useState, type ChangeEvent, type FormEvent } from "react";
+import { useState, useEffect, type ChangeEvent, type FormEvent } from "react";
 import { enviarFormulario } from '@/util/apiFormularios';
 import { useAlert } from '@/components/alerts/Formularios';
 import carreras, { carrerasPorNivel } from "@/util/carreras";
+import { obtenerConfiguracionFormulario, type ConfiguracionFormulario } from "../../services/configuracionFormulario.service";
+import { Spinner } from "@/components/Spinner";
 import { 
   ClipboardList, 
   Clock, 
@@ -18,6 +20,7 @@ import {
   Hash,
   X,
   CheckCircle2,
+  AlertCircle,
 } from "lucide-react";
 
 interface FormData {
@@ -32,6 +35,71 @@ interface FormData {
 }
 
 export default function AltaBajaIMSS() {
+  // Estado para la configuración dinámica del formulario
+  const [configuracion, setConfiguracion] = useState<ConfiguracionFormulario | null>(null);
+  const [cargandoConfig, setCargandoConfig] = useState(true);
+  const [errorConfig, setErrorConfig] = useState(false);
+
+  // Valores por defecto si la API falla
+  const defaultTramiteInfo: {
+    titulo: string;
+    subtitulo: string;
+    descripcion: string;
+    tiempo: string;
+    costo: string;
+    requisitos: string[];
+    pasos: string[];
+    documentos: string[];
+  } = {
+    titulo: "Solicitud de Alta / Baja del IMSS",
+    subtitulo: "Departamento de Servicios Escolares - Universidad Tecnológica de Tecomachalco",
+    descripcion: "",
+    tiempo: "72 horas en días hábiles",
+    costo: "Gratuito",
+    requisitos: [
+      "Ser o haber sido estudiante de la Universidad (según sea el caso)",
+      "No contar con ningún adeudo con la Institución"
+    ],
+    pasos: [
+      "Descargar constancia de vigencia de derechos IMSS desde la página oficial del IMSS",
+      "Completar el formulario en línea con todos tus datos",
+      "Adjuntar la constancia de vigencia en formato PDF",
+      "Enviar la solicitud",
+      "En un máximo de 72 horas se notificará a través de correo electrónico que se atendió la solicitud."
+    ],
+    documentos: [
+      "Constancia de vigencia de derechos del IMSS (archivo digital en PDF)"
+    ]
+  };
+
+  // Cargar configuración al montar el componente
+  useEffect(() => {
+    const cargarConfiguracion = async () => {
+      try {
+        const config = await obtenerConfiguracionFormulario('imss');
+        setConfiguracion(config.datos ?? null);
+      } catch (error) {
+        console.error('Error al cargar configuración del formulario:', error);
+        setErrorConfig(true);
+      } finally {
+        setCargandoConfig(false);
+      }
+    };
+    cargarConfiguracion();
+  }, []);
+
+  // Combinar configuración de la API con valores por defecto
+  const tramiteInfo = {
+    titulo: configuracion?.info?.titulo || defaultTramiteInfo.titulo,
+    subtitulo: configuracion?.info?.subtitulo || defaultTramiteInfo.subtitulo,
+    descripcion: configuracion?.info?.descripcion || defaultTramiteInfo.descripcion,
+    tiempo: configuracion?.info?.tiempoEntrega || defaultTramiteInfo.tiempo,
+    costo: configuracion?.info?.costo || defaultTramiteInfo.costo,
+    requisitos: configuracion?.requisitos?.length ? configuracion.requisitos : defaultTramiteInfo.requisitos,
+    pasos: configuracion?.pasos?.length ? configuracion.pasos : defaultTramiteInfo.pasos,
+    documentos: configuracion?.documentos?.length ? configuracion.documentos : defaultTramiteInfo.documentos,
+  };
+
   const [formData, setFormData] = useState<FormData>({
     nombre: "",
     matricula: "",
@@ -324,6 +392,11 @@ export default function AltaBajaIMSS() {
     }
   };
 
+  // Mostrar spinner mientras carga la configuración
+  if (cargandoConfig) {
+    return <Spinner text="Cargando información del trámite..." />;
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-green-50 to-green-100 py-8 px-4">
       {/* Componente de alerta personalizada */}
@@ -333,13 +406,30 @@ export default function AltaBajaIMSS() {
         {/* Encabezado */}
         <div className="text-center mb-10">
           <h1 className="text-3xl md:text-4xl font-bold text-green-800 mb-2">
-            Solicitud de Alta / Baja del IMSS
+            {tramiteInfo.titulo}
           </h1>
           <div className="w-24 h-1 bg-green-500 mx-auto mb-4"></div>
           <p className="text-green-700">
-            Departamento de Servicios Escolares - Universidad Tecnológica de Tecomachalco
+            {tramiteInfo.subtitulo}
           </p>
         </div>
+
+        {/* Aviso si hubo error al cargar configuración */}
+        {errorConfig && (
+          <div className="bg-yellow-50 border-l-4 border-yellow-500 p-4 mb-8 rounded-lg max-w-6xl mx-auto flex items-center">
+            <AlertCircle className="text-yellow-600 mr-2" size={20} />
+            <p className="text-yellow-700 text-sm">
+              No se pudo cargar la configuración actualizada. Se muestran valores por defecto.
+            </p>
+          </div>
+        )}
+
+        {/* Descripción del trámite (si existe) */}
+        {tramiteInfo.descripcion && (
+          <div className="bg-white border-l-4 border-green-500 p-6 rounded-lg shadow-md mb-8 max-w-6xl mx-auto">
+            <p className="text-green-800">{tramiteInfo.descripcion}</p>
+          </div>
+        )}
 
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Sección Informativa */}
@@ -359,7 +449,7 @@ export default function AltaBajaIMSS() {
                   <span className="font-semibold text-green-800">Tiempo de entrega</span>
                 </div>
                 <span className="bg-green-100 text-green-800 px-3 py-1 rounded-full font-bold">
-                  72 horas en días hábiles
+                  {tramiteInfo.tiempo}
                 </span>
               </div>
 
@@ -370,14 +460,12 @@ export default function AltaBajaIMSS() {
                   Requisitos
                 </h3>
                 <ol className="list-decimal list-inside space-y-2 mb-4 pl-2 text-gray-700">
-                  <li className="flex items-start">
-                    <ArrowRight className="mr-2 mt-1 flex-shrink-0 text-green-600" size={16} />
-                    Ser o haber sido estudiante de la Universidad (según sea el caso)
-                  </li>
-                  <li className="flex items-start">
-                    <ArrowRight className="mr-2 mt-1 flex-shrink-0 text-green-600" size={16} />
-                    No contar con ningún adeudo con la Institución
-                  </li>
+                  {tramiteInfo.requisitos.map((requisito: string, index: number) => (
+                    <li key={index} className="flex items-start">
+                      <ArrowRight className="mr-2 mt-1 flex-shrink-0 text-green-600" size={16} />
+                      {requisito}
+                    </li>
+                  ))}
                 </ol>
               </div>
 
@@ -388,26 +476,12 @@ export default function AltaBajaIMSS() {
                   Pasos a seguir
                 </h3>
                 <ol className="list-decimal list-inside space-y-2 mb-4 pl-2 text-gray-700">
-                  <li className="flex items-start">
-                    <ArrowRight className="mr-2 mt-1 flex-shrink-0 text-green-600" size={16} />
-                    Descargar constancia de vigencia de derechos IMSS desde la página oficial del IMSS
-                  </li>
-                  <li className="flex items-start">
-                    <ArrowRight className="mr-2 mt-1 flex-shrink-0 text-green-600" size={16} />
-                    Completar el formulario en línea con todos tus datos
-                  </li>
-                  <li className="flex items-start">
-                    <ArrowRight className="mr-2 mt-1 flex-shrink-0 text-green-600" size={16} />
-                    Adjuntar la constancia de vigencia en formato PDF
-                  </li>
-                  <li className="flex items-start">
-                    <ArrowRight className="mr-2 mt-1 flex-shrink-0 text-green-600" size={16} />
-                    Enviar la solicitud
-                  </li>
-                  <li className="flex items-start">
-                    <ArrowRight className="mr-2 mt-1 flex-shrink-0 text-green-600" size={16} />
-                    En un máximo de 72 horas se notificará a través de correo electrónico que se atendió la solicitud.
-                  </li>
+                  {tramiteInfo.pasos.map((paso: string, index: number) => (
+                    <li key={index} className="flex items-start">
+                      <ArrowRight className="mr-2 mt-1 flex-shrink-0 text-green-600" size={16} />
+                      {paso}
+                    </li>
+                  ))}
                 </ol>
               </div>
 
@@ -418,10 +492,12 @@ export default function AltaBajaIMSS() {
                   Documentos a presentar
                 </h3>
                 <ul className="list-disc list-inside space-y-2 mb-4 pl-2 text-gray-700">
-                  <li className="flex items-start">
-                    <ArrowRight className="mr-2 mt-1 flex-shrink-0 text-green-600" size={16} />
-                    Constancia de vigencia de derechos del IMSS (archivo digital en PDF)
-                  </li>
+                  {tramiteInfo.documentos.map((documento: string, index: number) => (
+                    <li key={index} className="flex items-start">
+                      <ArrowRight className="mr-2 mt-1 flex-shrink-0 text-green-600" size={16} />
+                      {documento}
+                    </li>
+                  ))}
                 </ul>
               </div>
 

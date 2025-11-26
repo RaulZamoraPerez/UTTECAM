@@ -1,19 +1,106 @@
-import { ClipboardList, Clock, DollarSign, FileText, ArrowRight } from "lucide-react";
+import { useState, useEffect } from "react";
+import { ClipboardList, Clock, DollarSign, FileText, ArrowRight, AlertCircle } from "lucide-react";
+import { obtenerConfiguracionFormulario, type ConfiguracionFormulario } from "../../services/configuracionFormulario.service";
+import { Spinner } from "@/components/Spinner";
 
 export default function ReposicionCredencial() {
+  // Estado para la configuración dinámica del formulario
+  const [configuracion, setConfiguracion] = useState<ConfiguracionFormulario | null>(null);
+  const [cargandoConfig, setCargandoConfig] = useState(true);
+  const [errorConfig, setErrorConfig] = useState(false);
+
+  // Valores por defecto si la API falla
+  const defaultTramiteInfo: {
+    titulo: string;
+    subtitulo: string;
+    descripcion: string;
+    tiempo: string;
+    costo: string;
+    requisitos: string[];
+    pasos: string[];
+    documentos: string[];
+  } = {
+    titulo: "Solicitud de Reposición de Credencial de Estudiante",
+    subtitulo: "Departamento de Servicios Escolares - Universidad Tecnológica de Tecomachalco",
+    descripcion: "",
+    tiempo: "1 hora en días hábiles",
+    costo: "$70.00",
+    requisitos: [
+      "Ser estudiante de la Universidad",
+      "No contar con ningún adeudo con la Institución",
+      "Credencial anterior, o en caso de extravío acudir al área del Abogado General, ubicado en el Edificio H Planta alta, para obtener la \"Constancia para la Reposición de Credencial\"",
+      "Pagar el costo del servicio"
+    ],
+    pasos: [],
+    documentos: [
+      "Original y copia de la Constancia para la Reposición de Credencial",
+      "Original y copia de la orden y comprobante de pago emitido por la institución bancaria donde se realizó"
+    ]
+  };
+
+  // Cargar configuración al montar el componente
+  useEffect(() => {
+    const cargarConfiguracion = async () => {
+      try {
+        const config = await obtenerConfiguracionFormulario('credencial');
+        setConfiguracion(config.datos ?? null);
+      } catch (error) {
+        console.error('Error al cargar configuración del formulario:', error);
+        setErrorConfig(true);
+      } finally {
+        setCargandoConfig(false);
+      }
+    };
+    cargarConfiguracion();
+  }, []);
+
+  // Combinar configuración de la API con valores por defecto
+  const tramiteInfo = {
+    titulo: configuracion?.info?.titulo || defaultTramiteInfo.titulo,
+    subtitulo: configuracion?.info?.subtitulo || defaultTramiteInfo.subtitulo,
+    descripcion: configuracion?.info?.descripcion || defaultTramiteInfo.descripcion,
+    tiempo: configuracion?.info?.tiempoEntrega || defaultTramiteInfo.tiempo,
+    costo: configuracion?.info?.costo || defaultTramiteInfo.costo,
+    requisitos: configuracion?.requisitos?.length ? configuracion.requisitos : defaultTramiteInfo.requisitos,
+    pasos: configuracion?.pasos?.length ? configuracion.pasos : defaultTramiteInfo.pasos,
+    documentos: configuracion?.documentos?.length ? configuracion.documentos : defaultTramiteInfo.documentos,
+  };
+
+  // Mostrar spinner mientras carga la configuración
+  if (cargandoConfig) {
+    return <Spinner text="Cargando información del trámite..." />;
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-green-50 py-8 px-4 flex items-center justify-center">
       <div className="max-w-4xl mx-auto">
         {/* Encabezado */}
         <div className="text-center mb-10">
           <h1 className="text-3xl md:text-4xl font-bold text-blue-800 mb-2">
-            Solicitud de Reposición de Credencial de Estudiante
+            {tramiteInfo.titulo}
           </h1>
           <div className="w-24 h-1 bg-green-500 mx-auto mb-4"></div>
           <p className="text-blue-700">
-            Departamento de Servicios Escolares - Universidad Tecnológica de Tecomachalco
+            {tramiteInfo.subtitulo}
           </p>
         </div>
+
+        {/* Aviso si hubo error al cargar configuración */}
+        {errorConfig && (
+          <div className="bg-yellow-50 border-l-4 border-yellow-500 p-4 mb-8 rounded-lg flex items-center">
+            <AlertCircle className="text-yellow-600 mr-2" size={20} />
+            <p className="text-yellow-700 text-sm">
+              No se pudo cargar la configuración actualizada. Se muestran valores por defecto.
+            </p>
+          </div>
+        )}
+
+        {/* Descripción del trámite (si existe) */}
+        {tramiteInfo.descripcion && (
+          <div className="bg-white border-l-4 border-blue-500 p-6 rounded-lg shadow-md mb-8">
+            <p className="text-blue-800">{tramiteInfo.descripcion}</p>
+          </div>
+        )}
 
         {/* Sección Informativa */}
         <div className="bg-white rounded-xl shadow-lg border border-blue-100 overflow-hidden">
@@ -32,7 +119,7 @@ export default function ReposicionCredencial() {
                 <span className="font-semibold text-green-800">Tiempo de entrega</span>
               </div>
               <span className="bg-green-100 text-green-800 px-3 py-1 rounded-full font-bold">
-                1 hora en días hábiles
+                {tramiteInfo.tiempo}
               </span>
             </div>
 
@@ -43,22 +130,12 @@ export default function ReposicionCredencial() {
                 Requisitos
               </h3>
               <ol className="list-decimal list-inside space-y-2 mb-4 pl-2 text-gray-700">
-                <li className="flex items-start">
-                  <ArrowRight className="mr-2 mt-1 flex-shrink-0 text-blue-600" size={16} />
-                  Ser estudiante de la Universidad
-                </li>
-                <li className="flex items-start">
-                  <ArrowRight className="mr-2 mt-1 flex-shrink-0 text-blue-600" size={16} />
-                  No contar con ningún adeudo con la Institución
-                </li>
-                <li className="flex items-start">
-                  <ArrowRight className="mr-2 mt-1 flex-shrink-0 text-blue-600" size={16} />
-                  Credencial anterior, o en caso de extravío acudir al área del Abogado General, ubicado en el Edificio H Planta alta, para obtener la “Constancia para la Reposición de Credencial”
-                </li>
-                <li className="flex items-start">
-                  <ArrowRight className="mr-2 mt-1 flex-shrink-0 text-blue-600" size={16} />
-                  Pagar el costo del servicio
-                </li>
+                {tramiteInfo.requisitos.map((requisito: string, index: number) => (
+                  <li key={index} className="flex items-start">
+                    <ArrowRight className="mr-2 mt-1 flex-shrink-0 text-blue-600" size={16} />
+                    {requisito}
+                  </li>
+                ))}
               </ol>
             </div>
 
@@ -69,7 +146,7 @@ export default function ReposicionCredencial() {
                 <span className="font-semibold text-green-800">Costo 2025</span>
               </div>
               <span className="bg-green-100 text-green-800 px-3 py-1 rounded-full font-bold">
-                $70.00
+                {tramiteInfo.costo}
               </span>
             </div>
 
@@ -80,14 +157,12 @@ export default function ReposicionCredencial() {
                 Documentos a presentar
               </h3>
               <ol className="list-decimal list-inside space-y-2 mb-4 pl-2 text-gray-700">
-                <li className="flex items-start">
-                  <ArrowRight className="mr-2 mt-1 flex-shrink-0 text-blue-600" size={16} />
-                  Original y copia de la Constancia para la Reposición de Credencial
-                </li>
-                <li className="flex items-start">
-                  <ArrowRight className="mr-2 mt-1 flex-shrink-0 text-blue-600" size={16} />
-                  Original y copia de la orden y comprobante de pago emitido por la institución bancaria donde se realizó
-                </li>
+                {tramiteInfo.documentos.map((documento: string, index: number) => (
+                  <li key={index} className="flex items-start">
+                    <ArrowRight className="mr-2 mt-1 flex-shrink-0 text-blue-600" size={16} />
+                    {documento}
+                  </li>
+                ))}
               </ol>
             </div>
 
