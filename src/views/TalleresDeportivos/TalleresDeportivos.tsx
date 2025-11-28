@@ -8,12 +8,40 @@ import {
 } from 'lucide-react';
 import { useExtensionSection } from '../../hooks/useExtensionData';
 import { getAssetUrl } from '../../util/apiBase';
+import PlaceholderPage from '../../components/PlaceholderPage';
 
 const TalleresDeportivos = () => {
-  const { data, loading, error } = useExtensionSection('talleres-deportivos');
+  const { data, loading, error, showPlaceholder } = useExtensionSection('talleres-deportivos');
 
   if (loading) return <div className="min-h-screen flex items-center justify-center">Cargando...</div>;
-  if (error) return <div className="min-h-screen flex items-center justify-center text-red-500">Error: {error}</div>;
+  if (error) {
+    if (showPlaceholder) {
+      return (
+        <PlaceholderPage 
+          title="Talleres Deportivos"
+          gradientFrom="blue-50"
+          gradientVia="green-50"
+          gradientTo="yellow-50"
+          accentColor="blue-600"
+        />
+      );
+    }
+    return <div className="min-h-screen flex items-center justify-center text-red-500">Error: {error}</div>;
+  }
+  
+  // Check if section is disabled
+  if (data && data.is_enabled === false) {
+    return (
+      <PlaceholderPage 
+        title="Talleres Deportivos"
+        gradientFrom="blue-50"
+        gradientVia="green-50"
+        gradientTo="yellow-50"
+        accentColor="blue-600"
+      />
+    );
+  }
+  
   if (!data) return null;
 
   return (

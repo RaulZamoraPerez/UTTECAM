@@ -9,12 +9,41 @@ import {
 } from 'lucide-react';
 import { useExtensionSection } from '../../hooks/useExtensionData';
 import { getAssetUrl } from '../../util/apiBase';
+import PlaceholderPage from '../../components/PlaceholderPage';
 
 const TalleresCulturales = () => {
-  const { data, loading, error } = useExtensionSection('talleres-culturales');
+  const { data, loading, error, showPlaceholder } = useExtensionSection('talleres-culturales');
 
   if (loading) return <div className="min-h-screen flex items-center justify-center">Cargando...</div>;
-  if (error) return <div className="min-h-screen flex items-center justify-center text-red-500">Error: {error}</div>;
+  if (error) {
+    // If the backend indicates we should show a placeholder, render it
+    if (showPlaceholder) {
+      return (
+        <PlaceholderPage
+          title="Talleres Culturales"
+          gradientFrom="purple-50"
+          gradientVia="pink-50"
+          gradientTo="orange-50"
+          accentColor="purple-600"
+        />
+      );
+    }
+    return <div className="min-h-screen flex items-center justify-center text-red-500">Error: {error}</div>;
+  }
+  
+  // Check if section is disabled
+  if (data && data.is_enabled === false) {
+    return (
+      <PlaceholderPage 
+        title="Talleres Culturales"
+        gradientFrom="purple-50"
+        gradientVia="pink-50"
+        gradientTo="orange-50"
+        accentColor="purple-600"
+      />
+    );
+  }
+
   const fallback = {
     title: 'Talleres Culturales',
     description: 'Desarrolla tu creatividad y talento artístico en nuestros talleres especializados',
@@ -55,6 +84,7 @@ const TalleresCulturales = () => {
           </div>
         </div>
       </section>
+
 
       <section className="py-6 md:py-12 px-0 md:px-0 flex flex-col items-center w-full">
         <div className="w-full flex justify-center">

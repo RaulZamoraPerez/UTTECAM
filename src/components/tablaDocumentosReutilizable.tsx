@@ -38,7 +38,7 @@ export default function tablaDocumentosReutilizable({
     .map((seccion) => ({
       ...seccion,
       documentos: seccion.documentos.filter((doc) =>
-        doc.titulo.toLowerCase().includes(searchTerm.toLowerCase())
+        (doc.titulo || '').toLowerCase().includes(searchTerm.toLowerCase())
       ),
     }))
     .filter((seccion) => seccion.documentos.length > 0);

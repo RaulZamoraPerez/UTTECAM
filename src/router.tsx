@@ -19,8 +19,8 @@ import PdfPromocionInstitucional from "@/components/Pdf/PdfPromocionInstituciona
 import ServicioMedico from "@/views/extensionUniversitaria/ServicioMedico/ServicioMedico";
 import TalleresCulturales from "@/views/TalleresCulturales/TalleresCulturales";
 import TalleresDeportivos from "@/views/TalleresDeportivos/TalleresDeportivos";
-import FeriasProfesoigraficas from "@/views/extensionUniversitaria/difusionDivulgacion/FeriasProfesoigraficas";
-import VisitasGuiadas from "@/views/extensionUniversitaria/difusionDivulgacion/VisitasGuiadas";
+import FeriasProfesiograficas from "@/views/extensionUniversitaria/FeriasProfesiograficas/FeriasProfesiograficas";
+import VisitasGuiadas from "@/views/extensionUniversitaria/VisitasGuiadas/VisitasGuiadas";
 import CoordinacionGenero from "@/views/CoordinacionGenero/coordinacionGenero";
 import ProgramDetail from "./views/DetallesCarrera/ProgramDetail";
 import ConvocatoriaAdmision from "@/views/Convocatoria/ConvocatoriaAdmision";
@@ -64,7 +64,7 @@ export default function Router() {
           <Route path="/ver-documento-gaceta/:title" element={<PdfGaceta/>} />
           <Route path="/servicio-social" element={<ServicioSocial />} />
           <Route path="/promocion-institucional" element={<PromocioIntitucional />} />
-          <Route path="/ferias-profesoigraficas" element={<FeriasProfesoigraficas/>} />
+          <Route path="/ferias-profesiograficas" element={<FeriasProfesiograficas/>} />
           <Route path="/visitas-guiadas" element={<VisitasGuiadas/>} />
           <Route path="/ver-documento-promocion/:title" element={<PdfPromocionInstitucional />} />
           <Route path="/servicio-medico" element={<ServicioMedico />} />

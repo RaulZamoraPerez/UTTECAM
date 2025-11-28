@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import TablaDocumentosReutilizable from "@/components/tablaDocumentosReutilizable";
 import { fetchArea } from "@/util/documentosApi";
+import { getAssetUrl } from '@/util/apiBase';
 
 interface Documento {
   id: string;
@@ -30,7 +31,7 @@ export default function Vinculacion() {
             documentos: categoria.archivos.map(archivo => ({
               id: archivo.ID.toString(),
               titulo: archivo.Nombre,
-              ruta: `${import.meta.env.VITE_BACKENDURL}${archivo.Ruta_Documento}`,
+              ruta: getAssetUrl(archivo.Ruta_Documento),
               año: categoria.Nombre.match(/\d{4}/)?.[0] // Try to extract year from category name if present
             })),
           }));

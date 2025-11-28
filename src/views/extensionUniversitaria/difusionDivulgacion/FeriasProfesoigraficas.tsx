@@ -1,13 +1,27 @@
 import { motion } from 'framer-motion';
 import { MapPin, Calendar, Users, Phone } from 'lucide-react';
 import { useExtensionSection } from '../../../hooks/useExtensionData';
+import PlaceholderPage from '../../../components/PlaceholderPage';
 import { getAssetUrl } from '../../../util/apiBase';
 
 const FeriasProfesoigraficas = () => {
-  const { data, loading, error } = useExtensionSection('ferias-profesoigraficas');
+  const { data, loading, error, showPlaceholder } = useExtensionSection('ferias-profesoigraficas');
 
   if (loading) return <div className="min-h-screen flex items-center justify-center">Cargando...</div>;
-  if (error) return <div className="min-h-screen flex items-center justify-center text-red-500">Error: {error}</div>;
+  if (error) {
+    if (showPlaceholder) {
+      return (
+        <PlaceholderPage 
+          title="Ferias Profesiográficas"
+          gradientFrom="indigo-50"
+          gradientVia="purple-50"
+          gradientTo="pink-50"
+          accentColor="indigo-600"
+        />
+      );
+    }
+    return <div className="min-h-screen flex items-center justify-center text-red-500">Error: {error}</div>;
+  }
   if (!data) return null;
 
   return (

@@ -1,13 +1,27 @@
 import { motion } from 'framer-motion';
 import { MapPin, Clock, Users, Phone } from 'lucide-react';
 import { useExtensionSection } from '../../../hooks/useExtensionData';
+import PlaceholderPage from '../../../components/PlaceholderPage';
 import { getAssetUrl } from '../../../util/apiBase';
 
 const VisitasGuiadas = () => {
-  const { data, loading, error } = useExtensionSection('visitas-guiadas');
+  const { data, loading, error, showPlaceholder } = useExtensionSection('visitas-guiadas');
 
   if (loading) return <div className="min-h-screen flex items-center justify-center">Cargando...</div>;
-  if (error) return <div className="min-h-screen flex items-center justify-center text-red-500">Error: {error}</div>;
+  if (error) {
+    if (showPlaceholder) {
+      return (
+        <PlaceholderPage 
+          title="Visitas Guiadas"
+          gradientFrom="teal-50"
+          gradientVia="cyan-50"
+          gradientTo="blue-50"
+          accentColor="teal-600"
+        />
+      );
+    }
+    return <div className="min-h-screen flex items-center justify-center text-red-500">Error: {error}</div>;
+  }
   if (!data) return null;
 
   return (

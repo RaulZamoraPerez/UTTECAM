@@ -1,4 +1,4 @@
-const API_BASE_URL = import.meta.env.VITE_BACKENDURL;
+import API_URL from '@/util/apiBase';
 
 export interface Archivo {
   ID: number;
@@ -24,7 +24,7 @@ export interface Area {
 
 export async function fetchCategoria(id: number): Promise<Categoria | null> {
   try {
-    const response = await fetch(`${API_BASE_URL}/api/documentos/categorias/${id}`);
+    const response = await fetch(`${API_URL}/documentos/categorias/${id}`);
     if (!response.ok) {
       throw new Error(`Error fetching categoria: ${response.status}`);
     }
@@ -38,7 +38,7 @@ export async function fetchCategoria(id: number): Promise<Categoria | null> {
 
 export async function fetchArea(id: number): Promise<Area | null> {
   try {
-    const response = await fetch(`${API_BASE_URL}/api/documentos/areas/${id}`);
+    const response = await fetch(`${API_URL}/documentos/areas/${id}`);
     if (!response.ok) {
       throw new Error(`Error fetching area: ${response.status}`);
     }

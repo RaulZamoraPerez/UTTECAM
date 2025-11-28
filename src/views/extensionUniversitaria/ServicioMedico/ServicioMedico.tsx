@@ -1,12 +1,40 @@
 import { HeartPulse} from "lucide-react";
 import { useExtensionSection } from '../../../hooks/useExtensionData';
 import { getAssetUrl } from '../../../util/apiBase';
+import PlaceholderPage from '../../../components/PlaceholderPage';
 
 export default function ServicioMedico() {
-  const { data, loading, error } = useExtensionSection('servicio-medico');
+  const { data, loading, error, showPlaceholder } = useExtensionSection('servicio-medico');
 
   if (loading) return <div className="min-h-screen flex items-center justify-center">Cargando...</div>;
-  if (error) return <div className="min-h-screen flex items-center justify-center text-red-500">Error: {error}</div>;
+  if (error) {
+    if (showPlaceholder) {
+      return (
+        <PlaceholderPage 
+          title="Servicio Médico"
+          gradientFrom="teal-50"
+          gradientVia="cyan-50"
+          gradientTo="blue-50"
+          accentColor="teal-600"
+        />
+      );
+    }
+    return <div className="min-h-screen flex items-center justify-center text-red-500">Error: {error}</div>;
+  }
+  
+  // Check if section is disabled
+  if (data && data.is_enabled === false) {
+    return (
+      <PlaceholderPage 
+        title="Servicio Médico"
+        gradientFrom="teal-50"
+        gradientVia="cyan-50"
+        gradientTo="blue-50"
+        accentColor="teal-600"
+      />
+    );
+  }
+  
   if (!data) return null;
 
   return (

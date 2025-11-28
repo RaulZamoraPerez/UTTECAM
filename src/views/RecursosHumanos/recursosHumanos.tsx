@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import TablaDocumentosReutilizable2 from "@/components/tablaDocumentosReutilizable2";
 import { fetchArea } from "@/util/documentosApi";
+import { getAssetUrl } from '@/util/apiBase';
 
 interface Documento {
   id: string;
@@ -29,8 +30,8 @@ export default function RecursosHumanos() {
             documentos: categoria.archivos.map(archivo => ({
               id: archivo.ID.toString(),
               titulo: archivo.Nombre,
-              ruta: `${import.meta.env.VITE_BACKENDURL}${archivo.Ruta_Documento}`,
-              archivo: `${import.meta.env.VITE_BACKENDURL}${archivo.Ruta_Documento}` // compatibilidad con nuevo componente
+              ruta: getAssetUrl(archivo.Ruta_Documento),
+              archivo: getAssetUrl(archivo.Ruta_Documento) // compatibilidad con nuevo componente
             })),
           }));
         setSecciones(seccionesMapped);

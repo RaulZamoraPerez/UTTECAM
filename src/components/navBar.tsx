@@ -164,7 +164,7 @@ export default function Navbar() {
                                 {
                                     label: "Difusión y Divulgación",
                                     submenu: [
-                                        { label: "Ferias Profesoigráficas", href: "/ferias-profesoigraficas" },
+                                        { label: "Ferias Profesiográficas", href: "/ferias-profesiograficas" },
                                         { label: "Promoción Institucional", href: "/promocion-institucional" },
                                         { label: "Visitas Guiadas", href: "/visitas-guiadas" },
                                     ],
