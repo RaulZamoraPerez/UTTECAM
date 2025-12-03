@@ -1,74 +1,101 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import ServicioCard from '@/components/ServiceCard';
-import {BookOpen, FileCheck, FileText, GraduationCap, Hospital, IdCard, RefreshCcw, Scroll, Users, UserCheck, X} from 'lucide-react'
+import { Spinner } from '@/components/Spinner';
+import { BookOpen, FileCheck, FileText, GraduationCap, Hospital, IdCard, RefreshCcw, Scroll, Users, UserCheck, X } from 'lucide-react'
 import type { ServicioCardProps } from '../../types/servicesType';
+import { obtenerTramitesInfo } from '@/services/tramites.service';
 
 // Extendemos el tipo para incluir la propiedad active y href
 interface ServicioExtendido extends ServicioCardProps {
   active: boolean;
-  href?: string; // URL del formulario (opcional para reinscripción)
+  href?: string | null;
 }
 
+// Servicios estáticos
+const serviciosEstaticos: ServicioExtendido[] = [
+  {
+    title: "Inscripción",
+    description: "Proceso de registro para nuevo ingreso a la institución.",
+    icon: <FileText />,
+    active: false,
+    href: "/reinscripcion",
+  },
+  {
+    title: "Reinscripción a Ingeniería/Licenciatura (7º cuatrimestre)",
+    description: "Actualización de datos y continuidad de estudios.",
+    icon: <RefreshCcw />,
+    active: false,
+  },
+  {
+    title: "Constancias y Kardex",
+    description: "Emisión de documentos académicos oficiales.",
+    icon: <FileCheck />,
+    active: false,
+    href: "/constancia-kardex",
+  },
+  {
+    title: "Certificado de Estudios",
+    description: "Documento oficial del historial académico completo.",
+    icon: <GraduationCap />,
+    active: false,
+    href: "/certificado-estudios",
+  },
+  {
+    title: "Carta Pasante",
+    description: "Documento que acredita el término de estudios.",
+    icon: <Scroll />,
+    active: false,
+    href: "/carta-pasante",
+  },
+  {
+    title: "IMSS",
+    description: "Alta o baja de servicios del seguro social estudiantil.",
+    icon: <Hospital />,
+    active: false,
+    href: "/imss",
+  },
+  {
+    title: "Credencialización",
+    description: "Trámite y renovación de credencial estudiantil.",
+    icon: <IdCard />,
+    active: false,
+    href: "/reposicion-credencial",
+  },
+  {
+    title: "Título Profesional Electrónico",
+    description: "Trámite para la obtención del título profesional.",
+    icon: <BookOpen />,
+    active: false,
+    href: "/tramite-titulo",
+  },
+];
+
 export default function Tramites() {
-  const [servicios, setServicios] = useState<ServicioExtendido[]>([
-    {
-      title: "Inscripción",
-      description: "Proceso de registro para nuevo ingreso a la institución.",
-      icon: <FileText />,
-      active: false,
-      href: "/reinscripcion",
-    },
-    {
-      title: "Reinscripción a Ingeniería/Licenciatura (7º cuatrimestre)",
-      description: "Actualización de datos y continuidad de estudios.",
-      icon: <RefreshCcw />,
-      active: false,
-      // Sin href - este abre el modal
-    },
-    {
-      title: "Constancias y Kardex",
-      description: "Emisión de documentos académicos oficiales.",
-      icon: <FileCheck />,
-      active: false,
-      href: "/constancia-kardex",
-    },
-    {
-      title: "Certificado de Estudios",
-      description: "Documento oficial del historial académico completo.",
-      icon: <GraduationCap />,
-      active: false,
-      href: "/certificado-estudios",
-    },
-    {
-      title: "Carta Pasante",
-      description: "Documento que acredita el término de estudios.",
-      icon: <Scroll />,
-      active: false,
-      href: "/carta-pasante",
-    },
-    {
-      title: "IMSS",
-      description: "Alta o baja de servicios del seguro social estudiantil.",
-      icon: <Hospital />,
-      active: false,
-      href: "/imss",
-    },
-    {
-      title: "Credencialización",
-      description: "Trámite y renovación de credencial estudiantil.",
-      icon: <IdCard />,
-      active: false,
-      href: "/reposicion-credencial",
-    },
-    {
-      title: "Título Profesional Electrónico",
-      description: "Trámite para la obtención del título profesional.",
-      icon: <BookOpen />,
-      active: false,
-      href: "/tramite-titulo",
-    },
-  ]);
+  const [servicios, setServicios] = useState<ServicioExtendido[]>(serviciosEstaticos);
+  const [titulo, setTitulo] = useState("Servicios Escolares");
+  const [subtitulo, setSubtitulo] = useState("El departamento de Servicios Escolares, brinda atención a los estudiantes y egresados de la Universidad Tecnológica de Tecamachalco, con respecto a los servicios que demanden durante su ingreso, permanencia y egreso.");
+  const [cargando, setCargando] = useState(true);
+
+  // Cargar título y subtítulo del backend
+  useEffect(() => {
+    const cargarInfo = async () => {
+      try {
+        const response = await obtenerTramitesInfo();
+        
+        if (response.success && response.data) {
+          setTitulo(response.data.titulo);
+          setSubtitulo(response.data.subtitulo);
+        }
+      } catch (err) {
+        console.error('Error al cargar información de trámites:', err);
+      } finally {
+        setCargando(false);
+      }
+    };
+
+    cargarInfo();
+  }, []);
 
   const [selectedPdf, setSelectedPdf] = useState<{title: string, description: string, pdfSrc: string} | null>(null);
 
@@ -136,12 +163,26 @@ export default function Tramites() {
   // Encontrar el servicio activo
   const activeService = servicios.find(servicio => servicio.active);
 
+  // Mostrar spinner mientras carga
+  if (cargando) {
+    return (
+      <div className="mb-10">
+        <section className="bg-white py-12 px-4">
+          <h2 className="text-5xl font-bold text-amber-700 mb-6 text-center">Servicios Escolares</h2>
+          <div className="flex justify-center items-center py-20">
+            <Spinner text="Cargando servicios..." />
+          </div>
+        </section>
+      </div>
+    );
+  }
+
   return (
     <div className="mb-10">
       <section className="bg-white py-12 px-4">
-        <h2 className="text-5xl font-bold text-amber-700 mb-6 text-center">Servicios Escolares</h2>
+        <h2 className="text-5xl font-bold text-amber-700 mb-6 text-center">{titulo}</h2>
         <p className="text-gray-700 leading-relaxed text-center mb-10">
-          El departamento de Servicios Escolares, brinda atención a los estudiantes y egresados de la Universidad Tecnológica de Tecamachalco, con respecto a los servicios que demanden durante su ingreso, permanencia y egreso.
+          {subtitulo}
         </p>
         
         <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 justify-items-center lg:mx-30">

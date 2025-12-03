@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { Search, FileText, Download, Library } from "lucide-react";
+import { Search, FileText, Download, Library, Eye } from "lucide-react";
 import { Link } from "react-router-dom";
 import { formatearTitulo } from "../util/Formatt";
+import { obtenerUrlDocumentoConvocatoria } from "@/services/convocatoriaTitulo.service";
 
 interface Documento {
   id: string;
@@ -34,6 +35,33 @@ export default function tablaDocumentosReutilizable({
   const [seccionActiva, setSeccionActiva] = useState<string | null>(
     secciones[0]?.id ?? null
   );
+
+  // Función para manejar la visualización de documentos con manejo de errores
+  const handleVisualizarDocumento = async (documentoId: string) => {
+    try {
+      const url = obtenerUrlDocumentoConvocatoria(documentoId);
+      
+      // Intentar abrir en nueva pestaña
+      const newWindow = window.open(url, '_blank');
+      
+      // Verificar si el documento existe haciendo una petición
+      const response = await fetch(url);
+      
+      if (!response.ok) {
+        // Si hay error, cerrar la ventana si se abrió
+        if (newWindow) {
+          newWindow.close();
+        }
+        
+        // Intentar obtener el mensaje de error del servidor
+        const errorData = await response.json().catch(() => ({ error: 'No se pudo cargar el documento' }));
+        alert(`Error: ${errorData.error || 'No se encontró el documento'}`);
+      }
+    } catch (error) {
+      alert('Error al intentar visualizar el documento. Por favor, intente nuevamente.');
+      console.error('Error al visualizar documento:', error);
+    }
+  };
 
   const filteredSecciones = secciones
     .map((seccion) => ({
@@ -132,13 +160,24 @@ export default function tablaDocumentosReutilizable({
                                   </Link>
                                 </div>
                               
-                                <a
-                                  href={`/PIT/${documento.titulo}`}
-                                  download
-                                  className="flex-shrink-0 p-2 text-[#D1672A] hover:bg-[#D1672A]/10 rounded-lg transition-colors duration-150"
-                                >
-                                      <Download className="h-4 w-4" />
-                                </a>
+                                {/* Mostrar icono de ojo para Convocatoria Título, descarga para otros */}
+                                {nextUrl === "-CONVOCATORIA-TITULO" ? (
+                                  <button
+                                    onClick={() => handleVisualizarDocumento(documento.id)}
+                                    className="flex-shrink-0 p-2 text-[#0A9782] hover:bg-[#0A9782]/10 rounded-lg transition-colors duration-150"
+                                    title="Visualizar documento"
+                                  >
+                                    <Eye className="h-4 w-4" />
+                                  </button>
+                                ) : (
+                                  <a
+                                    href={`/PIT/${documento.titulo}`}
+                                    download
+                                    className="flex-shrink-0 p-2 text-[#D1672A] hover:bg-[#D1672A]/10 rounded-lg transition-colors duration-150"
+                                  >
+                                    <Download className="h-4 w-4" />
+                                  </a>
+                                )}
                               </div>
                             </div>
                           </div>
