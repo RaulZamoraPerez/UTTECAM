@@ -4,7 +4,7 @@ import type React from "react"
 
 import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { ZoomIn, ZoomOut, Contrast, Palette, Volume2, X, Accessibility, Circle, Link, Type, SpaceIcon as Space, RotateCcw } from "lucide-react"
+import { ZoomIn, ZoomOut, Contrast, Palette, Volume2, X, Circle, SpaceIcon as Space, RotateCcw } from "lucide-react"
 
 export function AccessibilityButton() {
     const [isOpen, setIsOpen] = useState(false)

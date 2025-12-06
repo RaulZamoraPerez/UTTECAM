@@ -1,11 +1,21 @@
 export const contactData = [
-    {
-    title: "Encargado de Secretaría Académica",
+
+  // {
+  //   title: "Rector de la Universidad Tecnológica de Tecamachalco",
+  //   name: "Ing. Enrique Salvador Fernández Lozada",
+  //   phone: "249 422 3300",
+  //   extension: "103",
+  //   email: "rectoria@uttecam.edu.mx",
+  //   imagenUrl: "directorios/Ing. Enrique Salvador Fernández Lozada Rector de la Universidad Tecnológica de Tecamachalco EXT 103.jpeg",
+  // },
+
+  {
+    title: "Secretaría Académica",
     name: "Mtro. Carlos Islas Contreras",
-    phone: "2494223300",
+    phone: "249 422 3300",
     extension: "135",
     email: "secretariaacademica@uttecam.edu.mx",
-    imagenUrl: "Organigrama/secretariaAcademica.png",
+    imagenUrl: "directorios/SECRETARIA ACADEMICA.jpeg",
   },
   {
     title: "Secretaría de Vinculación",
@@ -13,42 +23,76 @@ export const contactData = [
     phone: "249 422 3300",
     extension: "120",
     email: "vinculacion@uttecam.edu.mx",
-    imagenUrl: "Organigrama/secretarioVinculacion.png",
+    imagenUrl: "directorios/SECRETARIA DE VINCULACION.jpeg",
   },
-
   {
-    title: "Encargado del Área de Abogado General",
+    title: "Abogado General",
     name: "Mtro. Eleazar Carrillo Camacho",
-    phone: "2494223300",
+    phone: "249 422 3300",
     extension: "142",
     email: "abogadogeneral@uttecam.edu.mx",
-    imagenUrl: "Organigrama/AbogadoGeneral.png",
+    imagenUrl: "directorios/ABOGADO GENERAL.jpeg",
   },
   {
-    title: "Encargado del Área de Contraloría Interna",
+    title: "Contraloría Interna",
     name: "Abg. Alain Eloy Álvarez Sánchez",
-    phone: "2494223300",
+    phone: "249 422 3300",
     extension: "110",
     email: "contraloria@uttecam.edu.mx",
-    imagenUrl: "Organigrama/contraloriaInterna.png",
-    isGray: true,
+    imagenUrl: "directorios/CONTRALORIA INTERNA.jpeg",
   },
   {
-    title: "Dirección y administración y Finanzas",
+    title: "Dirección de Administración y Finanzas",
     name: "Lic. Rodrigo Hernández Aguilar",
-    phone: "2494223300",
+    phone: "249 422 3300",
     extension: "115",
     email: "direccionfinanzas@uttecam.edu.mx",
-    imagenUrl: "Organigrama/admin_finanzas.png",
-    isGray: true,
+    imagenUrl: "directorios/Dirección de Administración y Finanzas.jpeg",
   },
   {
-    title: "Extensión Universitaria",
+    title: "Dirección de Extensión Universitaria",
     name: "Mtra. Verónica Elizabeth Centeno Fórtiz",
-    phone: "2494223300",
+    phone: "249 422 3300",
     extension: "153",
     email: "extensionuniversitaria@uttecam.edu.mx",
-    imagenUrl: "Organigrama/enc_extend_universitaria.png",
-    isGray: true,
+    imagenUrl: "directorios/Dirección de Extensión Universitaria.jpeg",
   },
+
+  //
+
+
+
+  // {
+  //   title: "Encargado de la Subdirección de Planeación y Evaluación",
+  //   name: "Ing. Miguel Angel Ortiz Contreras",
+  //   phone: "249 422 3300",
+  //   extension: "125",
+  //   email: "planeacion@uttecam.edu.mx",
+  //   imagenUrl: "directorios/Ing. Miguel Ángel Ortiz Contreras Encargado de la Subdirección de Planeación y Evaluación EXT 152.jpeg",
+  // },
+  // {
+  //   title: "Enc. de la Subd. de Difusión y Divulgación Universitaria",
+  //   name: "Mtro. José Uriel Corres Téllez",
+  //   phone: "249 422 3300",
+  //   extension: "153",
+  //   email: "difusion@uttecam.edu.mx",
+  //   imagenUrl: "directorios/Mtro. Uriel Corres Téllez Encargado de la Subdirección de Difusión y Divulgación Universitaria EXT 153.jpeg",
+  // },
+  // {
+  //   title: "Encargado de la Subdirección de Servicios Administrativos",
+  //   name: "C.P. Osvaldo Méndez Coca",
+  //   phone: "249 422 3300",
+  //   extension: "145",
+  //   email: "serviciosadministrativos@uttecam.edu.mx",
+  //   imagenUrl: "directorios/C.P. Osvaldo Méndez Coca Encargado de la Subdirección de Servicios Administrativos EXT 145.jpeg",
+  // },
+  // {
+  //   title: "Encargada del despacho de la Subdirección de Servicios Escolares",
+  //   name: "Lic. Flor Viridiana Morales Sandoval",
+  //   phone: "249 422 3300",
+  //   extension: "133",
+  //   email: "subdirescolares@uttecam.edu.mx",
+  //   imagenUrl: "directorios/Lic. Flor Viridiana Morales Sandoval Encargada de la  Subdirección de Servicios Escolares EXT 126.jpeg"
+  // }
+
 ];

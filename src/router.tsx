@@ -19,6 +19,8 @@ import EducacionContinua from "./views/EducacionContinua/EducacionContinua";
 import CursosEducacionContinua from "./views/EducacionContinua/CursosEducacionContinua";
 import Directorios from "./views/Nosotros/Directorios";
 
+import Organigrama from "./views/Directorios/Organigrama";
+
 // Lazy imports de otras vistas
 const ProgramDetail = lazy(() => import("@/views/DetallesCarrera/ProgramDetail"));
 const NormatividadSeccion = lazy(() => import("@/views/Normatividad/Normatividad"));
@@ -28,7 +30,7 @@ const Finanzas = lazy(() => import("@/views/Finanzas/finazas"));
 const RecursosHumanos = lazy(() => import("@/views/RecursosHumanos/recursosHumanos"));
 const Sga = lazy(() => import("@/views/Sga/sga"));
 const Sigc = lazy(() => import("@/views/Sigc/sigc"));
-// const Directorios = lazy(() => import("@/views/Nosotros/Directorios"));
+
 const Vinculacion = lazy(() => import("@/views/Vinculacion/vinculacion"));
 const VinculacionBanner = lazy(() => import("@/views/Vinculacion/VinculacionBanner"));
 const Calendario = lazy(() => import("@/views/Nosotros/Calendario"));
@@ -46,9 +48,10 @@ const Nosotros = lazy(() => import("@/views/Nosotros/Nosotros"));
 const ConvocatoriaAdmision = lazy(() => import("@/views/Convocatoria/ConvocatoriaAdmision"));
 const Tramites = lazy(() => import("@/views/Tramites/Tramites"));
 const Becas = lazy(() => import("@/views/Becas/Becas"));
-// const Organigrama = lazy(() => import("@/views/Directorios/Organigrama"));
+
 const TalleresCulturales = lazy(() => import("@/views/TalleresCulturales/TalleresCulturales"));
 const TalleresDeportivos = lazy(() => import("@/views/TalleresDeportivos/TalleresDeportivos"));
+const Enlaces = lazy(() => import("@/views/enlaces/Enlaces"));
 
 export default function Router() {
   return (
@@ -65,7 +68,7 @@ export default function Router() {
             <Route path="/recursosHumanos" element={<RecursosHumanos />} />
             <Route path="/sga" element={<Sga />} />
             <Route path="/sigc" element={<Sigc />} />
-            <Route path="/directorios" element={<Directorios />} />
+            <Route path="/directorio" element={<Directorios />} />
             <Route path="/repositorio-digital-investigacion" element={<Vinculacion />} />
              <Route path="/vinculacion-banner" element={<VinculacionBanner />} />
             <Route path="/calendario" element={<Calendario />} />
@@ -83,9 +86,10 @@ export default function Router() {
             <Route path="/Coordinacion" element={<Coordinacion />} />
             <Route path="/portal-estudiantes" element={<MiEscuela />} />
             <Route path="/becas-academicas" element={<Becas />} />
+            <Route path="/enlaces" element={<Enlaces />} />
          
             <Route path="/InformacionEstadistica" element={<InformacionEstadistica />} />
-            {/* <Route path="/Organigrama" element={<Organigrama />} /> */}
+            <Route path="/Organigrama" element={<Organigrama />} />
             <Route path="/talleres-culturales" element={<TalleresCulturales />} />
             <Route path="/talleres-deportivos" element={<TalleresDeportivos />} />
             <Route path="/promocion-institucional" element={<PromocioIntitucional />} />

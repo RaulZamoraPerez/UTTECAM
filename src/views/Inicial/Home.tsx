@@ -9,6 +9,7 @@ import EducationalPrograms from "@/components/ProgramsDetails/EducationalProgram
 import Countdown from "@/components/Countdown";
 import { FormContact } from "@/components/Form/FormContact";
 import CarrucelNoticias from "@/components/CarrucelNoticias";
+import ModalInicial from "@/components/Modal/ModalInicial";
 
 // Loader para la página completa
 const PageLoader = () => (
@@ -91,7 +92,7 @@ const Home = () => {
         </div>
       </section>
 
-      {/* <ModalInicial /> */}
+      <ModalInicial />
     </>
   );
 };

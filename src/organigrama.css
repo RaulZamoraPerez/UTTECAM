@@ -2,6 +2,7 @@
 @import 'primereact/resources/primereact.min.css';
 @import 'primeicons/primeicons.css';
 @import 'primeflex/primeflex.css';
+
 /* Quita espacio vertical y horizontal entre nodos */
 .p-organizationchart .p-organizationchart-node-content {
   padding: 0.5rem !important;

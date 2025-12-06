@@ -1,177 +1,254 @@
-import { useEffect, useState } from "react";
-import {
-  OrganizationChart,
-  type OrganizationChartNodeData,
-} from "primereact/organizationchart";
-import "primereact/resources/themes/lara-light-indigo/theme.css";
-import "primereact/resources/primereact.min.css";
-import "primeicons/primeicons.css";
-import "../../organigrama.css";
-import { dataOrganigrama } from "@/data/Organigrama.data";
-import { Card } from "./Card";
-import type { OrgNode } from "types/Program";
+import { useState, useRef } from "react";
+import { dataOrganigrama, type CustomOrgNode } from "@/data/Organigrama.data";
+import { ZoomIn, ZoomOut, RotateCcw, Minus, Plus, Info } from "lucide-react";
+
+// --- Components ---
+
+const NodeCard = ({ node, depth, onToggle }: { node: CustomOrgNode; depth: number; onToggle: () => void }) => {
+  const hasChildren = node.children && node.children.length > 0;
+  const [showInfo, setShowInfo] = useState(false);
+  
+  // Strict White Minimalist Styling
+  // Depth 0 (Rector): Larger, maybe a subtle border.
+  // Depth > 0: Standard size.
+  
+  const isRoot = depth === 0;
+  const cardSize = isRoot ? "w-80" : "w-64";
+  const titleColor = isRoot ? "text-amber-600" : "text-slate-500";
+  const ringColor = isRoot ? "border-amber-100" : "border-slate-100";
+
+  return (
+    <div 
+      className="relative z-10 p-4 group hover:z-[100]"
+      onMouseEnter={() => setShowInfo(true)}
+      onMouseLeave={() => setShowInfo(false)}
+    >
+      <div 
+        className={`
+          relative flex flex-col items-center text-center
+          bg-white rounded-xl shadow-sm border border-gray-100
+          ${cardSize} p-6
+          transition-all duration-300 hover:shadow-xl hover:-translate-y-1 hover:border-gray-200
+          cursor-default
+        `}
+      >
+        {/* Image & Status */}
+        <div className="relative mb-4">
+          <div className={`absolute -inset-2 rounded-full border ${ringColor} opacity-0 group-hover:opacity-100 transition-opacity duration-500`}></div>
+          <img 
+            src={node.data?.image || "/logos/logo_ut.png"} 
+            alt={node.data?.name}
+            className="relative w-20 h-20 rounded-full object-cover border-4 border-white shadow-sm bg-gray-50"
+            onError={(e) => {
+              (e.target as HTMLImageElement).src = `https://ui-avatars.com/api/?name=${node.data?.name}&background=random&color=fff`;
+            }}
+          />
+          {/* Expand/Collapse Toggle */}
+          {hasChildren && (
+            <button 
+              onClick={(e) => { e.stopPropagation(); onToggle(); }}
+              className="absolute -bottom-2 -right-2 w-8 h-8 bg-white rounded-full shadow-md border border-gray-100 flex items-center justify-center text-gray-400 hover:text-blue-600 hover:bg-blue-50 transition-colors cursor-pointer z-20"
+            >
+              {node.expanded ? <Minus size={14} /> : <Plus size={14} />}
+            </button>
+          )}
+        </div>
+
+        {/* Text Content */}
+        <div className="w-full space-y-1">
+          <h3 className="font-bold text-gray-900 text-sm leading-tight">
+            {node.data?.name}
+          </h3>
+          <p className={`text-[10px] font-bold uppercase tracking-wider ${titleColor}`}>
+            {node.data?.title}
+          </p>
+        </div>
+
+        {/* Info Indicator (Visual Hint) */}
+        {node.data?.text && (
+          <div className="mt-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <div className="flex items-center justify-center gap-1 text-[10px] text-gray-400 font-medium uppercase tracking-widest">
+              <Info size={12} />
+              <span>Ver Semblanza</span>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* HOVER TOOLTIP / INFO CARD */}
+      {/* Positioned absolutely relative to the card wrapper, but with high Z-index */}
+      {showInfo && node.data?.text && (
+        <div className="absolute top-full left-1/2 -translate-x-1/2 mt-4 w-80 bg-white p-6 rounded-xl shadow-2xl border border-gray-100 z-[100] animate-in fade-in slide-in-from-top-2 duration-200">
+          {/* Arrow pointing up */}
+          <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-white border-t border-l border-gray-100 transform rotate-45"></div>
+          
+          <div className="relative z-10">
+            <h4 className="font-bold text-gray-900 text-sm mb-2 flex items-center gap-2">
+              <Info size={14} className="text-blue-500" />
+              Semblanza
+            </h4>
+            <div className="max-h-60 overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-gray-200 scrollbar-track-transparent">
+              <p className="text-xs text-gray-500 text-justify leading-relaxed">
+                {node.data?.text}
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+const TreeNode = ({ node, depth = 0 }: { node: CustomOrgNode; depth?: number }) => {
+  const [expanded, setExpanded] = useState(node.expanded ?? true);
+  const hasChildren = node.children && node.children.length > 0;
+
+  return (
+    <div className="flex flex-col items-center">
+      <NodeCard node={{...node, expanded}} depth={depth} onToggle={() => setExpanded(!expanded)} />
+      
+      {hasChildren && expanded && (
+        <div className="flex flex-col items-center animate-in fade-in slide-in-from-top-4 duration-300">
+          {/* Vertical Line Down */}
+          <div className="w-px h-12 bg-gray-300"></div>
+          
+          {/* Children Container */}
+          <div className="flex relative">
+            {/* Horizontal Connector Logic */}
+            {node.children!.length > 1 && (
+              <>
+                {/* Left Half Line */}
+                <div className="absolute top-0 left-0 w-1/2 h-px bg-gray-300 translate-y-px"></div> 
+                {/* Right Half Line */}
+                <div className="absolute top-0 right-0 w-1/2 h-px bg-gray-300 translate-y-px"></div>
+                
+                {/* Masking the center for the first and last child to create the "bracket" shape properly? 
+                    Actually, a simpler way for perfect trees:
+                    Each child has a top vertical line.
+                    A horizontal line spans from the center of the first child to the center of the last child.
+                */}
+                 <div className="absolute top-0 left-[calc(50%/var(--child-count))] right-[calc(50%/var(--child-count))] h-px bg-gray-300 hidden"></div>
+              </>
+            )}
+
+            {/* Render Children with Connectors */}
+            <div className="flex items-start justify-center gap-8 px-4">
+               {/* We use a wrapper for the horizontal line segment */}
+               {node.children!.map((child, index, arr) => {
+                 const isFirst = index === 0;
+                 const isLast = index === arr.length - 1;
+                 const isOnly = arr.length === 1;
+                 
+                 return (
+                   <div key={index} className="flex flex-col items-center relative">
+                     {/* Horizontal Lines for this child */}
+                     {!isOnly && (
+                       <>
+                         {/* Line to Left (if not first) */}
+                         <div className={`absolute top-0 right-1/2 w-[calc(100%+2rem)] h-px bg-gray-300 ${isFirst ? 'hidden' : 'block'}`}></div>
+                         {/* Line to Right (if not last) */}
+                         <div className={`absolute top-0 left-1/2 w-[calc(100%+2rem)] h-px bg-gray-300 ${isLast ? 'hidden' : 'block'}`}></div>
+                       </>
+                     )}
+                     
+                     {/* Vertical Line to Node */}
+                     <div className="w-px h-12 bg-gray-300"></div>
+                     
+                     <TreeNode node={child} depth={depth + 1} />
+                   </div>
+                 );
+               })}
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
 
 export default function OrganigramaP() {
-  const [zoom, setZoom] = useState(() => {
-    // Zoom inicial adaptativo basado en el tamaño de pantalla
-    if (typeof window !== 'undefined') {
-      return window.innerWidth < 640 ? 0.4 : window.innerWidth < 1024 ? 0.5 : 0.6;
-    }
-    return 0.6;
-  });
-  useEffect(() => {
-    const container = document.querySelector(".organigrama-wrapper");
+  const [scale, setScale] = useState(0.8);
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [isDragging, setIsDragging] = useState(false);
+  const [startPos, setStartPos] = useState({ x: 0, y: 0 });
+  const containerRef = useRef<HTMLDivElement>(null);
 
-    if (!container) return;
+  const handleMouseDown = (e: React.MouseEvent) => {
+    setIsDragging(true);
+    setStartPos({ x: e.clientX - position.x, y: e.clientY - position.y });
+    if (containerRef.current) containerRef.current.style.cursor = "grabbing";
+  };
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          const target = entry.target as HTMLElement;
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isDragging) return;
+    setPosition({
+      x: e.clientX - startPos.x,
+      y: e.clientY - startPos.y
+    });
+  };
 
-          if (entry.isIntersecting) {
-            target.classList.add("line-visible");
-          } else {
-            target.classList.remove("line-visible");
-          }
-        });
-      },
-      {
-        root: container,
-        threshold: 0.01,
-      }
-    );
+  const handleMouseUp = () => {
+    setIsDragging(false);
+    if (containerRef.current) containerRef.current.style.cursor = "grab";
+  };
 
-    // Seleccionamos solo las celdas que son líneas
-    const lines = container.querySelectorAll(
-      "td[class*='p-organizationchart-line']"
-    );
-
-    lines.forEach((line) => observer.observe(line));
-
-    return () => {
-      lines.forEach((line) => observer.unobserve(line));
-    };
-  }, [zoom]);
-
-  const [selection, setSelection] = useState<
-    OrganizationChartNodeData | OrganizationChartNodeData[] | null
-  >(null);
-
-  const [data] = useState(dataOrganigrama);
-  useEffect(() => {
-    const container = document.querySelector(".organigrama-scroll") as HTMLElement;
-    const content = container?.firstElementChild as HTMLElement;
-
-    if (container && content) {
-      // Función para centrar el contenido
-      const centerContent = () => {
-        const containerWidth = container.clientWidth;
-        const containerHeight = container.clientHeight;
-        const contentWidth = content.scrollWidth;
-        const contentHeight = content.scrollHeight;
-        
-        // Centrar horizontalmente
-        container.scrollLeft = Math.max(0, (contentWidth - containerWidth) / 2);
-        // Centrar verticalmente
-        container.scrollTop = Math.max(0, (contentHeight - containerHeight) / 2);
-      };
-
-      // Centrar después del render inicial
-      setTimeout(centerContent, 150);
-      
-      // Recentrar cuando cambie el tamaño de ventana
-      const handleResize = () => {
-        setTimeout(centerContent, 100);
-      };
-      
-      window.addEventListener('resize', handleResize);
-      
-      return () => {
-        window.removeEventListener('resize', handleResize);
-      };
-    }
-  }, [zoom]);
-
-  const nodeTemplate = (node: OrgNode) => {
-    //template o card jefes
-    if (node.type === "person" && node.data) {
-      return <Card node={node} />;
-    }
-
-    <Card node={node} />;
+  const resetView = () => {
+    setScale(0.8);
+    setPosition({ x: 0, y: 0 });
   };
 
   return (
-    <div className="organigrama-wrapper relative w-full h-full">
-      {/* Controles de Zoom - Derecha Abajo */}
-      <div className="fixed bottom-4 right-4 z-50 flex flex-col gap-2 sm:gap-3">
-        <button
-          onClick={() => setZoom((z) => Math.min(z + 0.1, 2))}
-          className="organigrama-zoom-btn bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
-          title="Acercar"
-        >
-          <span className="text-lg sm:text-xl font-bold leading-none">+</span>
-        </button>
-        <button
-          onClick={() => setZoom((z) => Math.max(z - 0.1, 0.3))}
-          className="organigrama-zoom-btn bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
-          title="Alejar"
-        >
-          <span className="text-lg sm:text-xl font-bold leading-none">−</span>
-        </button>
-        {/* Indicador de zoom */}
-        <div className="bg-white/90 backdrop-blur-sm rounded-full px-2 py-1 text-xs font-medium text-gray-700 text-center shadow-md">
-          {Math.round(zoom * 100)}%
-        </div>
+    <div className="relative w-full h-[calc(100vh-80px)] bg-white overflow-hidden select-none font-sans">
+      {/* Pure White Background with Very Subtle Grid */}
+      <div className="absolute inset-0" 
+           style={{ 
+             backgroundImage: 'radial-gradient(#f1f5f9 1px, transparent 1px)', 
+             backgroundSize: '24px 24px' 
+           }}>
       </div>
 
-      {/* Botón de reset centrado - Solo en móviles */}
-      <div className="fixed bottom-4 left-4 z-50 block sm:hidden">
-        <button
-          onClick={() => {
-            setZoom(0.6);
-            const container = document.querySelector(".organigrama-scroll") as HTMLElement;
-            const content = container?.firstElementChild as HTMLElement;
-            if (container && content) {
-              setTimeout(() => {
-                container.scrollLeft = (content.scrollWidth - container.clientWidth) / 2;
-                container.scrollTop = (content.scrollHeight - container.clientHeight) / 2;
-              }, 100);
-            }
+      {/* Minimalist Title */}
+      <div className="absolute top-8 left-8 z-20">
+        <h1 className="text-2xl font-bold text-gray-900 tracking-tight">Estructura Organizacional</h1>
+        <p className="text-sm text-gray-400 mt-1">Universidad Tecnológica de Tecamachalco</p>
+      </div>
+
+      {/* Controls */}
+      <div className="absolute bottom-8 right-8 z-20 flex flex-col gap-2 bg-white shadow-lg shadow-gray-100 rounded-xl p-2 border border-gray-100">
+        <button onClick={() => setScale(s => Math.min(s + 0.1, 2))} className="p-2 hover:bg-gray-50 rounded-lg text-gray-600 transition-colors">
+          <ZoomIn size={20} />
+        </button>
+        <button onClick={() => setScale(s => Math.max(s - 0.1, 0.3))} className="p-2 hover:bg-gray-50 rounded-lg text-gray-600 transition-colors">
+          <ZoomOut size={20} />
+        </button>
+        <div className="h-px bg-gray-100 my-1"></div>
+        <button onClick={resetView} className="p-2 hover:bg-gray-50 rounded-lg text-gray-600 transition-colors">
+          <RotateCcw size={20} />
+        </button>
+      </div>
+
+      {/* Canvas */}
+      <div 
+        ref={containerRef}
+        className="w-full h-full cursor-grab flex items-center justify-center overflow-hidden"
+        onMouseDown={handleMouseDown}
+        onMouseMove={handleMouseMove}
+        onMouseUp={handleMouseUp}
+        onMouseLeave={handleMouseUp}
+      >
+        <div 
+          style={{ 
+            transform: `translate(${position.x}px, ${position.y}px) scale(${scale})`,
+            transition: isDragging ? 'none' : 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)'
           }}
-          className="bg-gradient-to-r from-green-500 to-teal-600 hover:from-green-600 hover:to-teal-700 text-white w-10 h-10 rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
-          title="Centrar y Reset"
+          className="origin-top pt-32 pb-40"
         >
-          <span className="text-sm font-bold">⌖</span>
-        </button>
-      </div>
-
-      <p className="text-gray-600 text-xl sm:text-2xl font-bold capitalize p-3 mb-3 sm:mb-5 text-center">
-        Organigrama UTTECAM
-      </p>
-
-      <div className="organigrama-scroll overflow-auto w-full h-[calc(100vh-120px)] sm:h-[calc(100vh-140px)] bg-gradient-to-br from-slate-50 to-slate-100 border border-gray-200 rounded-lg sm:rounded-xl shadow-inner">
-        <div
-          className="organigrama-content origin-center inline-flex flex-col items-center justify-center p-4 sm:p-6 md:p-10 transition-transform duration-300 ease-out min-w-max min-h-full"
-          style={{ transform: `scale(${zoom})` }}
-        >
-          <div className="mb-6 sm:mb-8 md:mb-10">
-            <img
-              src="/logos/PORTADAORGANIGRAMA.jpg"
-              alt="Logo del Organigrama UTTECAM"
-              className="h-32 sm:h-40 md:h-52 lg:h-60 object-contain rounded-lg sm:rounded-xl shadow-xl mb-3 sm:mb-5 border-2 sm:border-4 border-white"
-            />
+          {/* Root */}
+          <div className="flex justify-center">
+            {dataOrganigrama.map((node, idx) => (
+              <TreeNode key={idx} node={node} />
+            ))}
           </div>
-
-          <OrganizationChart
-            className="capitalize"
-            value={data}
-            selectionMode="single"
-            selection={selection}
-            onSelectionChange={(e) => setSelection(e.data!)}
-            nodeTemplate={nodeTemplate}
-          />
         </div>
       </div>
     </div>

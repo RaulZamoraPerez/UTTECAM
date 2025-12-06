@@ -1,5 +1,6 @@
-import { useState } from 'react';
-import { FileText } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
+import { FileText, X, ExternalLink } from 'lucide-react';
 
 interface PDFViewerProps {
   title: string;
@@ -9,54 +10,88 @@ interface PDFViewerProps {
 
 const PdfBecasExcencion = ({ title, description, pdfSrc }: PDFViewerProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
-  const handlePDFClick = () => {
+  useEffect(() => {
+    setMounted(true);
+    return () => setMounted(false);
+  }, []);
+
+  const handlePDFClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
     setIsModalOpen(true);
   };
 
-  const closeModal = () => {
+  const closeModal = (e?: React.MouseEvent) => {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
     setIsModalOpen(false);
   };
 
-  return (
-    <div className="bg-gray-50 rounded-xl p-4 border border-gray-200">
-      <div className="flex items-center mb-4">
-        <FileText className="text-amber-600 mr-2" size={20} />
-        <h3 className="font-semibold text-gray-800">{title}</h3>
-      </div>
+  const modalContent = (
+    <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-[9999] p-4" onClick={closeModal}>
       <div 
-        className="flex items-center justify-between bg-white rounded-lg p-4 shadow-sm cursor-pointer"
-        onClick={handlePDFClick}
+        className="relative w-full max-w-6xl h-[90vh] bg-white rounded-2xl shadow-2xl overflow-hidden flex flex-col animate-in fade-in zoom-in duration-200"
+        onClick={(e) => e.stopPropagation()}
       >
-        <div>
-          <h4 className="font-medium text-gray-800">{description}</h4>
-          <p className="text-sm text-gray-500">Haz clic para ver el documento completo</p>
-        </div>
-        <div className="text-amber-600">
-          <FileText size={20} />
-        </div>
-      </div>
-
-      {/* Modal para mostrar el PDF */}
-      {isModalOpen && (
-        <div className="fixed inset-0 bg-black/10 bg-opacity-50 flex items-center justify-center z-50">
-          <div className="relative bg-white rounded-lg overflow-hidden max-h-[95vh] max-w-[95vw] shadow-lg">
-            <button 
-              className="absolute top-2 right-2 bg-amber-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-xl font-bold hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-amber-500"
-              onClick={closeModal}
+        {/* Header del Modal */}
+        <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100 bg-gray-50">
+          <div className="flex items-center gap-3">
+            <div className="p-2 bg-red-100 text-red-600 rounded-lg">
+              <FileText size={20} />
+            </div>
+            <h3 className="font-bold text-gray-900 truncate max-w-md md:max-w-xl">
+              {title || description}
+            </h3>
+          </div>
+          <div className="flex items-center gap-2">
+            <a 
+              href={pdfSrc} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="p-2 text-gray-500 hover:text-blue-600 hover:bg-blue-50 rounded-full transition-all"
+              title="Abrir en nueva pestaña"
             >
-              ✕
+              <ExternalLink size={20} />
+            </a>
+            <button 
+              onClick={closeModal}
+              className="p-2 text-gray-500 hover:text-red-600 hover:bg-red-50 rounded-full transition-all"
+              title="Cerrar"
+            >
+              <X size={24} />
             </button>
-            <iframe 
-              src={pdfSrc} 
-              title={title} 
-              className="w-[80vw] h-[100vh]" 
-              frameBorder="0"
-            ></iframe>
           </div>
         </div>
-      )}
+
+        {/* Contenido del PDF */}
+        <div className="flex-1 bg-gray-100 relative">
+          <iframe 
+            src={pdfSrc} 
+            title={title || description} 
+            className="w-full h-full absolute inset-0" 
+            frameBorder="0"
+          ></iframe>
+        </div>
+      </div>
     </div>
+  );
+
+  return (
+    <>
+      <div 
+        className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity"
+        onClick={handlePDFClick}
+      >
+        <span className="font-medium">{description}</span>
+        <FileText size={16} />
+      </div>
+
+      {isModalOpen && mounted && createPortal(modalContent, document.body)}
+    </>
   );
 };
 

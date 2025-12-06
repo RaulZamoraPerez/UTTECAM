@@ -45,7 +45,7 @@ export default function Navbar() {
         {
           label: "Directorios",
           submenu: [
-            { label: "Directorio ", href: "/directorios" },
+            { label: "Directorio ", href: "/directorio" },
             { label: "Organigrama", href: "/organigrama" },
           ],
         },
@@ -89,8 +89,8 @@ export default function Navbar() {
           submenu: [{ label: "Becas académicas", href: "/becas-academicas" }],
         },
         {
-          label: "Biblioteca digital",
-          href: "https://elibro.net/es/lc/uttecam/login_usuario/?next=/es/lc/uttecam/inicio/",
+          label: "Enlaces institucionales",
+          href: "/enlaces",
         },
       ],
     },

@@ -75,7 +75,7 @@ export default function NewsModal() {
                     </button>
                     <div className="relative" style={{ height: "400px", overflow: "hidden" }}>
                         <img
-                            src="/INGRESOUTTECAM2025.webp"
+                            src="/noticias/Maestria.png"
                             alt="Noticia importante"
                             width={600}
                             height={100}
@@ -96,7 +96,7 @@ export default function NewsModal() {
                             </p>
                         </div>
                     </div>
-                    <div className="p-6 bg-white">
+                    {/* <div className="p-6 bg-white">
                         <div className="flex flex-col gap-4">
                             <div className="flex items-center">
                                 <div className="w-1.5 h-6 rounded-full mr-3" style={{ backgroundColor: "#008066" }}></div>
@@ -126,7 +126,7 @@ export default function NewsModal() {
                                 </button>
                             </div>
                         </div>
-                    </div>
+                    </div> */}
                     <div className="h-1 w-full" style={{ backgroundColor: "#D1672A" }}></div>
                 </div>
             </div>
