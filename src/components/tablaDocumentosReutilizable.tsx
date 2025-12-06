@@ -70,7 +70,8 @@ export default function tablaDocumentosReutilizable({
         doc.titulo.toLowerCase().includes(searchTerm.toLowerCase())
       ),
     }))
-    .filter((seccion) => seccion.documentos.length > 0);
+    // Solo filtrar secciones vacías si hay un término de búsqueda activo
+    .filter((seccion) => searchTerm === "" || seccion.documentos.length > 0);
 
   return (
     <div className="min-h-screen bg-gray-50 py-10">
@@ -138,26 +139,45 @@ export default function tablaDocumentosReutilizable({
                     </div>
                   </div>
                   <div className="p-0">
-                    <ul>
-                      {seccion.documentos.map((documento, index) => (
-                        <li
-                          key={documento.id}
-                          className="p-4 border-b border-gray-100 last:border-b-0 hover:bg-gray-50 transition-colors duration-150"
-                        >
-                          <div className="flex items-start gap-3">
-                            <div className="flex items-center justify-center h-8 w-8 rounded-full bg-[#0A9782]/10 text-[#0A9782] font-medium">
-                              {index + 1}
-                            </div>
+                    {seccion.documentos.length === 0 ? (
+                      // Mensaje cuando no hay documentos
+                      <div className="p-10 text-center">
+                        <p className="text-gray-600 text-lg">
+                          No hay documentos a presentar por el momento
+                        </p>
+                      </div>
+                    ) : (
+                      <ul>
+                        {seccion.documentos.map((documento, index) => (
+                          <li
+                            key={documento.id}
+                            className="p-4 border-b border-gray-100 last:border-b-0 hover:bg-gray-50 transition-colors duration-150"
+                          >
+                            <div className="flex items-start gap-3">
+                              <div className="flex items-center justify-center h-8 w-8 rounded-full bg-[#0A9782]/10 text-[#0A9782] font-medium">
+                                {index + 1}
+                              </div>
                             <div className="flex-1">
                               <div className="flex items-start justify-between gap-4">
                                 <div className="flex items-start gap-2">
                                   <FileText className="h-5 w-5 mt-0.5 flex-shrink-0 text-[#D1672A]" />
-                                  <Link
-                                    to={`/ver-documento${nextUrl? nextUrl : ''}/${(documento.titulo)}${documento.año? `?año=${documento.año}`: ""}`}
-                                    className="font-medium text-gray-800 hover:text-[#D1672A] hover:underline transition-colors duration-150 text-"
-                                  >
-                                    { formatearTitulo(documento.titulo)}
-                                  </Link>
+                                  
+                                  {/* Para Convocatoria Título, usar button que abre en nueva pestaña */}
+                                  {nextUrl === "-CONVOCATORIA-TITULO" ? (
+                                    <button
+                                      onClick={() => handleVisualizarDocumento(documento.id)}
+                                      className="font-medium text-gray-800 hover:text-[#D1672A] hover:underline transition-colors duration-150 text-left"
+                                    >
+                                      {formatearTitulo(documento.titulo)}
+                                    </button>
+                                  ) : (
+                                    <Link
+                                      to={`/ver-documento${nextUrl? nextUrl : ''}/${(documento.titulo)}${documento.año? `?año=${documento.año}`: ""}`}
+                                      className="font-medium text-gray-800 hover:text-[#D1672A] hover:underline transition-colors duration-150 text-"
+                                    >
+                                      {formatearTitulo(documento.titulo)}
+                                    </Link>
+                                  )}
                                 </div>
                               
                                 {/* Mostrar icono de ojo para Convocatoria Título, descarga para otros */}
@@ -184,6 +204,7 @@ export default function tablaDocumentosReutilizable({
                         </li>
                       ))}
                     </ul>
+                    )}
                   </div>
                 </div>
               )

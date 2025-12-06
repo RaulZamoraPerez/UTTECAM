@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import TablaDocumentosReutilizable from "@/components/tablaDocumentosReutilizable";
-import datosConvocatoriaTitulo from "@/data/convocatoriaTitulo.data";
 import { 
   obtenerConvocatoriaTituloInfo, 
   obtenerDocumentosConvocatoria,
@@ -52,10 +51,11 @@ const ConvocatoriaTitulo = () => {
           titulo: doc.titulo
         }))
       }]
-    : datosConvocatoriaTitulo.map(seccion => ({
-        ...seccion,
-        titulo: nombreSeccion
-      }));
+    : [{
+        id: "convocatoria-titulo",
+        titulo: nombreSeccion,
+        documentos: [] // Lista vacía para mostrar mensaje
+      }];
 
   if (cargando) {
     return (
