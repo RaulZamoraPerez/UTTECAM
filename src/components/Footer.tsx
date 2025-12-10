@@ -54,6 +54,9 @@ export default function Footer() {
                             <li className="mb-8">
                                 <a href="/recursosHumanos" className="text-[#0A9782] hover:text-[#D1672A] text-base font-semibold flex items-center transition-colors duration-200"><ChevronRight /> Recursos Humanos</a>
                             </li>
+                            <li className="mb-8">
+                                <a href="/informacion-estadia" className="text-[#0A9782] hover:text-[#D1672A] text-base font-semibold flex items-center transition-colors duration-200"><ChevronRight /> Información y Estadística</a>
+                            </li>
                         </ul>
                     </div>
 
@@ -66,6 +69,9 @@ export default function Footer() {
                             </li>
                             <li className="mb-8">
                                 <a href="/sigc" className="text-[#0A9782] hover:text-[#D1672A] text-base font-semibold flex items-center transition-colors duration-200"><ChevronRight /> Sistema de Gestión de la Calidad</a>
+                            </li>
+                            <li className="mb-8">
+                                <a href="/coordinacion-genero" className="text-[#0A9782] hover:text-[#D1672A] text-base font-semibold flex items-center transition-colors duration-200"><ChevronRight /> Sitio Web Coordinación De Género</a>
                             </li>
                         </ul>
                     </div>

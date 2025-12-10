@@ -46,8 +46,8 @@ export default function InformacionEstadia() {
   return (
     <TablaDocumentosReutilizable
       secciones={secciones}
-      titulo="Información de Estadía"
-      descripcion="Documentos relacionados con la información de estadía en la institución."
+      titulo="Información y Estadística"
+      descripcion="Documentos relacionados con la información y estadística de la institución."
     />
   );
 }
