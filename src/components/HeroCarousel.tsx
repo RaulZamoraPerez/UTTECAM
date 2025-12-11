@@ -117,7 +117,7 @@ const HeroCarousel: React.FC = () => {
                 />
               ) : (
                 <video
-                  ref={(el) => (videoRefs.current[index] = el)}
+                  ref={(el) => { videoRefs.current[index] = el; }}
                   autoPlay={index === selectedIndex}
                   muted
                   playsInline
