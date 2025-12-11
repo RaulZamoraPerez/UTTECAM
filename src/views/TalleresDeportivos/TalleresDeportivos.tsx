@@ -98,7 +98,7 @@ const TalleresDeportivos = () => {
                   </div>
                   <div className="min-w-0">
                     <h4 className="font-semibold text-gray-800 text-sm md:text-base">Horario de Atención</h4>
-                    <p className="text-gray-600 text-sm md:text-base">Lunes a Viernes: 7:00 - 19:00</p>
+                    <p className="text-gray-600 text-sm md:text-base">{data.schedule || 'Lunes a Viernes: 7:00 - 19:00'}</p>
                   </div>
                 </div>
 
@@ -108,7 +108,7 @@ const TalleresDeportivos = () => {
                   </div>
                   <div className="min-w-0">
                     <h4 className="font-semibold text-gray-800 text-sm md:text-base">Ubicación</h4>
-                    <p className="text-gray-600 text-sm md:text-base">Instalaciones Deportivas UTTECAM</p>
+                    <p className="text-gray-600 text-sm md:text-base">{data.location || 'Instalaciones Deportivas UTTECAM'}</p>
                   </div>
                 </div>
 
@@ -118,7 +118,7 @@ const TalleresDeportivos = () => {
                   </div>
                   <div className="min-w-0">
                     <h4 className="font-semibold text-gray-800 text-sm md:text-base">Contacto</h4>
-                    <p className="text-gray-600 text-sm md:text-base">Coordinación Deportiva</p>
+                    <p className="text-gray-600 text-sm md:text-base">{data.contact_info || 'Coordinación Deportiva'}</p>
                   </div>
                 </div>
 
@@ -141,13 +141,13 @@ const TalleresDeportivos = () => {
                     <h4 className="font-bold text-gray-800 text-lg">Requisitos Generales</h4>
                   </div>
                   <ul className="space-y-3 text-gray-700">
-                    {[
+                    {(data.requirements ? data.requirements.split('\n') : [
                       'Ser estudiante activo de UTTECAM',
                       'Certificado médico vigente',
                       'Seguro de gastos médicos',
                       'Equipo deportivo básico',
                       'Compromiso de entrenamiento'
-                    ].map((req, index) => (
+                    ]).map((req: string, index: number) => (
                       <li key={index} className="flex items-start gap-2">
                         <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-blue-400 flex-shrink-0" />
                         <span>{req}</span>
@@ -155,6 +155,21 @@ const TalleresDeportivos = () => {
                     ))}
                   </ul>
                 </div>
+                
+                {/* Periodo de Inscripciones (Added if available) */}
+                {data.registration_info && (
+                  <div className="bg-yellow-50 p-6 rounded-xl border border-yellow-100">
+                    <div className="flex items-center gap-3 mb-4">
+                      <Clock className="h-6 w-6 text-yellow-600" />
+                      <h4 className="font-bold text-gray-800 text-lg">Periodo de Inscripciones</h4>
+                    </div>
+                    <div className="space-y-3 text-gray-700">
+                      {data.registration_info.split('\n').map((line: string, i: number) => (
+                        <p key={i}>{line}</p>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           </div>

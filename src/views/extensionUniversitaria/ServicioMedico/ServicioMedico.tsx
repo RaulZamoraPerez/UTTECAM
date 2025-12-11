@@ -53,6 +53,23 @@ export default function ServicioMedico() {
               />
             </div>
       </div>
+
+          {/* Información General Dinámica */}
+          <div className="w-full max-w-4xl mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="bg-white p-6 rounded-xl shadow-md border-l-4 border-[#0A9782]">
+              <h4 className="font-bold text-[#0A9782] mb-2">Horario</h4>
+              <p className="text-gray-600">{data.schedule || 'Lunes a Viernes: 8:00 - 20:00'}</p>
+            </div>
+            <div className="bg-white p-6 rounded-xl shadow-md border-l-4 border-[#0A9782]">
+              <h4 className="font-bold text-[#0A9782] mb-2">Ubicación</h4>
+              <p className="text-gray-600">{data.location || 'Consultorio Médico (Edificio A)'}</p>
+            </div>
+            <div className="bg-white p-6 rounded-xl shadow-md border-l-4 border-[#0A9782]">
+              <h4 className="font-bold text-[#0A9782] mb-2">Contacto</h4>
+              <p className="text-gray-600">{data.contact_info || 'Enfermería UTTECAM'}</p>
+            </div>
+          </div>
+
           {/* Sección de servicios ofrecidos */}
           <div className="w-full max-w-2xl mt-8 bg-white rounded-2xl shadow-lg border border-[#0A9782]/10 p-8 flex flex-col gap-6 items-center">
             <h3 className="text-lg font-bold text-[#0A9782] mb-2 flex items-center gap-2">
@@ -67,24 +84,22 @@ export default function ServicioMedico() {
               ))}
             </div>
           </div>
-          {/* Recomendaciones */}
+          {/* Recomendaciones / Requisitos */}
           <div className="w-full max-w-2xl mt-6 bg-[#F5F9F8] rounded-2xl shadow-lg border border-[#0A9782]/10 p-8 flex flex-col gap-4 items-center">
             <h4 className="text-md font-bold text-[#0A9782] mb-2 flex items-center gap-2">
-              <HeartPulse className="inline-block h-6 w-6 text-[#0A9782]" /> Recomendaciones
+              <HeartPulse className="inline-block h-6 w-6 text-[#0A9782]" /> {data.requirements ? 'Requisitos / Recomendaciones' : 'Recomendaciones'}
             </h4>
             <div className="flex flex-col gap-3 w-full">
-              <div className="flex items-center gap-3 bg-white rounded-lg px-4 py-3 shadow">
-                <HeartPulse className="h-5 w-5 text-[#0A9782]" />
-                <span className="text-gray-700 font-medium">Acude al servicio médico ante cualquier malestar o accidente.</span>
-              </div>
-              <div className="flex items-center gap-3 bg-white rounded-lg px-4 py-3 shadow">
-                <HeartPulse className="h-5 w-5 text-[#0A9782]" />
-                <span className="text-gray-700 font-medium">Respeta los horarios de atención.</span>
-              </div>
-              <div className="flex items-center gap-3 bg-white rounded-lg px-4 py-3 shadow">
-                <HeartPulse className="h-5 w-5 text-[#0A9782]" />
-                <span className="text-gray-700 font-medium">En caso de emergencia, informa a tu profesor o personal administrativo.</span>
-              </div>
+              {(data.requirements ? data.requirements.split('\n') : [
+                'Acude al servicio médico ante cualquier malestar o accidente.',
+                'Respeta los horarios de atención.',
+                'En caso de emergencia, informa a tu profesor o personal administrativo.'
+              ]).map((req: string, index: number) => (
+                <div key={index} className="flex items-center gap-3 bg-white rounded-lg px-4 py-3 shadow">
+                  <HeartPulse className="h-5 w-5 text-[#0A9782]" />
+                  <span className="text-gray-700 font-medium">{req}</span>
+                </div>
+              ))}
             </div>
           </div>
           {/* Emergencia */}

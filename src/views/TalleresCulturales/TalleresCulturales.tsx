@@ -114,7 +114,7 @@ const TalleresCulturales = () => {
                   </div>
                   <div className="min-w-0">
                     <h4 className="font-semibold text-gray-800 text-sm md:text-base">Horario de Atención</h4>
-                    <p className="text-gray-600 text-sm md:text-base">Lunes a Viernes: 9:00 - 17:00</p>
+                    <p className="text-gray-600 text-sm md:text-base">{renderData.schedule || 'Lunes a Viernes: 9:00 - 17:00'}</p>
                   </div>
                 </div>
 
@@ -124,7 +124,7 @@ const TalleresCulturales = () => {
                   </div>
                   <div className="min-w-0">
                     <h4 className="font-semibold text-gray-800 text-sm md:text-base">Ubicación</h4>
-                    <p className="text-gray-600 text-sm md:text-base">Edificio de Extensión Universitaria</p>
+                    <p className="text-gray-600 text-sm md:text-base">{renderData.location || 'Edificio de Extensión Universitaria'}</p>
                   </div>
                 </div>
 
@@ -134,7 +134,7 @@ const TalleresCulturales = () => {
                   </div>
                   <div className="min-w-0">
                     <h4 className="font-semibold text-gray-800 text-sm md:text-base">Contacto</h4>
-                    <p className="text-gray-600 text-sm md:text-base">Extensión Universitaria</p>
+                    <p className="text-gray-600 text-sm md:text-base">{renderData.contact_info || 'Extensión Universitaria'}</p>
                   </div>
                 </div>
 
@@ -158,12 +158,12 @@ const TalleresCulturales = () => {
                     <h4 className="font-bold text-gray-800 text-lg">Requisitos Generales</h4>
                   </div>
                   <ul className="space-y-3">
-                    {[
+                    {(renderData.requirements ? renderData.requirements.split('\n') : [
                       'Ser estudiante activo de UTTECAM',
                       'Credencial vigente',
                       'Llenar formato de inscripción',
                       'Compromiso de asistencia regular'
-                    ].map((req, index) => (
+                    ]).map((req: string, index: number) => (
                       <li key={index} className="flex items-start gap-2 text-gray-700">
                         <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-purple-400 flex-shrink-0" />
                         <span>{req}</span>
@@ -179,8 +179,16 @@ const TalleresCulturales = () => {
                     <h4 className="font-bold text-gray-800 text-lg">Periodo de Inscripciones</h4>
                   </div>
                   <div className="space-y-3 text-gray-700">
-                    <p><span className="font-semibold text-gray-900">Inicio:</span> Primera semana de cada cuatrimestre</p>
-                    <p><span className="font-semibold text-gray-900">Duración:</span> Todo el periodo cuatrimestral</p>
+                    {renderData.registration_info ? (
+                      renderData.registration_info.split('\n').map((line: string, i: number) => (
+                        <p key={i}>{line}</p>
+                      ))
+                    ) : (
+                      <>
+                        <p><span className="font-semibold text-gray-900">Inicio:</span> Primera semana de cada cuatrimestre</p>
+                        <p><span className="font-semibold text-gray-900">Duración:</span> Todo el periodo cuatrimestral</p>
+                      </>
+                    )}
                   </div>
                 </div>
               </div>

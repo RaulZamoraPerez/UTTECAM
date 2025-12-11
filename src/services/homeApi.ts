@@ -50,6 +50,8 @@ export const getHeroSlides = async (): Promise<HeroSlide[]> => {
 };
 
 export const getHeroSlideFileUrl = (filename: string): string => {
+  if (filename.startsWith('http')) return filename;
+  if (filename.startsWith('/')) return `${API_URL}${filename}`;
   return `${API_URL}/uploads/hero/${filename}`;
 };
 
@@ -62,6 +64,7 @@ export const getEventos = async (): Promise<Evento[]> => {
 
 export const getEventoActivo = async (): Promise<Evento | null> => {
   const response = await fetch(`${API_URL}/api/eventos/activo`);
+  if (response.status === 404) return null;
   if (!response.ok) throw new Error('Error al obtener evento activo');
   return response.json();
 };
@@ -74,6 +77,8 @@ export const getNoticias = async (): Promise<Noticia[]> => {
 };
 
 export const getNoticiaFileUrl = (filename: string): string => {
+  if (filename.startsWith('http')) return filename;
+  if (filename.startsWith('/')) return `${API_URL}${filename}`;
   return `${API_URL}/uploads/noticias/${filename}`;
 };
 
@@ -86,10 +91,13 @@ export const getAnuncios = async (): Promise<Anuncio[]> => {
 
 export const getAnuncioActivo = async (): Promise<Anuncio | null> => {
   const response = await fetch(`${API_URL}/api/anuncios/activo`);
+  if (response.status === 404) return null;
   if (!response.ok) throw new Error('Error al obtener anuncio activo');
   return response.json();
 };
 
 export const getAnuncioFileUrl = (filename: string): string => {
+  if (filename.startsWith('http')) return filename;
+  if (filename.startsWith('/')) return `${API_URL}${filename}`;
   return `${API_URL}/uploads/anuncios/${filename}`;
 };
