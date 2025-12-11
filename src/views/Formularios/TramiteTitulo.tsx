@@ -2,6 +2,7 @@ import { useState, useEffect, type ChangeEvent, type FormEvent } from "react";
 import { enviarFormulario } from '@/util/apiFormularios';
 import { useAlert } from '@/components/alerts/Formularios';
 import carreras from "@/util/carreras";
+import { obtenerCarreras } from "@/services/carreras.service";
 import { obtenerConfiguracionFormulario, type ConfiguracionFormulario } from "../../services/configuracionFormulario.service";
 import { Spinner } from "@/components/Spinner";
 import { 
@@ -32,6 +33,9 @@ export default function TramiteTitulo() {
   const [configuracion, setConfiguracion] = useState<ConfiguracionFormulario | null>(null);
   const [cargandoConfig, setCargandoConfig] = useState(true);
   const [errorConfig, setErrorConfig] = useState(false);
+
+  // Estado para las carreras dinámicas
+  const [carrerasLista, setCarrerasLista] = useState<string[]>(carreras);
 
   // Valores por defecto si la API falla
   const defaultTramiteInfo: {
@@ -81,6 +85,22 @@ export default function TramiteTitulo() {
       }
     };
     cargarConfiguracion();
+  }, []);
+
+  // Cargar carreras del backend
+  useEffect(() => {
+    const cargarCarreras = async () => {
+      try {
+        const response = await obtenerCarreras();
+        if (response.success && response.data.length > 0) {
+          setCarrerasLista(response.data.map(c => c.nombre));
+        }
+      } catch (error) {
+        console.error('Error al cargar carreras:', error);
+        // Si falla, usar carreras por defecto
+      }
+    };
+    cargarCarreras();
   }, []);
 
   // Combinar configuración de la API con valores por defecto
@@ -516,7 +536,7 @@ export default function TramiteTitulo() {
                     required
                   >
                     <option value="">Selecciona tu carrera</option>
-                    {carreras.map((carrera, index) => (
+                    {carrerasLista.map((carrera, index) => (
                       <option key={index} value={carrera}>
                         {carrera}
                       </option>

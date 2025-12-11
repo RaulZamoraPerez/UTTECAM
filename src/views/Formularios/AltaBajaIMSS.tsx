@@ -4,6 +4,7 @@ import { enviarFormulario } from '@/util/apiFormularios';
 import { useAlert } from '@/components/alerts/Formularios';
 import carreras, { carrerasPorNivel } from "@/util/carreras";
 import { obtenerConfiguracionFormulario, type ConfiguracionFormulario } from "../../services/configuracionFormulario.service";
+import { obtenerCarreras, filtrarCarrerasPorTipo, type Carrera } from "@/services/carreras.service";
 import { Spinner } from "@/components/Spinner";
 import { 
   ClipboardList, 
@@ -39,6 +40,10 @@ export default function AltaBajaIMSS() {
   const [configuracion, setConfiguracion] = useState<ConfiguracionFormulario | null>(null);
   const [cargandoConfig, setCargandoConfig] = useState(true);
   const [errorConfig, setErrorConfig] = useState(false);
+
+  // Estado para las carreras dinámicas
+  const [carrerasBackend, setCarrerasBackend] = useState<Carrera[]>([]);
+  const [usarCarrerasBackend, setUsarCarrerasBackend] = useState(false);
 
   // Valores por defecto si la API falla
   const defaultTramiteInfo: {
@@ -88,6 +93,23 @@ export default function AltaBajaIMSS() {
     cargarConfiguracion();
   }, []);
 
+  // Cargar carreras del backend
+  useEffect(() => {
+    const cargarCarreras = async () => {
+      try {
+        const response = await obtenerCarreras();
+        if (response.success && response.data.length > 0) {
+          setCarrerasBackend(response.data);
+          setUsarCarrerasBackend(true);
+        }
+      } catch (error) {
+        console.error('Error al cargar carreras:', error);
+        // Si falla, usar carreras por defecto (usarCarrerasBackend = false)
+      }
+    };
+    cargarCarreras();
+  }, []);
+
   // Combinar configuración de la API con valores por defecto
   const tramiteInfo = {
     titulo: configuracion?.info?.titulo || defaultTramiteInfo.titulo,
@@ -121,15 +143,31 @@ export default function AltaBajaIMSS() {
 
   // Función para filtrar carreras según el nivel seleccionado
   const getCarrerasPorNivel = () => {
-    if (!formData.nivel) return carreras;
-    
-    if (formData.nivel === 'TSU') {
-      return carrerasPorNivel.TSU;
-    } else if (formData.nivel === 'LIC/ING') {
-      return [...carrerasPorNivel.LIC, ...carrerasPorNivel.ING];
+    if (!formData.nivel) {
+      // Si estamos usando carreras del backend, devolver todas
+      if (usarCarrerasBackend) {
+        return carrerasBackend.map(c => c.nombre);
+      }
+      return carreras;
     }
     
-    return carreras;
+    if (usarCarrerasBackend) {
+      // Filtrar carreras del backend por tipo
+      if (formData.nivel === 'TSU') {
+        return filtrarCarrerasPorTipo(carrerasBackend, 'TSU').map(c => c.nombre);
+      } else if (formData.nivel === 'LIC/ING') {
+        return filtrarCarrerasPorTipo(carrerasBackend, 'INGENIERIA').map(c => c.nombre);
+      }
+    } else {
+      // Usar carreras estáticas por defecto
+      if (formData.nivel === 'TSU') {
+        return carrerasPorNivel.TSU;
+      } else if (formData.nivel === 'LIC/ING') {
+        return [...carrerasPorNivel.LIC, ...carrerasPorNivel.ING];
+      }
+    }
+    
+    return usarCarrerasBackend ? carrerasBackend.map(c => c.nombre) : carreras;
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {

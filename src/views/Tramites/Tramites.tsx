@@ -2,9 +2,10 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import ServicioCard from '@/components/ServiceCard';
 import { Spinner } from '@/components/Spinner';
-import { BookOpen, FileCheck, FileText, GraduationCap, Hospital, IdCard, RefreshCcw, Scroll, Users, UserCheck, X } from 'lucide-react'
+import { BookOpen, FileCheck, FileText, GraduationCap, Hospital, IdCard, RefreshCcw, Scroll, Users, X } from 'lucide-react'
 import type { ServicioCardProps } from '../../types/servicesType';
 import { obtenerTramitesInfo } from '@/services/tramites.service';
+import { obtenerOpcionesReinscripcionInfo, obtenerOpcionesReinscripcionCards, type OpcionReinscripcionCard } from '@/services/opcionesReinscripcion.service';
 
 // Extendemos el tipo para incluir la propiedad active y href
 interface ServicioExtendido extends ServicioCardProps {
@@ -76,6 +77,11 @@ export default function Tramites() {
   const [titulo, setTitulo] = useState("Servicios Escolares");
   const [subtitulo, setSubtitulo] = useState("El departamento de Servicios Escolares, brinda atención a los estudiantes y egresados de la Universidad Tecnológica de Tecamachalco, con respecto a los servicios que demanden durante su ingreso, permanencia y egreso.");
   const [cargando, setCargando] = useState(true);
+  
+  // Estado para el modal de opciones de reinscripción
+  const [tituloModal, setTituloModal] = useState("Opciones de Reinscripción");
+  const [subtituloModal, setSubtituloModal] = useState("Selecciona el tipo de reinscripción que corresponda a tu situación");
+  const [opcionesReinscripcion, setOpcionesReinscripcion] = useState<OpcionReinscripcionCard[]>([]);
 
   // Cargar título y subtítulo del backend
   useEffect(() => {
@@ -97,20 +103,44 @@ export default function Tramites() {
     cargarInfo();
   }, []);
 
-  const [selectedPdf, setSelectedPdf] = useState<{title: string, description: string, pdfSrc: string} | null>(null);
+  // Cargar título y subtítulo del modal de opciones de reinscripción
+  useEffect(() => {
+    const cargarInfoModal = async () => {
+      try {
+        const response = await obtenerOpcionesReinscripcionInfo();
+        
+        if (response.success && response.data) {
+          setTituloModal(response.data.titulo);
+          if (response.data.subtitulo) {
+            setSubtituloModal(response.data.subtitulo);
+          }
+        }
+      } catch (err) {
+        console.error('Error al cargar información del modal de reinscripción:', err);
+      }
+    };
 
-  const reinscripcionSubcards: ServicioCardProps[] = [
-    {
-      title: "Alumnos de la UTTecam",
-      description: "Reinscripción para estudiantes actuales de la Universidad Tecnológica de Tecamachalco.",
-      icon: <UserCheck />,
-    },
-    {
-      title: "Alumnos provenientes de generaciones anteriores y de otras Universidades Tecnológicas",
-      description: "Proceso especial para estudiantes de generaciones pasadas o transferencias.",
-      icon: <Users />,
-    },
-  ];
+    cargarInfoModal();
+  }, []);
+
+  // Cargar opciones de reinscripción (cards del modal)
+  useEffect(() => {
+    const cargarOpciones = async () => {
+      try {
+        const response = await obtenerOpcionesReinscripcionCards();
+        
+        if (response.success && response.data) {
+          setOpcionesReinscripcion(response.data);
+        }
+      } catch (err) {
+        console.error('Error al cargar opciones de reinscripción:', err);
+      }
+    };
+
+    cargarOpciones();
+  }, []);
+
+  const [selectedPdf, setSelectedPdf] = useState<{title: string, description: string, pdfSrc: string} | null>(null);
 
   const handleServiceClick = (clickedTitle: string) => {
     setServicios(prevServicios => 
@@ -132,28 +162,11 @@ export default function Tramites() {
     );
   };
 
-  const handleSubcardClick = (title: string) => {
-    let pdfData = null;
-    
-    if (title === "Alumnos de la UTTecam") {
-      pdfData = {
-        title: "Reinscripción - Alumnos UTTecam",
-        description: "Proceso de reinscripción para estudiantes actuales",
-        pdfSrc: "tramites/Alumnos de la UTTecamv2.pdf"
-      };
-    } else if (title === "Alumnos provenientes de generaciones anteriores y de otras Universidades Tecnológicas") {
-      pdfData = {
-        title: "Reinscripción - Alumnos de otras instituciones",
-        description: "Proceso especial para estudiantes de generaciones pasadas o transferencias",
-        pdfSrc: "tramites/Alumnos provenientes de generaciones anteriores y de otras Universidades Tecnologicas.pdf"
-      };
-    }
-    
-    if (pdfData) {
-      setSelectedPdf(pdfData);
-      // Cerrar el modal de reinscripción
-      closeModal();
-    }
+  const handleSubcardClick = (archivoUrl: string) => {
+    // Abrir el archivo en una nueva pestaña
+    window.open(archivoUrl, '_blank');
+    // Cerrar el modal de reinscripción
+    closeModal();
   };
 
   const closePdfModal = () => {
@@ -230,20 +243,24 @@ export default function Tramites() {
               {/* Contenido del modal */}
               <div className="p-8">
                 <h3 className="text-3xl font-bold text-amber-700 mb-2 text-center">
-                  Opciones de Reinscripción
+                  {tituloModal}
                 </h3>
                 <p className="text-amber-800 text-center mb-8">
-                  Selecciona el tipo de reinscripción que corresponda a tu situación
+                  {subtituloModal}
                 </p>
                 
                 <div className="grid gap-8 grid-cols-1 lg:grid-cols-2 justify-items-center items-stretch">
-                  {reinscripcionSubcards.map((subcard, idx) => (
+                  {opcionesReinscripcion.map((opcion) => (
                     <div 
-                      key={idx} 
-                      onClick={() => handleSubcardClick(subcard.title)}
+                      key={opcion.id} 
+                      onClick={() => handleSubcardClick(opcion.archivoUrl)}
                       className="transform transition-all duration-300 hover:scale-105 cursor-pointer w-full max-w-[350px] h-[200px]"
                     >
-                      <ServicioCard {...subcard} />
+                      <ServicioCard 
+                        title={opcion.titulo}
+                        description={opcion.subtitulo}
+                        icon={<Users />}
+                      />
                     </div>
                   ))}
                 </div>

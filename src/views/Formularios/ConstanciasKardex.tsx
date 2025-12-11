@@ -5,6 +5,7 @@ import { obtenerConfiguracionFormulario } from '../../services/configuracionForm
 import type { ConfiguracionFormulario } from '../../services/configuracionFormulario.service';
 import { Spinner } from '@/components/Spinner';
 import carreras, { carrerasPorNivel } from "@/util/carreras";
+import { obtenerCarreras, filtrarCarrerasPorTipo, type Carrera } from "@/services/carreras.service";
 import {
   Clock,
   DollarSign,
@@ -44,6 +45,10 @@ export default function ConstanciasKardex() {
   const [configuracion, setConfiguracion] = useState<ConfiguracionFormulario | null>(null);
   const [cargandoConfig, setCargandoConfig] = useState(true);
   const [errorConfig, setErrorConfig] = useState<string | null>(null);
+
+  // Estado para las carreras dinámicas
+  const [carrerasBackend, setCarrerasBackend] = useState<Carrera[]>([]);
+  const [usarCarrerasBackend, setUsarCarrerasBackend] = useState(false);
 
   const [formData, setFormData] = useState<FormData>({
     nombre: "",
@@ -137,17 +142,46 @@ export default function ConstanciasKardex() {
     cargarConfiguracion();
   }, []);
 
+  // Cargar carreras del backend
+  useEffect(() => {
+    const cargarCarreras = async () => {
+      try {
+        const response = await obtenerCarreras();
+        if (response.success && response.data.length > 0) {
+          setCarrerasBackend(response.data);
+          setUsarCarrerasBackend(true);
+        }
+      } catch (error) {
+        console.error('Error al cargar carreras:', error);
+      }
+    };
+    cargarCarreras();
+  }, []);
+
   // Función para filtrar carreras según el nivel seleccionado
   const getCarrerasPorNivel = () => {
-    if (!formData.nivel) return carreras;
-    
-    if (formData.nivel === 'TSU') {
-      return carrerasPorNivel.TSU;
-    } else if (formData.nivel === 'LIC/ING') {
-      return [...carrerasPorNivel.LIC, ...carrerasPorNivel.ING];
+    if (!formData.nivel) {
+      if (usarCarrerasBackend) {
+        return carrerasBackend.map(c => c.nombre);
+      }
+      return carreras;
     }
     
-    return carreras;
+    if (usarCarrerasBackend) {
+      if (formData.nivel === 'TSU') {
+        return filtrarCarrerasPorTipo(carrerasBackend, 'TSU').map(c => c.nombre);
+      } else if (formData.nivel === 'LIC/ING') {
+        return filtrarCarrerasPorTipo(carrerasBackend, 'INGENIERIA').map(c => c.nombre);
+      }
+    } else {
+      if (formData.nivel === 'TSU') {
+        return carrerasPorNivel.TSU;
+      } else if (formData.nivel === 'LIC/ING') {
+        return [...carrerasPorNivel.LIC, ...carrerasPorNivel.ING];
+      }
+    }
+    
+    return usarCarrerasBackend ? carrerasBackend.map(c => c.nombre) : carreras;
   };
 
   const handleChange = (
