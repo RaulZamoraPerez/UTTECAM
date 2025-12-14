@@ -86,7 +86,7 @@ export default function Router() {
             <Route path="/Coordinacion" element={<Coordinacion />} />
             <Route path="/portal-estudiantes" element={<MiEscuela />} />
             <Route path="/becas-academicas" element={<Becas />} />
-            <Route path="/enlaces" element={<Enlaces />} />
+            <Route path="/biblioteca-digital" element={<Enlaces />} />
          
             <Route path="/InformacionEstadistica" element={<InformacionEstadistica />} />
             <Route path="/Organigrama" element={<Organigrama />} />

@@ -1,9 +1,9 @@
-// Importación de componentes necesarios
+
 import HeroCarousel from "@/components/HeroCarousel";
 import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 
-// IMPORTS DIRECTOS para carga rápida (sin lazy loading)
+
 import EducationalModels from "@/components/ProgramsDetails/EducationalModels";
 import EducationalPrograms from "@/components/ProgramsDetails/EducationalPrograms";
 import Countdown from "@/components/Countdown";
@@ -11,7 +11,7 @@ import { FormContact } from "@/components/Form/FormContact";
 import CarrucelNoticias from "@/components/CarrucelNoticias";
 import ModalInicial from "@/components/Modal/ModalInicial";
 
-// Loader para la página completa
+
 const PageLoader = () => (
   <div className="flex flex-col items-center justify-center h-screen bg-white px-4 sm:px-6 text-center">
     <img
@@ -42,12 +42,12 @@ const Home = () => {
 
   useEffect(() => {
     const isMobile = window.innerWidth <= 768;
-    const loadingTime = isMobile ? 800 : 600; // Móvil: 800ms (original), Desktop: 600ms (optimizado)
+    const loadingTime = isMobile ? 800 : 600; 
     const timer = setTimeout(() => {
      
 
       setIsPageLoading(false);
-      setShowVideo(true); // Siempre mostrar video por defecto
+      setShowVideo(true); 
     }, loadingTime);
 
     if (location.hash === "#carreras") {
@@ -67,14 +67,13 @@ const Home = () => {
 
   return (
     <>
-      {/* Carrusel principal de la página - Carga inmediata */}
       {showVideo ? (
-        <HeroCarousel showVideo />
+        <HeroCarousel showVideo /> 
       ) : (
         <HeroCarousel showVideo={false} />
       )}
 
-      {/* Componentes cargados directamente - Sin lazy loading */}
+      {/* es un contador */}
       <Countdown />
 
       <EducationalModels />
