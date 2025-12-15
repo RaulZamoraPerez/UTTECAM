@@ -46,35 +46,36 @@ export const getCarreraById = async (id: number): Promise<Carrera> => {
 };
 
 // Helper para obtener URL de imagen
-// El backend guarda: imagen='caratulas/{filename}' o imagen_portada='portadas/{filename}'
-// La ruta completa es: /uploads/carreras/caratulas/ o /uploads/carreras/portadas/
 export const getCarreraImageUrl = (filename: string): string => {
   if (!filename) return '/placeholder-carrera.jpg';
   // Si ya es una URL absoluta
   if (filename.startsWith('http://') || filename.startsWith('https://')) {
     return filename;
   }
-  // El backend guarda rutas relativas como 'caratulas/{file}' o 'portadas/{file}'
-  // Construir la ruta completa
+  // Si ya incluye /uploads/, usarla directamente (con proxy o API_URL si existe)
+  if (filename.startsWith('/uploads/')) {
+    return API_URL ? `${API_URL}${filename}` : filename;
+  }
+  // Si no, construir la ruta completa (legacy)
   return `${API_URL}/uploads/carreras/${filename}`;
 };
 
 // Helper para obtener URL de plan de estudios
-// El backend guarda: plan_estudios_url='{filename}' (solo el nombre del archivo)
-// La ruta completa es: /uploads/carreras/planes/{filename}
 export const getCarreraPlanUrl = (filename: string): string => {
   if (!filename) return '';
   if (filename.startsWith('http://') || filename.startsWith('https://')) return filename;
-  // El backend guarda solo el nombre del archivo, construir ruta completa
+  if (filename.startsWith('/uploads/')) {
+    return API_URL ? `${API_URL}${filename}` : filename;
+  }
   return `${API_URL}/uploads/carreras/planes/${filename}`;
 };
 
 // Helper para obtener URL de video
-// El backend guarda: video_url='{filename}' (solo el nombre del archivo)
-// La ruta completa es: /uploads/carreras/videos/{filename}
 export const getCarreraVideoUrl = (filename: string): string => {
   if (!filename) return '';
   if (filename.startsWith('http://') || filename.startsWith('https://')) return filename;
-  // El backend guarda solo el nombre del archivo, construir ruta completa
+  if (filename.startsWith('/uploads/')) {
+    return API_URL ? `${API_URL}${filename}` : filename;
+  }
   return `${API_URL}/uploads/carreras/videos/${filename}`;
 };

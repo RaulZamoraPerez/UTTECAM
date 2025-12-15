@@ -16,6 +16,11 @@ export interface Evento {
   titulo: string;
   descripcion: string;
   fecha_evento: string;
+  tema?: string;
+  color?: string;
+  imagen_fondo_url?: string | null;
+  texto_boton?: string | null;
+  url_boton?: string | null;
   activo: boolean;
   createdAt: string;
   updatedAt: string;
@@ -67,6 +72,13 @@ export const getEventoActivo = async (): Promise<Evento | null> => {
   if (response.status === 404) return null;
   if (!response.ok) throw new Error('Error al obtener evento activo');
   return response.json();
+};
+
+export const getEventoImageUrl = (filename: string | null | undefined): string | null => {
+  if (!filename) return null;
+  if (filename.startsWith('http://') || filename.startsWith('https://')) return filename;
+  if (filename.startsWith('/')) return `${API_URL}${filename}`;
+  return `${API_URL}/uploads/eventos/${filename}`;
 };
 
 // Noticias
