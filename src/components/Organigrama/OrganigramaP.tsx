@@ -1,10 +1,12 @@
-import { useState, useRef } from "react";
-import { dataOrganigrama, type CustomOrgNode } from "@/data/Organigrama.data";
+import { useState, useRef, useEffect } from "react";
 import { ZoomIn, ZoomOut, RotateCcw, Minus, Plus, Info } from "lucide-react";
+import { getOrganigrama } from "@/services/organigramaService";
+import type { OrganigramaNode } from "@/types/organigrama";
+import { Spinner } from "@/components/Spinner";
 
 // --- Components ---
 
-const NodeCard = ({ node, depth, onToggle }: { node: CustomOrgNode; depth: number; onToggle: () => void }) => {
+const NodeCard = ({ node, depth, onToggle }: { node: OrganigramaNode; depth: number; onToggle: () => void }) => {
   const hasChildren = node.children && node.children.length > 0;
   const [showInfo, setShowInfo] = useState(false);
   
@@ -99,7 +101,7 @@ const NodeCard = ({ node, depth, onToggle }: { node: CustomOrgNode; depth: numbe
   );
 };
 
-const TreeNode = ({ node, depth = 0 }: { node: CustomOrgNode; depth?: number }) => {
+const TreeNode = ({ node, depth = 0 }: { node: OrganigramaNode; depth?: number }) => {
   const [expanded, setExpanded] = useState(node.expanded ?? true);
   const hasChildren = node.children && node.children.length > 0;
 
@@ -167,11 +169,83 @@ const TreeNode = ({ node, depth = 0 }: { node: CustomOrgNode; depth?: number }) 
 };
 
 export default function OrganigramaP() {
+  const [data, setData] = useState<OrganigramaNode[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
   const [scale, setScale] = useState(0.8);
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = useState(false);
   const [startPos, setStartPos] = useState({ x: 0, y: 0 });
   const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    // Implement SWR (Stale-While-Revalidate) strategy with LocalStorage
+    const CACHE_KEY = 'organigrama_cache';
+    let isMounted = true;
+
+    const loadData = async () => {
+      // 1. Try to load from cache first for instant render
+      const cachedRaw = localStorage.getItem(CACHE_KEY);
+      if (cachedRaw) {
+        try {
+          const { data } = JSON.parse(cachedRaw);
+          // If valid data, show it immediately
+          if (data && Array.isArray(data)) {
+             if(isMounted) {
+               setData(data);
+               setLoading(false); 
+             }
+             // Optional: If cache is very fresh (< 1 min), maybe skip fetch? 
+             // unique request: "no hacer muchas llamadas ... pero si hay cambios detecte"
+             // SWR is the best answer: Show cache, then check server.
+          }
+        } catch (e) {
+          console.error("Cache parse error", e);
+        }
+      }
+
+      // 2. Fetch fresh data from API
+      try {
+        const freshData = await getOrganigrama();
+        
+        if (!isMounted) return;
+
+        // Save to cache
+        localStorage.setItem(CACHE_KEY, JSON.stringify({
+          data: freshData,
+          timestamp: Date.now()
+        }));
+
+        // We could optimize by comparing 'freshData' with 'data' state before setting
+        // But React likely handles setting same object ref nicely, 
+        // passing a new object (even if identical content) might trigger re-render.
+        // A simple JSON string comparison can avoid unnecessary state update if identical.
+        if (cachedRaw) {
+           const cachedData = JSON.parse(cachedRaw).data;
+           if (JSON.stringify(freshData) === JSON.stringify(cachedData)) {
+              // Data is strictly the same, no need to update state
+              if(isMounted) setLoading(false); 
+              return;
+           }
+        }
+
+        setData(freshData);
+        setLoading(false);
+
+      } catch (err) {
+        console.error(err);
+        if(isMounted) {
+           setError("Error cargando organigrama");
+           setLoading(false);
+        }
+      }
+    };
+
+    loadData();
+
+    return () => { isMounted = false; };
+  }, []);
 
   const handleMouseDown = (e: React.MouseEvent) => {
     setIsDragging(true);
@@ -196,6 +270,9 @@ export default function OrganigramaP() {
     setScale(0.8);
     setPosition({ x: 0, y: 0 });
   };
+
+  if (loading) return <div className="h-screen flex items-center justify-center"><Spinner text="Cargando organigrama..." /></div>;
+  if (error) return <div className="h-screen flex items-center justify-center text-red-500">{error}</div>;
 
   return (
     <div className="relative w-full h-[calc(100vh-80px)] bg-white overflow-hidden select-none font-sans">
@@ -245,7 +322,7 @@ export default function OrganigramaP() {
         >
           {/* Root */}
           <div className="flex justify-center">
-            {dataOrganigrama.map((node, idx) => (
+            {data.map((node, idx) => (
               <TreeNode key={idx} node={node} />
             ))}
           </div>

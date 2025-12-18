@@ -48,6 +48,9 @@ const Nosotros = lazy(() => import("@/views/Nosotros/Nosotros"));
 const ConvocatoriaAdmision = lazy(() => import("@/views/Convocatoria/ConvocatoriaAdmision"));
 const Tramites = lazy(() => import("@/views/Tramites/Tramites"));
 const Becas = lazy(() => import("@/views/Becas/Becas"));
+const ProgramasDesarrollo = lazy(() => import("@/views/ProgramasDesarrollo/ProgramasDesarrollo"));
+// const Comites = lazy(() => import("@/views/Comites/Comites")); // Generic view, replacing with specific ones
+const ComiteDetail = lazy(() => import("@/views/Comites/ComiteDetail"));
 
 const TalleresCulturales = lazy(() => import("@/views/TalleresCulturales/TalleresCulturales"));
 const TalleresDeportivos = lazy(() => import("@/views/TalleresDeportivos/TalleresDeportivos"));
@@ -98,6 +101,13 @@ export default function Router() {
             <Route path="/educacion-continua" element={<EducacionContinua />} />
             <Route path="/educacion-continua/cursos" element={<CursosEducacionContinua />} />
              <Route path="/practicas-y-estadias" element={<PracticasEstadias />} />
+             <Route path="/programas-desarrollo" element={<ProgramasDesarrollo />} />
+             
+             {/* Comites Routes */}
+             <Route path="/comite-academico" element={<ComiteDetail slug="academico" />} />
+             <Route path="/comite-vinculacion" element={<ComiteDetail slug="vinculacion" />} />
+             <Route path="/comite-calidad" element={<ComiteDetail slug="calidad" />} />
+             <Route path="/comite-investigacion" element={<ComiteDetail slug="investigacion" />} />
               
           </Route>
           <Route path="*" element={<Page_404 />} />
