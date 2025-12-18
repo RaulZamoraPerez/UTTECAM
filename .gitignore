@@ -34,6 +34,9 @@ VIDEOS
 *.avi
 *.mkv
 
+# Variables de entorno
+.env
+
 GACETA
 *.pdf
 *.doc

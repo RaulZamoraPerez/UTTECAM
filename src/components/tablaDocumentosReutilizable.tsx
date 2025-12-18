@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { Search, FileText, Download, Library } from "lucide-react";
-
+import { Search, FileText, Download, Library, Eye } from "lucide-react";
+import { Link } from "react-router-dom";
 import { formatearTitulo } from "../util/Formatt";
+import { obtenerUrlDocumentoConvocatoria } from "@/services/convocatoriaTitulo.service";
 
 interface Documento {
   id: string;
@@ -35,6 +36,33 @@ export default function tablaDocumentosReutilizable({
     secciones[0]?.id ?? null
   );
 
+  // Función para manejar la visualización de documentos con manejo de errores
+  const handleVisualizarDocumento = async (documentoId: string) => {
+    try {
+      const url = obtenerUrlDocumentoConvocatoria(documentoId);
+      
+      // Intentar abrir en nueva pestaña
+      const newWindow = window.open(url, '_blank');
+      
+      // Verificar si el documento existe haciendo una petición
+      const response = await fetch(url);
+      
+      if (!response.ok) {
+        // Si hay error, cerrar la ventana si se abrió
+        if (newWindow) {
+          newWindow.close();
+        }
+        
+        // Intentar obtener el mensaje de error del servidor
+        const errorData = await response.json().catch(() => ({ error: 'No se pudo cargar el documento' }));
+        alert(`Error: ${errorData.error || 'No se encontró el documento'}`);
+      }
+    } catch (error) {
+      alert('Error al intentar visualizar el documento. Por favor, intente nuevamente.');
+      console.error('Error al visualizar documento:', error);
+    }
+  };
+
   // Función para manejar la descarga de documentos
   const descargarDocumento = (documento: Documento) => {
     try {
@@ -62,7 +90,8 @@ export default function tablaDocumentosReutilizable({
         doc.titulo.toLowerCase().includes(searchTerm.toLowerCase())
       ),
     }))
-    .filter((seccion) => seccion.documentos.length > 0);
+    // Solo filtrar secciones vacías si hay un término de búsqueda activo
+    .filter((seccion) => searchTerm === "" || seccion.documentos.length > 0);
 
   return (
     <div className="min-h-screen bg-gray-50 py-10">
@@ -130,38 +159,75 @@ export default function tablaDocumentosReutilizable({
                     </div>
                   </div>
                   <div className="p-0">
-                    <ul>
-                      {seccion.documentos.map((documento, index) => (
-                        <li
-                          key={documento.id}
-                          className="p-4 border-b border-gray-100 last:border-b-0 hover:bg-gray-50 transition-colors duration-150"
-                        >
-                          <div className="flex items-start gap-3">
-                            <div className="flex items-center justify-center h-8 w-8 rounded-full bg-[#0A9782]/10 text-[#0A9782] font-medium">
-                              {index + 1}
-                            </div>
+                    {seccion.documentos.length === 0 ? (
+                      // Mensaje cuando no hay documentos
+                      <div className="p-10 text-center">
+                        <p className="text-gray-600 text-lg">
+                          No hay documentos a presentar por el momento
+                        </p>
+                      </div>
+                    ) : (
+                      <ul>
+                        {seccion.documentos.map((documento, index) => (
+                          <li
+                            key={documento.id}
+                            className="p-4 border-b border-gray-100 last:border-b-0 hover:bg-gray-50 transition-colors duration-150"
+                          >
+                            <div className="flex items-start gap-3">
+                              <div className="flex items-center justify-center h-8 w-8 rounded-full bg-[#0A9782]/10 text-[#0A9782] font-medium">
+                                {index + 1}
+                              </div>
                             <div className="flex-1">
                               <div className="flex items-start justify-between gap-4">
                                 <div className="flex items-start gap-2">
                                   <FileText className="h-5 w-5 mt-0.5 flex-shrink-0 text-[#D1672A]" />
+                                  
+                                  {/* Para Convocatoria Título, usar button que abre en nueva pestaña */}
+                                  {nextUrl === "-CONVOCATORIA-TITULO" ? (
+                                    <button
+                                      onClick={() => handleVisualizarDocumento(documento.id)}
+                                      className="font-medium text-gray-800 hover:text-[#D1672A] hover:underline transition-colors duration-150 text-left"
+                                    >
+                                      {formatearTitulo(documento.titulo)}
+                                    </button>
+                                  ) : (
+                                    <Link
+                                      to={`/ver-documento${nextUrl? nextUrl : ''}/${(documento.titulo)}${documento.año? `?año=${documento.año}`: ""}`}
+                                      className="font-medium text-gray-800 hover:text-[#D1672A] hover:underline transition-colors duration-150 text-"
+                                    >
+                                      {formatearTitulo(documento.titulo)}
+                                    </Link>
+                                  )}
                                   <span className="font-medium text-gray-800">
                                     {formatearTitulo(documento.titulo)}
                                   </span>
                                 </div>
                               
-                                <button
-                                  onClick={() => descargarDocumento(documento)}
-                                  className="flex-shrink-0 p-2 text-[#D1672A] hover:bg-[#D1672A]/10 rounded-lg transition-colors duration-150"
-                                  title="Descargar archivo"
-                                >
-                                  <Download className="h-4 w-4" />
-                                </button>
+                                {/* Mostrar icono de ojo para Convocatoria Título, descarga para otros */}
+                                {nextUrl === "-CONVOCATORIA-TITULO" ? (
+                                  <button
+                                    onClick={() => handleVisualizarDocumento(documento.id)}
+                                    className="flex-shrink-0 p-2 text-[#0A9782] hover:bg-[#0A9782]/10 rounded-lg transition-colors duration-150"
+                                    title="Visualizar documento"
+                                  >
+                                    <Eye className="h-4 w-4" />
+                                  </button>
+                                ) : (
+                                  <a
+                                    href={`/PIT/${documento.titulo}`}
+                                    download
+                                    className="flex-shrink-0 p-2 text-[#D1672A] hover:bg-[#D1672A]/10 rounded-lg transition-colors duration-150"
+                                  >
+                                    <Download className="h-4 w-4" />
+                                  </a>
+                                )}
                               </div>
                             </div>
                           </div>
                         </li>
                       ))}
                     </ul>
+                    )}
                   </div>
                 </div>
               )

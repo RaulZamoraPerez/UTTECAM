@@ -86,7 +86,9 @@ export default function Navbar() {
         {
           label: "Becas y apoyos",
           href: "/becas-apoyos",
-          submenu: [{ label: "Becas académicas", href: "/becas-academicas" }],
+          submenu: [
+            { label: "Becas académicas", href: "/becas-academicas" }
+          ],
         },
         {
           label: "Biblioteca digital",

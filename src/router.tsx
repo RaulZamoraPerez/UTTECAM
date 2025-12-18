@@ -52,6 +52,13 @@ const Becas = lazy(() => import("@/views/Becas/Becas"));
 const TalleresCulturales = lazy(() => import("@/views/TalleresCulturales/TalleresCulturales"));
 const TalleresDeportivos = lazy(() => import("@/views/TalleresDeportivos/TalleresDeportivos"));
 const Enlaces = lazy(() => import("@/views/enlaces/Enlaces"));
+import ConstanciasKardex from "./views/Formularios/ConstanciasKardex";
+import CertificadoEstudios from "./views/Formularios/CertificadoEstudios";
+import CartaPasante from "./views/Formularios/CartaPasante";
+import ReposicionCredencial from "./views/Formularios/ReposicionCredencial";
+import AltaBajaIMSS from "./views/Formularios/AltaBajaIMSS";
+import TramiteTitulo from "./views/Formularios/TramiteTitulo";
+import Reinscripcion from "./views/Formularios/Reinscripcion";
 
 export default function Router() {
   return (
@@ -99,10 +106,17 @@ export default function Router() {
             <Route path="/educacion-continua/cursos" element={<CursosEducacionContinua />} />
              <Route path="/practicas-y-estadias" element={<PracticasEstadias />} />
               
+            
+            {/* Formularios */}
+            <Route path="/constancia-kardex" element={<ConstanciasKardex />} />
+            <Route path="/certificado-estudios" element={<CertificadoEstudios />} />
+            <Route path="/tramite-titulo" element={<TramiteTitulo />} />
+            <Route path="/carta-pasante" element={<CartaPasante />} />
+            <Route path="/reposicion-credencial" element={<ReposicionCredencial />} />
+            <Route path="/imss" element={<AltaBajaIMSS />} />
+            <Route path="/reinscripcion" element={<Reinscripcion />} />
           </Route>
           <Route path="*" element={<Page_404 />} />
-
-
         </Routes>
       </Suspense>
     </BrowserRouter>
