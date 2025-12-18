@@ -63,25 +63,9 @@ export default function tablaDocumentosReutilizable({
     }
   };
 
-  // Función para manejar la descarga de documentos
-  const descargarDocumento = (documento: Documento) => {
-    try {
-      // Usa el archivo específico si está definido, sino usa el titulo
-      const nombreArchivo = documento.archivo || documento.titulo;
-      // Si hay nextUrl lo usa, sino usa PIT por defecto (para compatibilidad)
-      const carpeta = nextUrl ? nextUrl.replace('-', '') : 'PIT';
-      const rutaArchivo = `/${carpeta}/${nombreArchivo}`;
-      const link = document.createElement('a');
-      link.href = rutaArchivo;
-      link.download = nombreArchivo;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    } catch (error) {
-      console.error('Error al descargar el documento:', error);
-      alert('Error al descargar el documento. Por favor, inténtalo de nuevo.');
-    }
-  };
+
+
+
 
   const filteredSecciones = secciones
     .map((seccion) => ({

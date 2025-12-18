@@ -41,6 +41,59 @@ const Becas = () => {
 
       <div className="max-w-6xl mx-auto px-4 pb-24 space-y-24">
     
+        {/* Sección: Resultados Beca de Estadía Profesional */}
+        <div className="relative mb-12">
+          <div className="absolute inset-0 bg-gradient-to-r from-green-50 to-emerald-50 rounded-3xl transform rotate-1"></div>
+          <div className="relative bg-white rounded-3xl shadow-xl shadow-gray-100/50 border border-gray-100 overflow-hidden">
+            <div className="p-8 md:p-12">
+              <div className="flex flex-col lg:flex-row gap-12 items-center">
+                <div className="flex-1 space-y-8">
+                  <div>
+                    <div className="flex items-center gap-3 mb-4">
+                      <span className="flex h-3 w-3 relative">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                        <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+                      </span>
+                      <span className="text-green-600 font-bold tracking-wider text-sm uppercase">Resultados Publicados</span>
+                    </div>
+                    <h2 className="text-3xl md:text-4xl font-bold text-gray-900 leading-tight mb-4">
+                      Resultados de Beca de Estadía Profesional <br/>
+                      <span className="text-gray-400">Enero - Abril 2026</span>
+                    </h2>
+                    <p className="text-gray-600 text-lg leading-relaxed">
+                      Se publican los resultados de las becas para el cuatrimestre enero - abril 2026 para estudiantes en periodo de estadía.
+                    </p>
+                  </div>
+
+                  <div className="flex flex-wrap gap-4">
+                    <div className="inline-flex items-center bg-gray-900 hover:bg-gray-800 text-white px-8 py-4 rounded-xl font-medium transition-all shadow-lg shadow-gray-200 hover:shadow-xl hover:-translate-y-1">
+                      <PdfBecasExcencion
+                        title="Resultados Beca de Estadía Profesional 11vo Cuatrimestre Enero - Abril 2026"
+                        description="Descargar Resultados"
+                        pdfSrc="/becas/RESULTADOS DE LA BECA DE ESTADIA PROFESIONAL 11VO CUATRIMESTRE ENERO - ABRIL 2026.pdf"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="w-full lg:w-4/12 flex justify-center">
+                  <div 
+                    className="relative group cursor-pointer" 
+                    onClick={() => handleImageClick('/becas/becas_motocle.png')}
+                  >
+                    <div className="absolute inset-0 bg-green-200 blur-3xl opacity-20 rounded-full group-hover:opacity-40 transition-opacity"></div>
+                    <img 
+                      src="/becas/becas_motocle.png" 
+                      alt="Resultados Beca Estadía" 
+                      className="relative w-full max-w-[280px] h-auto object-contain transform group-hover:scale-105 transition-transform duration-500 drop-shadow-2xl"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div className="relative">
           <div className="absolute inset-0 bg-gradient-to-r from-green-50 to-emerald-50 rounded-3xl transform -rotate-1"></div>
           <div className="relative bg-white rounded-3xl shadow-xl shadow-gray-100/50 border border-gray-100 overflow-hidden">

@@ -6,7 +6,7 @@ import {
   type DocumentoConvocatoria
 } from "@/services/convocatoriaTitulo.service";
 
-import TablaDocumentosReutilizable2 from '@/components/tablaDocumentosReutilizable2';
+
 import TablaDocumentosReutilizable from "@/components/tablaDocumentosReutilizable";
 
 const ConvocatoriaTitulo = () => {
