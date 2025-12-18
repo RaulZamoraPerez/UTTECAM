@@ -4,7 +4,7 @@ const datos = [
         id: "",
         titulo: "Documentos del Programa Institucional de Tutorías (PIT)",
         documentos: [
-            { id: "doc1",  titulo: "1.ProgramaInstitucionalDeTutorias2018.pdf" },
+            { id: "doc1",  titulo: "1.ProgramaInstitucionalDeTutorias2018.pdf", archivo: "1.ProgramaInstitucionalDeTutorias2018-2.pdf" },
             { id: "doc2",  titulo: "2.ReglamentoProgramaInstitucionalTutorias.pdf" },
             { id: "doc3",  titulo: "3.ManualProcedimientosTutorias.pdf" },
             { id: "doc4",  titulo: "4.APITIT01-R02RegistroDeAlumnosAsignados.xlsx" },

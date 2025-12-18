@@ -2,11 +2,13 @@ import { useState } from "react"
 import { Search, FileText, Download, Library } from "lucide-react"
 import { Secciones } from "./Secciones"
 import { Secciones2 } from "./Secciones2"
+import {  data, dataFormatos } from "@/data/CapetaStructura.data"
 
 interface Documento {
     id: string
     titulo: string
     archivo: string // Nuevo campo para ruta del PDF
+    facebookLink?: string // Link de Facebook opcional
 }
 
 interface Seccion {
@@ -27,6 +29,7 @@ export default function tablaDocumentosReutilizable2({ secciones, titulo, descri
     const [searchTerm, setSearchTerm] = useState("")
     const [seccionActiva, setSeccionActiva] = useState<string | null>(secciones[0]?.id ?? null)
     const [pdfSeleccionado, setPdfSeleccionado] = useState<string | null>(null) // Estado para visor PDF
+    const [documentoSeleccionado, setDocumentoSeleccionado] = useState<Documento | null>(null) // Estado para documento completo
 
     const filteredSecciones = secciones
         .map((seccion) => ({
@@ -102,7 +105,21 @@ export default function tablaDocumentosReutilizable2({ secciones, titulo, descri
   if (seccion.titulo === "Instrucciones de trabajo") {
     return (
       <div key={seccion.id}>
-        <Secciones />
+        <Secciones 
+          data={data}
+          searchTerm={searchTerm}
+        />
+      </div>
+    );
+  }
+
+  if( seccion.titulo === "Formatos") {
+    return (
+      <div key={seccion.id}>
+        <Secciones 
+          data={dataFormatos}
+          searchTerm={searchTerm}
+        />
       </div>
     );
   }
@@ -111,7 +128,9 @@ export default function tablaDocumentosReutilizable2({ secciones, titulo, descri
   if (seccion.titulo === "Convocatorias para Profesor de Asignatura SEP-DIC-2025") {
     return (
       <div key={seccion.id}>
-        <Secciones2 />
+        <Secciones2 
+          searchTerm={searchTerm}
+        />
       </div>
     );
   }
@@ -137,20 +156,38 @@ export default function tablaDocumentosReutilizable2({ secciones, titulo, descri
                         href="#"
                         onClick={(e) => {
                           e.preventDefault();
-                          if (documento.archivo) setPdfSeleccionado(encodeURI(documento.archivo));
+                          if (documento.archivo) {
+                            setPdfSeleccionado(encodeURI(documento.archivo));
+                            setDocumentoSeleccionado(documento);
+                          }
                         }}
                         className="font-medium text-gray-800 hover:text-[#D1672A] hover:underline transition-colors duration-150"
                       >
                         {documento.titulo}
                       </a>
                     </div>
-                    <a
-                      href={encodeURI(documento.archivo)}
-                      download
-                      className="flex-shrink-0 p-2 text-[#D1672A] hover:bg-[#D1672A]/10 rounded-lg transition-colors duration-150"
-                    >
-                      <Download className="h-4 w-4" />
-                    </a>
+                    <div className="flex gap-2">
+                      <a
+                        href={encodeURI(documento.archivo)}
+                        download
+                        className="flex-shrink-0 p-2 text-[#D1672A] hover:bg-[#D1672A]/10 rounded-lg transition-colors duration-150"
+                      >
+                        <Download className="h-4 w-4" />
+                      </a>
+                      {documento.facebookLink && (
+                        <a
+                          href={documento.facebookLink}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex-shrink-0 p-2 text-blue-600 hover:bg-blue-100 rounded-lg transition-colors duration-150"
+                          title="Ver en Facebook"
+                        >
+                          <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                          </svg>
+                        </a>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -180,23 +217,64 @@ export default function tablaDocumentosReutilizable2({ secciones, titulo, descri
                 </div>
             </div>
 
-            {/* Modal PDF */}
+            {/* Modal PDF - Sin fondo oscuro */}
             {pdfSeleccionado && (
-                <div className="fixed inset-0 bg-opacity-60 z-50 flex items-center justify-center">
-                    <div className="relative bg-white w-full max-w-5xl h-[80vh] rounded-lg shadow-xl">
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+                    <div className="relative bg-white w-full max-w-4xl max-h-[95vh] rounded-xl shadow-2xl border-2 border-gray-200 overflow-hidden">
                         <button
-                            onClick={() => setPdfSeleccionado(null)}
-                            className="absolute top-2 right-2 text-red-600 font-bold z-10 text-xl"
+                            onClick={() => {
+                                setPdfSeleccionado(null);
+                                setDocumentoSeleccionado(null);
+                            }}
+                            className="absolute top-4 right-4 z-20 bg-red-500 text-white w-10 h-10 rounded-full hover:bg-red-600 transition-colors duration-200 flex items-center justify-center font-bold"
                         >
-                            ✖
+                            ✕
                         </button>
-                        <iframe
-                            src={pdfSeleccionado}
-                            className={`w-full md:w-3/4 h-full mx-auto transition-opacity duration-500 p-3 mb-5"
-                                }`}
-                            title="calendario"
-                            style={{ border: "none" }}
-                        ></iframe>
+                        
+                        <div className="flex flex-col h-full">
+                            {/* Imagen centrada y alineada */}
+                            <div className="flex-1 p-6 flex items-center justify-center">
+                                <div className="w-full max-w-3xl">
+                  {pdfSeleccionado && (pdfSeleccionado.match(/\.(jpg|jpeg|png|webp|gif)$/i) ? (
+                    <img
+                      src={pdfSeleccionado}
+                      alt={documentoSeleccionado?.titulo || "Imagen"}
+                      className="w-full h-[65vh] object-contain rounded-lg border border-gray-300 mx-auto block bg-white"
+                      style={{ border: "1px solid #d1d5db", background: '#fff' }}
+                    />
+                  ) : (
+                    <iframe
+                      src={pdfSeleccionado}
+                      className="w-full h-[65vh] rounded-lg border border-gray-300 mx-auto block"
+                      title="documento"
+                      style={{ border: "1px solid #d1d5db" }}
+                    ></iframe>
+                  ))}
+                                </div>
+                            </div>
+                            
+                            {/* Enlace de Facebook centrado debajo de la imagen */}
+                            {documentoSeleccionado?.facebookLink && (
+                                <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 border-t border-gray-200">
+                                    <div className="text-center max-w-md mx-auto">
+                                        <p className="text-gray-700 mb-4 font-medium text-lg">
+                                            📱 ¡Visita nuestra publicación en redes sociales!
+                                        </p>
+                                        <a
+                                            href={documentoSeleccionado.facebookLink}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="inline-flex items-center gap-3 px-8 py-4 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-all duration-200 shadow-lg hover:shadow-xl hover:scale-105 font-semibold text-lg"
+                                        >
+                                            <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                                            </svg>
+                                            Ver en Facebook
+                                        </a>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
                     </div>
                 </div>
             )}

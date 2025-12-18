@@ -6,7 +6,7 @@ import { ContenedorPDF } from "@/components/Pdf/ContenedorPDF";
 
 export default function Calendario() {
   const [isLoading, setIsLoading] = useState(true);
-  const fakePDFUrl = "/CALENDARIOUTTECAM2024-2025.pdf";
+  const fakePDFUrl = "calendario/CALENDARIOUTTECAM2024-2025.pdf";
 
   return (
     <>

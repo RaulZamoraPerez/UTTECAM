@@ -25,6 +25,27 @@ const datos = [
             { id: "doc18", titulo: "Componente C5", archivo: "/Información y Estadistica/2025/Informes de Evaluación/C5.pdf" },
             { id: "doc19", titulo: "Informe de Evaluación y Seguimiento 2025 1er Trimestre", archivo: "/Información y Estadistica/2025/Informes de Evaluación/Informe de Evaluación y Seguimiento 2025 1 Trimestre.pdf" },
             { id: "doc20", titulo: "Oficio SAyBG Primer Trimestre", archivo: "/Información y Estadistica/2025/Informes de Evaluación/Oficio SAyBG Primer trimestre_10-06-2025.pdf" },
+            { id: "doc21", titulo: "C.1.I.pdf", archivo: "/Información y Estadistica/2025/Informes de Evaluación/C.1.I.pdf" },
+            {id: "doc22", titulo: "C1.A.2.pdf", archivo: "/Información y Estadistica/2025/Informes de Evaluación/C1.A.1.pdf" },
+            {id: "doc22", titulo: "C1.A.2.pdf", archivo: "/Información y Estadistica/2025/Informes de Evaluación/C1.A.2.pdf" },
+            {id: "doc22", titulo: "C1.A.3.pdf", archivo: "/Información y Estadistica/2025/Informes de Evaluación/C1.A.3.pdf" },
+            {id: "doc22", titulo: "C.2.I.pdf", archivo: "/Información y Estadistica/2025/Informes de Evaluación/C.2.I.pdf" },
+            {id: "doc22", titulo: "C2.A.1.pdf", archivo: "/Información y Estadistica/2025/Informes de Evaluación/C2.A.1.pdf" },
+            {id: "doc22", titulo: "C2.A.2.pdf", archivo: "/Información y Estadistica/2025/Informes de Evaluación/C2.A.2.pdf" },
+            {id: "doc22", titulo: "C2.A.3.pdf", archivo: "/Información y Estadistica/2025/Informes de Evaluación/C2.A.3.pdf" },
+            {id: "doc22", titulo: "C.3.I.3.pdf", archivo: "/Información y Estadistica/2025/Informes de Evaluación/C.3.I.3.pdf" },
+            {id: "doc22", titulo: "C3.A.1.pdf", archivo: "/Información y Estadistica/2025/Informes de Evaluación/C3.A.1.pdf" },
+            {id: "doc22", titulo: "C3.A.2.pdf", archivo: "/Información y Estadistica/2025/Informes de Evaluación/C3.A.2.pdf" },
+            {id: "doc22", titulo: "C3.A.3.pdf", archivo: "/Información y Estadistica/2025/Informes de Evaluación/C3.A.3.pdf" },
+            {id: "doc22", titulo: "C.4.I.pdf", archivo: "/Información y Estadistica/2025/Informes de Evaluación/C.4.I.pdf" },
+            {id: "doc22", titulo: "C4.A.1.pdf", archivo: "/Información y Estadistica/2025/Informes de Evaluación/C4.A.1.pdf" },
+            {id: "doc22", titulo: "C4.A.2.pdf", archivo: "/Información y Estadistica/2025/Informes de Evaluación/C4.A.2.pdf" },
+            {id: "doc22", titulo: "C4.A.3.pdf", archivo: "/Información y Estadistica/2025/Informes de Evaluación/C4.A.3.pdf" },
+            {id: "doc22", titulo: "C.5.I.pdf", archivo: "/Información y Estadistica/2025/Informes de Evaluación/C.5.I.pdf" },
+            {id: "doc22", titulo: "C5.A.1.pdf", archivo: "/Información y Estadistica/2025/Informes de Evaluación/C5.A.1.pdf" },
+            {id: "doc22", titulo: "C5.A.2.pdf", archivo: "/Información y Estadistica/2025/Informes de Evaluación/C5.A.2.pdf" },
+            {id: "doc22", titulo: "C5.A.3.pdf", archivo: "/Información y Estadistica/2025/Informes de Evaluación/C5.A.3.pdf" },
+            {id: "doc22", titulo: "046_UTP_2_TRIM_Final.pdf", archivo: "/Información y Estadistica/2025/Informes de Evaluación/046_UTP_2_TRIM_Final.pdf" },
         ],
     },
     {
@@ -39,6 +60,7 @@ const datos = [
         titulo: "PBR",
         documentos: [
             { id: "doc1", titulo: "PBR Cuatrimestre Enero-Abril 2025", archivo: "/Información y Estadistica/2025/PBR/PBR CUATRIMESTRE ENERO-ABRIL 2025.pdf" },
+            {id: "doc2", titulo: "PBR Cuatrimestre Mayo-Agosto 2025", archivo: "/Información y Estadistica/2025/PBR/PBR Cuatrimestre mayo-agosto 2025.pdf" },
         ],
     },
     {
@@ -46,6 +68,7 @@ const datos = [
         titulo: "POA",
         documentos: [
             { id: "doc1", titulo: "POA Enero-Abril 2025", archivo: "/Información y Estadistica/2025/POA/POA ENERO ABRIL 2025.pdf" },
+            {id: "doc2", titulo: "POA Mayo-Agosto 2025", archivo: "/Información y Estadistica/2025/POA/POA Cuatrimestre mayo-agosto 2025.pdf" },
         ],
     },
     {

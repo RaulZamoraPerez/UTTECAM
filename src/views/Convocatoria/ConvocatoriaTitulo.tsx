@@ -1,10 +1,13 @@
 import { useState, useEffect } from "react";
-import TablaDocumentosReutilizable from "@/components/tablaDocumentosReutilizable";
+
 import { 
   obtenerConvocatoriaTituloInfo, 
   obtenerDocumentosConvocatoria,
   type DocumentoConvocatoria
 } from "@/services/convocatoriaTitulo.service";
+
+import TablaDocumentosReutilizable2 from '@/components/tablaDocumentosReutilizable2';
+import TablaDocumentosReutilizable from "@/components/tablaDocumentosReutilizable";
 
 const ConvocatoriaTitulo = () => {
   const [titulo, setTitulo] = useState("Convocatoria a trámite de título profesional");

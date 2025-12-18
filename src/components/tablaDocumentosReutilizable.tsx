@@ -8,7 +8,7 @@ interface Documento {
   id: string;
   titulo: string;
   año?: string;
- 
+  archivo?: string; // Nombre real del archivo en el servidor
 }
 
 interface Seccion {
@@ -22,7 +22,7 @@ interface RepositorioTablaProps {
   secciones: Seccion[];
   titulo: string;
   descripcion?: string;
-   nextUrl?: string;
+  nextUrl?: string; // Para otros componentes que no son PIT
 }
 
 export default function tablaDocumentosReutilizable({
@@ -60,6 +60,26 @@ export default function tablaDocumentosReutilizable({
     } catch (error) {
       alert('Error al intentar visualizar el documento. Por favor, intente nuevamente.');
       console.error('Error al visualizar documento:', error);
+    }
+  };
+
+  // Función para manejar la descarga de documentos
+  const descargarDocumento = (documento: Documento) => {
+    try {
+      // Usa el archivo específico si está definido, sino usa el titulo
+      const nombreArchivo = documento.archivo || documento.titulo;
+      // Si hay nextUrl lo usa, sino usa PIT por defecto (para compatibilidad)
+      const carpeta = nextUrl ? nextUrl.replace('-', '') : 'PIT';
+      const rutaArchivo = `/${carpeta}/${nombreArchivo}`;
+      const link = document.createElement('a');
+      link.href = rutaArchivo;
+      link.download = nombreArchivo;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (error) {
+      console.error('Error al descargar el documento:', error);
+      alert('Error al descargar el documento. Por favor, inténtalo de nuevo.');
     }
   };
 
@@ -178,6 +198,9 @@ export default function tablaDocumentosReutilizable({
                                       {formatearTitulo(documento.titulo)}
                                     </Link>
                                   )}
+                                  <span className="font-medium text-gray-800">
+                                    {formatearTitulo(documento.titulo)}
+                                  </span>
                                 </div>
                               
                                 {/* Mostrar icono de ojo para Convocatoria Título, descarga para otros */}

@@ -45,7 +45,7 @@ export default function Navbar() {
         {
           label: "Directorios",
           submenu: [
-            { label: "Directorio ", href: "/directorios" },
+            { label: "Directorio ", href: "/directorio" },
             { label: "Organigrama", href: "/organigrama" },
           ],
         },
@@ -91,8 +91,8 @@ export default function Navbar() {
           ],
         },
         {
-          label: "Biblioteca digital",
-          href: "https://elibro.net/es/lc/uttecam/login_usuario/?next=/es/lc/uttecam/inicio/",
+          label: "Enlaces institucionales",
+          href: "/enlaces",
         },
       ],
     },
@@ -112,12 +112,16 @@ export default function Navbar() {
       href: "/vinculacion",
       submenu: [
         {
+          label: "vinculación banner",
+          href: "/vinculacion-banner",
+        },
+        {
           label: "Prácticas y estadías",
           href: "/convenios",
           submenu: [
             {
-              label: "Catálogo de empresas para estadías ",
-              href: "/practicas-profesionales",
+              label: "Prácticas y estadías",
+              href: "/practicas-y-estadias",
             },
             {
               label: "Documentos para la gestión de estadías",
@@ -141,10 +145,10 @@ export default function Navbar() {
         },
         {
           label: "Educación continua",
-          href: "/bolsa-trabajo",
+          href: "/educacion-continua",
           submenu: [
-            { label: "Catálogo de cursos y talleres", href: "/cursos" },
-            { label: "Cursos y talleres realizados ", href: "/diplomados" },
+            { label: "Cursos y talleres", href: "/educacion-continua/cursos" },
+            // { label: "Cursos y talleres realizados ", href: "/diplomados" },
           ],
         },
         { label: "Movilidad internacional", href: "/convenios" },
@@ -164,7 +168,7 @@ export default function Navbar() {
         },
         {
           label: "Repositorio digital de productos de investigación",
-          href: "/vinculacion",
+          href: "/repositorio-digital-investigacion",
         },
         { label: "Seminario café científico", href: "/seminario-cafe-cientifico" },
       ],
@@ -175,7 +179,11 @@ export default function Navbar() {
       submenu: [
         {
           label: "Actividades Culturales y Deportivas",
-          href: "/actividades-culturales-y-deportivas",
+          // href eliminado para que no sea clickeable
+          submenu:[
+            { label: "Talleres Culturales", href: "/talleres-culturales" },
+            { label: "Talleres Deportivos", href: "/talleres-deportivos" },
+          ]
         },
         {
           label: "Difusión y Divulgación",

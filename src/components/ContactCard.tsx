@@ -1,8 +1,7 @@
 import { useState } from "react";
-import { Mail, Phone } from "lucide-react";
+import { Mail, Phone, User, ArrowUpRight } from "lucide-react";
 import { ContactModal } from "./Modal/ContactModal";
 import { formatPhone } from "@/util/Formatt";
-
 
 interface Props {
   title: string;
@@ -11,8 +10,8 @@ interface Props {
   extension?: string;
   email?: string;
   className?: string;
-  isGray?: boolean;
-  imagenUrl?: string; 
+  imagenUrl?: string;
+  variant?: 'green' | 'orange';
 }
 
 export const ContactCard = ({
@@ -22,44 +21,90 @@ export const ContactCard = ({
   extension,
   email,
   className = "",
-  isGray = false,
-  imagenUrl =""
+  imagenUrl = "",
 }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
-
-  const iconBorderColor = isGray ? "border-gray-500" : "border-orange-500";
-  const iconColor = isGray ? "text-gray-400" : "text-orange-500";
-  const titleColor = isGray ? "text-gray-500" : "text-orange-600";
 
   return (
     <>
       <div
         onClick={() => setIsOpen(true)}
-        className={`cursor-pointer w-full bg-gray-50 rounded-2xl shadow ${iconBorderColor} p-4 flex border-l-15 max-w-sm hover:shadow-2xl transition-shadow ${className}`}
+        className={`group relative bg-white rounded-2xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 cursor-pointer flex flex-col items-center text-center h-full ${className}`}
       >
-        <div className="flex flex-col space-y-2 w-full">
-          <h2 className={`${titleColor} font-bold text-lg break-words capitalize`}>{title}</h2>
-          <p className="text-gray-400 text-base break-words capitalize">{name}</p>
+        {/* Hover Accent - Top Line */}
+        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[#0A9782] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
-          {/* Teléfono */}
-          <div className="flex flex-wrap items-center gap-2">
-            <div className={`w-7 h-7 flex items-center justify-center rounded-full border ${iconBorderColor} bg-white`}>
-              <Phone className={`w-4 h-4 ${iconColor}`} />
+        {/* Avatar - Clean & Floating */}
+        <div className="relative mb-5">
+          <div className="w-24 h-24 rounded-full p-1 bg-white shadow-sm ring-1 ring-gray-100 group-hover:ring-[#0A9782]/30 transition-all duration-300">
+             <div className="w-full h-full rounded-full overflow-hidden bg-gray-50 flex items-center justify-center relative">
+              {imagenUrl ? (
+                <img 
+                  src={imagenUrl} 
+                  alt={name} 
+                  className="w-full h-full object-cover"
+                  onError={(e) => {
+                    (e.target as HTMLImageElement).style.display = 'none';
+                    (e.target as HTMLImageElement).nextElementSibling?.classList.remove('hidden');
+                  }}
+                />
+              ) : null}
+              <div className={`absolute inset-0 flex items-center justify-center ${imagenUrl ? 'hidden' : ''}`}>
+                <User className="w-8 h-8 text-gray-300" />
+              </div>
             </div>
-            <span className="text-sm sm:text-base text-gray-400">{ phone ? formatPhone(phone) : "sin datos "}</span>
-            {extension && (
-              <span className="text-sm sm:text-base text-gray-400">Ext. {extension}</span>
-            )}
-          </div>
-
-          {/* Email */}
-          <div className="flex justify-centerp items-center gap-2">
-            <div className={`w-7 h-7 flex items-center justify-center rounded-full border ${iconBorderColor} bg-white`}>
-              <Mail className={`w-4 h-4 ${iconColor}`} />
-            </div>
-            <span className="text-sm sm:text-base underline text-gray-400 break-all break-words whitespace-normal ">{email ? email : "No disponible"}</span>
           </div>
         </div>
+
+        {/* Info Container */}
+        <div className="w-full flex flex-col flex-grow">
+            {/* Title (Area) - Now Primary */}
+            <h3 className="text-gray-600 font-bold text-lg leading-tight mb-2 group-hover:text-[#0A9782] transition-colors h-12 flex items-center justify-center line-clamp-2">
+              {title}
+            </h3>
+            
+            {/* Name - Now Secondary */}
+            <p className="text-sm font-medium text-gray-500 mb-6">
+              {name}
+            </p>
+
+            {/* Divider */}
+            <div className="w-full h-px bg-gray-100 mb-6"></div>
+
+            {/* Contact Details - Aligned & Clean */}
+            <div className="space-y-4 w-full text-sm mt-auto">
+                {/* Phone Row */}
+                <div className="flex items-center gap-3 text-gray-600 group-hover:text-gray-900 transition-colors">
+                    <div className="w-8 h-8 rounded-lg bg-gray-50 flex items-center justify-center text-[#0A9782] shrink-0 group-hover:bg-[#0A9782]/10 transition-colors">
+                        <Phone className="w-4 h-4" />
+                    </div>
+                    <div className="flex flex-col items-start">
+                        <span className="text-[10px] uppercase tracking-wider text-gray-400 font-semibold">Teléfono</span>
+                        <div className="flex items-center gap-2">
+                            <span className="font-medium">{phone ? formatPhone(phone) : "N/A"}</span>
+                            {extension && <span className="text-[#0A9782] text-xs font-bold">Ext. {extension}</span>}
+                        </div>
+                    </div>
+                </div>
+
+                {/* Email Row */}
+                <div className="flex items-center gap-3 text-gray-600 group-hover:text-gray-900 transition-colors">
+                    <div className="w-8 h-8 rounded-lg bg-gray-50 flex items-center justify-center text-[#0A9782] shrink-0 group-hover:bg-[#0A9782]/10 transition-colors">
+                        <Mail className="w-4 h-4" />
+                    </div>
+                    <div className="flex flex-col items-start min-w-0 flex-1">
+                        <span className="text-[10px] uppercase tracking-wider text-gray-400 font-semibold">Correo</span>
+                        <span className="font-medium truncate w-full text-left" title={email}>{email || "N/A"}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        {/* Corner Action Icon */}
+        <div className="absolute top-4 right-4 text-gray-300 group-hover:text-[#0A9782] transition-colors opacity-0 group-hover:opacity-100">
+            <ArrowUpRight className="w-5 h-5" />
+        </div>
+
       </div>
 
       <ContactModal
