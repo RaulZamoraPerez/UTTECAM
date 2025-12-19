@@ -25,7 +25,7 @@ interface RepositorioTablaProps {
     nextUrl?: string;
 }
 
-export default function tablaDocumentosReutilizable2({ secciones, titulo, descripcion, nextUrl }: RepositorioTablaProps) {
+export default function TablaDocumentosReutilizable2({ secciones, titulo, descripcion, nextUrl }: RepositorioTablaProps) {
     const [searchTerm, setSearchTerm] = useState("")
     const [seccionActiva, setSeccionActiva] = useState<string | null>(secciones[0]?.id ?? null)
     const [pdfSeleccionado, setPdfSeleccionado] = useState<string | null>(null) // Estado para visor PDF

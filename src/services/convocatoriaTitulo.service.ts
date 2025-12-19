@@ -130,6 +130,7 @@ export async function verificarDocumentoConvocatoria(id: string): Promise<{ succ
 
     return { success: true };
   } catch (error) {
+    console.error('Error verificarDocumentoConvocatoria:', error);
     return {
       success: false,
       error: 'Error al verificar el documento'

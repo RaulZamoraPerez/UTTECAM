@@ -1,21 +1,30 @@
 import { useState } from "react";
 import { ChevronDown, ChevronRight, Folder, FileText } from "lucide-react";
 
+// Tipos locales para evitar 'any' y mantener compatibilidad con Secciones
+interface Documento {
+  id: string;
+  titulo: string;
+  archivo?: string;
+}
+
+type CarpetaTipo = { title: string; documentos?: Documento[]; subcarpetas?: CarpetaTipo[] }
+
 interface Props {
   searchTerm?: string;
-  folders?: any[];
+  folders?: CarpetaTipo[];
   title?: string;
 }
 
 export const Secciones2 = ({ searchTerm = "", folders = [], title = "Carpetas y Documentos" }: Props) => {
   // Función para filtrar carpetas
-  const filtrarCarpetas = (carpetas: any[]): any[] => {
+  const filtrarCarpetas = (carpetas: CarpetaTipo[]): CarpetaTipo[] => {
     if (!searchTerm) return carpetas;
     
     return carpetas
       .map(carpeta => {
         const subcarpetasFiltradas = carpeta.subcarpetas ? filtrarCarpetas(carpeta.subcarpetas) : [];
-        const documentosFiltrados = carpeta.documentos ? carpeta.documentos.filter((doc: any) => 
+        const documentosFiltrados = carpeta.documentos ? carpeta.documentos.filter((doc: Documento) => 
           doc.titulo.toLowerCase().includes(searchTerm.toLowerCase())
         ) : [];
         
@@ -28,7 +37,7 @@ export const Secciones2 = ({ searchTerm = "", folders = [], title = "Carpetas y 
         }
         return null;
       })
-      .filter(Boolean);
+      .filter(Boolean) as CarpetaTipo[];
   };
 
   const datosFiltrados = filtrarCarpetas(folders);
@@ -70,10 +79,12 @@ export const Secciones2 = ({ searchTerm = "", folders = [], title = "Carpetas y 
   );
 };
 
-const Carpeta = ({ carpeta, nivel, searchTerm = "" }: any) => {
+interface CarpetaProps2 { carpeta: CarpetaTipo; nivel: number; searchTerm?: string }
+
+const Carpeta = ({ carpeta, nivel, searchTerm = "" }: CarpetaProps2) => {
   const [abierto, setAbierto] = useState(searchTerm ? true : false); // Auto-expandir si hay búsqueda
-  const tieneSub = carpeta.subcarpetas?.length > 0;
-  const tieneDocs = carpeta.documentos?.length > 0;
+  const tieneSub = (carpeta.subcarpetas?.length ?? 0) > 0;
+  const tieneDocs = (carpeta.documentos?.length ?? 0) > 0;
 
   // Función para resaltar texto
   const resaltarTexto = (texto: string, termino: string) => {
@@ -89,7 +100,7 @@ const Carpeta = ({ carpeta, nivel, searchTerm = "" }: any) => {
     );
   };
 
-  const paddingClasses : any= {
+  const paddingClasses: Record<number, string> = {
     1: "pl-2 sm:pl-4",
     2: "pl-3 sm:pl-6",
     3: "pl-4 sm:pl-8",
@@ -115,11 +126,11 @@ const Carpeta = ({ carpeta, nivel, searchTerm = "" }: any) => {
       {abierto && (
         <div className="mt-2 sm:mt-3 ml-1 sm:ml-2 md:ml-6 pl-2 sm:pl-3 md:pl-4 border-l-2 border-dashed border-slate-300 space-y-2 sm:space-y-3">
           {tieneDocs &&
-            carpeta.documentos.map((doc: any) => (
+            carpeta.documentos!.map((doc: Documento) => (
               <a
                 key={doc.id}
-                href={encodeURI(doc.archivo)}
-                download
+                href={doc.archivo ? encodeURI(doc.archivo) : '#'}
+                download={Boolean(doc.archivo)}
                 rel="noopener noreferrer"
                 className="flex items-center text-slate-700 hover:text-slate-900 transition-colors duration-200 group py-1"
               >
@@ -134,7 +145,7 @@ const Carpeta = ({ carpeta, nivel, searchTerm = "" }: any) => {
             ))}
 
           {tieneSub &&
-            carpeta.subcarpetas.map((sub: any, idx: any) => (
+            carpeta.subcarpetas!.map((sub: CarpetaTipo, idx: number) => (
               <Carpeta key={idx} carpeta={sub} nivel={nivel + 1} searchTerm={searchTerm} />
             ))}
         </div>

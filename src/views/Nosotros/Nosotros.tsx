@@ -1,71 +1,53 @@
 import FeatureCardNosotros from '../../components/FeatureCard';
+import { useEffect, useState } from 'react';
+import { getNosotrosContent, type NosotrosContent } from '@/services/nosotros.service';
+import { envs } from '@/config/envs';
 
 export default function Nosotros() {
+  const [content, setContent] = useState<NosotrosContent | null>(null);
+
+  useEffect(() => {
+    const fetchContent = async () => {
+      const data = await getNosotrosContent();
+      setContent(data);
+    };
+    fetchContent();
+  }, []);
+
+  if (!content) {
+    return <div className="text-center py-20">Cargando...</div>;
+  }
 
   const features = [
     {
-      imageSrc: 'nosotros/vision.jpg', // Reemplaza con tu ruta
-      title: 'Visión',
-      description:
-        'En el año 2027, ser una institución de excelencia, reconocida Nacional e Internacionalmente por su eficiencia, eficacia, pertinencia, equidad, inclusión, vinculación y cuerpos académicos consolidados y comprometidos con las expectativas de los aprendientes y de la sociedad, al brindar educación de calidad y profesionistas con alto sentido humano, competitivos e integrados en el ámbito productivo. Siendo una Universidad abierta, flexible, innovadora, promotora de cultura, ciencia y tecnología, vinculada con los sectores social y productivo; que contribuya al desarrollo integral de la región, el estado y del país, distinguida por su compromiso social, desempeño académico, procesos consolidados de evaluación, acreditación de sus programas educativos y transparencia en la rendición de cuentas.'
+      imageSrc: content.vision?.imagen ? `${envs.API_BASE_URL}/uploads/nosotros/${content.vision.imagen}` : 'nosotros/vision.jpg',
+      title: content.vision?.titulo || 'Visión',
+      description: content.vision?.descripcion || 'Descripción de la visión...'
     },
     {
-      imageSrc: 'nosotros/mision.webp',
-      title: 'Misión',
-      description:
-        'Somos una Institución de Educación Superior comprometida con la excelencia, transparencia y rendición de cuentas, que brinda servicios educativos, científicos y tecnológicos con calidad, equidad, inclusión, responsabilidad social y sentido humano para contribuir al bienestar y desarrollo integral regional, estatal y nacional, cumpliendo los requerimientos de las partes interesadas, mediante un modelo formativo integral.',
+      imageSrc: content.mision?.imagen ? `${envs.API_BASE_URL}/uploads/nosotros/${content.mision.imagen}` : 'nosotros/mision.webp',
+      title: content.mision?.titulo || 'Misión',
+      description: content.mision?.descripcion || 'Descripción de la misión...',
     },
     {
-      imageSrc: 'nosotros/valores.avif',
-      title: 'Valores',
-      description:[
-        'Austeridad',
-        'Honestidad',
-        'Empatía',
-        'Generosidad',
-        'Respeto',
-        'Tolerancia',
-        'Igualdad',
-        'Equidad',
-        'Justicia',
-        'Fraternidad',
-        'Compromiso',
-        'Bien Común'
-      ],
+      imageSrc: content.valores?.imagen ? `${envs.API_BASE_URL}/uploads/nosotros/${content.valores.imagen}` : 'nosotros/valores.avif',
+      title: content.valores?.titulo || 'Valores',
+      description: content.valores?.lista || [],
     },
-  ];
-
-  const columns = [
-    [
-      'Apariencia Física',
-      'Cultura',
-      'Discapacidad',
-      'Idioma'
-    ],
-    [
-      'Estado civil',
-      'Religión',
-      'Sexo',
-      'Embarazo'
-    ],
-    [
-      'Opiniones',
-      'Origen étnico o nacional',
-      'Género',
-      'Edad'
-    ]
   ];
 
   return (
     <div className="mb-24">
       <section className="bg-white py-12 px-4">
 
-        <h2 className="text-5xl font-bold text-amber-700 mb-6 text-center">Política Integral</h2>
+        <h2 className="text-5xl font-bold text-amber-700 mb-6 text-center">
+          {content.politicaIntegral?.titulo || 'Política Integral'}
+        </h2>
         <div className="container mx-auto flex flex-col-reverse lg:flex-row items-center lg:items-center gap-8">
           {/* Imagen */}
           <div className="w-full lg:w-1/2">
             <img
-              src="/PortadaPW.jpg"  // Reemplaza con la ruta de tu imagen
+              src={content.politicaIntegral?.imagen ? `${envs.API_BASE_URL}/uploads/nosotros/${content.politicaIntegral.imagen}` : "/PortadaPW.jpg"}
               alt="Vista del campus"
               className="w-auto h-auto rounded-lg shadow-md"
             />
@@ -74,18 +56,22 @@ export default function Nosotros() {
           {/* Texto */}
           <div className="w-full lg:w-1/2">
             <p className="text-gray-700 leading-relaxed">
-            Somos una institución comprometida en la formación de profesionistas con responsabilidad social, sentido humano y ético, que en conjunto con la comunidad universitaria, contribuyen al desarrollo sustentable a través de establecimiento de objetivos integrales, actualización e innovación de los programas educativos, gestión de la propiedad intelectual y la mejora continua del Sistema de Gestión Integral, considerando el desarrollo educativo, científico y técnico, cumpliendo el marco legal aplicable, considerando las necesidades y expectativas de las partes interesadas, atendiendo los criterios ambientales de manera que se pueda controlar y prevenir la contaminación derivada de nuestros procesos y servicios para la preservación del medio ambiente.
+              {content.politicaIntegral?.descripcion || 'Descripción de la política integral...'}
             </p>
           </div>
         </div>
       </section>
 
-      <section className="bg-white py-12 px-20">
-        <h2 className="text-5xl font-bold text-amber-700 mb-6 text-center">Objetivo Integral</h2>
-        <p className='text-gray-700 leading-relaxed'>
-        Formar integralmente profesionistas competentes socialmente responsables, creativos, emprendedores e innovadores, comprometidos con el cuidado del medio ambiente y la sustentabilidad, a través del proceso enseñanza-aprendizaje, conducido por una planta docente con sentido humano, perfil profesional, experiencia y capacitación adecuada para la realización de su labor educativa.
-        </p>
-      </section>
+      {content.objetivoIntegral && (
+        <section className="bg-white py-12 px-20">
+          <h2 className="text-5xl font-bold text-amber-700 mb-6 text-center">
+            {content.objetivoIntegral.titulo || 'Objetivo Integral'}
+          </h2>
+          <p className='text-gray-700 leading-relaxed'>
+            {content.objetivoIntegral.descripcion}
+          </p>
+        </section>
+      )}
 
     <section className="bg-white py-12 px-4">
       
@@ -121,9 +107,9 @@ export default function Nosotros() {
 
     {/* Listado en columnas responsive */}
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 place-items-center">
-      {columns.map((items, idx) => (
+      {(content.noDiscriminacion?.columnas || []).map((items: string[], idx: number) => (
         <ul key={idx} className="space-y-3">
-          {items.map((item) => (
+          {items.map((item: string) => (
             <li key={item} className="flex items-center">
               <span className="mt-1 w-2 h-2 bg-teal-600 rounded-full flex-shrink-0 mr-3"></span>
               <span className="text-gray-700">{item}</span>

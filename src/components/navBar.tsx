@@ -117,7 +117,7 @@ export default function Navbar() {
         },
         {
           label: "Prácticas y estadías",
-          href: "/convenios",
+          href: "/practicas-y-estadias",
           submenu: [
             {
               label: "Prácticas y estadías",
@@ -127,19 +127,19 @@ export default function Navbar() {
               label: "Documentos para la gestión de estadías",
               href: "/estadias",
             },
-            { label: "Servicio social", href: "/estadias" },
+            { label: "Servicio social", href: "/servicio-social" },
           ],
         },
         {
           label: "Servicios Tecnológicos",
           submenu: [
             {
-              label: "Catálogo de servicios tecnológicosón",
+              label: "Catálogo de servicios tecnológicos",
               href: "/ServiciosTecnologicos",
             },
             {
               label: "Servicios tecnológicos realizados ",
-              href: "/laboratorio-manufactura",
+              href: "/servicios-tecnologicos-realizados",
             },
           ],
         },
@@ -151,16 +151,19 @@ export default function Navbar() {
             // { label: "Cursos y talleres realizados ", href: "/diplomados" },
           ],
         },
-        { label: "Movilidad internacional", href: "/convenios" },
+        {
+          label: "Movilidad Internacional",
+          href: "/movilidad-internacional",
+        },
         {
           label: "Desempeño de egresados",
           href: "/practicas",
           submenu: [
-            { label: "Bolsa de trabajo", href: "/bolsaTrabajo" },
-            { label: "Encuentro de egresados", href: "/egresados" },
+            { label: "Bolsa de trabajo", href: "/bolsa-de-trabajo" },
+            { label: "Encuentro de egresados", href: "/encuentro-de-egresados" },
           ],
         },
-        { label: "Entidad de certificación y evaluación", href: "/convenios" },
+        { label: "Entidad de certificación y evaluación", href: "/entidad-de-certificacion-y-evaluacion" },
         {
           label:
             "Docente miembros del Sistema Nacional de Investigadoras e Investigadores SNII",
@@ -168,7 +171,7 @@ export default function Navbar() {
         },
         {
           label: "Repositorio digital de productos de investigación",
-          href: "/repositorio-digital-investigacion",
+          href: "/vinculacion",
         },
         { label: "Seminario café científico", href: "/seminario-cafe-cientifico" },
       ],

@@ -1,19 +1,34 @@
 import { Spinner } from "@/components/Spinner";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Download } from "lucide-react";
 import { toast } from "react-toastify";
 import { ContenedorPDF } from "@/components/Pdf/ContenedorPDF";
+import { getCalendario, type Calendario as CalendarioType } from "@/services/calendario.service";
+import { envs } from "@/config/envs";
 
 export default function Calendario() {
   const [isLoading, setIsLoading] = useState(true);
-  const fakePDFUrl = "calendario/CALENDARIOUTTECAM2024-2025.pdf";
+  const [calendario, setCalendario] = useState<CalendarioType | null>(null);
+  const [pdfUrl, setPdfUrl] = useState<string>("calendario/CALENDARIOUTTECAM2024-2025.pdf"); // Fallback
+
+  useEffect(() => {
+    const fetchCalendario = async () => {
+      const data = await getCalendario();
+      if (data && data.archivoUrl) {
+        setCalendario(data);
+        setPdfUrl(`${envs.API_BASE_URL}/uploads/calendarios/${data.archivoUrl}`);
+      }
+      // If no data, keep fallback
+    };
+    fetchCalendario();
+  }, []);
 
   return (
     <>
       <div className="h-screen w-screen flex flex-col mb-32">
         <div className="p-4 bg-white mt-10">
           <h1 className="text-4xl font-bold text-orange-500 text-center">
-            Calendario
+            Calendario {calendario?.cicloEscolar ? `- ${calendario.cicloEscolar}` : ''}
           </h1>
         </div>
 
@@ -22,14 +37,14 @@ export default function Calendario() {
 
         {/* Mostrar PDF SIEMPRE, pero controlar visibilidad con opacidad */}
         <div  className="">
-          <ContenedorPDF fakePDFUrl={fakePDFUrl} setIsLoading={setIsLoading}  />
+          <ContenedorPDF fakePDFUrl={pdfUrl} setIsLoading={setIsLoading}  />
 
         {/* */}
         {!isLoading && (
           <div className="mx-0 mb-10 px-4 sm:px-2 max-w-screen-md">
             <a
-              href={fakePDFUrl}
-              download="CALENDARIOUTTECAM2024-2025.pdf"
+              href={pdfUrl}
+              download={calendario ? `Calendario_${calendario.cicloEscolar}.pdf` : "CALENDARIOUTTECAM2024-2025.pdf"}
               onClick={() => toast.success("¡Calendario descargado con éxito!")}
               style={{
                 width: "160px",

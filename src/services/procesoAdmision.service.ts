@@ -75,13 +75,15 @@ export async function obtenerProcesoAdmision(): Promise<ResultadoProcesoAdmision
       datos: data as ProcesoAdmisionResponse,
     };
 
-  } catch (error: any) {
+  } catch (error: unknown) {
     // Error de red o parsing
-    if (error.name === 'TypeError' && error.message.includes('fetch')) {
-      return {
-        exito: false,
-        error: 'Error de conexión. Verifica tu conexión a internet e inténtalo de nuevo.',
-      };
+    if (error instanceof Error) {
+      if (error.name === 'TypeError' && error.message.includes('fetch')) {
+        return {
+          exito: false,
+          error: 'Error de conexión. Verifica tu conexión a internet e inténtalo de nuevo.',
+        };
+      }
     }
 
     return {

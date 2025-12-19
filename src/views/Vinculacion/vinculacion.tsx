@@ -1,7 +1,9 @@
+import { useState, useEffect } from "react"
 import TablaDocumentosReutilizable2 from "@/components/tablaDocumentosReutilizable2"
 
-    const datos = [
-        {
+// Datos por defecto (Hardcoded)
+const DEFAULT_DATA = [
+    {
         id: "2018",
         titulo: "Productos de Investigación 2018",
         documentos: [
@@ -148,12 +150,124 @@ import TablaDocumentosReutilizable2 from "@/components/tablaDocumentosReutilizab
             { id: "doc96", titulo: "Potencial Antitusígeno", archivo: "/REPOSITORIOINVESTIGACION/PRODUCTOS DE INVESTIGACION 2025/Potencial Antitusígeno.pdf" },
         ],
     },
-    ]
+]
+
+interface ProductoInvestigacion {
+    id: number;
+    titulo: string;
+    pdf: string;
+    carpeta: string;
+    orden: number;
+    activo: boolean;
+}
+
+interface Documento {
+    id: string
+    titulo: string
+    archivo: string
+    facebookLink?: string
+}
+
+interface Seccion {
+    id: string;
+    titulo: string;
+    documentos: Documento[];
+}
 
 export default function Vinculacion() {
+    const [secciones, setSecciones] = useState<Seccion[]>(DEFAULT_DATA);
+
+    useEffect(() => {
+        const fetchProductos = async () => {
+            try {
+                const response = await fetch('http://localhost:3004/api/productos-investigacion');
+                if (!response.ok) {
+                    throw new Error('Error al obtener productos de investigación');
+                }
+                const data: ProductoInvestigacion[] = await response.json();
+
+                if (data.length === 0) {
+                    // Si no hay datos en la API, mantenemos los datos por defecto
+                    return;
+                }
+
+                // Agrupar por carpeta
+                const grupos: { [key: string]: Documento[] } = {};
+                
+                data.forEach(item => {
+                    if (!item.activo) return;
+                    
+                    const carpeta = item.carpeta || 'Otros';
+                    if (!grupos[carpeta]) {
+                        grupos[carpeta] = [];
+                    }
+
+                    grupos[carpeta].push({
+                        id: item.id.toString(),
+                        titulo: item.titulo,
+                        archivo: `http://localhost:3004/uploads/${item.pdf}`
+                    });
+                });
+
+                // Convertir a array de secciones
+                const nuevasSecciones: Seccion[] = Object.keys(grupos).map(carpeta => {
+                    // Intentar determinar si la carpeta es un año para el título
+                    const esAnio = /^\d{4}$/.test(carpeta);
+                    const titulo = esAnio ? `Productos de Investigación ${carpeta}` : carpeta;
+                    
+                    return {
+                        id: carpeta,
+                        titulo: titulo,
+                        documentos: grupos[carpeta]
+                    };
+                });
+
+                // Fusionar con los datos por defecto (DEFAULT_DATA)
+                // Creamos una copia profunda de DEFAULT_DATA para no mutar el original
+                const mergedSecciones = JSON.parse(JSON.stringify(DEFAULT_DATA));
+
+                nuevasSecciones.forEach(nuevaSeccion => {
+                    const existingIndex = mergedSecciones.findIndex((s: Seccion) => s.id === nuevaSeccion.id);
+                    
+                    if (existingIndex >= 0) {
+                        // Si la sección ya existe (ej. "2025"), agregamos los nuevos documentos al principio
+                        const existingDocs = mergedSecciones[existingIndex].documentos;
+                        const newDocs = nuevaSeccion.documentos;
+                        
+                        // Combinamos: nuevos primero, luego los existentes
+                        mergedSecciones[existingIndex].documentos = [...newDocs, ...existingDocs];
+                    } else {
+                        // Si es una sección nueva (ej. "2026"), la agregamos
+                        mergedSecciones.push(nuevaSeccion);
+                    }
+                });
+
+                // Ordenar secciones (asumiendo que son años, descendente)
+                mergedSecciones.sort((a: Seccion, b: Seccion) => {
+                    // Intentar comparar como números si son años
+                    const anioA = parseInt(a.id);
+                    const anioB = parseInt(b.id);
+                    
+                    if (!isNaN(anioA) && !isNaN(anioB)) {
+                        return anioB - anioA;
+                    }
+                    return a.titulo.localeCompare(b.titulo);
+                });
+
+                setSecciones(mergedSecciones);
+
+            } catch (error) {
+                console.error("Error fetching productos de investigación:", error);
+                // En caso de error, se mantienen los datos por defecto (DEFAULT_DATA)
+            }
+        };
+
+        fetchProductos();
+    }, []);
+
     return (
         <TablaDocumentosReutilizable2
-            secciones={datos}
+            secciones={secciones}
             titulo="Repositorio Digital de Productos de Investigación"
             descripcion="Explora los productos de investigación generados por la comunidad académica de la institución, organizados por año y tipo de documento."
         />

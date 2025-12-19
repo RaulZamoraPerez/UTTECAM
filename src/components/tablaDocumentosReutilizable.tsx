@@ -25,7 +25,7 @@ interface RepositorioTablaProps {
   nextUrl?: string; // Para otros componentes que no son PIT
 }
 
-export default function tablaDocumentosReutilizable({
+export default function TablaDocumentosReutilizable({
   secciones,
   titulo,
   descripcion,
@@ -62,10 +62,6 @@ export default function tablaDocumentosReutilizable({
       console.error('Error al visualizar documento:', error);
     }
   };
-
-
-
-
 
   const filteredSecciones = secciones
     .map((seccion) => ({

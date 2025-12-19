@@ -63,7 +63,7 @@ export interface ResultadoEnvio {
   exito: boolean;
   mensaje: string;
   erroresPorCampo?: ErroresAgrupados;
-  respuestaCompleta?: any;
+  respuestaCompleta?: unknown;
 }
 
 /**
@@ -123,31 +123,35 @@ function agruparErrores(errores: ApiError[]): ErroresAgrupados {
 /**
  * Extrae el mensaje de error de la respuesta de la API
  */
-function extraerMensajeError(payload: any, statusCode: number): string {
+function extraerMensajeError(payload: unknown, statusCode: number): string {
   if (typeof payload === 'string' && payload) {
     return payload;
   }
-  
-  if (payload?.message) return payload.message;
-  if (payload?.error) return payload.error;
-  if (payload?.msg) return payload.msg;
-  
+
+  if (payload && typeof payload === 'object') {
+    const p = payload as Record<string, unknown>;
+    if (typeof p.message === 'string') return p.message;
+    if (typeof p.error === 'string') return p.error;
+    if (typeof p.msg === 'string') return p.msg;
+  }
+
   return `Error ${statusCode}: No se pudo procesar la solicitud`;
 }
 
 /**
  * Extrae el mensaje de éxito de la respuesta de la API
  */
-function extraerMensajeExito(payload: any): string {
-  if (typeof payload === 'object') {
-    if (payload?.message) return payload.message;
-    if (payload?.msg) return payload.msg;
+function extraerMensajeExito(payload: unknown): string {
+  if (payload && typeof payload === 'object') {
+    const p = payload as Record<string, unknown>;
+    if (typeof p.message === 'string') return p.message;
+    if (typeof p.msg === 'string') return p.msg;
   }
-  
+
   if (typeof payload === 'string' && payload) {
     return payload;
   }
-  
+
   return 'Solicitud registrada correctamente';
 }
 
@@ -249,9 +253,9 @@ export async function enviarFormulario(
       respuestaCompleta: payload
     };
     
-  } catch (error: any) {
+  } catch (error: unknown) {
     // Error de red o timeout
-    if (error.name === 'AbortError') {
+    if (typeof error === 'object' && error !== null && 'name' in error && (error as Record<string, unknown>).name === 'AbortError') {
       return {
         exito: false,
         mensaje: `La solicitud excedió el tiempo de espera (${timeout / 1000}s). Por favor, inténtalo de nuevo.`

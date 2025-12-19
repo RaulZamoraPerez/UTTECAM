@@ -22,7 +22,7 @@ interface ConvocatoriaTablaProps {
   descripcion?: string;
 }
 
-export default function tablaConvocatorias({
+export default function TablaConvocatorias({
   secciones,
   titulo,
   descripcion,

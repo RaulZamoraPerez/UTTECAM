@@ -1,5 +1,4 @@
-import type React from "react"
-import { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 
 interface CountdownCircleProps {
   label: string
@@ -84,7 +83,7 @@ const DecorativeBorder = () => (
 )
 
 const Countdown: React.FC = () => {
- const targetDate = new Date(2026, 8, 6, 0, 0, 0) // 6 de septiembre de 2026 (mes 8 porque enero = 0)
+ const targetDate = React.useMemo(() => new Date(2026, 8, 6, 0, 0, 0), []) // 6 de septiembre de 2026 (mes 8 porque enero = 0)
 
   const calculateTimeLeft = () => {
     const now = new Date()
@@ -102,11 +101,23 @@ const Countdown: React.FC = () => {
   const [timeLeft, setTimeLeft] = useState(calculateTimeLeft())
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setTimeLeft(calculateTimeLeft())
-    }, 1000)
+    const update = () => {
+      const now = new Date()
+      const difference = targetDate.getTime() - now.getTime()
+
+      setTimeLeft({
+        days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+        hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+        minutes: Math.floor((difference / (1000 * 60)) % 60),
+        seconds: Math.floor((difference / 1000) % 60),
+        totalMilliseconds: difference
+      })
+    }
+
+    update()
+    const timer = setInterval(update, 1000)
     return () => clearInterval(timer)
-  }, [])
+  }, [targetDate])
 
   // Cálculo dinámico del máximo de días
   const today = new Date()

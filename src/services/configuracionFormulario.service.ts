@@ -54,6 +54,7 @@ async function obtenerInfo(tipo: string): Promise<ResultadoConfiguracion<InfoFor
 
     return { exito: true, datos: data };
   } catch (error) {
+    console.error('Error obtenerInfo:', error);
     return { exito: false, error: 'Error de conexión al obtener información.' };
   }
 }
@@ -80,6 +81,7 @@ async function obtenerRequisitos(tipo: string): Promise<ResultadoConfiguracion<s
     const items = Array.isArray(data) ? data : (data.items || []);
     return { exito: true, datos: items };
   } catch (error) {
+    console.error('Error obtenerRequisitos:', error);
     return { exito: false, error: 'Error de conexión al obtener requisitos.' };
   }
 }
@@ -105,6 +107,7 @@ async function obtenerPasos(tipo: string): Promise<ResultadoConfiguracion<string
     const items = Array.isArray(data) ? data : (data.items || []);
     return { exito: true, datos: items };
   } catch (error) {
+    console.error('Error obtenerPasos:', error);
     return { exito: false, error: 'Error de conexión al obtener pasos.' };
   }
 }
@@ -130,6 +133,7 @@ async function obtenerDocumentos(tipo: string): Promise<ResultadoConfiguracion<s
     const items = Array.isArray(data) ? data : (data.items || []);
     return { exito: true, datos: items };
   } catch (error) {
+    console.error('Error obtenerDocumentos:', error);
     return { exito: false, error: 'Error de conexión al obtener documentos.' };
   }
 }
@@ -172,6 +176,7 @@ export async function obtenerConfiguracionFormulario(
       datos: configuracion,
     };
   } catch (error) {
+    console.error('Error obtenerConfiguracionFormulario:', error);
     return {
       exito: false,
       error: 'Ocurrió un error inesperado al cargar la configuración del formulario.',

@@ -33,7 +33,15 @@ const Sigc = lazy(() => import("@/views/Sigc/sigc"));
 
 const Vinculacion = lazy(() => import("@/views/Vinculacion/vinculacion"));
 const VinculacionBanner = lazy(() => import("@/views/Vinculacion/VinculacionBanner"));
+const BolsaTrabajo = lazy(() => import("@/views/Vinculacion/BolsaTrabajo"));
+const EncuentroEgresados = lazy(() => import("@/views/Vinculacion/EncuentroEgresados"));
+const EntidadCertificacionEvaluacion = lazy(() => import("@/views/Vinculacion/EntidadCertificacionEvaluacion"));
+const Estadias = lazy(() => import("@/views/Vinculacion/Estadias"));
+const MovilidadInternacional = lazy(() => import("@/views/Vinculacion/MovilidadInternacional"));
+const ServicioSocial = lazy(() => import("@/views/Vinculacion/ServicioSocial"));
+const ServiciosTecnologicosRealizados = lazy(() => import("@/views/Vinculacion/ServiciosTecnologicosRealizados"));
 const Calendario = lazy(() => import("@/views/Nosotros/Calendario"));
+const Enlaces = lazy(() => import("@/views/enlaces/Enlaces"));
 const PIT = lazy(() => import("@/views/Sigc/PIT"));
 const Gaceta = lazy(() => import("@/views/extensionUniversitaria/prensaydifusion/Gaceta"));
 const PdfGaceta = lazy(() => import("@/components/Pdf/pdfGaceta"));
@@ -48,10 +56,9 @@ const Nosotros = lazy(() => import("@/views/Nosotros/Nosotros"));
 const ConvocatoriaAdmision = lazy(() => import("@/views/Convocatoria/ConvocatoriaAdmision"));
 const Tramites = lazy(() => import("@/views/Tramites/Tramites"));
 const Becas = lazy(() => import("@/views/Becas/Becas"));
-
+// const Organigrama = lazy(() => import("@/views/Directorios/Organigrama"));
 const TalleresCulturales = lazy(() => import("@/views/TalleresCulturales/TalleresCulturales"));
 const TalleresDeportivos = lazy(() => import("@/views/TalleresDeportivos/TalleresDeportivos"));
-const Enlaces = lazy(() => import("@/views/enlaces/Enlaces"));
 
 // Nuevas vistas recuperadas
 const ProgramasDesarrollo = lazy(() => import("@/views/Vinculacion/ProgramasDesarrollo"));
@@ -82,7 +89,15 @@ export default function Router() {
             <Route path="/sigc" element={<Sigc />} />
             <Route path="/directorio" element={<Directorios />} />
             <Route path="/repositorio-digital-investigacion" element={<Vinculacion />} />
+            <Route path="/vinculacion" element={<Vinculacion />} />
              <Route path="/vinculacion-banner" element={<VinculacionBanner />} />
+            <Route path="/bolsa-de-trabajo" element={<BolsaTrabajo />} />
+            <Route path="/encuentro-de-egresados" element={<EncuentroEgresados />} />
+            <Route path="/entidad-de-certificacion-y-evaluacion" element={<EntidadCertificacionEvaluacion />} />
+            <Route path="/estadias" element={<Estadias />} />
+            <Route path="/movilidad-internacional" element={<MovilidadInternacional />} />
+            <Route path="/servicio-social" element={<ServicioSocial />} />
+            <Route path="/servicios-tecnologicos-realizados" element={<ServiciosTecnologicosRealizados />} />
             <Route path="/calendario" element={<Calendario />} />
             <Route path="/programa-institucional-tutorias" element={<PIT />} />
             <Route path="/gacetas" element={<Gaceta />} />

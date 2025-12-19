@@ -2,18 +2,21 @@
 
 import { useState, useEffect } from "react"
 import { ChevronLeft, ChevronRight } from "lucide-react"
+import { getNoticias, type Noticia } from "@/services/noticias.service"
+import { envs } from "@/config/envs"
 
 export default function EducationalCarousel() {
     const [currentSlide, setCurrentSlide] = useState(0)
     const [imagesPerSlide, setImagesPerSlide] = useState(3)
+    const [noticias, setNoticias] = useState<Noticia[]>([])
 
-    const courses = [
-        { id: 1, image: "/noticias/consejo.jpg" },
-        { id: 2, image: "/noticias/Tequios8.jpg" },
-        { id: 3, image: "/noticias/ConsejoV.jpg" },
-        { id: 7, image: "/noticias/Expo2.jpg" },
-        { id: 8, image: "/noticias/Expo1.jpg" },
-    ]
+    useEffect(() => {
+        const fetchNoticias = async () => {
+            const data = await getNoticias()
+            setNoticias(data)
+        }
+        fetchNoticias()
+    }, [])
 
     // Detecta el tamaño de pantalla y ajusta imágenes por slide
     useEffect(() => {
@@ -28,6 +31,19 @@ export default function EducationalCarousel() {
         window.addEventListener("resize", handleResize)
         return () => window.removeEventListener("resize", handleResize)
     }, [])
+
+    // Si no hay noticias, usar placeholder o array vacío
+    const courses = noticias.length > 0 ? noticias.map(n => ({
+        id: n.id,
+        image: `${envs.API_BASE_URL}/uploads/noticias/${n.imagenUrl}`,
+        title: n.titulo
+    })) : [
+        { id: 1, image: "/noticias/consejo.jpg" },
+        { id: 2, image: "/noticias/Tequios8.jpg" },
+        { id: 3, image: "/noticias/ConsejoV.jpg" },
+        { id: 7, image: "/noticias/Expo2.jpg" },
+        { id: 8, image: "/noticias/Expo1.jpg" },
+    ]
 
     // Agrupa los cursos según imagesPerSlide
     const extendedCourses = [...courses, ...courses, ...courses]
@@ -82,7 +98,7 @@ export default function EducationalCarousel() {
                                             <div className="relative h-64 sm:h-80 md:h-[28rem] lg:h-[32rem] w-full">
                                                 <img
                                                     src={course.image || "/placeholder.svg?height=300&width=400"}
-                                                    alt={`Curso ${course.id}`}
+                                                    alt={`Noticia ${course.id}`}
                                                     className="w-full h-full object-cover"
                                                 />
                                             </div>

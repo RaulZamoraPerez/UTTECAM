@@ -1,10 +1,11 @@
-import { useState, useRef } from "react";
-import { dataOrganigrama, type CustomOrgNode } from "@/data/Organigrama.data";
+import { useState, useRef, useEffect } from "react";
+import { getOrganigrama, type OrganigramaNode } from "@/services/organigrama.service";
 import { ZoomIn, ZoomOut, RotateCcw, Minus, Plus, Info } from "lucide-react";
+import { envs } from "@/config/envs";
 
 // --- Components ---
 
-const NodeCard = ({ node, depth, onToggle }: { node: CustomOrgNode; depth: number; onToggle: () => void }) => {
+const NodeCard = ({ node, depth, onToggle }: { node: OrganigramaNode; depth: number; onToggle: () => void }) => {
   const hasChildren = node.children && node.children.length > 0;
   const [showInfo, setShowInfo] = useState(false);
   
@@ -16,6 +17,10 @@ const NodeCard = ({ node, depth, onToggle }: { node: CustomOrgNode; depth: numbe
   const cardSize = isRoot ? "w-80" : "w-64";
   const titleColor = isRoot ? "text-amber-600" : "text-slate-500";
   const ringColor = isRoot ? "border-amber-100" : "border-slate-100";
+
+  const imageUrl = node.data?.image 
+    ? (node.data.image.startsWith('http') ? node.data.image : `${envs.API_BASE_URL}/uploads/organigrama/${node.data.image}`)
+    : "/logos/logo_ut.png";
 
   return (
     <div 
@@ -36,7 +41,7 @@ const NodeCard = ({ node, depth, onToggle }: { node: CustomOrgNode; depth: numbe
         <div className="relative mb-4">
           <div className={`absolute -inset-2 rounded-full border ${ringColor} opacity-0 group-hover:opacity-100 transition-opacity duration-500`}></div>
           <img 
-            src={node.data?.image || "/logos/logo_ut.png"} 
+            src={imageUrl} 
             alt={node.data?.name}
             className="relative w-20 h-20 rounded-full object-cover border-4 border-white shadow-sm bg-gray-50"
             onError={(e) => {
@@ -99,7 +104,7 @@ const NodeCard = ({ node, depth, onToggle }: { node: CustomOrgNode; depth: numbe
   );
 };
 
-const TreeNode = ({ node, depth = 0 }: { node: CustomOrgNode; depth?: number }) => {
+const TreeNode = ({ node, depth = 0 }: { node: OrganigramaNode; depth?: number }) => {
   const [expanded, setExpanded] = useState(node.expanded ?? true);
   const hasChildren = node.children && node.children.length > 0;
 
@@ -171,7 +176,16 @@ export default function OrganigramaP() {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = useState(false);
   const [startPos, setStartPos] = useState({ x: 0, y: 0 });
+  const [organigramaData, setOrganigramaData] = useState<OrganigramaNode[]>([]);
   const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const fetchOrganigrama = async () => {
+      const data = await getOrganigrama();
+      setOrganigramaData(data);
+    };
+    fetchOrganigrama();
+  }, []);
 
   const handleMouseDown = (e: React.MouseEvent) => {
     setIsDragging(true);
@@ -245,9 +259,13 @@ export default function OrganigramaP() {
         >
           {/* Root */}
           <div className="flex justify-center">
-            {dataOrganigrama.map((node, idx) => (
-              <TreeNode key={idx} node={node} />
-            ))}
+            {organigramaData.length > 0 ? (
+              organigramaData.map((node, idx) => (
+                <TreeNode key={idx} node={node} />
+              ))
+            ) : (
+              <div className="text-gray-400">Cargando organigrama...</div>
+            )}
           </div>
         </div>
       </div>

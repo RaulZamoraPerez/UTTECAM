@@ -1,10 +1,28 @@
 import { ContactCard } from "@/components/ContactCard";
 import { Search } from "lucide-react";
-import { useState } from "react";
-import { contactData } from "@/data/directorios.data"; 
+import { useState, useEffect } from "react";
+import { getDirectorio } from "@/services/directorio.service";
 
 const Directorios = () => {
   const [searchTerm, setSearchTerm] = useState("");
+  const [contactData, setContactData] = useState<any[]>([]);
+
+  useEffect(() => {
+    const fetchDirectorio = async () => {
+      const data = await getDirectorio();
+      // Map API data to component format
+      const mappedData = data.map(item => ({
+        name: item.nombre,
+        title: item.cargo,
+        email: item.email,
+        phone: item.telefono,
+        extension: item.extension,
+        area: item.area
+      }));
+      setContactData(mappedData);
+    };
+    fetchDirectorio();
+  }, []);
 
   const filteredData = contactData.filter((item) =>
     item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
