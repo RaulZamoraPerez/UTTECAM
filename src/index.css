@@ -38,3 +38,23 @@
 
   border-color: #4B5563 !important; /* gris oscuro (Tailwind: gray-600) */
 }
+/* Ensure SweetAlert2 overlays are above UI elements (navbar, modals) */
+.swal2-container,
+.swal2-container .swal2-popup,
+.swal2-container .swal2-modal,
+.swal2-backdrop,
+.swal2-toast {
+  z-index: 9999999 !important;
+}
+
+/* Accessibility styles for high contrast and text spacing */
+.high-contrast-mode {
+  filter: contrast(1.5) saturate(1.2);
+  background-color: #000 !important;
+  color: #fff !important;
+}
+
+.text-spacing-mode {
+  letter-spacing: 0.12rem !important;
+  word-spacing: 0.24rem !important;
+}
