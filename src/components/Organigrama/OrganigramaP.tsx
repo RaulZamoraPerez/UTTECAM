@@ -1,11 +1,13 @@
-import { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { getOrganigrama, type OrganigramaNode } from "@/services/organigrama.service";
 import { ZoomIn, ZoomOut, RotateCcw, Minus, Plus, Info } from "lucide-react";
-import { envs } from "@/config/envs";
+import { envs } from "../../config/envs";
+import { Spinner } from "@/components/Spinner";
 
 // --- Components ---
 
 const NodeCard = ({ node, depth, onToggle }: { node: OrganigramaNode; depth: number; onToggle: () => void }) => {
+
   const hasChildren = node.children && node.children.length > 0;
   const [showInfo, setShowInfo] = useState(false);
   
@@ -172,6 +174,8 @@ const TreeNode = ({ node, depth = 0 }: { node: OrganigramaNode; depth?: number }
 };
 
 export default function OrganigramaP() {
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
   const [scale, setScale] = useState(0.8);
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = useState(false);
@@ -181,8 +185,17 @@ export default function OrganigramaP() {
 
   useEffect(() => {
     const fetchOrganigrama = async () => {
-      const data = await getOrganigrama();
-      setOrganigramaData(data);
+      try {
+        setLoading(true);
+        const data = await getOrganigrama();
+        setOrganigramaData(data);
+        setError("");
+      } catch (err) {
+        console.error('Error fetching organigrama:', err);
+        setError("Error al cargar el organigrama.");
+      } finally {
+        setLoading(false);
+      }
     };
     fetchOrganigrama();
   }, []);
@@ -210,6 +223,9 @@ export default function OrganigramaP() {
     setScale(0.8);
     setPosition({ x: 0, y: 0 });
   };
+
+  if (loading) return <div className="h-screen flex items-center justify-center"><Spinner text="Cargando organigrama..." /></div>;
+  if (error) return <div className="h-screen flex items-center justify-center text-red-500">{error}</div>;
 
   return (
     <div className="relative w-full h-[calc(100vh-80px)] bg-white overflow-hidden select-none font-sans">

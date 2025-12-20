@@ -39,13 +39,13 @@ export const Secciones = ({ data, searchTerm = "" }: Props) => {
 
   if (datosFiltrados.length === 0 && searchTerm) {
     return (
-      <div className="text-center p-6 sm:p-8 md:p-10 bg-white rounded-lg md:rounded-xl border-2 border-dashed border-slate-300">
-        <Search className="h-10 w-10 sm:h-12 sm:w-12 text-gray-400 mx-auto mb-3 sm:mb-4" />
-        <div className="text-gray-600 text-sm sm:text-base mb-2 px-2">
+      <div className="text-center p-6 sm:p-8 md:p-10 bg-white dark:bg-gray-900 rounded-lg md:rounded-xl border-2 border-dashed border-slate-300 dark:border-slate-800">
+        <Search className="h-10 w-10 sm:h-12 sm:w-12 text-gray-400 dark:text-gray-500 mx-auto mb-3 sm:mb-4" />
+        <div className="text-gray-600 dark:text-gray-300 text-sm sm:text-base mb-2 px-2">
           No se encontraron documentos que coincidan con 
-          <span className="font-semibold text-gray-800">"{searchTerm}"</span>
+          <span className="font-semibold text-gray-800 dark:text-white">"{searchTerm}"</span>
         </div>
-        <p className="text-gray-500 text-xs sm:text-sm px-2">
+        <p className="text-gray-500 dark:text-gray-400 text-xs sm:text-sm px-2">
           Intenta con otros términos de búsqueda
         </p>
       </div>
@@ -54,7 +54,7 @@ export const Secciones = ({ data, searchTerm = "" }: Props) => {
 
   return (
     <div className="w-full max-w-7xl mx-auto pt-3 px-3 sm:px-4 md:px-6 lg:px-8">
-      <div className="bg-gradient-to-br from-white via-slate-50 to-slate-100 border border-slate-200 shadow-xl md:shadow-2xl rounded-2xl md:rounded-3xl p-4 sm:p-6 md:p-8 lg:p-10">
+      <div className="bg-gradient-to-br from-white via-slate-50 to-slate-100 dark:from-gray-900 dark:via-gray-900/80 dark:to-gray-800 border border-slate-200 dark:border-gray-800 shadow-xl md:shadow-2xl rounded-2xl md:rounded-3xl p-4 sm:p-6 md:p-8 lg:p-10">
         <div className="space-y-3 md:space-y-4">
           {datosFiltrados.map((nivel1, index) => (
             <Carpeta key={index} carpeta={nivel1} nivel={1} searchTerm={searchTerm} />
@@ -81,7 +81,7 @@ const Carpeta = ({ carpeta, nivel, searchTerm = "" }: CarpetaProps) => {
     
     return partes.map((parte, index) => 
       regex.test(parte) ? 
-        <mark key={index} className="bg-yellow-200 px-1 rounded">{parte}</mark> : 
+        <mark key={index} className="bg-yellow-200 dark:bg-yellow-900/50 dark:text-yellow-200 px-1 rounded">{parte}</mark> : 
         parte
     );
   };
@@ -98,15 +98,15 @@ const Carpeta = ({ carpeta, nivel, searchTerm = "" }: CarpetaProps) => {
     <div className={`transition-all ${paddingClasses[nivel] || "pl-12"}`}>
       <button
         onClick={() => setAbierto(!abierto)}
-        className="flex items-center w-full text-left bg-white hover:bg-slate-100 border border-slate-300 rounded-lg md:rounded-xl px-3 sm:px-4 py-2 sm:py-3 shadow-sm hover:shadow-md transition-all duration-200 group"
+        className="flex items-center w-full text-left bg-white dark:bg-gray-800 hover:bg-slate-100 dark:hover:bg-gray-700 border border-slate-300 dark:border-gray-700 rounded-lg md:rounded-xl px-3 sm:px-4 py-2 sm:py-3 shadow-sm hover:shadow-md transition-all duration-200 group"
       >
         {abierto ? (
-          <ChevronDown size={16} className="sm:w-[18px] sm:h-[18px] text-slate-600 mr-2 flex-shrink-0 group-hover:text-slate-700" />
+          <ChevronDown size={16} className="sm:w-[18px] sm:h-[18px] text-slate-600 dark:text-gray-400 mr-2 flex-shrink-0 group-hover:text-slate-700 dark:group-hover:text-gray-300" />
         ) : (
-          <ChevronRight size={16} className="sm:w-[18px] sm:h-[18px] text-slate-600 mr-2 flex-shrink-0 group-hover:text-slate-700" />
+          <ChevronRight size={16} className="sm:w-[18px] sm:h-[18px] text-slate-600 dark:text-gray-400 mr-2 flex-shrink-0 group-hover:text-slate-700 dark:group-hover:text-gray-300" />
         )}
         <Folder size={18} className="sm:w-5 sm:h-5 text-yellow-500 mr-2 sm:mr-3 flex-shrink-0 group-hover:text-yellow-600" />
-        <span className="text-slate-800 font-medium text-sm sm:text-base break-words leading-tight">{resaltarTexto(carpeta.title, searchTerm)}</span>
+        <span className="text-slate-800 dark:text-gray-200 font-medium text-sm sm:text-base break-words leading-tight">{resaltarTexto(carpeta.title, searchTerm)}</span>
       </button>
 
       {abierto && (
@@ -122,9 +122,9 @@ const Carpeta = ({ carpeta, nivel, searchTerm = "" }: CarpetaProps) => {
               >
                 <FileText
                   size={16}
-                  className="sm:w-[18px] sm:h-[18px] mr-2 text-slate-500 group-hover:text-slate-700 flex-shrink-0 transition-colors"
+                  className="sm:w-[18px] sm:h-[18px] mr-2 text-slate-500 dark:text-gray-400 group-hover:text-slate-700 dark:group-hover:text-gray-200 flex-shrink-0 transition-colors"
                 />
-                <span className=" group-hover:decoration-slate-600 break-words hover:underline text-sm sm:text-base leading-tight">
+                <span className=" group-hover:decoration-slate-600 break-words hover:underline text-sm sm:text-base leading-tight text-slate-700 dark:text-gray-300">
                   {resaltarTexto(doc.titulo, searchTerm)}
                 </span>
               </a>

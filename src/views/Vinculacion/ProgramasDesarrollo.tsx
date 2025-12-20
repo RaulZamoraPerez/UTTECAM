@@ -21,8 +21,7 @@ export default function ProgramasDesarrollo() {
                 if (!response.ok) throw new Error("Error al cargar programas");
                 const data: Programa[] = await response.json();
 
-                // Formatear para TablaDocumentosReutilizable2
-                // Agrupamos todo en una sola sección por ahora, o como sea que se prefiera
+              
                 const formattedData = [
                     {
                         id: "programas",

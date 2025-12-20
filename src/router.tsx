@@ -56,6 +56,10 @@ const Nosotros = lazy(() => import("@/views/Nosotros/Nosotros"));
 const ConvocatoriaAdmision = lazy(() => import("@/views/Convocatoria/ConvocatoriaAdmision"));
 const Tramites = lazy(() => import("@/views/Tramites/Tramites"));
 const Becas = lazy(() => import("@/views/Becas/Becas"));
+
+// const Comites = lazy(() => import("@/views/Comites/Comites")); // Generic view, replacing with specific ones
+const ComiteDetail = lazy(() => import("@/views/Comites/ComiteDetail"));
+
 // const Organigrama = lazy(() => import("@/views/Directorios/Organigrama"));
 const TalleresCulturales = lazy(() => import("@/views/TalleresCulturales/TalleresCulturales"));
 const TalleresDeportivos = lazy(() => import("@/views/TalleresDeportivos/TalleresDeportivos"));
@@ -124,10 +128,19 @@ export default function Router() {
             <Route path="/servicio-medico" element={<ServicioMedico />} />
             <Route path="/educacion-continua" element={<EducacionContinua />} />
             <Route path="/educacion-continua/cursos" element={<CursosEducacionContinua />} />
+             <Route path="/practicas-y-estadias" element={<PracticasEstadias />} />
+             <Route path="/programas-desarrollo" element={<ProgramasDesarrollo />} />
+             
+             {/* Comites Routes */}
+             <Route path="/comite-academico" element={<ComiteDetail slug="academico" />} />
+             <Route path="/comite-vinculacion" element={<ComiteDetail slug="vinculacion" />} />
+             <Route path="/comite-calidad" element={<ComiteDetail slug="calidad" />} />
+             <Route path="/comite-investigacion" element={<ComiteDetail slug="investigacion" />} />
+              
             <Route path="/practicas-y-estadias" element={<PracticasEstadias />} />
 
             {/* Comités y Programas */}
-            <Route path="/programas-desarrollo" element={<ProgramasDesarrollo />} />
+            {/* <Route path="/programas-desarrollo" element={<ProgramasDesarrollo />} /> */}
             <Route path="/comite-academico" element={<ComiteView slug="academico" titulo="Comité Académico" />} />
             <Route path="/comite-vinculacion" element={<ComiteView slug="vinculacion" titulo="Comité de Vinculación" />} />
             <Route path="/comite-calidad" element={<ComiteView slug="calidad" titulo="Comité de Calidad" />} />
