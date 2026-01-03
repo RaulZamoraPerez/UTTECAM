@@ -1,18 +1,20 @@
 // Service Worker para cachear el video y recursos pesados
-const CACHE_NAME = 'uttecam-v1';
-const VIDEO_CACHE = 'uttecam-video-v1';
+const CACHE_NAME = 'uttecam-v5';
+const VIDEO_CACHE = 'uttecam-video-v5';
 
 // Recursos a cachear inmediatamente
 const STATIC_CACHE = [
   '/',
   '/logo.png',
-  '/hero1.jpg',
-  '/hero2.jpg',
+  '/hero/uttecamNavidad.png',
+  '/hero/portada_navideña.png',
+  '/hero/hero1.jpg',
+  '/hero/hero2.jpg',
 ];
 
 // Recursos de video (caché separada para videos grandes)
 const VIDEO_RESOURCES = [
-  '/VIDEOS/UTTECAM.mp4'
+  '/hero/UTTECAM.mp4'
 ];
 
 // Instalación del Service Worker
@@ -61,7 +63,7 @@ self.addEventListener('fetch', (event) => {
   }
 
   // Estrategia para videos: Cache First (priorizar caché)
-  if (request.url.includes('/VIDEOS/')) {
+  if (request.url.includes('/hero/') && request.url.endsWith('.mp4')) {
     event.respondWith(
       caches.open(VIDEO_CACHE).then((cache) => {
         return cache.match(request).then((cachedResponse) => {

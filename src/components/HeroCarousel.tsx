@@ -1,6 +1,6 @@
 import { Carousel } from 'react-responsive-carousel'
 import 'react-responsive-carousel/lib/styles/carousel.min.css'
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 
 // Estilos personalizados para el carousel
 const carouselStyles = `
@@ -14,9 +14,9 @@ const carouselStyles = `
     background: rgba(255, 255, 255, 0.4);
     border: 2px solid rgba(255, 255, 255, 0.8);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-    width: 14px;
-    height: 14px;
-    margin: 0 8px;
+    width: 12px;
+    height: 12px;
+    margin: 0 6px;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     backdrop-filter: blur(10px);
   }
@@ -24,7 +24,7 @@ const carouselStyles = `
   .carousel .control-dots .dot.selected {
     background: #D1672A;
     border-color: #D1672A;
-    transform: scale(1.3);
+    transform: scale(1.2);
     box-shadow: 0 4px 12px rgba(209, 103, 42, 0.5);
   }
   
@@ -32,14 +32,23 @@ const carouselStyles = `
     background: rgba(255, 255, 255, 0.9);
     backdrop-filter: blur(15px);
     border-radius: 50%;
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
     top: 50%;
     transform: translateY(-50%);
-    opacity: 0.9;
+    opacity: 0.8;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    border: 2px solid rgba(209, 103, 42, 0.3);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(209, 103, 42, 0.3);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    display: none;
+  }
+
+  @media (min-width: 768px) {
+    .carousel .control-arrow {
+      display: block;
+      width: 60px;
+      height: 60px;
+    }
   }
   
   .carousel .control-arrow:hover {
@@ -47,70 +56,54 @@ const carouselStyles = `
     background: rgba(255, 255, 255, 1);
     transform: translateY(-50%) scale(1.1);
     border-color: #D1672A;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
   }
 
   .hero-slide {
     position: relative;
     overflow: hidden;
-    min-height: 85vh;
+    height: 60vh;
+    background: #000;
+  }
+
+  @media (min-width: 768px) {
+    .hero-slide {
+      height: 85vh;
+    }
   }
 
   .hero-slide img {
     width: 100%;
-    object-fit: cover;
+    height: 100%;
     display: block;
   }
 `
 
 const HeroCarousel: React.FC<{ showVideo?: boolean }> = ({ showVideo = true }) => {
-  // Detectar si es móvil
-  const isMobile = window.innerWidth <= 768
-
-  // MÓVIL: Solo imagen estática sin carousel
-  if (isMobile) {
-    return (
-      <>
-        <style dangerouslySetInnerHTML={{ __html: carouselStyles }} />
-        <section className="w-full overflow-hidden">
-          <div className="hero-slide">
-            <img
-              src="/fondoinicio.png"
-              alt="Universidad Tecnológica de Tecamachalco"
-              className="w-full h-[85vh] object-cover"
-              loading="eager"
-              decoding="async"
-              style={{
-                filter: 'contrast(1.05) saturate(1.1) brightness(1.02)'
-              }}
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent z-2"></div>
-          </div>
-        </section>
-      </>
-    )
-  }
-
-  // DESKTOP: Carousel completo
-  // Iniciamos siempre en 0 para mostrar la imagen de fondo inicio primero
+  const [isMobile, setIsMobile] = useState(false)
   const [selectedIndex, setSelectedIndex] = useState(0)
   const [autoPlay, setAutoPlay] = useState(true)
   const videoRef = useRef<HTMLVideoElement>(null)
-  const slidesCount = 3
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth <= 768)
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
 
   const handleVideoPlay = () => {
     setAutoPlay(false)
   }
 
   const handleVideoEnd = () => {
-    setSelectedIndex((prevIndex) => (prevIndex + 1) % slidesCount)
+    setSelectedIndex((prevIndex) => (prevIndex + 1) % 4)
     setAutoPlay(true)
   }
 
   return (
     <>
       <style dangerouslySetInnerHTML={{ __html: carouselStyles }} />
-      <section className="w-full overflow-hidden">
+      <section className="w-full overflow-hidden bg-black">
         <Carousel
           selectedItem={selectedIndex}
           onChange={setSelectedIndex}
@@ -126,12 +119,12 @@ const HeroCarousel: React.FC<{ showVideo?: boolean }> = ({ showVideo = true }) =
           className="relative"
           axis="horizontal"
         >
-          {/* Slide 1 - Fondo Inicio */}
-          <div key="slide1" className="hero-slide">
+          {/* Slide 1 - Navidad UTTECAM */}
+          <div key="slide0" className="hero-slide">
             <img
-              src="/fondoinicio.png"
-              alt="Universidad Tecnológica de Tecamachalco"
-              className="w-full h-[85vh] sm:h-[75vh] md:h-[80vh] lg:h-[85vh] xl:h-[90vh] object-cover"
+              src={isMobile ? "/hero/uttecamNavidad-responsive.png" : "/hero/uttecamNavidad.png"}
+              alt="Navidad en UTTECAM"
+              className="w-full h-full object-cover object-center"
               loading="eager"
               decoding="async"
               fetchPriority="high"
@@ -139,56 +132,63 @@ const HeroCarousel: React.FC<{ showVideo?: boolean }> = ({ showVideo = true }) =
                 filter: 'contrast(1.05) saturate(1.1) brightness(1.02)'
               }}
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent z-2"></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent z-2"></div>
           </div>
 
-          {/* Slide 2 - Hero 1 */}
-          <div key="slide2" className="hero-slide">
+          {/* Slide 2 - Portada Navideña */}
+          <div key="slide1" className="hero-slide">
             <img
-              src="/hero1.jpg"
-              alt="Proceso de ingreso UTTECAM 2025"
-              className="w-full h-[85vh] sm:h-[75vh] md:h-[80vh] lg:h-[85vh] xl:h-[90vh] object-cover"
+              src={isMobile ? "/hero/fondo-navideño-responsive.jpg" : "/hero/portada_navideña.png"}
+              alt="Universidad Tecnológica de Tecamachalco"
+              className="w-full h-full object-cover object-top"
               loading="eager"
               decoding="async"
               style={{
                 filter: 'contrast(1.05) saturate(1.1) brightness(1.02)'
               }}
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent z-2"></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent z-2"></div>
           </div>
 
-          {/* Slide 3 - Video o imagen alternativa */}
+          {/* Slide 3 - Hero 1 */}
+          <div key="slide2" className="hero-slide">
+            <img
+              src="/hero/hero1.jpg"
+              alt="Proceso de ingreso UTTECAM 2025"
+              className="w-full h-full object-cover"
+              loading="eager"
+              decoding="async"
+              style={{
+                filter: 'contrast(1.05) saturate(1.1) brightness(1.02)'
+              }}
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent z-2"></div>
+          </div>
+
+          {/* Slide 4 - Video (Solo Desktop) o Imagen (Móvil) */}
           <div key="slide3" className="hero-slide">
-            {showVideo && selectedIndex === 2 ? (
+            {!isMobile && showVideo && selectedIndex === 3 ? (
               <video
                 ref={videoRef}
                 autoPlay
                 muted
                 playsInline
                 preload="metadata"
-                className="w-full h-[85vh] sm:h-[75vh] md:h-[80vh] lg:h-[85vh] xl:h-[90vh] object-cover"
+                className="w-full h-full object-cover"
                 onPlay={handleVideoPlay}
                 onEnded={handleVideoEnd}
-                onError={(e) => {
-                  console.error('Error loading video:', e);
-                  // Fallback to image if video fails
-                  setSelectedIndex(0); // Switch to first slide
-                }}
-                onLoadStart={() => {
-                  console.log('Video loading started');
-                }}
                 style={{
                   background: 'linear-gradient(135deg, #000 0%, #1a1a1a 50%, #000 100%)',
                 }}
               >
-                <source src="/VIDEOS/UTTECAM.mp4" type="video/mp4" />
+                <source src="/hero/UTTECAM.mp4" type="video/mp4" />
                 Tu navegador no soporta videos HTML5.
               </video>
             ) : (
               <img
-                src="/hero2.jpg"
+                src="/hero/hero2.jpg"
                 alt="Instalaciones UTTECAM"
-                className="w-full h-[85vh] sm:h-[75vh] md:h-[80vh] lg:h-[85vh] xl:h-[90vh] object-cover"
+                className="w-full h-full object-cover"
                 loading="lazy"
                 decoding="async"
                 style={{
