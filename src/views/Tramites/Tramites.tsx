@@ -23,8 +23,8 @@ const serviciosEstaticos: ServicioExtendido[] = [
     href: "/reinscripcion",
   },
   {
-    title: "Reinscripción a Ingeniería/Licenciatura (7º cuatrimestre)",
-    description: "Actualización de datos y continuidad de estudios.",
+    title: "Reinscripción a cuatrimestre por iniciar",
+    description: "Periodo Enero - Abril 2026",
     icon: <RefreshCcw />,
     active: false,
   },
@@ -79,8 +79,7 @@ export default function Tramites() {
   const [cargando, setCargando] = useState(true);
   
   // Estado para el modal de opciones de reinscripción
-  const [tituloModal, setTituloModal] = useState("Opciones de Reinscripción");
-  const [subtituloModal, setSubtituloModal] = useState("Selecciona el tipo de reinscripción que corresponda a tu situación");
+  const [tituloModal, setTituloModal] = useState("Enero-Abril 2026");
   const [opcionesReinscripcion, setOpcionesReinscripcion] = useState<OpcionReinscripcionCard[]>([]);
 
   // Cargar título y subtítulo del backend
@@ -111,9 +110,6 @@ export default function Tramites() {
         
         if (response.success && response.data) {
           setTituloModal(response.data.titulo);
-          if (response.data.subtitulo) {
-            setSubtituloModal(response.data.subtitulo);
-          }
         }
       } catch (err) {
         console.error('Error al cargar información del modal de reinscripción:', err);
@@ -201,7 +197,7 @@ export default function Tramites() {
         <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 justify-items-center lg:mx-30">
           {servicios.map((servicio, idx) => {
             // Si tiene href y NO es reinscripción, usa Link
-            if (servicio.href && servicio.title !== "Reinscripción a Ingeniería/Licenciatura (7º cuatrimestre)") {
+            if (servicio.href && servicio.title !== "Reinscripción a cuatrimestre por iniciar") {
               return (
                 <Link 
                   key={idx}
@@ -229,7 +225,7 @@ export default function Tramites() {
         </div>
 
         {/* Modal flotante para las subcards de Reinscripción */}
-        {activeService && activeService.title === "Reinscripción a Ingeniería/Licenciatura (7º cuatrimestre)" && (
+        {activeService && activeService.title === "Reinscripción a cuatrimestre por iniciar" && (
           <div className="fixed inset-0 flex items-center justify-center z-50 p-4">
             <div className="bg-amber-50/95 backdrop-blur-sm rounded-2xl shadow-2xl border border-amber-200 max-w-5xl w-full max-h-[90vh] overflow-y-auto relative">
               {/* Botón de cerrar */}
@@ -242,28 +238,51 @@ export default function Tramites() {
 
               {/* Contenido del modal */}
               <div className="p-8">
-                <h3 className="text-3xl font-bold text-amber-700 mb-2 text-center">
+                <h3 className="text-3xl font-bold text-amber-700 mb-6 text-center">
                   {tituloModal}
                 </h3>
-                <p className="text-amber-800 text-center mb-8">
-                  {subtituloModal}
-                </p>
                 
-                <div className="grid gap-8 grid-cols-1 lg:grid-cols-2 justify-items-center items-stretch">
-                  {opcionesReinscripcion.map((opcion) => (
-                    <div 
-                      key={opcion.id} 
-                      onClick={() => handleSubcardClick(opcion.archivoUrl)}
-                      className="transform transition-all duration-300 hover:scale-105 cursor-pointer w-full max-w-[350px] h-[200px]"
-                    >
-                      <ServicioCard 
-                        title={opcion.titulo}
-                        description={opcion.subtitulo}
-                        icon={<Users />}
-                      />
-                    </div>
-                  ))}
+                <div className="bg-amber-100/50 p-6 rounded-2xl border border-amber-200 mb-8 max-w-3xl mx-auto shadow-sm">
+                  <p className="text-amber-900 text-center text-lg font-medium leading-relaxed">
+                    El proceso de reinscripción para el cuatrimestre Enero-Abril 2026 será del 05 al 09 de enero de 2026 a través del sistema de control escolar “Mi Escuela”
+                  </p>
                 </div>
+
+                <div className="flex justify-center mb-10">
+                  <a 
+                    href="/tramites/Instructivo Reinscripción.pdf" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="bg-amber-600 text-white px-8 py-4 rounded-xl font-bold hover:bg-amber-700 transition-all transform hover:scale-105 shadow-md flex items-center gap-3 text-lg"
+                  >
+                    <FileText className="w-6 h-6" />
+                    Ver Instructivo de Reinscripción
+                  </a>
+                </div>
+                
+                {opcionesReinscripcion.length > 0 && (
+                  <>
+                    <div className="h-px bg-amber-200 w-full mb-8" />
+                    <p className="text-amber-800 text-center mb-8 font-semibold">
+                      Otras opciones disponibles:
+                    </p>
+                    <div className="grid gap-8 grid-cols-1 lg:grid-cols-2 justify-items-center items-stretch">
+                      {opcionesReinscripcion.map((opcion) => (
+                        <div 
+                          key={opcion.id} 
+                          onClick={() => handleSubcardClick(opcion.archivoUrl)}
+                          className="transform transition-all duration-300 hover:scale-105 cursor-pointer w-full max-w-[350px] h-[200px]"
+                        >
+                          <ServicioCard 
+                            title={opcion.titulo}
+                            description={opcion.subtitulo}
+                            icon={<Users />}
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  </>
+                )}
               </div>
             </div>
           </div>

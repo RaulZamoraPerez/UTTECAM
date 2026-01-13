@@ -1,7 +1,7 @@
 import type { ServicioCardProps } from "../types/servicesType";
 
 export default function ServicioCard({icon, title, description}: ServicioCardProps) {
-  const isActive = title === "Reinscripción a Ingeniería/Licenciatura (7º cuatrimestre)";
+  const isActive = title === "Reinscripción a cuatrimestre por iniciar";
   return (
     <div className={`rounded-xl shadow-sm p-4 transition-all hover:shadow-md w-full h-full border border-gray-100 flex flex-col ${isActive ? 'bg-gradient-to-r from-amber-500 to-amber-600' : 'bg-white' }`}>
       <div className={`text-3xl mb-3 flex-shrink-0 ${isActive ? 'text-white' : 'text-amber-600'}`}>

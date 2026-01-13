@@ -119,29 +119,29 @@ const HeroCarousel: React.FC<{ showVideo?: boolean }> = ({ showVideo = true }) =
           className="relative"
           axis="horizontal"
         >
-          {/* Slide 1 - Navidad UTTECAM */}
-          <div key="slide0" className="hero-slide">
+          {/* Slide 1 - Nueva Portada (Flyer 2026) */}
+          <div key="slide0" className="hero-slide bg-black">
             <img
-              src={isMobile ? "/hero/uttecamNavidad-responsive.png" : "/hero/uttecamNavidad.png"}
-              alt="Navidad en UTTECAM"
-              className="w-full h-full object-cover object-center"
+              src="/hero/FB.png"
+              alt="¡Sigamos Adelante! 2026"
+              className="w-full h-full object-contain object-center"
               loading="eager"
               decoding="async"
               fetchPriority="high"
               style={{
-                filter: 'contrast(1.05) saturate(1.1) brightness(1.02)'
+                filter: 'contrast(1.1) brightness(1.1)'
               }}
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent z-2"></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent z-2"></div>
           </div>
 
-          {/* Slide 2 - Portada Navideña */}
+          {/* Slide 2 - Navidad UTTECAM */}
           <div key="slide1" className="hero-slide">
             <img
-              src={isMobile ? "/hero/fondo-navideño-responsive.jpg" : "/hero/portada_navideña.png"}
-              alt="Universidad Tecnológica de Tecamachalco"
-              className="w-full h-full object-cover object-top"
-              loading="eager"
+              src={isMobile ? "/hero/uttecamNavidad-responsive.png" : "/hero/uttecamNavidad.png"}
+              alt="Navidad en UTTECAM"
+              className="w-full h-full object-cover object-center"
+              loading="lazy"
               decoding="async"
               style={{
                 filter: 'contrast(1.05) saturate(1.1) brightness(1.02)'
