@@ -76,10 +76,12 @@ export default function Navbar() {
         },
         {
             label: "Admisión",
-            href: "/admision",
+            // Point parent to the actual admission page
+            href: "/proceso-admision",
             submenu: [
                 { label: "Proceso de admisión", href: "/proceso-admision" },
-                { label: "Servicios escolares", href: "/serviciosEscolares" },
+                // Use consistent capitalization and spelling
+                { label: "Servicios Escolares", href: "/serviciosEscolares" },
                 {
                     label: "Requisitos",
                     submenu:[

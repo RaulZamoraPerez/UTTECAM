@@ -1,0 +1,137 @@
+[33m0459acb[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m)[m remove zip
+[33m56b0444[m nuevos cambios
+[33m36a69a3[m Merge branch 'master' of https://github.com/RaulZamoraPerez/UTTECAM
+[33m6330c50[m cambios raul completo
+[33mbdb81de[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m Nuevo Botón de Accesibilidad
+[33m1089973[m archivos finanzas, becas, formatos
+[33mfc427fa[m servicio medico, gacetas,
+[33mf8c7e42[m Merge branch 'master' of https://github.com/RaulZamoraPerez/UTTECAM
+[33me2e257a[m cambios becas
+[33m6a52b9b[m cambios
+[33mc7fea26[m Merge branch 'master' of https://github.com/RaulZamoraPerez/UTTECAM
+[33mf5606b3[m Actualizar la fecha de última modificación y calendario en last-update.json
+[33m933cd02[m organigrama, formatos de trabajo
+[33m6db4a51[m organigrama cambios imagenes
+[33m1d6254e[m Cambios en Visión
+[33md803345[m Merge branch 'master' of https://github.com/RaulZamoraPerez/UTTECAM
+[33mdfa1b71[m se corrigio reloj de aniversario
+[33m58e20ff[m Agregado enlace a Moodle
+[33m9aa5973[m Arreglado ruta de serviciosEscolares/tramites-escolares
+[33m334951e[m Cambiado imagenes y documentos de apartado de becas
+[33m2c974f5[m arreglado navbar
+[33m302eea6[m[33m ([m[1;31morigin/modificaciones-12-de-agosto-de-2025[m[33m)[m Merge branch 'modificaciones-12-de-agosto-de-2025' of https://github.com/RaulZamoraPerez/UTTECAM into modificaciones-12-de-agosto-de-2025
+[33ma7137fa[m Resaltado card Reinscripcion
+[33m23517a6[m Convocatoria a trámite de título profesional ahora funciona igual que gaceta: datos y rutas compatibles para previsualización de PDF
+[33m5211a3b[m Completado puntos 3, 4 y 6
+[33m5448dfc[m Agregar submenús para 'Trámites' y 'Convocatoria a trámite de título profesional' en 'Servicios escolares' del Navbar
+[33m74b5276[m Cambio de nombre del menú 'Admisión' a 'Servicios escolares' y del submenú a 'Trámites'
+[33m120feed[m Servicios tecnologicos y cafe cientifico
+[33mc046b0e[m Cambios actuales
+[33md3894ee[m cambios  sigc y secciones
+[33ma3d7f4d[m Recursos Humanos
+[33m4390c85[m Merge branch 'master' of https://github.com/RaulZamoraPerez/UTTECAM
+[33m370d8d9[m Cambios finanzas
+[33m33387b9[m loader
+[33ma9afc1f[m loader
+[33m712936c[m faltas de ortografia y lazy
+[33m8f82ca2[m cambios package
+[33md4d1ca3[m raul
+[33mcca3d4c[m Cambio de rutas Coordinación
+[33me5081c2[m se agrego rutas de extension
+[33mda4cc0b[m se quito rounded a nav bar
+[33m8092196[m Merge branch 'master' of https://github.com/RaulZamoraPerez/UTTECAM
+[33m2061fbb[m navbar
+[33mc517b53[m Merge branch 'master' of https://github.com/RaulZamoraPerez/UTTECAM
+[33m8bd1e0f[m NavBar
+[33mb4ef244[m Update .gitignore to include additional image file types; modify last-update.json date; refine Navbar structure; clean up Router component; enhance SGA and SIGC document lists; fix image path in CafeCientifico component.
+[33m79900db[m Correción
+[33m6cfa4b3[m Merge branch 'master' of https://github.com/RaulZamoraPerez/UTTECAM
+[33m7f8bcc1[m Cambios para SGA Y SGC
+[33m733a5ef[m Merge branch 'master' of https://github.com/RaulZamoraPerez/UTTECAM
+[33me989646[m se hizo cambios en extencion universitaria
+[33mdca32f8[m Apartado de Sitio Web Coordinacion De Género
+[33m5062eec[m Cambios en VINCULACION
+[33m9eeeabc[m Merge branches 'master' and 'master' of https://github.com/RaulZamoraPerez/UTTECAM
+[33mb39cb09[m extension universitaria
+[33m4bf26ff[m Merge branch 'master' of https://github.com/RaulZamoraPerez/UTTECAM
+[33m969de9e[m footer
+[33mee57219[m Apartado de finanzas
+[33m11c9b2a[m Merge branch 'master' of https://github.com/RaulZamoraPerez/UTTECAM
+[33m7097a38[m Implement code
+[33m0ebb1a4[m csmbios adan
+[33m097ea6a[m Fecha de actualizaciones, Cambio de palabras
+[33m7b4e0b2[m pit
+[33m4400666[m modal
+[33mfe4c88c[m formulari en home
+[33mffa5e03[m cambios home formulario
+[33maafb6d2[m se optimizo inicio
+[33mde74f2f[m Merge branch 'master' of https://github.com/RaulZamoraPerez/UTTECAM
+[33m185cb70[m gaceta
+[33mcae0618[m gaceta
+[33mbf64a4d[m Merge branch 'master' of https://github.com/RaulZamoraPerez/UTTECAM
+[33m5418742[m Correcciones del contenido Footer
+[33m038ee98[m VIDEO
+[33m4e5a7d3[m Merge branch 'master' of https://github.com/RaulZamoraPerez/UTTECAM
+[33mc0fe5d9[m SE AGREGO GACETA
+[33md71a5e7[m Merge branch 'master' of https://github.com/RaulZamoraPerez/UTTECAM
+[33m0edf3b9[m Correciones Navbar y Modal
+[33m51b9599[m se corrigio reloj y agrego video en carrousel principal
+[33m231bd43[m Cambios en apartados
+[33m62315fe[m Cambios
+[33m0bc41f7[m [FIX] orthography
+[33m2acd792[m se corrigio rutas de imagenes de organigrama y directorio
+[33mf983f37[m Merge branch 'master' of https://github.com/RaulZamoraPerez/UTTECAM
+[33med6a742[m se corrigio navbar scroll
+[33mbcd4487[m Merge branch 'master' of https://github.com/RaulZamoraPerez/UTTECAM
+[33mbe5b52f[m calendario y mas
+[33m565d0bf[m se corrigio navbar
+[33m340bbf8[m Merge branch 'master' of https://github.com/RaulZamoraPerez/UTTECAM
+[33m6361ac3[m Merge branch 'master' of https://github.com/RaulZamoraPerez/UTTECAM
+[33m78ed603[m Arreglado apartado de nosotros
+[33m8e3d779[m organigrama correcion
+[33mf96cd62[m Merge branch 'master' of https://github.com/RaulZamoraPerez/UTTECAM
+[33m9d509e9[m errore Becas
+[33m1cedd19[m Merge branch 'master' of https://github.com/RaulZamoraPerez/UTTECAM
+[33m6e78e2c[m Agregado area de becas
+[33m7aebe60[m Merge branch 'master' of https://github.com/RaulZamoraPerez/UTTECAM
+[33m1a20513[m fix: corregir estructura de detalles de carrera e información
+[33m27260c4[m SE CORRIIO LA ESTRUCTURA DE DETALLES CARRER E INFORMACION
+[33m7839ef3[m[33m ([m[1;31morigin/Finanzas,-normatividad,-RH[m[33m)[m pit, pdf view
+[33m1ab5217[m ruta
+[33m4e34b65[m logo organigrama
+[33m8995101[m extension directorio
+[33m80eb1e5[m Merge branch 'master' of https://github.com/RaulZamoraPerez/UTTECAM
+[33m22b1f64[m organigrama terminado y directorios
+[33m5bc1f4f[m [FIX] route server
+[33mbd2e7cf[m se corrigio detalles de carreras
+[33m09ca4d3[m Merge branch 'master' of https://github.com/RaulZamoraPerez/UTTECAM
+[33m2252351[m organigrama, vistas pdf
+[33mad0f3ec[m se corrigio detalles de carreras
+[33m19a5657[m Merge branch 'master' of https://github.com/RaulZamoraPerez/UTTECAM
+[33m2632649[m Merge branch 'master' of https://github.com/RaulZamoraPerez/UTTECAM
+[33m5ac8e74[m Correciones
+[33m6a184df[m Nuevas correciones
+[33m7ee85cb[m Arreglado importacion de componente de becas
+[33m822677f[m programas mejorado
+[33ma71ce07[m Merge: Resuelto conflicto en router.tsx combinando todas las rutas
+[33me8d1b54[m programas mejorado
+[33m63701d9[m Agregado areas de mi escuela, convocatoria de admision y nosotros
+[33mcee11c9[m Merge branch 'master' of https://github.com/RaulZamoraPerez/UTTECAM
+[33m91de984[m Nuevo Cambio
+[33mbb19130[m Resuelto conflicto en Home.tsx, combinados FormContact y CarrucelNoticias
+[33mcbdca09[m organigrama, formulario
+[33m988b660[m Merge branch 'master' of https://github.com/RaulZamoraPerez/UTTECAM
+[33m6fc0b2a[m Mejoras
+[33m0f01dd2[m se subio la informacion de las carreras
+[33m9ab509e[m ultima version
+[33m9dcf010[m version corregida
+[33m37fda9a[m prueba
+[33m6157142[m vinculacion
+[33m0c9e514[m vinculacion
+[33m5755b27[m Vinculacion
+[33m1b3913e[m home
+[33m8f5c662[m se agrego home y detalles de carreras
+[33m3417436[m respositorio router
+[33m7e87ecc[m router
+[33m5f4d376[m Componentes Pleca-NavBar
+[33md88f72c[m Inicio de app UTTECAM
