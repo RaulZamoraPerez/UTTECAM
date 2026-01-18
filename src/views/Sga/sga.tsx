@@ -248,6 +248,13 @@ const datos = [
             { id: "doc43", titulo: "protocolo de actuacion en caso de emergencias.pdf", archivo: "/SIG/INSTRUCCIONES DE TRABAJO/protocolo de actuacion en caso de emergencias.pdf" },
         ],
     },
+    {
+        id: "5",
+        titulo: "Manual Ambiental",
+        documentos:[
+            {id:"doc1", titulo:"Manual de gestión ambiental.pdf", archivo:"/SIG/MANUAL AMBIENTAL/MANUAL DE GESTIÓN AMBIENTAL.pdf"}
+        ]
+    }
 ]
 
 export default function sga() {

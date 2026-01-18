@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import ServicioCard from '@/components/ServiceCard';
 import { Spinner } from '@/components/Spinner';
 import { BookOpen, FileCheck, FileText, GraduationCap, Hospital, IdCard, RefreshCcw, Scroll, Users, X } from 'lucide-react'
@@ -196,29 +196,37 @@ export default function Tramites() {
         
         <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 justify-items-center lg:mx-30">
           {servicios.map((servicio, idx) => {
-            // Si tiene href y NO es reinscripción, usa Link
-            if (servicio.href && servicio.title !== "Reinscripción a cuatrimestre por iniciar") {
+            // Solo la carta de Reinscripción mantiene su funcionalidad de abrir el modal
+            if (servicio.title === "Reinscripción a cuatrimestre por iniciar") {
               return (
-                <Link 
-                  key={idx}
-                  to={servicio.href}
-                  className="cursor-pointer transition-all duration-200 hover:scale-105 hover:shadow-lg w-full max-w-[350px]"
+                <div 
+                  key={idx} 
+                  onClick={() => handleServiceClick(servicio.title)} 
+                  className={`cursor-pointer transition-all duration-200 w-full max-w-[350px] ${
+                    servicio.active ? 'scale-105 shadow-lg' : 'hover:opacity-80'
+                  }`}
                 >
                   <ServicioCard {...servicio} />
-                </Link>
+                </div>
               );
             }
             
-            // Si es reinscripción, mantiene el onClick para el modal
+            // Se comentan los links de los demás trámites para deshabilitarlos temporalmente
             return (
               <div 
                 key={idx} 
-                onClick={() => handleServiceClick(servicio.title)} 
-                className={`cursor-pointer transition-all duration-200 w-full max-w-[350px] ${
-                  servicio.active ? 'scale-105 shadow-lg' : 'hover:opacity-80'
-                }`}
+                className="w-full max-w-[350px] opacity-70 grayscale-[0.5]"
               >
-                <ServicioCard {...servicio} />
+                {/* 
+                <Link 
+                  to={servicio.href || "#"}
+                  className="cursor-pointer transition-all duration-200 hover:scale-105 hover:shadow-lg w-full"
+                >
+                */}
+                  <ServicioCard {...servicio} />
+                {/* 
+                </Link>
+                */}
               </div>
             );
           })}
