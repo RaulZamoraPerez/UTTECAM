@@ -40,6 +40,8 @@ const PdfGaceta = lazy(() => import("@/components/Pdf/pdfGaceta"));
 const MiembrosSnii = lazy(() => import("@/views/Vinculacion/miembrosSnii"));
 const CafeCientifico = lazy(() => import("@/views/Vinculacion/cafeCientifico"));
 const ServiciosTecnologicos = lazy(() => import("@/views/Vinculacion/ServiciosTecnologicos"));
+const EntidadCertificacion = lazy(() => import("@/views/Vinculacion/EntidadCertificacion"));
+const Cepim = lazy(() => import("@/views/Vinculacion/Cepim"));
 const PromocioIntitucional = lazy(() => import("@/views/extensionUniversitaria/difusionDivulgacion/promocioIntitucional"));
 const PdfPromocionInstitucional = lazy(() => import("@/components/Pdf/PdfPromocionInstitucional"));
 const Coordinacion = lazy(() => import("@/views/COORDINACIÓN DE GÉNERO/CoordinacionGenero"));
@@ -95,6 +97,8 @@ export default function Router() {
             <Route path="/MiembrosSnii" element={<MiembrosSnii />} />
             <Route path="/seminario-cafe-cientifico" element={<CafeCientifico />} />
             <Route path="/ServiciosTecnologicos" element={<ServiciosTecnologicos />} />
+            <Route path="/entidad-certificacion-evaluacion" element={<EntidadCertificacion />} />
+            <Route path="/cepim" element={<Cepim />} />
             <Route path="/Coordinacion" element={<Coordinacion />} />
             <Route path="/portal-estudiantes" element={<MiEscuela />} />
             <Route path="/becas-academicas" element={<Becas />} />

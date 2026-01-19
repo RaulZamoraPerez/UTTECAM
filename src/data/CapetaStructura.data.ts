@@ -1,28 +1,28 @@
 export interface DataCarpetas {
-     
-    id: string;
-    titulo: string;
-    subTitulo: string;
-    subCarpetas?: ({
-        title: string;
-        subcarpetas?: {
-            title: string;
-            documentos?: {
-                id: string;
-                titulo: string;
-                archivo: string;
-            }[];
-               }[];
-        documentos?: undefined;
-    } | {
-        title: string;
-        documentos?: {
-            id: string;
-            titulo: string;
-            archivo: string;
-        }[];
-        subcarpetas?: undefined;
-    })[];
+
+  id: string;
+  titulo: string;
+  subTitulo: string;
+  subCarpetas?: ({
+    title: string;
+    subcarpetas?: {
+      title: string;
+      documentos?: {
+        id: string;
+        titulo: string;
+        archivo: string;
+      }[];
+    }[];
+    documentos?: undefined;
+  } | {
+    title: string;
+    documentos?: {
+      id: string;
+      titulo: string;
+      archivo: string;
+    }[];
+    subcarpetas?: undefined;
+  })[];
 }
 
 export const data: DataCarpetas = {
@@ -504,9 +504,9 @@ export const data: DataCarpetas = {
       documentos: [
         {
           id: "doc1",
-          titulo: "IT Gestión de Quejas y Sugerencias.pdf",
+          titulo: "IT Gestión de Quejas o Sugerencias.pdf",
           archivo:
-            "/SIG/INSTRUCCIONES DE TRABAJO/IT Gestión de Quejas y Sugerencias.pdf",
+            "/SIG/INSTRUCCIONES DE TRABAJO/IT Gestión de Quejas o Sugerencias.pdf",
         },
         {
           id: "doc2",
@@ -515,6 +515,16 @@ export const data: DataCarpetas = {
           archivo:
             "/SIG/INSTRUCCIONES DE TRABAJO/IT Procedimiento para el funcionamiento del Comité de Control y Desempeño Institucional.pdf",
         },
+        {
+          id: "doc3",
+          titulo: "IT Procedimiento de Actos Entrega-Recepción.PDF",
+          archivo: "/SIG/INSTRUCCIONES DE TRABAJO/IT Procedimiento de Actos Entrega-Recepción.PDF"
+        },
+        {
+          id: "doc4",
+          titulo: "IT Procedimiento para el Funcionamiento de Sesiones de Consejo Directivo.PDF",
+          archivo: "/SIG/INSTRUCCIONES DE TRABAJO/IT Procedimiento para el Funcionamiento de Sesiones de Consejo Directivo.PDF"
+        }
       ],
     },
   ],
@@ -735,8 +745,8 @@ export const dataFormatos = {
             {
               id: "DAF_DRMSG_doc3",
               titulo: "RMIT01-R04 EVALUACION DE PROVEEDOR.xlsx",
-              archivo: "/SIG/FORMATOS/Dirección de Administración y Finanzas/Departamento de Recursos Materiales y Servicios Generales/RMIT01-R04 EVALUACION DE PROVEEDOR.xlsx"       
-                 }
+              archivo: "/SIG/FORMATOS/Dirección de Administración y Finanzas/Departamento de Recursos Materiales y Servicios Generales/RMIT01-R04 EVALUACION DE PROVEEDOR.xlsx"
+            }
           ]
         }
       ]
@@ -835,7 +845,8 @@ export const dataFormatos = {
             {
               id: "DEU_SDDU_doc2",
               titulo: "SUIT01-R03 FORMATO DE REGISTRO DE ASPIRANTES.docx",
-              archivo: "/SIG/FORMATOS/Dirección de Extensión Universitaria/Subdirección de Difusión y Divulgación Universitaria/SUIT01-R03 FORMATO DE REGISTRO DE ASPIRANTES.docx"            },
+              archivo: "/SIG/FORMATOS/Dirección de Extensión Universitaria/Subdirección de Difusión y Divulgación Universitaria/SUIT01-R03 FORMATO DE REGISTRO DE ASPIRANTES.docx"
+            },
             {
               id: "DEU_SDDU_doc3",
               titulo: "SUIT02-R01 Plan de comunicación.docx",
@@ -1411,7 +1422,7 @@ export const dataFormatos = {
               titulo: "STIT01-R04 CARTA COMPROMISO (EXENCION 50%) ",
               archivo: "/SIG/FORMATOS/Subdirección de Servicios Escolares/Departamento de Servicios Estudiantiles/STIT01-R04 CARTA COMPROMISO (EXENCION 50_).docx"
             },
-           
+
             {
               id: "SSE_DSEST_doc6",
               titulo: "STIT01-R06 Relación para registro de servicio",

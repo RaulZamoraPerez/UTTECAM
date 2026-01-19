@@ -160,7 +160,8 @@ export default function Navbar() {
             { label: "Encuentro de egresados", href: "/egresados" },
           ],
         },
-        { label: "Entidad de certificación y evaluación", href: "/convenios" },
+        { label: "Entidad de certificación y evaluación", href: "/entidad-certificacion-evaluacion" },
+        { label: "Centro de Promoción de Invenciones y Marcas (CEPIM)", href: "/cepim" },
         {
           label:
             "Docente miembros del Sistema Nacional de Investigadoras e Investigadores SNII",

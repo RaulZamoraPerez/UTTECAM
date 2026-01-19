@@ -5,7 +5,7 @@ import { ContenedorPDF } from "@/components/Pdf/ContenedorPDF";
 export default function CafeCientifico() {
     const [isLoading, setIsLoading] = useState(true);
 
-    const fakePDFUrl = "/CafeCientifico/PROGRAMA CAFÉ CIENTÍFICO CUATRIMESTRE MAYO AGOSTO 2025.pdf";
+    const fakePDFUrl = "/CafeCientifico/PROGRAMA CAFÉ CIENTÍFICO CUATRIMESTRE ENERO ABRIL 2026.pdf";
 
     const imagenes = [
         "/CafeCientifico/Café científico 12 de mayo de 2025.jpeg",

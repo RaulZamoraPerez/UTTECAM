@@ -8,6 +8,12 @@ export default function ServiciosTecnologicos() {
     const fakePDFUrl = "/SERVICIOSTECNOLÓGICOS/CATÁLOGO DE SERVICIOS TECNOLÓGICOS UTTECAM 2025.pdf";
 
     const imagenes = [
+        "/SERVICIOSTECNOLÓGICOS/POST 1 El crecimiento de tu negocio_UTTECAM.jpg",
+        "/SERVICIOSTECNOLÓGICOS/POST 2 De la idea al prototipo.jpg",
+        "/SERVICIOSTECNOLÓGICOS/POST 3 Optimiza tus procesos.jpg",
+        "/SERVICIOSTECNOLÓGICOS/POST 4 Tu empresa necesita tecnología.jpg",
+        "/SERVICIOSTECNOLÓGICOS/POST 5 Proteger legalmente.jpg",
+        "/SERVICIOSTECNOLÓGICOS/POST 6 Invierte en Innovación.jpg",
         "/SERVICIOSTECNOLÓGICOS/Cómo solicitar un servicio tecnológico.jpeg",
         "/SERVICIOSTECNOLÓGICOS/La UTTECAM apoya al sector empresarial.jpg",
         "/SERVICIOSTECNOLÓGICOS/Qué son los servicios tecnológicos.jpeg",
@@ -20,6 +26,7 @@ export default function ServiciosTecnologicos() {
         "/SERVICIOSTECNOLÓGICOS/Servicios tecnológicos que ofrece el PE de Procesos Alimentarios.jpg",
         "/SERVICIOSTECNOLÓGICOS/Servicios tecnológicos que ofrece el PE de Tecnologías de la Información.jpg",
         "/SERVICIOSTECNOLÓGICOS/Sevicios tecnológicos del PE de Mantenimiento Industrial.jpeg",
+    
     ];
 
     return (

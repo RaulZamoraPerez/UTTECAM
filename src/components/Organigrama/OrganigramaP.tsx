@@ -2,7 +2,7 @@ import { useState, useRef } from "react";
 import { dataOrganigrama, type CustomOrgNode } from "@/data/Organigrama.data";
 import { ZoomIn, ZoomOut, RotateCcw, Minus, Plus, Info } from "lucide-react";
 
-// --- Components ---
+
 
 const NodeCard = ({ node, depth, onToggle }: { node: CustomOrgNode; depth: number; onToggle: () => void }) => {
   const hasChildren = node.children && node.children.length > 0;
