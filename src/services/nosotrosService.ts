@@ -46,9 +46,22 @@ export const getNosotrosContent = async (): Promise<NosotrosData> => {
     // Normalize response to ensure image URLs are full paths
     const normalize = (section: any) => {
         if (!section) return null;
+        if (typeof section === 'string') return { text: section };
+
         const s = { ...section };
         if (s.imageSrc) s.imageSrc = getImageUrl(s.imageSrc);
         return s;
+    };
+
+    // Special handling for noDiscriminacion which is string[][] in the backend
+    const normalizeNoDiscriminacion = (val: any): SectionContent | null => {
+        if (!val) return null;
+        if (Array.isArray(val)) {
+            // It's likely the array of arrays (columns)
+            const flattened = val.flat();
+            return { items: flattened };
+        }
+        return normalize(val);
     };
 
     return {
@@ -57,6 +70,6 @@ export const getNosotrosContent = async (): Promise<NosotrosData> => {
         valores: normalize(data.valores),
         politicaIntegral: normalize(data.politicaIntegral),
         objetivoIntegral: normalize(data.objetivoIntegral),
-        noDiscriminacion: normalize(data.noDiscriminacion),
+        noDiscriminacion: normalizeNoDiscriminacion(data.noDiscriminacion),
     };
 };

@@ -107,7 +107,7 @@ export default function Nosotros() {
           {/* Text */}
           <div className="w-full md:w-1/2">
              <p className="text-gray-700 text-lg leading-relaxed text-justify">
-               {data?.politicaIntegral?.text || 'Información de política integral...'}
+               {data?.politicaIntegral?.text || (typeof data?.politicaIntegral?.description === 'string' ? data.politicaIntegral.description : 'Información de política integral...')}
              </p>
           </div>
         </div>
@@ -118,7 +118,7 @@ export default function Nosotros() {
         <div className="container mx-auto max-w-4xl text-center">
             <h2 className="text-4xl md:text-5xl font-bold text-amber-700 mb-8">Objetivo Integral</h2>
             <p className='text-gray-700 text-lg leading-relaxed text-justify md:text-center'>
-            {data?.objetivoIntegral?.text || 'Información de objetivo integral en proceso de carga...'}
+            {data?.objetivoIntegral?.text || (typeof data?.objetivoIntegral?.description === 'string' ? data.objetivoIntegral.description : 'Información de objetivo integral en proceso de carga...')}
             </p>
         </div>
       </section>
@@ -180,7 +180,7 @@ export default function Nosotros() {
              </h2>
 
              <p className="text-gray-600 leading-relaxed mb-8 max-w-4xl text-center mx-auto text-[16px] font-normal">
-               {data?.noDiscriminacion?.text || "La Universidad Tecnológica de Tecamachalco es una Institución comprometida con la igualdad Laboral y la promoción de los Derechos Humanos, erradicando cualquier forma de maltrato, y segregación por parte de cualquier miembro de la Comunidad Universitaria hacia aspirantes, estudiantes, personal docente y/o administrativo."}
+               {data?.noDiscriminacion?.text || (typeof data?.noDiscriminacion?.description === 'string' ? data.noDiscriminacion.description : "La Universidad Tecnológica de Tecamachalco es una Institución comprometida con la igualdad Laboral y la promoción de los Derechos Humanos, erradicando cualquier forma de maltrato, y segregación por parte de cualquier miembro de la Comunidad Universitaria hacia aspirantes, estudiantes, personal docente y/o administrativo.")}
              </p>
 
              <div className="flex flex-wrap justify-center gap-3">
