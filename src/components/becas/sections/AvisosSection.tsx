@@ -1,5 +1,6 @@
 import { AlertTriangle, Info, CheckCircle, Calendar, ExternalLink, ArrowRight, Maximize2 } from 'lucide-react';
 import { useState } from 'react';
+import { envs } from '../../../config/envs';
 
 interface AvisoCard {
     id: string;
@@ -23,7 +24,7 @@ const getFullUrl = (url?: string) => {
     if (!url) return undefined;
     if (url.startsWith('http') || url.startsWith('https')) return url;
     if (url.startsWith('/uploads/')) {
-        return `${import.meta.env.VITE_API_URL || 'http://localhost:3002'}${url}`;
+        return `${envs.API_BASE_URL}${url}`;
     }
     return url;
 };

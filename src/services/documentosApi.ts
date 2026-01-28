@@ -1,7 +1,6 @@
-const API_URL = import.meta.env.VITE_API_BASE_URL ||
-    import.meta.env.VITE_API_URL ||
-    import.meta.env.VITE_BACKENDURL ||
-    '';
+import { envs } from '../config/envs';
+
+const API_URL = envs.API_BASE_URL;
 
 export interface Archivo {
     id: number;
@@ -38,8 +37,8 @@ export const obtenerCategorias = async (areaId?: number): Promise<Categoria[]> =
                 id: cat.ID_Categorias,
                 nombre: cat.Nombre,
                 archivos: (cat.archivos || []).map((file: any) => {
-                    // Ensure API_URL has protocol, default to localhost:3002 if empty
-                    const baseUrl = (API_URL || 'http://localhost:3002').replace(/\/$/, '');
+                    // Ensure API_URL has protocol, default to envs.API_BASE_URL
+                    const baseUrl = (API_URL).replace(/\/$/, '');
 
                     // Normalize path: remove leading slashes/backslashes and 'uploads/' if present
                     const cleanPath = file.Ruta_Documento.replace(/^[/\\]+/, '');

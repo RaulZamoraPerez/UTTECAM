@@ -53,7 +53,7 @@ export interface ErroresAgrupados {
 export interface ConfigFormulario {
   endpoint?: string; // Default: '/api/upload/single'
   timeout?: number;  // Default: 20000ms (20s)
-  baseURL?: string;  // Default: 'http://localhost:3002'
+  baseURL?: string;  // Default: envs.API_BASE_URL
 }
 
 /**

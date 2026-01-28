@@ -1,9 +1,10 @@
+import { envs } from '../config/envs';
 import { fetchAPI } from './apiService';
 import type { Directorio } from '../types/directorio';
 
 
 // Use explicit URL to allow standalone consumption (not relying on proxy)
-const API_BASE_URL = import.meta.env.VITE_BACKENDURL || 'http://localhost:3002';
+const API_BASE_URL = envs.API_BASE_URL;
 
 export const getImageUrl = (imagePath?: string): string => {
     if (!imagePath) {

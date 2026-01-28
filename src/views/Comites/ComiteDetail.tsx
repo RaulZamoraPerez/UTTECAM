@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import TablaDocumentosReutilizable2 from "@/components/tablaDocumentosReutilizable2";
 import { Spinner } from "@/components/Spinner";
+import { envs } from "@/config/envs";
 
-const API_URL = import.meta.env.VITE_BACKENDURL || 'http://localhost:3002';
+const API_URL = envs.API_BASE_URL;
 
 interface Documento {
     id: string;

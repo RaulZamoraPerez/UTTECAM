@@ -10,7 +10,10 @@ export const envs = {
   EMAILJS_TEMPLATE_ID: import.meta.env.VITE_EMAILJS_TEMPLATE_ID || '',
 
   // API Backend URL
-  API_BASE_URL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:3002',
+  API_BASE_URL: import.meta.env.VITE_API_BASE_URL ||
+    import.meta.env.VITE_API_URL ||
+    import.meta.env.VITE_BACKENDURL ||
+    'http://localhost:3002',
   API_UPLOAD_ENDPOINT: import.meta.env.VITE_API_UPLOAD_ENDPOINT || '/api/upload/single',
 };
 

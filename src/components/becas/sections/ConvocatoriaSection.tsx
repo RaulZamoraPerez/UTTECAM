@@ -1,5 +1,6 @@
 import { FileText, ArrowRight, Eye, Calendar, Info, FileCheck, X } from 'lucide-react';
 import { useState } from 'react';
+import { envs } from '../../../config/envs';
 
 interface DocumentItem {
     title: string;
@@ -85,7 +86,7 @@ const getFullUrl = (url: string) => {
     if (url.startsWith('http') || url.startsWith('https')) return url;
     // If it's a relative upload path, prepend API URL
     if (url.startsWith('/uploads/')) {
-        return `${import.meta.env.VITE_API_URL || 'http://localhost:3002'}${url}`;
+        return `${envs.API_BASE_URL}${url}`;
     }
     return url;
 };
