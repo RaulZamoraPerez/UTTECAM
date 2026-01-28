@@ -1,4 +1,7 @@
-const API_URL = import.meta.env.VITE_BACKENDURL || 'http://localhost:3000';
+const API_URL = import.meta.env.VITE_API_BASE_URL ||
+    import.meta.env.VITE_API_URL ||
+    import.meta.env.VITE_BACKENDURL ||
+    'http://localhost:3002';
 
 export const fetchAPI = async <T>(endpoint: string, options: RequestInit = {}): Promise<T> => {
     try {

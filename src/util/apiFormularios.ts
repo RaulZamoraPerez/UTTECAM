@@ -9,14 +9,14 @@ import { envs } from '../config/envs';
 export interface FormularioData {
   // Identificador del formulario
   'titulo-formulario'?: string;
-  
+
   // Campos obligatorios (comunes a todos los formularios)
   nombre: string;
   matricula: string;
   email: string;
   telefono: string;
   carrera: string;
-  
+
   // Campos opcionales (específicos por formulario)
   nivel?: 'TSU' | 'LIC' | 'LIC/ING';
   entrega?: 'presencial' | 'electronico';
@@ -53,7 +53,7 @@ export interface ErroresAgrupados {
 export interface ConfigFormulario {
   endpoint?: string; // Default: '/api/upload/single'
   timeout?: number;  // Default: 20000ms (20s)
-  baseURL?: string;  // Default: 'http://localhost:3000'
+  baseURL?: string;  // Default: 'http://localhost:3002'
 }
 
 /**
@@ -71,16 +71,16 @@ export interface ResultadoEnvio {
  */
 function construirFormData(datos: FormularioData): FormData {
   const formData = new FormData();
-  
+
   // Agregar todos los campos (excepto attachment que se maneja aparte)
   Object.entries(datos).forEach(([key, value]) => {
     if (key === 'attachment') return; // Se maneja después
-    
+
     if (value !== null && value !== undefined && value !== '') {
       formData.append(key, String(value));
     }
   });
-  
+
   // Agregar archivo(s) si existe(n)
   if (datos.attachment) {
     // Si es un array de archivos (múltiples)
@@ -90,13 +90,13 @@ function construirFormData(datos: FormularioData): FormData {
           formData.append('attachment', file, file.name);
         }
       });
-    } 
+    }
     // Si es un archivo único
     else if (datos.attachment instanceof File) {
       formData.append('attachment', datos.attachment, datos.attachment.name);
     }
   }
-  
+
   return formData;
 }
 
@@ -105,18 +105,18 @@ function construirFormData(datos: FormularioData): FormData {
  */
 function agruparErrores(errores: ApiError[]): ErroresAgrupados {
   const agrupados: ErroresAgrupados = {};
-  
+
   for (const error of errores) {
     const campo = error.path || 'general';
     const mensaje = error.msg || 'Dato inválido';
-    
+
     if (!agrupados[campo]) {
       agrupados[campo] = [];
     }
-    
+
     agrupados[campo].push(mensaje);
   }
-  
+
   return agrupados;
 }
 
@@ -191,17 +191,17 @@ export async function enviarFormulario(
     timeout = 20000,
     baseURL = envs.API_BASE_URL
   } = config;
-  
+
   const url = `${baseURL}${endpoint}`;
-  
+
   try {
     // Construir FormData
     const formData = construirFormData(datos);
-    
+
     // Configurar timeout con AbortController
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), timeout);
-    
+
     // Realizar petición
     const response = await fetch(url, {
       method: 'POST',
@@ -211,21 +211,21 @@ export async function enviarFormulario(
         Accept: 'application/json'
       }
     });
-    
+
     clearTimeout(timeoutId);
-    
+
     // Parsear respuesta
     const contentType = response.headers.get('content-type') || '';
     const payload = contentType.includes('application/json')
       ? await response.json().catch(() => ({}))
       : await response.text().catch(() => '');
-    
+
     // Manejar errores HTTP
     if (!response.ok) {
       // Errores de validación del backend
       if (payload && Array.isArray(payload.errors)) {
         const erroresAgrupados = agruparErrores(payload.errors);
-        
+
         return {
           exito: false,
           mensaje: 'Errores de validación. Revisa los campos marcados.',
@@ -233,26 +233,26 @@ export async function enviarFormulario(
           respuestaCompleta: payload
         };
       }
-      
+
       // Otros errores HTTP
       const mensajeError = extraerMensajeError(payload, response.status);
-      
+
       return {
         exito: false,
         mensaje: mensajeError,
         respuestaCompleta: payload
       };
     }
-    
+
     // Éxito
     const mensajeExito = extraerMensajeExito(payload);
-    
+
     return {
       exito: true,
       mensaje: mensajeExito,
       respuestaCompleta: payload
     };
-    
+
   } catch (error: unknown) {
     // Error de red o timeout
     if (typeof error === 'object' && error !== null && 'name' in error && (error as Record<string, unknown>).name === 'AbortError') {
@@ -261,7 +261,7 @@ export async function enviarFormulario(
         mensaje: `La solicitud excedió el tiempo de espera (${timeout / 1000}s). Por favor, inténtalo de nuevo.`
       };
     }
-    
+
     return {
       exito: false,
       mensaje: 'Error de conexión. Verifica tu conexión a internet e inténtalo de nuevo.'
@@ -275,15 +275,15 @@ export async function enviarFormulario(
  */
 export function useServerErrors() {
   const [serverErrors, setServerErrors] = React.useState<ErroresAgrupados>({});
-  
+
   const hasError = (campo: string): boolean => {
     return Boolean(serverErrors[campo]?.length);
   };
-  
+
   const getErrorText = (campo: string): string => {
     return serverErrors[campo]?.join(' ') || '';
   };
-  
+
   const clearError = (campo: string) => {
     setServerErrors(prev => {
       if (!(campo in prev)) return prev;
@@ -292,11 +292,11 @@ export function useServerErrors() {
       return copy;
     });
   };
-  
+
   const clearAllErrors = () => {
     setServerErrors({});
   };
-  
+
   return {
     serverErrors,
     setServerErrors,

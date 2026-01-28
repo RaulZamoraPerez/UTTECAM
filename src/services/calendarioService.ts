@@ -2,7 +2,7 @@ import { fetchAPI } from './apiService';
 import type { Calendario } from '../types/calendario';
 
 // Use explicit URL to allow standalone consumption (not relying on proxy)
-const API_BASE_URL = import.meta.env.VITE_BACKENDURL || 'http://localhost:3000';
+const API_BASE_URL = import.meta.env.VITE_BACKENDURL || 'http://localhost:3002';
 
 export const getFileUrl = (filePath?: string): string => {
     if (!filePath) {

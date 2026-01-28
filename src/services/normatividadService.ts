@@ -1,6 +1,6 @@
 import { fetchAPI } from './apiService';
 
-const API_BASE_URL = import.meta.env.VITE_BACKENDURL || 'http://localhost:3000';
+const API_BASE_URL = import.meta.env.VITE_BACKENDURL || 'http://localhost:3002';
 
 export interface NormatividadDocumento {
     id: string;

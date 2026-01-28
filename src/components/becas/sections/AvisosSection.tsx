@@ -23,7 +23,7 @@ const getFullUrl = (url: string) => {
     if (!url) return undefined;
     if (url.startsWith('http') || url.startsWith('https')) return url;
     if (url.startsWith('/uploads/')) {
-        return `${import.meta.env.VITE_API_URL || 'http://localhost:3000'}${url}`;
+        return `${import.meta.env.VITE_API_URL || 'http://localhost:3002'}${url}`;
     }
     return url;
 };

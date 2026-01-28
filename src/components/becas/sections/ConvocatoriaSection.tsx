@@ -85,7 +85,7 @@ const getFullUrl = (url: string) => {
     if (url.startsWith('http') || url.startsWith('https')) return url;
     // If it's a relative upload path, prepend API URL
     if (url.startsWith('/uploads/')) {
-        return `${import.meta.env.VITE_API_URL || 'http://localhost:3000'}${url}`;
+        return `${import.meta.env.VITE_API_URL || 'http://localhost:3002'}${url}`;
     }
     return url;
 };

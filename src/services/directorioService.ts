@@ -3,7 +3,7 @@ import type { Directorio } from '../types/directorio';
 
 
 // Use explicit URL to allow standalone consumption (not relying on proxy)
-const API_BASE_URL = import.meta.env.VITE_BACKENDURL || 'http://localhost:3000';
+const API_BASE_URL = import.meta.env.VITE_BACKENDURL || 'http://localhost:3002';
 
 export const getImageUrl = (imagePath?: string): string => {
     if (!imagePath) {

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import TablaDocumentosReutilizable2 from "@/components/tablaDocumentosReutilizable2";
 import { Spinner } from "@/components/Spinner";
 
-const API_URL = import.meta.env.VITE_BACKENDURL || 'http://localhost:3000';
+const API_URL = import.meta.env.VITE_BACKENDURL || 'http://localhost:3002';
 
 interface Documento {
     id: string;
@@ -72,15 +72,15 @@ export default function ComiteDetail({ slug }: Props) {
 
     if (error) {
         return (
-             <div className="h-[50vh] flex flex-col items-center justify-center text-slate-500 gap-4">
+            <div className="h-[50vh] flex flex-col items-center justify-center text-slate-500 gap-4">
                 <p className="text-lg font-medium">{error}</p>
-                <button 
-                  onClick={() => window.location.reload()}
-                  className="px-4 py-2 bg-slate-100 rounded hover:bg-slate-200 text-slate-700 font-medium text-sm"
+                <button
+                    onClick={() => window.location.reload()}
+                    className="px-4 py-2 bg-slate-100 rounded hover:bg-slate-200 text-slate-700 font-medium text-sm"
                 >
                     Reintentar
                 </button>
-             </div>
+            </div>
         );
     }
 
