@@ -19,7 +19,7 @@ interface FooterSectionProps {
     data: FooterData;
 }
 
-export const FooterSection = ({ id, data }: FooterSectionProps) => {
+export const FooterSection = ({ data }: FooterSectionProps) => {
     // Default values if data is missing
     const content = {
         title: data?.title || '¿Tienes dudas?',

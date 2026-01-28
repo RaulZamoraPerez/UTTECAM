@@ -19,7 +19,7 @@ interface AvisosSectionProps {
     cards?: AvisoCard[];
 }
 
-const getFullUrl = (url: string) => {
+const getFullUrl = (url?: string) => {
     if (!url) return undefined;
     if (url.startsWith('http') || url.startsWith('https')) return url;
     if (url.startsWith('/uploads/')) {
@@ -98,7 +98,7 @@ const getIcon = (iconName?: string) => {
     }
 };
 
-export const AvisosSection = ({ id, cards = [] }: AvisosSectionProps) => {
+export const AvisosSection = ({ cards = [] }: AvisosSectionProps) => {
     const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
     return (
