@@ -47,7 +47,7 @@ const ModelDetails = () => {
       </p>
 
       <div className="space-y-6">
-        {modelo.caracteristicas.map((feature) => (
+        {modelo.caracteristicas && Array.isArray(modelo.caracteristicas) && modelo.caracteristicas.map((feature) => (
           <div key={feature.number} className="flex items-start gap-4">
             <div className="flex-shrink-0 w-8 h-8 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold text-sm">
               {feature.number}

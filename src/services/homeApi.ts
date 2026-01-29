@@ -68,10 +68,17 @@ export const getEventos = async (): Promise<Evento[]> => {
 };
 
 export const getEventoActivo = async (): Promise<Evento | null> => {
-  const response = await fetch(`${API_URL}/api/eventos/activo`);
-  if (response.status === 404) return null;
-  if (!response.ok) throw new Error('Error al obtener evento activo');
-  return response.json();
+  try {
+    const response = await fetch(`${API_URL}/api/eventos`);
+    if (!response.ok) return null;
+    const eventos: Evento[] = await response.json();
+    // Filtrar eventos activos y obtener el primero
+    const eventosActivos = eventos.filter(e => e.activo);
+    return eventosActivos.length > 0 ? eventosActivos[0] : null;
+  } catch (error) {
+    console.error('Error al obtener evento activo:', error);
+    return null;
+  }
 };
 
 export const getEventoImageUrl = (filename: string | null | undefined): string | null => {
@@ -102,10 +109,17 @@ export const getAnuncios = async (): Promise<Anuncio[]> => {
 };
 
 export const getAnuncioActivo = async (): Promise<Anuncio | null> => {
-  const response = await fetch(`${API_URL}/api/anuncios/activo`);
-  if (response.status === 404) return null;
-  if (!response.ok) throw new Error('Error al obtener anuncio activo');
-  return response.json();
+  try {
+    const response = await fetch(`${API_URL}/api/anuncios`);
+    if (!response.ok) return null;
+    const anuncios: Anuncio[] = await response.json();
+    // Filtrar anuncios activos y obtener el primero
+    const anunciosActivos = anuncios.filter(a => a.activo);
+    return anunciosActivos.length > 0 ? anunciosActivos[0] : null;
+  } catch (error) {
+    console.error('Error al obtener anuncio activo:', error);
+    return null;
+  }
 };
 
 export const getAnuncioFileUrl = (filename: string): string => {
@@ -113,3 +127,4 @@ export const getAnuncioFileUrl = (filename: string): string => {
   if (filename.startsWith('/')) return `${API_URL}${filename}`;
   return `${API_URL}/uploads/anuncios/${filename}`;
 };
+
