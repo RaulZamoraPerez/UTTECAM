@@ -137,11 +137,21 @@ export default function Footer() {
                     </div>
                 </div>
 
-                {/* Fecha de modificación */}
-                <div className="mt-10 text-center">
-                    <p className="text-sm text-[#008066] font-medium">
-                        Última modificación del sitio:  <span className="font-bold text-sm"> 17 de junio de 2025 a las 12:46 hrs.</span> 
-                    </p>
+                {/* Copyright e Información de Modificación */}
+                <div className="mt-12 pt-8 border-t border-gray-200">
+                    <div className="text-center space-y-3">
+                        <p className="text-gray-600 text-sm md:text-base font-medium">
+                            © {new Date().getFullYear()} <span className="text-[#0A9782] font-bold">Universidad Tecnológica de Tecamachalco</span>
+                            <span className="hidden md:inline mx-2 text-gray-300">|</span>
+                            <span className="block md:inline text-gray-500">Todos los derechos reservados</span>
+                        </p>
+                        <div className="inline-flex items-center bg-[#008066]/5 px-4 py-1.5 rounded-full border border-[#008066]/10">
+                            <Clock className="h-3.5 w-3.5 text-[#008066] mr-2" />
+                            <p className="text-[11px] md:text-xs text-[#008066] font-medium">
+                                Última modificación: <span className="font-bold">26 de enero de 2026 a las 13:00 hrs.</span>
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </footer>

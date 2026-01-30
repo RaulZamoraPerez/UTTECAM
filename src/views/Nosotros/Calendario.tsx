@@ -6,7 +6,7 @@ import { ContenedorPDF } from "@/components/Pdf/ContenedorPDF";
 
 export default function Calendario() {
   const [isLoading, setIsLoading] = useState(true);
-  const fakePDFUrl = "calendario/CALENDARIOUTTECAM2024-2025.pdf";
+  const fakePDFUrl = "/calendario-uttecam/calendario.pdf";
 
   return (
     <>
@@ -29,7 +29,7 @@ export default function Calendario() {
           <div className="mx-0 mb-10 px-4 sm:px-2 max-w-screen-md">
             <a
               href={fakePDFUrl}
-              download="CALENDARIOUTTECAM2024-2025.pdf"
+              download="Calendario_UTTECAM_2024-2025.pdf"
               onClick={() => toast.success("¡Calendario descargado con éxito!")}
               style={{
                 width: "160px",
