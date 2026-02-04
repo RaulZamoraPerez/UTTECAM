@@ -41,8 +41,127 @@ const Becas = () => {
 
       <div className="max-w-6xl mx-auto px-4 pb-24 space-y-24">
     
+        {/* Sección: Resultados y Avisos Beca de Exención de Pago 2026 */}
+        <div className="space-y-16">
+          {/* Main Hero Card (Mismo estilo que Beca Estadía) */}
+          <div className="relative">
+            <div className="absolute inset-0 bg-gradient-to-r from-green-50 to-emerald-50 rounded-3xl transform rotate-1"></div>
+            <div className="relative bg-white rounded-3xl shadow-xl shadow-gray-100/50 border border-gray-100 overflow-hidden">
+              <div className="p-8 md:p-12">
+                <div className="flex flex-col lg:flex-row gap-12 items-center">
+                  <div className="flex-1 space-y-8">
+                    <div>
+                      <div className="flex items-center gap-3 mb-4">
+                        <span className="flex h-3 w-3 relative">
+                          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                          <span className="relative inline-flex rounded-full h-3 w-3 bg-blue-500"></span>
+                        </span>
+                        <span className="text-blue-600 font-bold tracking-wider text-sm uppercase">Resultados Publicados</span>
+                      </div>
+                      <h2 className="text-3xl md:text-4xl font-bold text-gray-900 leading-tight mb-4">
+                        Resultados de Beca de Exención de Pago <br/>
+                        <span className="text-gray-400">Enero - Abril 2026</span>
+                      </h2>
+                      <p className="text-gray-600 text-lg leading-relaxed">
+                        Se publican los resultados oficiales de las becas de exención de pago para el cuatrimestre enero - abril 2026. Consulta el documento y los avisos adjuntos.
+                      </p>
+                    </div>
+
+                    <div className="flex flex-wrap gap-4">
+                      <div className="inline-flex items-center bg-gray-900 hover:bg-gray-800 text-white px-8 py-4 rounded-xl font-medium transition-all shadow-lg shadow-gray-200 hover:shadow-xl hover:-translate-y-1">
+                        <PdfBecasExcencion
+                          title="Resultados de Becas de Exención de Pago Enero - Abril 2026"
+                          description="Descargar Resultados"
+                          pdfSrc="/becas/RESULTADOS DE BECAS DE EXENCIÓN DE PAGO CUATRIMESTRAL ENERO-ABRIL 2026-1.pdf"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="w-full lg:w-4/12 flex justify-center">
+                    <div 
+                      className="relative group cursor-pointer" 
+                      onClick={() => handleImageClick('/becas/aviso 4.jpeg')}
+                    >
+                      <div className="absolute inset-0 bg-blue-200 blur-3xl opacity-20 rounded-full group-hover:opacity-40 transition-opacity"></div>
+                      <img 
+                        src="/becas/aviso 4.jpeg" 
+                        alt="Resultados Exención" 
+                        className="relative w-full max-w-[280px] h-auto object-contain transform group-hover:scale-105 transition-transform duration-500 drop-shadow-2xl rounded-xl"
+                      />
+                      <div className="absolute bottom-2 right-2 bg-white/90 backdrop-blur p-2 rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity">
+                         <img src="/becas/becas_motocle.png" alt="Mascota" className="w-10 h-10 object-contain" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Grid de Avisos (Para mantener los otros archivos bien acomodados) */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Aviso 1: 50% */}
+            <div 
+              className="group bg-white rounded-3xl border border-gray-100 shadow-sm p-2 hover:shadow-xl transition-all duration-500 cursor-pointer"
+              onClick={() => handleImageClick('/becas/aviso 1.jpeg')}
+            >
+              <div className="relative aspect-[4/5] rounded-2xl overflow-hidden mb-4">
+                <img src="/becas/aviso 1.jpeg" alt="Aviso Beca 50%" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">
+                  <span className="text-white font-medium flex items-center gap-2">
+                    <ExternalLink size={16} /> Ampliar información
+                  </span>
+                </div>
+              </div>
+              <div className="px-4 pb-4">
+                <h4 className="font-bold text-gray-900">Aviso Beca 50%</h4>
+                <p className="text-sm text-gray-500">Instrucciones específicas</p>
+              </div>
+            </div>
+
+            {/* Aviso 2: General */}
+            <div 
+              className="group bg-white rounded-3xl border border-gray-100 shadow-sm p-2 hover:shadow-xl transition-all duration-500 cursor-pointer"
+              onClick={() => handleImageClick('/becas/aviso 2.jpeg')}
+            >
+              <div className="relative aspect-[4/5] rounded-2xl overflow-hidden mb-4">
+                <img src="/becas/aviso 2.jpeg" alt="Aviso General" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">
+                  <span className="text-white font-medium flex items-center gap-2">
+                    <ExternalLink size={16} /> Ampliar información
+                  </span>
+                </div>
+              </div>
+              <div className="px-4 pb-4">
+                <h4 className="font-bold text-gray-900">Aviso 50% y 100%</h4>
+                <p className="text-sm text-gray-500">Información institucional</p>
+              </div>
+            </div>
+
+            {/* Aviso 3: Calendario */}
+            <div 
+              className="group bg-white rounded-3xl border border-gray-100 shadow-sm p-2 hover:shadow-xl transition-all duration-500 cursor-pointer"
+              onClick={() => handleImageClick('/becas/aviso 3.jpeg')}
+            >
+              <div className="relative aspect-[4/5] rounded-2xl overflow-hidden mb-4">
+                <img src="/becas/aviso 3.jpeg" alt="Fechas Clave" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">
+                  <span className="text-white font-medium flex items-center gap-2">
+                    <ExternalLink size={16} /> Ver calendario
+                  </span>
+                </div>
+              </div>
+              <div className="px-4 pb-4">
+                <h4 className="font-bold text-gray-900">Fechas Clave</h4>
+                <p className="text-sm text-gray-500">Calendario del proceso</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* Sección: Resultados Beca de Estadía Profesional */}
-        <div className="relative mb-12">
+        <div className="relative">
           <div className="absolute inset-0 bg-gradient-to-r from-green-50 to-emerald-50 rounded-3xl transform rotate-1"></div>
           <div className="relative bg-white rounded-3xl shadow-xl shadow-gray-100/50 border border-gray-100 overflow-hidden">
             <div className="p-8 md:p-12">
