@@ -135,6 +135,7 @@ const datos = [
         { id: "doc87", titulo: "Fuente de financiamiento.PDF", archivo: "/EstadosFinancieros/4. Estados Financieros 4° Trimestre 2025/26. Fuente de financiamiento.PDF" },
         { id: "doc88", titulo: "Flujo de fondos_Dic.PDF", archivo: "/EstadosFinancieros/4. Estados Financieros 4° Trimestre 2025/27. Flujo de fondos_Dic.PDF" },
         { id: "doc89", titulo: "Manual de Contabilidad.PDF", archivo: "/EstadosFinancieros/4. Estados Financieros 4° Trimestre 2025/28. Manual de Contabilidad.pdf" },
+        { id: "doc89", titulo: "Reporte de Bienes Muebles e Inmuebles 2025.PDF", archivo: "/EstadosFinancieros/4. Estados Financieros 4° Trimestre 2025/29. Reporte de Bienes Muebles e Inmuebles 2025.pdf" },
         
     ]
 },

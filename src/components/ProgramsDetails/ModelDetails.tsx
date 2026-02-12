@@ -2,7 +2,7 @@ const ModelDetails = () => {
   const features = [
     {
       number: 1,
-      title: "Educación híbrida y flexible",
+      title: "Educación escolarizada y dual",
       description: "Combinación de modalidades presenciales y virtuales con horarios adaptables.",
     },
     {

@@ -160,6 +160,10 @@ import TablaDocumentosReutilizable2 from "@/components/tablaDocumentosReutilizab
             {id: "doc97", titulo: "Plan de mantenimiento preventivo.pdf", archivo: "/REPOSITORIOINVESTIGACION/PRODUCTOS DE INVESTIGACION 2025/Plan de mantenimiento preventivo.pdf"},
             {id: "doc97", titulo: "Secado convectivo de hojas de pirul .pdf", archivo: "/REPOSITORIOINVESTIGACION/PRODUCTOS DE INVESTIGACION 2025/Secado convectivo de hojas de pirul .pdf"},
             {id: "doc97", titulo: "Structural and optical.pdf", archivo: "/REPOSITORIOINVESTIGACION/PRODUCTOS DE INVESTIGACION 2025/Structural and optical.pdf"},
+            {id: "doc97", titulo: "CLIMAD_1.pdf", archivo: "/REPOSITORIOINVESTIGACION/PRODUCTOS DE INVESTIGACION 2025/CLIMAD_1_000.pdf"},
+            {id: "doc97", titulo: "La sustentabilidad social de las mipymes.pdf", archivo: "/REPOSITORIOINVESTIGACION/PRODUCTOS DE INVESTIGACION 2025/La sustentabilidad social de las mipymes__000.pdf"},
+            {id: "doc97", titulo: "SEMILL_1pdf", archivo: "/REPOSITORIOINVESTIGACION/PRODUCTOS DE INVESTIGACION 2025/SEMILL_1_000.pdf"},
+
         ],
     },
     ]
