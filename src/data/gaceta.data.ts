@@ -1,7 +1,15 @@
 const datosGaceta = [
   {
-    id: "gaceta",
-    titulo: "gacetas publicadas",
+    id: "gaceta-2026",
+    titulo: "2026",
+    documentos: [
+      { id: "doc16", titulo: "Gaceta mes de febrero 2026.pdf", archivo: "ExtensionUniversitaria/Prensa y difusion/Gacetas/Gaceta mes de febrero 2026.pdf" },
+      { id: "doc15", titulo: "Gaceta enero 2026.pdf", archivo: "ExtensionUniversitaria/Prensa y difusion/Gacetas/Gaceta mes de enero 2026.pdf" },
+    ]
+  },
+  {
+    id: "gaceta-2025",
+    titulo: "2025",
     documentos: [
       { id: "doc1", titulo: "Gaceta Noviembre 2025.pdf", archivo: "ExtensionUniversitaria/Prensa y difusion/Gacetas/Gaceta mes de noviembre 2025.pdf" },
       { id: "doc2", titulo: "Gaceta Septiembre 2025.pdf", archivo: "ExtensionUniversitaria/Prensa y difusion/Gacetas/Gaceta mes de septiembre 2025.pdf" },
@@ -10,6 +18,12 @@ const datosGaceta = [
       { id: "doc5", titulo: "Gaceta Mayo 2025.pdf", archivo: "ExtensionUniversitaria/Prensa y difusion/Gacetas/Gaceta mes de Mayo 2025.pdf" },
       { id: "doc6", titulo: "Gaceta final Abril 2025.pdf", archivo: "ExtensionUniversitaria/Prensa y difusion/Gacetas/Gaceta final mes de Abril 2025.pdf" },
       { id: "doc7", titulo: "Gaceta_Abril_2025.pdf", archivo: "ExtensionUniversitaria/Prensa y difusion/Gacetas/Gaceta_Abril_2025.pdf" },
+    ]
+  },
+  {
+    id: "gaceta-2024",
+    titulo: "2024",
+    documentos: [
       { id: "doc8", titulo: "Gaceta_Agosto_2024.pdf", archivo: "ExtensionUniversitaria/Prensa y difusion/Gacetas/Gaceta_Agosto_2024.pdf" },
       { id: "doc9", titulo: "Gaceta_Julio_2024.pdf", archivo: "ExtensionUniversitaria/Prensa y difusion/Gacetas/Gaceta_Julio_2024.pdf" },
       { id: "doc10", titulo: "Gaceta_Junio_2024.pdf", archivo: "ExtensionUniversitaria/Prensa y difusion/Gacetas/Gaceta_Junio_2024.pdf" },

@@ -8,11 +8,20 @@ export const programs: Program[] = [
     image: "PE2025/TICS DESARROLLO DE SOFTWARE_2025.jpg",
     category: "Ingenierías",
   },
+
   {
     id: 2,
     title: "TICS REDES DIGITALES_2025",
     duration: "3 AÑOS, 6 MESES",
     image: "PE2025/TICS REDES DIGITALES_2025.jpg",
+    category: "Ingenierías",
+  },
+
+  {
+    id: 13,
+    title: "INGENIERÍA EN DATOS E INTELIGENCIA ARTIFICIAL",
+    duration: "3 AÑOS, 4 MESES",
+    image: "PE2025/INGENIERIA EN DATOS .png",
     category: "Ingenierías",
   },
   {

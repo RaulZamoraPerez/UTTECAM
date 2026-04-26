@@ -170,8 +170,7 @@ El Ingeniero en Tecnologías de la Información e Innovación Digital posee las 
         subjects: ["Estadía"]
       }
     ]
-  }
-  ,
+  },
   //REDES
   {
     programId: 2,
@@ -179,16 +178,16 @@ El Ingeniero en Tecnologías de la Información e Innovación Digital posee las 
     videoUrl: "/VIDEOSPE2025/TICS.mp4",
 
     admissionProfile: `
-Habilidades y capacidades del aspirante:
-Indagar, analizar, transmitir y comunicar información eficazmente a través del trabajo colaborativo e iniciativa propia para la resolución de problemas metodológicamente, guiando sus actividades con respeto a la diversidad cultural de forma cívica y ética para mejorar su entorno.
-
-Habilidades y capacidades específicas del aspirante:
-Pensamiento crítico, conocimientos básicos en matemáticas y ciencias, capacidad de organización para el desarrollo de proyectos e interés en el desarrollo tecnológico.
-  `,
+  Habilidades y capacidades del aspirante:
+  Indagar, analizar, transmitir y comunicar información eficazmente a través del trabajo colaborativo e iniciativa propia para la resolución de problemas metodológicamente, guiando sus actividades con respeto a la diversidad cultural de forma cívica y ética para mejorar su entorno.
+  
+  Habilidades y capacidades específicas del aspirante:
+  Pensamiento crítico, conocimientos básicos en matemáticas y ciencias, capacidad de organización para el desarrollo de proyectos e interés en el desarrollo tecnológico.
+    `,
 
     graduateProfile: `
-El Ingeniero en Tecnologías de la Información e Innovación Digital posee las competencias profesionales esenciales que respaldan su desempeño en el dinámico entorno laboral, tanto en el ámbito local, como regional y nacional, que le permitan desarrollar soluciones innovadoras de integración de tecnologías de la información mediante metodologías y herramientas de desarrollo de software, redes inteligentes, seguridad informática, internet de las cosas, sistemas inteligentes y administración de proyectos; con base en las normas y estándares aplicables enfocados a atender las áreas de oportunidad y optimizar los procesos y recursos de los diversos sectores empresariales.
-  `,
+  El Ingeniero en Tecnologías de la Información e Innovación Digital posee las competencias profesionales esenciales que respaldan su desempeño en el dinámico entorno laboral, tanto en el ámbito local, como regional y nacional, que le permitan desarrollar soluciones innovadoras de integración de tecnologías de la información mediante metodologías y herramientas de desarrollo de software, redes inteligentes, seguridad informática, internet de las cosas, sistemas inteligentes y administración de proyectos; con base en las normas y estándares aplicables enfocados a atender las áreas de oportunidad y optimizar los procesos y recursos de los diversos sectores empresariales.
+    `,
 
     laborField: [
       "Desarrollador Front-End, Back-End o Full Stack",
@@ -214,8 +213,8 @@ El Ingeniero en Tecnologías de la Información e Innovación Digital posee las 
       "Integrador de proyectos de Inteligencia Artificial y aprendizaje automático",
       "Consultor de proyectos de Tecnologías de la Información",
       "Educador tecnológico",
-      "Ingeniero de calidad de software y pruebas",
-      "Ingeniero de soporte y servicios",
+      "Ingeniero de calidad de software and pruebas",
+      "Ingeniero de soporte and servicios",
       "Director de TI",
       "Arquitecto de software",
       "Diseñador de experiencia de usuario"
@@ -328,6 +327,157 @@ El Ingeniero en Tecnologías de la Información e Innovación Digital posee las 
       }
     ]
   },
+
+  // DATOS E INTELIGENCIA ARTIFICIAL
+  {
+    programId: 13,
+    profileImage: "/PE2025/INGENIERIA EN DATOS .png",
+    admissionProfile: `
+Para un buen desempeño el aspirante al Programa Educativo en Licenciatura en Ingeniería en Datos e Inteligencia Artificial se caracteriza idealmente por poseer: 
+
+•	Deseables conocimientos básicos de lógica- matemática
+•	Creatividad e interés por el gusto en las nuevas tecnologías.
+•	Disposición y compromiso para ejercer su formación con amplio sentido ético y de actualización continua.
+•	Interés por relacionarse con personas de diferente preparación, criterio y carácter para trabajar en equipo.
+•	Capacidad de atender y entender las necesidades de las personas con cordialidad, rapidez y humanidad buscando siempre formas de hacer su trabajo más eficiente.
+•	Motivación para instruirse cuando se requiere por sus propios medios, con proactividad e interés.
+•	Preferentemente manejo de equipo de cómputo y herramientas ofimáticas
+  `,
+
+    graduateProfile: `
+El egresado de la Licenciatura en Ingeniería en Datos e Inteligencia Artificial se distingue por poseer las competencias profesionales esenciales que respaldan su desempeño con éxito en el dinámico entorno laboral. Este perfil integral no solo se ajusta a las demandas actuales del sector, sino que también anticipa y se adapta a las transformaciones y desafíos emergentes. Su capacidad para integrar conocimientos técnicos especializados, habilidades analíticas y una visión innovadora lo posiciona como un profesional altamente cualificado y preparado para contribuir significativamente al avance de la disciplina y a la resolución eficiente de problemáticas complejas en distintos contextos, con competencias para:
+
+o	Evaluar distintas arquitecturas de hardware y software para el análisis, procesamiento y almacenamiento de los datos para su adecuado funcionamiento de manera local y en la nube.
+
+o	Administrar la infraestructura para el manejo de grandes volúmenes de datos utilizando técnicas de bases de datos, preprocesamiento, análisis y herramientas de visualización, así como un plan de mantenimiento aplicando la normatividad vigente para garantizar la seguridad y su óptimo procesamiento.
+
+o	Representar el comportamiento de los sistemas de información mediante las técnicas de manejo de datos, análisis y modelado, inteligencia de negocios, herramientas de inteligencia artificial, visualización e interpretación de resultados, herramientas de hardware y software, así como la normatividad de solución a problemas reales y contribuir a elevar la rentabilidad y el desarrollo los sectores productivos de bienes y servicios.
+  `,
+
+    laborField: [
+      "Ingeniero de Datos",
+      "Ingeniero en Inteligencia Artificial",
+      "Científico de Datos",
+      "Analista de Datos",
+      "Desarrollador multiplataforma de software entorno a la ciencia de datos",
+      "Administrador de Bases de Datos",
+      "Analista de negocios Business Intelligence",
+      "Desarrollador BigData",
+      "Administrador de TI",
+      "Arquitecto de datos",
+      "Ingeniero estadístico",
+      "Desarrollador Blockchain",
+      "Proyectista de datos en medios digitales."
+    ],
+
+    studyPlan: [
+      {
+        semester: "Primero",
+        subjects: [
+          "Inglés I",
+          "Desarrollo Humano y Valores",
+          "Fundamentos Matemáticos",
+          "Fundamentos de Algoritmos",
+          "Física",
+          "Introducción a la Ingeniería de Datos",
+          "Comunicación y Habilidades Digitales"
+        ],
+      },
+      {
+        semester: "Segundo",
+        subjects: [
+          "Inglés II",
+          "Habilidades Socioemocionales y Manejo de Conflictos",
+          "Cálculo Diferencial",
+          "Programación",
+          "Probabilidad y Estadística",
+          "Matemáticas Discretas",
+          "Arquitectura de Computadoras y Servidores"
+        ],
+      },
+      {
+        semester: "Tercero",
+        subjects: [
+          "Inglés III",
+          "Desarrollo del Pensamiento y Toma de Decisiones",
+          "Cálculo Integral",
+          "Estructura de Datos",
+          "Procesamiento de Datos",
+          "Modelos Estadísticos",
+          "Proyecto Integrador I"
+        ],
+      },
+      {
+        semester: "Cuarto",
+        subjects: [
+          "Inglés IV",
+          "Ética Profesional",
+          "Cálculo de Varias Variables",
+          "Herramientas de Visualización",
+          "Administración de Base de Datos",
+          "Manejo Masivo de Datos",
+          "Centros de Datos"
+        ],
+      },
+      {
+        semester: "Quinto",
+        subjects: [
+          "Inglés V",
+          "Liderazgo de Equipos de Alto Desempeño",
+          "Ecuaciones Diferenciales",
+          "Seguridad en Bases de Datos",
+          "Minería de Datos",
+          "Protección de la Información",
+          "Proyecto Integrador II"
+        ],
+      },
+      {
+        semester: "Sexto",
+        subjects: ["Estadía"]
+      },
+      {
+        semester: "Séptimo",
+        subjects: [
+          "Inglés VI",
+          "Habilidades Gerenciales",
+          "Cómputo en la Nube",
+          "Inteligencia Artificial I",
+          "Internet de las Cosas",
+          "Cómputo de Alto Rendimiento",
+          "Ingeniería de Software"
+        ],
+      },
+      {
+        semester: "Octavo",
+        subjects: [
+          "Inglés VII",
+          "Análisis de Redes Sociales",
+          "Ciberseguridad en la Nube",
+          "Inteligencia Artificial II",
+          "Ingeniería de Requerimientos",
+          "Sistemas Predictivos",
+          "Economía Digital"
+        ],
+      },
+      {
+        semester: "Noveno",
+        subjects: [
+          "Inglés VIII",
+          "Tendencias en Ciencias de Datos",
+          "Inteligencia de Negocios",
+          "Aplicaciones de Inteligencia Artificial",
+          "Modelado de Información Visual",
+          "Gestión de Proyectos",
+          "Proyecto Integrador III"
+        ],
+      },
+      {
+        semester: "Décimo",
+        subjects: ["Estadía"]
+      }
+    ]
+  },
+
 
   //AGRICULTURA
   {

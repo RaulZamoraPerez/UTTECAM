@@ -2,141 +2,212 @@
 // import { obtenerProcesoAdmision } from '../../services/procesoAdmision.service';
 // import type { ProcesoAdmisionResponse } from '../../services/procesoAdmision.service';
 // import { Spinner } from '../../components/Spinner';
-import { Download, GraduationCap, Info } from 'lucide-react';
+import { useState, useEffect, memo } from 'react';
+import {  ExternalLink, FileText, Info, GraduationCap, ChevronRight, MousePointerClick, CheckCircle2 } from 'lucide-react';
 
-export default function ConvocatoriaAdmision() {
-  /*
-  const [datos, setDatos] = useState<ProcesoAdmisionResponse | null>(null);
-  const [cargando, setCargando] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [sinRegistro, setSinRegistro] = useState(false);
+const ADMISSION_RESOURCES = [
+  {
+    name: "Órdenes de Pago",
+    description: "Referencia en el portal de Finanzas Puebla.",
+    url: "https://rl.puebla.gob.mx/",
+    type: "link",
+    icon: ExternalLink,
+  },
+  {
+    name: "Tutorial: Orden de Cobro",
+    description: "Manual para generar tu referencia.",
+    url: "/convocatoriaAdmision/TUTORIAL. ORDEN DE PAGO.pdf",
+    type: "file",
+    icon: FileText,
+  },
+  {
+    name: "Registro “Mi Escuela”",
+    description: "Captura de datos institucional UTTECAM.",
+    url: "http://187.217.125.214/uttecam/aspirantes_registro_uttecam_tsu2024.asp",
+    type: "link",
+    icon: GraduationCap,
+  },
+  {
+    name: "Tutorial: Documentos",
+    description: "Guía para el escaneo y carga.",
+    url: "/convocatoriaAdmision/TUTORIAL. DOCUMENTOS.pdf",
+    type: "file",
+    icon: FileText,
+  },
+  {
+    name: "Examen Diagnóstico",
+    description: "Registro en plataforma xbingreso.",
+    url: "https://xbingreso.com/Entrar/UTTECAM",
+    type: "link",
+    icon: MousePointerClick,
+  },
+  {
+    name: "Consulta de NSS",
+    description: "Número de Seguridad Social IMSS.",
+    url: "https://serviciosdigitales.imss.gob.mx/gestionAsegurados-web-externo/asignacionNSS",
+    type: "link",
+    icon: Info,
+  }
+];
 
-  useEffect(() => {
-    const cargarDatos = async () => {
-      setCargando(true);
-      setError(null)
-      setSinRegistro(false);
+const ResourceStep = memo(({ item, index, isLast }: { item: typeof ADMISSION_RESOURCES[0], index: number, isLast: boolean }) => (
+  <div className="relative flex gap-3">
+    {!isLast && (
+      <div className="absolute left-[15px] top-8 bottom-0 w-0.5 bg-slate-100" />
+    )}
+    
+    <div className="flex-shrink-0 relative">
+      <div className="w-8 h-8 rounded-full bg-white border-2 border-[#0A9782] text-[#0A9782] flex items-center justify-center font-bold text-xs z-10 relative">
+        {index + 1}
+      </div>
+    </div>
 
-      const resultado = await obtenerProcesoAdmision();
-
-      if (resultado.exito && resultado.datos) {
-        setDatos(resultado.datos);
-      } else if (resultado.sinRegistro) {
-        setSinRegistro(true);
-      } else {
-        setError(resultado.error || 'Error desconocido');
-      }
-
-      setCargando(false);
-    };
-
-    cargarDatos();
-  }, []);
-  */
-
-  return (
-    <div className="min-h-screen bg-white font-sans selection:bg-amber-100 selection:text-amber-900">
-      
-      {/* Hero Section */}
-      <div className="relative pt-20 pb-12 px-4 overflow-hidden">
-        <div className="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-amber-50 rounded-full blur-3xl opacity-50"></div>
-        <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 bg-green-50 rounded-full blur-3xl opacity-50"></div>
-        
-        <div className="max-w-5xl mx-auto text-center relative z-10">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gray-50 border border-gray-100 text-gray-500 text-sm font-medium mb-6">
-            <GraduationCap size={14} className="text-amber-500" />
-            <span>Proceso de Admisión Institucional</span>
-          </div>
-          <h1 className="text-5xl md:text-7xl font-bold text-gray-900 mb-6 tracking-tight">
-            Únete a la <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-600 to-orange-600">UTTECAM</span>
-          </h1>
-          <p className="text-xl text-gray-500 max-w-2xl mx-auto font-light leading-relaxed">
-            Tu camino hacia la excelencia profesional comienza aquí.
-          </p>
+    <a
+      href={item.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="flex-1 pb-4 group"
+    >
+      <div className="bg-white border border-slate-100 p-3 rounded-xl shadow-sm group-hover:border-[#0A9782]/30 group-hover:shadow-md transition-all duration-200">
+        <div className="flex items-center justify-between mb-0.5">
+          <h3 className="text-slate-700 font-bold text-[13px] group-hover:text-[#0A9782] transition-colors leading-none">
+            {item.name}
+          </h3>
+          <item.icon size={12} className="text-slate-300 group-hover:text-[#D1672A]" />
+        </div>
+        <p className="text-slate-500 text-[10px] leading-tight mb-2">
+          {item.description}
+        </p>
+        <div className="flex items-center gap-1 text-[9px] font-bold text-[#0A9782] uppercase tracking-wider">
+          <span>{item.type === 'file' ? 'Documento' : 'Enlace'}</span>
+          <ChevronRight size={10} strokeWidth={3} />
         </div>
       </div>
+    </a>
+  </div>
+));
 
-      <div className="max-w-6xl mx-auto px-4 pb-24 space-y-24">
-    
-        {/* Sección: Resultados de Maestría */}
-        <div className="relative">
-          <div className="absolute inset-0 bg-gradient-to-r from-amber-50 to-orange-50 rounded-3xl transform -rotate-1"></div>
-          <div className="relative bg-white rounded-3xl shadow-xl shadow-gray-100/50 border border-gray-100 overflow-hidden">
-            <div className="p-8 md:p-12">
-              <div className="flex flex-col lg:flex-row gap-12 items-center">
-                
-                <div className="flex-1 space-y-8">
-                  <div>
-                    <div className="flex items-center gap-3 mb-4">
-                      <span className="flex h-3 w-3 relative">
-                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
-                        <span className="relative inline-flex rounded-full h-3 w-3 bg-amber-500"></span>
-                      </span>
-                      <span className="text-amber-600 font-bold tracking-wider text-sm uppercase">Resultados Disponibles</span>
-                    </div>
-                    <h2 className="text-3xl md:text-4xl font-bold text-gray-900 leading-tight mb-4">
-                      Lista de Aceptados <br/>
-                      <span className="text-gray-400">Maestría en Gestión de Proyectos</span>
-                    </h2>
-                    <p className="text-gray-600 text-lg leading-relaxed">
-                      Se publican los resultados oficiales de los aspirantes aceptados para el programa de maestría.
-                    </p>
-                  </div>
+export default function ConvocatoriaAdmision() {
+  const [loadPdf, setLoadPdf] = useState(false);
+  const mainPdfUrl = "/convocatoriaAdmision/PROCESO DE ADMISIÓN 2026 UTTECAM .pdf";
 
-                  <div className="flex flex-wrap gap-4">
-                    <a 
-                      href="/convocatoriaAdmision/resultados aceptados maestria.pdf" 
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-3 px-8 py-4 bg-gray-900 text-white rounded-xl font-medium hover:bg-gray-800 transition-all shadow-lg shadow-gray-200 hover:shadow-xl hover:-translate-y-1"
-                    >
-                      <Download size={20} />
-                      Descargar Resultados
-                    </a>
-                  </div>
+  useEffect(() => {
+    const timer = setTimeout(() => setLoadPdf(true), 200);
+    return () => clearTimeout(timer);
+  }, []);
 
-                  <div className="flex items-center gap-3 text-sm text-gray-400 pt-4 border-t border-gray-100">
-                    <Info size={16} />
-                    <span>Favor de presentarse en Servicios Escolares.</span>
-                  </div>
-                </div>
-
-                <div className="w-full lg:w-4/12 flex justify-center">
-                  <div className="relative group">
-                    <div className="absolute inset-0 bg-amber-200 blur-3xl opacity-20 rounded-full group-hover:opacity-40 transition-opacity"></div>
-                    <img 
-                      src="/convocatoriaAdmision/motocle.png" 
-                      alt="Aceptados Maestría" 
-                      className="relative w-full max-w-[280px] h-auto object-contain transform group-hover:scale-105 transition-transform duration-500 drop-shadow-xl"
-                    />
-                  </div>
-                </div>
-
+  return (
+    <div className="min-h-screen bg-[#FDFDFD]">
+      {/* Header Section Centrado y Compacto */}
+      <div className="bg-white border-b border-slate-100 overflow-hidden">
+        <div className="max-w-6xl mx-auto px-4 py-8 md:py-12 relative">
+          <div className="flex flex-col lg:flex-row items-center justify-center gap-10 lg:gap-20">
+            <div className="max-w-xl text-center lg:text-left z-10">
+              <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-emerald-50 text-[#0A9782] text-[9px] font-bold mb-4 uppercase tracking-[0.15em] border border-emerald-100/50">
+                <CheckCircle2 size={10} />
+                <span>Admisión 2026 - 2027</span>
+              </div>
+              <h1 className="text-3xl md:text-5xl lg:text-6xl font-black text-slate-800 mb-4 tracking-tighter leading-[0.95]">
+                TU TRABAJO <br />
+                <span className="text-[#0A9782]">EMPIEZA AQUÍ</span>
+              </h1>
+              <p className="text-slate-500 text-sm md:text-base max-w-lg font-medium leading-relaxed mb-6">
+                Sigue los pasos oficiales para tu ingreso a la UTTECAM.
+              </p>
+              <div className="flex flex-wrap justify-center lg:justify-start gap-3">
+                 <a href="#proceso" className="px-6 py-2.5 bg-[#D1672A] text-white rounded-lg font-bold text-xs shadow-lg shadow-orange-100 hover:brightness-105 transition-all">Ver Proceso</a>
+                 <a href={mainPdfUrl} download className="px-6 py-2.5 bg-white border border-slate-200 text-slate-600 rounded-lg font-bold text-xs hover:bg-slate-50 transition-all">Descargar PDF</a>
               </div>
             </div>
-          </div>
-        </div>
 
-        {/* Sección: Convocatoria de Maestría */}
-        <div className="bg-gray-50 rounded-3xl p-8 md:p-12 border border-gray-100">
-          <div className="text-center mb-10">
-            <h3 className="text-3xl font-bold text-gray-900">Convocatoria de Admisión a Maestría</h3>
-            <p className="text-gray-500 mt-2">Consulta las bases y requisitos para tu ingreso.</p>
-          </div>
-
-          <div className="max-w-4xl mx-auto">
-            <div className="relative group rounded-2xl overflow-hidden shadow-2xl bg-white p-4 border border-gray-200">
+            <div className="flex-shrink-0 relative">
+              <div className="absolute inset-0 bg-[#0A9782]/5 rounded-full blur-[60px]" />
               <img 
-                src="/noticias/Maestria.png" 
-                alt="Convocatoria Maestría" 
-                className="w-full h-auto rounded-xl shadow-inner"
+                src="/convocatoriaAdmision/motocle.png" 
+                alt="Motocle" 
+                className="w-40 md:w-52 lg:w-60 h-auto animate-float relative z-10"
               />
             </div>
           </div>
         </div>
+      </div>
 
+      <div id="proceso" className="max-w-7xl mx-auto px-4 py-10 md:py-14">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+          
+          {/* Lado PDF: 7/12 */}
+          <div className="lg:col-span-8 flex flex-col gap-4">
+            <h2 className="text-xl md:text-2xl font-black text-slate-700 uppercase tracking-tight flex items-center gap-2">
+              <div className="w-1 h-6 bg-[#D1672A] rounded-full" />
+              Convocatoria Oficial
+            </h2>
+            
+            <div className="aspect-[3/4] lg:aspect-auto lg:h-[800px] bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-xl shadow-slate-100 relative">
+              {!loadPdf ? (
+                <div className="absolute inset-0 flex items-center justify-center bg-slate-50">
+                  <div className="w-8 h-8 border-4 border-[#0A9782]/10 border-t-[#0A9782] rounded-full animate-spin"></div>
+                </div>
+              ) : (
+                <iframe 
+                  src={encodeURI(mainPdfUrl)} 
+                  className="w-full h-full border-none"
+                  title="Convocatoria 2026"
+                />
+              )}
+            </div>
+          </div>
+
+          {/* Lado Recursos: 4/12 (dejando espacio) */}
+          <div className="lg:col-span-4 flex flex-col gap-4">
+            <h2 className="text-xl md:text-2xl font-black text-slate-700 uppercase tracking-tight flex items-center gap-2">
+              <div className="w-1 h-6 bg-[#0A9782] rounded-full" />
+              Pasos a Seguir
+            </h2>
+
+            <div className="space-y-0.5">
+              {ADMISSION_RESOURCES.map((item, index) => (
+                <ResourceStep 
+                  key={item.name} 
+                  item={item} 
+                  index={index} 
+                  isLast={index === ADMISSION_RESOURCES.length - 1} 
+                />
+              ))}
+            </div>
+
+            <div className="mt-2 p-4 bg-white border border-slate-100 rounded-xl flex gap-3 items-start shadow-sm outline outline-1 outline-blue-50/30">
+              <div className="bg-slate-50 p-1.5 rounded-lg text-blue-500">
+                <Info size={16} />
+              </div>
+              <div>
+                <h4 className="font-bold text-slate-700 text-[12px] mb-0.5">Apoyo al Aspirante</h4>
+                <p className="text-slate-500 text-[10px] leading-relaxed font-medium">
+                  Dudas técnicas: <span className="text-[#0A9782] font-bold">249-129-69-11</span>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Sección de Posgrado al final */}
+      <div className="max-w-7xl mx-auto px-4 pb-20">
+        <div className="bg-white border-2 border-dashed border-slate-200 rounded-[2rem] p-8 md:p-12 text-center">
+          <h3 className="text-2xl md:text-3xl font-black text-slate-800 mb-6 uppercase tracking-tighter">
+            ADMISIÓN <span className="text-[#D1672A]">MAESTRÍA</span>
+          </h3>
+          <div className="inline-block px-10 py-3 bg-[#D1672A] text-white rounded-xl font-black text-xl uppercase italic shadow-lg shadow-orange-100">
+            ¡Próximamente!
+          </div>
+          <p className="mt-6 text-slate-500 text-sm font-medium italic">
+            El nuevo proceso de posgrado será anunciado a través de nuestras redes oficiales.
+          </p>
+        </div>
       </div>
     </div>
   );
 }
+
+
+
 

@@ -11,7 +11,7 @@ import { AppLayout } from "@/layouts/AppLayout";
 import { Page_404 } from "@/components/404";
 import LoaderSuspense from "./components/Loader/LoaderSuspense";
 import InformacionEstadistica from "./views/InformacionEstadistica/InformacionEstadistica";
-// Import directo para Home (sin lazy) para carga MÁS RÁPIDA
+
 import Home from "@/views/Inicial/Home";
 
 import ServicioMedico from "./views/extensionUniversitaria/ServicioMedico/ServicioMedico";
@@ -58,6 +58,7 @@ const Enlaces = lazy(() => import("@/views/enlaces/Enlaces"));
 // Nuevas vistas recuperadas
 const ProgramasDesarrollo = lazy(() => import("@/views/Vinculacion/ProgramasDesarrollo"));
 const ComiteView = lazy(() => import("@/views/Comites/ComiteView"));
+const BolsaTrabajo = lazy(() => import("@/views/Vinculacion/BolsaTrabajo"));
 
 import ConstanciasKardex from "./views/Formularios/ConstanciasKardex";
 import CertificadoEstudios from "./views/Formularios/CertificadoEstudios";
@@ -114,6 +115,7 @@ export default function Router() {
             <Route path="/educacion-continua" element={<EducacionContinua />} />
             <Route path="/educacion-continua/cursos" element={<CursosEducacionContinua />} />
             <Route path="/practicas-y-estadias" element={<PracticasEstadias />} />
+            <Route path="/bolsaTrabajo" element={<BolsaTrabajo />} />
 
             {/* Comités y Programas */}
             <Route path="/programas-desarrollo" element={<ProgramasDesarrollo />} />

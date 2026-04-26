@@ -146,18 +146,6 @@ export const data: DataCarpetas = {
             },
           ],
         },
-        {
-          title: "Subdireccion de Servicios Escolares ",
-          documentos: [
-            {
-              id: "doc6",
-              titulo:
-                "IT Evaluación de los Servicios Académicos y de Apoyo a los Estudiantes.pdf",
-              archivo:
-                "/SIG/INSTRUCCIONES DE TRABAJO/IT Evaluación de los Servicios Académicos y de Apoyo a los Estudiantes.pdf",
-            },
-          ],
-        },
       ],
     },
 

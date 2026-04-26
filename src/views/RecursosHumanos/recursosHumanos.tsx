@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Secciones2 } from "@/components/Secciones2";
 import { Search } from "lucide-react";
-import { dataEnero2026, dataSepDic2025 } from "@/data/recursosHumanos.data";
+import { dataMayAgo2026, dataEnero2026, dataSepDic2025 } from "@/data/recursosHumanos.data";
 
 export default function RecursosHumanos() {
     const [searchTerm, setSearchTerm] = useState("");
@@ -34,9 +34,17 @@ export default function RecursosHumanos() {
 
            
                 <div className="space-y-4">
-                    <Secciones2 
-                        searchTerm={searchTerm} 
-                        folders={dataEnero2026} 
+                    <Secciones2
+                        searchTerm={searchTerm}
+                        folders={dataMayAgo2026}
+                        title="Convocatorias para Profesor de Asignatura MAY-AGO-2026"
+                    />
+                </div>
+
+                <div className="space-y-4 mt-12">
+                    <Secciones2
+                        searchTerm={searchTerm}
+                        folders={dataEnero2026}
                         title="Convocatorias para Profesor de Asignatura ENE-ABR-2026"
                     />
                 </div>

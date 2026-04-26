@@ -1,3 +1,16 @@
+export const dataMayAgo2026 = [
+    {
+        title: "Alimentos",
+        documentos: [
+            {
+                id: "mayago_alim1",
+                titulo: "Alimentos.pdf",
+                archivo: "/Solicitud de publicación de convocatorias/Alimentos/Alimentos/Alimentos.pdf",
+            },
+        ],
+    },
+];
+
 export const dataEnero2026 = [
     {
         title: "Mantenimiento",

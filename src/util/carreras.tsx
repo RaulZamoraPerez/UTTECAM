@@ -12,8 +12,8 @@ const carreras = [
   "Procesos Industriales área Automotriz",
   "Procesos Productivos",
   "Automotriz",
-  "Desarrollo de software Multiplataforma",
-  "Infraestructura de Redes Digitales",
+  // "Infraestructura de Redes Digitales",
+  "Ciencia de Datos",
   "Admón. Área Formulación y Evaluación de Proyectos",
   "Emprendimiento, Formulación y Evaluación de Proyectos",
   "Admón. área Gestión del Capital Humano",
@@ -34,6 +34,7 @@ const carreras = [
   "Desarrollo y Gestión de Software",
   "Redes Inteligentes y Ciberseguridad",
   "Mecatrónica",
+  "Ingeniería en Datos e Inteligencia Artificial",
 ];
 
 // Mapeo de carreras por nivel
@@ -48,7 +49,8 @@ export const carrerasPorNivel = {
     "Procesos Productivos",
     "Automotriz",
     "Desarrollo de software Multiplataforma",
-    "Infraestructura de Redes Digitales",
+    // "Infraestructura de Redes Digitales",
+    "Ciencia de Datos",
     "Admón. Área Formulación y Evaluación de Proyectos",
     "Emprendimiento, Formulación y Evaluación de Proyectos",
     "Admón. área Gestión del Capital Humano",
@@ -71,6 +73,7 @@ export const carrerasPorNivel = {
     "Redes Inteligentes y Ciberseguridad",
     "Agricultura Sustentable y Protegida",
     "Mecatrónica",
+    "Ingeniería en Datos e Inteligencia Artificial",
   ]
 };
 

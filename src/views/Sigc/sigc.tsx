@@ -224,7 +224,6 @@ const datos = [
             { id: "doc17", titulo: "IT DESEMPEÑO DE EGRESADOS.pdf", archivo: "/SIG/INSTRUCCIONES DE TRABAJO/IT DESEMPEÑO DE EGRESADOS.pdf" },
             { id: "doc18", titulo: "IT Difusión y Divulgación .pdf", archivo: "/SIG/INSTRUCCIONES DE TRABAJO/IT Difusión y Divulgación .pdf" },
             { id: "doc19", titulo: "IT Educcion Continua.pdf", archivo: "/SIG/INSTRUCCIONES DE TRABAJO/IT Educcion Continua.pdf" },
-            { id: "doc20", titulo: "IT Evaluación de los Servicios Académicos y de Apoyo a los Estudiantes.pdf", archivo: "/SIG/INSTRUCCIONES DE TRABAJO/IT Evaluación de los Servicios Académicos y de Apoyo a los Estudiantes.pdf" },
             { id: "doc21", titulo: "IT Gestión de Estadias.pdf", archivo: "/SIG/INSTRUCCIONES DE TRABAJO/IT Gestión de Estadias.pdf" },
             { id: "doc22", titulo: "IT Gestión de Visitas Industriales.pdf", archivo: "/SIG/INSTRUCCIONES DE TRABAJO/IT Gestión de Visitas Industriales.pdf" },
             { id: "doc23", titulo: "IT Inscripción de Estudiantes.pdf", archivo: "/SIG/INSTRUCCIONES DE TRABAJO/IT Inscripción de Estudiantes.pdf" },

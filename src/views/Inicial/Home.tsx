@@ -91,7 +91,7 @@ const Home = () => {
         </div>
       </section>
 
-      <ModalInicial />
+       <ModalInicial /> 
     </>
   );
 };

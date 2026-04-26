@@ -192,65 +192,93 @@ export default function tablaDocumentosReutilizable2({ secciones, titulo, descri
             </div>
 
             {/* Modal PDF - Sin fondo oscuro */}
+            {/* Modal PDF/Imagen */}
             {pdfSeleccionado && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-                    <div className="relative bg-white w-full max-w-4xl max-h-[95vh] rounded-xl shadow-2xl border-2 border-gray-200 overflow-hidden">
-                        <button
-                            onClick={() => {
-                                setPdfSeleccionado(null);
-                                setDocumentoSeleccionado(null);
-                            }}
-                            className="absolute top-4 right-4 z-20 bg-red-500 text-white w-10 h-10 rounded-full hover:bg-red-600 transition-colors duration-200 flex items-center justify-center font-bold"
-                        >
-                            ✕
-                        </button>
-                        
-                        <div className="flex flex-col h-full">
-                            {/* Imagen centrada y alineada */}
-                            <div className="flex-1 p-6 flex items-center justify-center">
-                                <div className="w-full max-w-3xl">
+                <>
+                    {/* Backdrop con desenfoque */}
+                    <div 
+                        className="fixed inset-0 z-[60] bg-black/60 backdrop-blur-sm transition-opacity duration-300"
+                        onClick={() => {
+                            setPdfSeleccionado(null);
+                            setDocumentoSeleccionado(null);
+                        }}
+                    ></div>
+
+                    <div className="fixed inset-0 z-[70] flex items-center justify-center p-4 pointer-events-none">
+                        <div className="relative bg-white w-full max-w-5xl max-h-[90vh] rounded-2xl shadow-2xl border border-gray-100 overflow-hidden flex flex-col pointer-events-auto transform transition-all duration-300 scale-100">
+                            {/* Header del Modal */}
+                            <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100 bg-gray-50/50">
+                                <div className="flex items-center gap-3">
+                                    <div className="p-2 bg-[#0A9782]/10 rounded-lg">
+                                        <FileText className="h-5 w-5 text-[#0A9782]" />
+                                    </div>
+                                    <h3 className="font-bold text-gray-800 truncate max-w-[200px] sm:max-w-md">
+                                        {documentoSeleccionado?.titulo}
+                                    </h3>
+                                </div>
+                                <button
+                                    onClick={() => {
+                                        setPdfSeleccionado(null);
+                                        setDocumentoSeleccionado(null);
+                                    }}
+                                    className="p-2 hover:bg-red-50 text-gray-400 hover:text-red-500 rounded-full transition-all duration-200"
+                                >
+                                    <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                </button>
+                            </div>
+                            
+                            {/* Contenido principal (Visor) */}
+                            <div className="flex-1 overflow-auto bg-gray-100/30 p-2 sm:p-4 flex items-center justify-center min-h-[50vh]">
+                                <div className="w-full h-full max-w-5xl bg-white shadow-sm rounded-lg overflow-hidden border border-gray-200 flex items-center justify-center">
                                     {(pdfSeleccionado.match(/\.(jpg|jpeg|png|webp|gif)$/i) ? (
                                         <img
                                             src={pdfSeleccionado}
                                             alt={documentoSeleccionado?.titulo || "Imagen"}
-                                            className="w-full h-[65vh] object-contain rounded-lg border border-gray-300 mx-auto block bg-white"
-                                            style={{ border: "1px solid #d1d5db", background: '#fff' }}
+                                            className="w-full h-auto max-h-[75vh] object-contain mx-auto block transition-all duration-300"
                                         />
                                     ) : (
                                         <iframe
                                             src={pdfSeleccionado}
-                                            className="w-full h-[65vh] rounded-lg border border-gray-300 mx-auto block"
+                                            className="w-full h-[70vh] sm:h-[75vh] block"
                                             title="documento"
-                                            style={{ border: "1px solid #d1d5db" }}
                                         ></iframe>
                                     ))}
                                 </div>
                             </div>
                             
-                            {/* Enlace de Facebook centrado debajo de la imagen */ }
+                            {/* Footer / Botón de Redes Sociales */}
                             {documentoSeleccionado?.facebookLink && (
-                                <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 border-t border-gray-200">
-                                    <div className="text-center max-w-md mx-auto">
-                                        <p className="text-gray-700 mb-4 font-medium text-lg">
-                                            📱 ¡Visita nuestra publicación en redes sociales!
-                                        </p>
+                                <div className="px-6 py-6 bg-white border-t border-gray-100">
+                                    <div className="flex flex-col sm:flex-row items-center justify-between gap-4 max-w-4xl mx-auto w-full">
+                                        <div className="text-center sm:text-left">
+                                            <h4 className="font-bold text-gray-900 leading-tight">¿Te gusta este contenido?</h4>
+                                            <p className="text-sm text-gray-500 mt-1">Mira la publicación completa y deja tu reacción en Facebook</p>
+                                        </div>
                                         <a
                                             href={documentoSeleccionado.facebookLink}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="inline-flex items-center gap-3 px-8 py-4 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-all duration-200 shadow-lg hover:shadow-xl hover:scale-105 font-semibold text-lg"
+                                            className="group flex items-center gap-3 px-6 py-3 bg-[#1877F2] text-white rounded-xl hover:bg-[#166fe5] active:scale-95 transition-all duration-200 shadow-md hover:shadow-lg font-bold text-base w-full sm:w-auto justify-center"
                                         >
-                                            <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                            <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
                                                 <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
                                             </svg>
-                                            Ver en Facebook
+                                            <span>Ver en Facebook</span>
+                                            <svg 
+                                                className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" 
+                                                fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                            >
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                                            </svg>
                                         </a>
                                     </div>
                                 </div>
                             )}
                         </div>
                     </div>
-                </div>
+                </>
             )}
         </div>
     );

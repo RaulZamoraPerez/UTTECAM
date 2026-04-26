@@ -4,39 +4,75 @@ const datos = [
     {   
         id: "1",
         titulo: "Corresponsabilidad",
-        documentos: [ 
-           
+        documentos:[
+            
+    {
+        id: "corresponsabilidad-1",
+        titulo: "Campaña visual 2026 ",
+        archivo: "/Coordiancion de genero/Corresponsabilidad/CAMPAÑA VISUAL.pdf",
+        facebookLink: "https://www.facebook.com/share/1JVpr7Wvu1/?mibextid=wwXIfr"
+    },
+    {
+        id: "corresponsabilidad-7",
+        titulo: "Segundo Torneo de Fútbol 7 del Personal Docente y Administrativo 2026",
+        archivo: "/Coordiancion de genero/Corresponsabilidad/2do torneo de futbol.jpeg",
+        facebookLink: "https://www.facebook.com/share/p/17v4vmoM7g/?mibextid=wwXIfr"
+    },
+    {
+        id: "corresponsabilidad-8",
+        titulo: "1ra Sesión de Activación Física 2026",
+        archivo: "/Coordiancion de genero/Corresponsabilidad/1ra sesion de activacion fisica.jpeg",
+        facebookLink: "https://www.facebook.com/share/p/1C9uHuhzPM/?mibextid=wwXIfr"
+    },
+    {
+        id: "corresponsabilidad-9",
+        titulo: "Mercadito UTTECAM 2026",
+        archivo: "/Coordiancion de genero/Corresponsabilidad/mercadito uttecam.jpeg",
+        facebookLink: "https://www.facebook.com/share/p/1Kyq4j8TiY/?mibextid=wwXIfr"
+    },
+    {
+        id: "corresponsabilidad-10",
+        titulo: "Ceremonia Día de la Bandera 2026",
+        archivo: "/Coordiancion de genero/Corresponsabilidad/ceremonia de la bandera.jpeg",
+        facebookLink: "https://www.facebook.com/share/p/1Gcu38UMpT/?mibextid=wwXIfr"
+    },
+    {
+        id: "corresponsabilidad-11",
+        titulo: "Campaña de Vacunación Sarampión 2026",
+        archivo: "/Coordiancion de genero/Corresponsabilidad/campaña de vacunacion sarampion.jpeg",
+        facebookLink: "https://www.facebook.com/share/p/1B8vVf4DLL/?mibextid=wwXIfr"
+    },
+    {
+        id: "corresponsabilidad-2",
+        titulo: "Día del niño 2025",
+        archivo: "/Coordiancion de genero/Corresponsabilidad/DIA DEL NIÑO.pdf",
+        facebookLink: "https://www.facebook.com/share/p/1CPhEWu35x/"
+    },
+    {
+        id: "corresponsabilidad-3",
+        titulo: "Encendida del árbol 2025",
+        archivo: "/Coordiancion de genero/Corresponsabilidad/ENCENDIDA-ARBOL.pdf",
+        facebookLink: "https://www.facebook.com/share/1KeFJJ6bmn/?mibextid=wwXIfr"
+    },
+    {
+        id: "corresponsabilidad-4",
+        titulo: "Ladraton 2025",
+        archivo: "/Coordiancion de genero/Corresponsabilidad/LADRATON.pdf",
+        facebookLink: "https://www.facebook.com/share/18GqVLi6h5/?mibextid=wwXIfr"
+    },
+    {
+        id: "corresponsabilidad-5",
+        titulo: "Ofrenda 2025",
+        archivo: "/Coordiancion de genero/Corresponsabilidad/OFRENDA.pdf",
+        facebookLink: "https://www.facebook.com/share/1SggSt4XJ8/?mibextid=wwXIfr"
+    },
+    {
+        id: "corresponsabilidad-6",
+        titulo: "Rodada 2025",
+        archivo: "/Coordiancion de genero/Corresponsabilidad/RODADA.pdf",
+        facebookLink: "https://www.facebook.com/share/1R3EhhYkT2/?mibextid=wwXIfr"
+    }
 
-            {
-                id: "corresponsabilidad-1",
-                titulo: "Campañana visual ",
-                archivo: "/Coordiancion de genero/Corresponsabilidad/CAMPAÑA VISUAL.pdf"
-            },
-            {
-                id: "corresponsabilidad-2",
-                titulo: "Dia del niño ",
-                archivo: "/Coordiancion de genero/Corresponsabilidad/DIA DEL NIÑO.pdf"
-            },
-            {
-                id: "corresponsabilidad-3",
-                titulo: "Encendida arbol ",
-                archivo: "/Coordiancion de genero/Corresponsabilidad/ENCENDIDA-ARBOL.pdf"
-            },
-            {
-                id: "corresponsabilidad-4",
-                titulo: "Ladraton ",
-                archivo: "/Coordiancion de genero/Corresponsabilidad/LADRATON.pdf"
-            },
-            {
-                id: "corresponsabilidad-5",
-                   titulo: "Ofrenda ",
-                archivo: "/Coordiancion de genero/Corresponsabilidad/OFRENDA.pdf"
-            },
-            {
-                id: "corresponsabilidad-6",
-                   titulo: "Rodada ",
-                archivo: "/Coordiancion de genero/Corresponsabilidad/RODADA.pdf"
-            }
 
         ]
     },
@@ -44,22 +80,21 @@ const datos = [
         id: "2",
         titulo: " Comité de Igualdad Laboral y no Discriminación",
         documentos: [
-            // { 
-            //     id: "doc2", 
-            //     titulo: "POLITICA DE IGUALDAD LABORAL Y NO DISCRIMINACIÓN.pdf", 
-            //     archivo: "/Coordiancion de genero/2.- PROTOCOLO DE PREVENCIÓN, ACTUACIÓN Y SANCIÓN EN CASOS DE VIOLENCIA/POLITICA DE IGUALDAD LABORAL Y NO DISCRIMINACIÓN.pdf" 
-            // },
-             {
-                id: "Nombramiento",
-                titulo: "Nombramientos del comite de igualdad laboral",
-                archivo: "/Coordiancion de genero/Corresponsabilidad/nombramiento.jpg"
-            },
             
-           
+            // {
+            //     id: "nombramiento-comite",
+            //     titulo: "Nombramiento Ombudsperson",
+            //     archivo: "/Coordiancion de genero/2.- PROTOCOLO DE PREVENCIÓN, ACTUACIÓN Y SANCIÓN EN CASOS DE VIOLENCIA/Nombramiento Ombudsperson 2026.pdf"
+            // },
+            {
+                id: "codigo-ética y reglas de integridad ",
+                titulo: "Código de Ética y las Reglas de Integridad para el Ejercicio de la Función Pública",
+                archivo: "/Coordiancion de genero/2.- PROTOCOLO DE PREVENCIÓN, ACTUACIÓN Y SANCIÓN EN CASOS DE VIOLENCIA/Código de Ética y las Reglas de Integridad para el Ejercicio de la Función Pública.pdf"
+            },
             {
                 id: "Organigrama comite de igualdad laboral",
                 titulo: "Organigrama comite de igualdad laboral",
-                archivo: "/Coordiancion de genero/Corresponsabilidad/organigrama comite de igualdad laboral.jpg"
+                archivo: "/Coordiancion de genero/2.- PROTOCOLO DE PREVENCIÓN, ACTUACIÓN Y SANCIÓN EN CASOS DE VIOLENCIA/Organigrama de Comité de Igualdad Laboral y No Discriminación.pdf"
             },
             {
                 id: "Lineamientos comite de igualdad laboral",
@@ -68,13 +103,8 @@ const datos = [
             },
             {
                 id: "Politica de igualdad laboral",
-                titulo: "Politica de igualdad laboral",
-                archivo: "/Coordiancion de genero/2.- PROTOCOLO DE PREVENCIÓN, ACTUACIÓN Y SANCIÓN EN CASOS DE VIOLENCIA/POLITICA DE IGUALDA LABORAL UTTECAM POST.pdf"
-            },
-            {
-                id: "Politica de igualdad laboral",
-                titulo: "Politica de igualdad laboral y no discriminación",
-                archivo: "/Coordiancion de genero/2.- PROTOCOLO DE PREVENCIÓN, ACTUACIÓN Y SANCIÓN EN CASOS DE VIOLENCIA/POLITICA DE IGUALDAD LABORAL Y NO DISCRIMINACIÓN.pdf"
+                titulo: "Política de Igualdad Laboral y No Discriminación",
+                archivo: "/Coordiancion de genero/2.- PROTOCOLO DE PREVENCIÓN, ACTUACIÓN Y SANCIÓN EN CASOS DE VIOLENCIA/nuevo_Politica de Igualdad Laboral y No Discriminación finalizada.pdf"
             },
             {
                 id: "Pronunciamento de cero tolerancia",
@@ -111,7 +141,7 @@ const datos = [
             { 
                 id: "doc4b", 
                 titulo: "Lineamientos que deberán Observar las Dependencias y Entidades Paraestatales del Gob del Edo de Puebla en materia de Igualdad Sustantiva", 
-                archivo: "/Coordiancion de genero/4.-Guía de Lenguaje Incluyente para la Administración Pública del Estado de Puebla/Lineamientos que deberan Observar las Dependencias y Entidades Paraestatales del Gob del Edo de Puebla en materia de Igualdad Sustantiva 2032020.pdf" 
+                archivo: "/Coordiancion de genero/4.-Guía de Lenguaje Incluyente para la Administración Pública del Estado de Puebla/2032020.pdf" 
             },
             { 
                 id: "doc4c", 

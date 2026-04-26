@@ -59,16 +59,23 @@ const datos = [
         id: "3",
         titulo: "PBR 2025",
         documentos: [
-            { id: "doc1", titulo: "PBR Cuatrimestre Enero-Abril 2025", archivo: "/Información y Estadistica/2025/PBR/PBR CUATRIMESTRE ENERO-ABRIL 2025.pdf" },
-            {id: "doc2", titulo: "PBR Cuatrimestre Mayo-Agosto 2025", archivo: "/Información y Estadistica/2025/PBR/PBR Cuatrimestre mayo-agosto 2025.pdf" },
+            { id: "doc1", titulo: "PBR 1er Trimestre 2025", archivo: "/Información y Estadistica/2025/PBR/PBR 1ER TRIMESTRE_2025.pdf" },
+            { id: "doc2", titulo: "PBR 2do Trimestre 2025", archivo: "/Información y Estadistica/2025/PBR/PBR 2DO TRIMESTRE_2025.pdf" },
+            { id: "doc3", titulo: "PBR 3er Trimestre 2025", archivo: "/Información y Estadistica/2025/PBR/PBR 3ER TRIMESTRE_2025.pdf" },
+            { id: "doc4", titulo: "PBR Cuatrimestre Mayo-Agosto 2025", archivo: "/Información y Estadistica/2025/PBR/PBR Cuatrimestre mayo-agosto 2025.pdf" },
+            { id: "doc5", titulo: "PBR Cuatrimestre Septiembre-Diciembre 2025", archivo: "/Información y Estadistica/2025/PBR/PBR Cuatrimestre Septiembre-Diciembre 2025.pdf" },
         ],
     },
     {
         id: "4",
         titulo: "POA 2025",
         documentos: [
-            { id: "doc1", titulo: "POA Enero-Abril 2025", archivo: "/Información y Estadistica/2025/POA/POA ENERO ABRIL 2025.pdf" },
-            {id: "doc2", titulo: "POA Mayo-Agosto 2025", archivo: "/Información y Estadistica/2025/POA/POA Cuatrimestre mayo-agosto 2025.pdf" },
+            { id: "doc1", titulo: "Informe Ejecutivo Enero-Abril 2025", archivo: "/Información y Estadistica/2025/POA/INFORME EJECUTIVO DE ACTIVIDADES POA ENERO-ABRIL 2025.pdf" },
+            { id: "doc2", titulo: "Informe Ejecutivo Mayo-Agosto 2025", archivo: "/Información y Estadistica/2025/POA/INFORME EJECUTIVO DE ACTIVIDADES POA MAYO-AGOSTO 2025.pdf" },
+            { id: "doc3", titulo: "Informe Ejecutivo Septiembre-Diciembre 2025", archivo: "/Información y Estadistica/2025/POA/INFORME EJECUTIVO DE ACTIVIDADES POA SEPTIEMBRE-DICIEMBRE 2025.pdf" },
+            { id: "doc4", titulo: "Lineamientos POA UT UP 2025", archivo: "/Información y Estadistica/2025/POA/Lineamientos poa UT UP_2025.pdf" },
+            { id: "doc5", titulo: "POA Mayo-Agosto 2025", archivo: "/Información y Estadistica/2025/POA/POA Cuatrimestre mayo-agosto 2025.pdf" },
+            { id: "doc6", titulo: "POA Septiembre-Diciembre 2025", archivo: "/Información y Estadistica/2025/POA/POA Septiembre-Diciembre 2025.PDF" },
         ],
     },
     {

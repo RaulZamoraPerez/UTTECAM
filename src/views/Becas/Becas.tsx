@@ -21,7 +21,7 @@ const Becas = () => {
     <div className="min-h-screen bg-white font-sans selection:bg-green-100 selection:text-green-900">
       
      
-      <div className="relative pt-20 pb-12 px-4 overflow-hidden">
+       <div className="relative pt-20 pb-12 px-4 overflow-hidden">
         <div className="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-green-50 rounded-full blur-3xl opacity-50"></div>
         <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 bg-amber-50 rounded-full blur-3xl opacity-50"></div>
         
@@ -30,7 +30,7 @@ const Becas = () => {
             <Sparkles size={14} className="text-amber-500" />
             <span>Portal de Becas Institucionales</span>
           </div>
-          <h1 className="text-5xl md:text-7xl font-bold text-gray-900 mb-6 tracking-tight">
+          <h1 className="text-5xl md:text-7xl font-bold text-gray-800 mb-6 tracking-tight">
             Becas y <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-emerald-600">Apoyos</span>
           </h1>
           <p className="text-xl text-gray-500 max-w-2xl mx-auto font-light leading-relaxed">
@@ -41,7 +41,137 @@ const Becas = () => {
 
       <div className="max-w-6xl mx-auto px-4 pb-24 space-y-24">
     
-        {/* Sección: Resultados y Avisos Beca de Exención de Pago 2026 */}
+        {/* Sección 1: Beca de Estadía Profesional 2026 */}
+        <div className="space-y-12">
+          <div className="flex items-center gap-4 mb-4">
+            <div className="h-10 w-1 bg-green-600 rounded-full"></div>
+            <h2 className="text-3xl font-bold text-gray-800 uppercase tracking-tight">Estadía Profesional: Mayo - Agosto 2026</h2>
+          </div>
+
+          <div className="relative">
+            <div className="absolute inset-0 bg-gradient-to-r from-green-50 to-emerald-50 rounded-3xl transform rotate-1"></div>
+            <div className="relative bg-white rounded-3xl shadow-xl shadow-gray-100/50 border border-gray-100 overflow-hidden">
+              <div className="p-8 md:p-12">
+                <div className="flex flex-col lg:flex-row gap-12 items-center">
+                  <div className="flex-1 space-y-8">
+                    <div>
+                      <div className="flex items-center gap-3 mb-4">
+                        <span className="flex h-3 w-3 relative">
+                          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                          <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+                        </span>
+                        <span className="text-green-600 font-bold tracking-wider text-sm uppercase">Convocatoria Beca</span>
+                      </div>
+                      <h3 className="text-3xl font-bold text-gray-800 mb-4">Convocatoria Beca de Estadía Profesional</h3>
+                      <p className="text-gray-600 text-lg leading-relaxed">
+                        Documentación y requisitos oficiales para la beca de los alumnos que inician su periodo de estadía en el cuatrimestre Mayo - Agosto 2026.
+                      </p>
+                    </div>
+
+                    <div className="grid grid-cols-1 gap-4 max-w-sm">
+                      <a 
+                        href="/becas/01_CONVOCATORIA Beca de Estadía Profesional UTTECAM.pdf" 
+                        target="_blank" 
+                        className="group flex items-center p-5 bg-gray-50 rounded-2xl border border-transparent hover:border-green-200 hover:bg-green-50/50 transition-all shadow-sm"
+                      >
+                        <div className="p-3 bg-white text-green-600 rounded-xl shadow-md group-hover:scale-110 transition-transform">
+                          <FileText size={28} />
+                        </div>
+                        <div className="ml-4">
+                          <h4 className="font-bold text-gray-800 text-sm">Descargar Convocatoria</h4>
+                          <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest">Documento PDF</p>
+                        </div>
+                        <ChevronRight size={20} className="ml-auto text-gray-300 group-hover:text-green-500" />
+                      </a>
+                    </div>
+                  </div>
+
+                  <div className="w-full lg:w-4/12 flex justify-center">
+                    <div 
+                      className="relative group cursor-pointer aspect-[3/4] w-full max-w-[280px] rounded-2xl overflow-hidden shadow-2xl border-4 border-white transition-all duration-500 hover:scale-[1.02]"
+                      onClick={() => handleImageClick('/becas/01_POST CONVOCATORIA BECA MAYO-AGOSTO UTTECAM_2026.jpg.jpeg')}
+                    >
+                      <img 
+                        src="/becas/01_POST CONVOCATORIA BECA MAYO-AGOSTO UTTECAM_2026.jpg.jpeg" 
+                        alt="Poster Beca Estadía" 
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" 
+                      />
+                      <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <ExternalLink size={24} className="text-white" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+       
+
+        {/* Sección: Nueva Convocatoria Beca de Exención de Pago Mayo-Agosto 2026 */}
+        <div className="space-y-12">
+          <div className="flex items-center gap-4 mb-4">
+            <div className="h-10 w-1 bg-green-600 rounded-full"></div>
+            <h2 className="text-3xl font-bold text-gray-700 uppercase tracking-tight">Beca Académica: <span className="text-gray-400">Mayo - Agosto 2026</span></h2>
+          </div>
+
+          <div className="relative">
+            <div className="absolute inset-0 bg-gradient-to-r from-green-50 to-emerald-50 rounded-3xl transform -rotate-1"></div>
+            <div className="relative bg-white rounded-3xl shadow-xl shadow-gray-100/50 border border-gray-100 overflow-hidden">
+              <div className="p-8 md:p-12">
+                <div className="flex flex-col lg:flex-row gap-12 items-center">
+                  <div className="flex-1 space-y-8">
+                    <div>
+                      <div className="flex items-center gap-3 mb-4">
+                        <span className="flex h-3 w-3 relative">
+                          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                          <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+                        </span>
+                        <span className="text-green-600 font-bold tracking-wider text-sm uppercase">Convocatoria Abierta</span>
+                      </div>
+                      <h3 className="text-3xl md:text-4xl font-bold text-gray-800 leading-tight mb-4">Convocatoria Beca de Exención de Pago <br/><span className="text-gray-400">Mayo - Agosto 2026</span></h3>
+                      <p className="text-gray-600 text-lg leading-relaxed">
+                        Por este medio se hace pública la convocatoria oficial. Invitamos a la comunidad estudiantil a participar en el proceso de selección para el próximo cuatrimestre.
+                      </p>
+                    </div>
+
+                    <div className="grid grid-cols-1 gap-4 max-w-sm">
+                      <a
+                        href="/becas/nuevo_CONVOCATORIA DE BECA DE EXENCIÓN DE PAGO CUATRIMESTRAL MAYO - AGOSTO 2026 .pdf"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group flex items-center p-5 bg-gray-50 rounded-2xl border border-transparent hover:border-green-200 hover:bg-green-50/50 transition-all shadow-sm"
+                      >
+                        <div className="p-3 bg-white text-green-600 rounded-xl shadow-md group-hover:scale-110 transition-transform">
+                          <FileText size={28} />
+                        </div>
+                        <div className="ml-4">
+                          <h4 className="font-bold text-gray-700 text-sm">Descargar Convocatoria</h4>
+                          <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest">Documento PDF</p>
+                        </div>
+                        <ChevronRight size={20} className="ml-auto text-gray-300 group-hover:text-green-500" />
+                      </a>
+                    </div>
+                  </div>
+
+                  <div className="w-full lg:w-4/12 flex justify-center">
+                    <div className="relative group cursor-pointer">
+                      <div className="absolute inset-0 bg-green-200 blur-3xl opacity-20 rounded-full group-hover:opacity-40 transition-opacity"></div>
+                      <img
+                        src="/becas/Beca_motocle.png"
+                        alt="Mascota Becas"
+                        className="relative w-full max-w-[280px] h-auto object-contain transform group-hover:scale-105 transition-transform duration-500 drop-shadow-2xl"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Sección: Resultados y Avisos Beca de Exención de Pago Enero-Abril 2026 */}
         <div className="space-y-16">
           {/* Main Hero Card (Mismo estilo que Beca Estadía) */}
           <div className="relative">
@@ -58,7 +188,7 @@ const Becas = () => {
                         </span>
                         <span className="text-blue-600 font-bold tracking-wider text-sm uppercase">Resultados Publicados</span>
                       </div>
-                      <h2 className="text-3xl md:text-4xl font-bold text-gray-900 leading-tight mb-4">
+                      <h2 className="text-3xl md:text-4xl font-bold text-gray-800 leading-tight mb-4">
                         Resultados de Beca de Exención de Pago <br/>
                         <span className="text-gray-400">Enero - Abril 2026</span>
                       </h2>
@@ -115,7 +245,7 @@ const Becas = () => {
                 </div>
               </div>
               <div className="px-4 pb-4">
-                <h4 className="font-bold text-gray-900">Aviso Beca 50%</h4>
+                <h4 className="font-bold text-gray-800">Aviso Beca 50%</h4>
                 <p className="text-sm text-gray-500">Instrucciones específicas</p>
               </div>
             </div>
@@ -134,7 +264,7 @@ const Becas = () => {
                 </div>
               </div>
               <div className="px-4 pb-4">
-                <h4 className="font-bold text-gray-900">Aviso 50% y 100%</h4>
+                <h4 className="font-bold text-gray-800">Aviso 50% y 100%</h4>
                 <p className="text-sm text-gray-500">Información institucional</p>
               </div>
             </div>
@@ -153,7 +283,7 @@ const Becas = () => {
                 </div>
               </div>
               <div className="px-4 pb-4">
-                <h4 className="font-bold text-gray-900">Fechas Clave</h4>
+                <h4 className="font-bold text-gray-800">Fechas Clave</h4>
                 <p className="text-sm text-gray-500">Calendario del proceso</p>
               </div>
             </div>
@@ -175,7 +305,7 @@ const Becas = () => {
                       </span>
                       <span className="text-green-600 font-bold tracking-wider text-sm uppercase">Resultados Publicados</span>
                     </div>
-                    <h2 className="text-3xl md:text-4xl font-bold text-gray-900 leading-tight mb-4">
+                    <h2 className="text-3xl md:text-4xl font-bold text-gray-800 leading-tight mb-4">
                       Resultados de Beca de Estadía Profesional <br/>
                       <span className="text-gray-400">Enero - Abril 2026</span>
                     </h2>
@@ -228,7 +358,7 @@ const Becas = () => {
                       </span>
                       <span className="text-green-600 font-bold tracking-wider text-sm uppercase">Convocatoria Abierta</span>
                     </div>
-                    <h2 className="text-3xl md:text-4xl font-bold text-gray-900 leading-tight mb-4">
+                    <h2 className="text-3xl md:text-4xl font-bold text-gray-800 leading-tight mb-4">
                       Beca de Exención de Pago <br/>
                       <span className="text-gray-400">Enero - Abril 2026</span>
                     </h2>
@@ -268,7 +398,7 @@ const Becas = () => {
                     onClick={() => handleImageClick('/becas/imagen_01.jpeg')}
                   >
                     <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors z-10 flex items-center justify-center">
-                      <span className="bg-white/90 backdrop-blur text-gray-900 px-4 py-2 rounded-full text-sm font-medium opacity-0 group-hover:opacity-100 transition-all transform translate-y-2 group-hover:translate-y-0">
+                      <span className="bg-white/90 backdrop-blur text-gray-800 px-4 py-2 rounded-full text-sm font-medium opacity-0 group-hover:opacity-100 transition-all transform translate-y-2 group-hover:translate-y-0">
                         Ampliar Imagen
                       </span>
                     </div>
@@ -285,7 +415,6 @@ const Becas = () => {
           </div>
         </div>
 
-        {/* Sección: Convocatoria Anterior (Sep-Dic 2025) */}
         <div className="bg-gray-50 rounded-3xl p-8 md:p-12 border border-gray-100">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
             <div>
@@ -293,7 +422,7 @@ const Becas = () => {
                 <Calendar size={12} />
                 <span>Periodo Anterior</span>
               </div>
-              <h3 className="text-3xl font-bold text-gray-900">Convocatoria Sep-Dic 2025</h3>
+              <h3 className="text-3xl font-bold text-gray-800">Convocatoria Sep-Dic 2025</h3>
               <p className="text-gray-500 mt-2">Consulta la convocatoria, requisitos y resultados del periodo pasado.</p>
             </div>
           </div>
@@ -308,7 +437,7 @@ const Becas = () => {
                   <FileText size={24} />
                 </div>
                 <div className="flex-1">
-                  <h4 className="font-bold text-gray-900 text-lg">Documento de Convocatoria</h4>
+                  <h4 className="font-bold text-gray-800 text-lg">Documento de Convocatoria</h4>
                   <p className="text-sm text-gray-500">Bases y lineamientos del periodo Sep-Dic 2025</p>
                 </div>
                 <PdfBecasExcencion
@@ -330,7 +459,7 @@ const Becas = () => {
                     <FileCheck size={20} />
                   </div>
                   <div>
-                    <h4 className="font-bold text-gray-900 text-sm group-hover:text-amber-700">Resultados Generales</h4>
+                    <h4 className="font-bold text-gray-800 text-sm group-hover:text-amber-700">Resultados Generales</h4>
                     <p className="text-xs text-gray-500">Lista de beneficiados</p>
                   </div>
                 </a>
@@ -345,7 +474,7 @@ const Becas = () => {
                     <Award size={20} />
                   </div>
                   <div>
-                    <h4 className="font-bold text-gray-900 text-sm group-hover:text-amber-700">Casos Especiales</h4>
+                    <h4 className="font-bold text-gray-800 text-sm group-hover:text-amber-700">Casos Especiales</h4>
                     <p className="text-xs text-gray-500">Resoluciones particulares</p>
                   </div>
                 </a>
@@ -359,7 +488,7 @@ const Becas = () => {
                     <Download size={20} />
                   </div>
                   <div className="flex-1">
-                    <h4 className="font-bold text-gray-900 text-sm group-hover:text-amber-700">Carta Compromiso (Solo 50%)</h4>
+                    <h4 className="font-bold text-gray-800 text-sm group-hover:text-amber-700">Carta Compromiso (Solo 50%)</h4>
                     <p className="text-xs text-gray-500">Formato obligatorio para beneficiarios parciales</p>
                   </div>
                   <ChevronRight size={16} className="text-gray-300 group-hover:text-amber-500" />
@@ -385,229 +514,183 @@ const Becas = () => {
                     </span>
                   </div>
                 </div>
-                <div className="mt-3 text-center">
-                  <p className="text-sm font-bold text-gray-700">Requisitos Generales</p>
-                </div>
               </div>
-            </div>
           </div>
         </div>
+      </div>
 
-        {/* Sección: Jóvenes Escribiendo el Futuro (Rediseño Solicitado) */}
-        <div className="py-12">
+      {/* Sección: Jóvenes Escribiendo el Futuro (Rediseño Consistente) */}
+        <div className="py-20 relative">
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent"></div>
           
-          {/* Header con Diseño Personalizado */}
-          <div className="text-center mb-16 relative">
-            {/* Top Icon */}
-            <div className="inline-flex items-center justify-center w-24 h-24 bg-green-50 rounded-full mb-8 shadow-sm animate-in fade-in zoom-in duration-500">
-              <Award className="text-green-600" size={48} strokeWidth={1.5} />
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center justify-center w-20 h-20 bg-green-50 rounded-3xl mb-8 shadow-sm">
+              <Award className="text-green-600" size={40} strokeWidth={1.5} />
             </div>
             
-            {/* Title */}
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-green-700 mb-10 tracking-tight uppercase leading-tight max-w-5xl mx-auto drop-shadow-sm">
+            <h2 className="text-4xl md:text-5xl font-extrabold text-gray-800 mb-6 tracking-tight leading-tight">
               Programa S283 <br className="hidden md:block" />
-              Jóvenes Escribiendo el Futuro
+              <span className="text-green-600">Jóvenes Escribiendo el Futuro</span>
             </h2>
 
-            {/* Divider with Icon */}
-            <div className="flex items-center justify-center gap-4 max-w-md mx-auto">
-              <div className="h-1.5 flex-1 bg-gradient-to-r from-transparent via-green-200 to-green-300 rounded-full"></div>
+            <div className="flex items-center justify-center gap-4 max-w-xs mx-auto">
+              <div className="h-px flex-1 bg-gray-200"></div>
               <a 
                 href="https://www.gob.mx/becasbenitojuarez/articulos/beca-jovenes-escribiendo-el-futuro-de-educacion-superior" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center shadow-lg shadow-green-200 text-white transform hover:scale-110 hover:bg-green-600 transition-all duration-300 cursor-pointer"
+                className="text-gray-400 hover:text-green-600 transition-colors"
                 title="Sitio Oficial"
               >
-                <ExternalLink size={24} />
+                <ExternalLink size={20} />
               </a>
-              <div className="h-1.5 flex-1 bg-gradient-to-l from-transparent via-green-200 to-green-300 rounded-full"></div>
+              <div className="h-px flex-1 bg-gray-200"></div>
             </div>
           </div>
           
           <div className="max-w-6xl mx-auto space-y-6">
             
-            {/* Card: Aviso Importante */}
-            <div className="bg-gradient-to-r from-red-50/80 to-white rounded-2xl p-8 md:p-10 shadow-sm border border-red-100 hover:shadow-lg hover:border-red-200 transition-all duration-300 flex flex-col md:flex-row items-center gap-8 relative overflow-hidden group">
-              <div className="absolute top-0 right-0 p-4 opacity-10 transform translate-x-1/2 -translate-y-1/2">
-                <AlertCircle size={200} className="text-red-500" />
-              </div>
-              <div className="flex-shrink-0 bg-white p-5 rounded-full text-red-600 shadow-sm ring-4 ring-red-50 group-hover:scale-110 transition-transform duration-300 relative z-10">
-                <AlertCircle size={36} />
-              </div>
-              <div className="flex-1 text-center md:text-left relative z-10">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-100 text-red-700 text-xs font-bold uppercase tracking-wider mb-3">
-                  <span className="relative flex h-2 w-2">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
-                  </span>
-                  Prioritario
+            {/* Cards Grid: Aviso y Resultados */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {/* Card: Aviso Importante */}
+              <div className="bg-white rounded-3xl p-8 shadow-sm border border-gray-100 hover:shadow-xl hover:border-amber-200 transition-all duration-500 group relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-amber-50 rounded-full blur-3xl -mr-16 -mt-16 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <div className="flex items-start gap-6 relative z-10">
+                  <div className="flex-shrink-0 bg-amber-50 p-4 rounded-2xl text-amber-600 group-hover:scale-110 transition-transform">
+                    <AlertCircle size={32} />
+                  </div>
+                  <div>
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-100 text-amber-700 text-[10px] font-bold uppercase tracking-wider mb-3">
+                      Prioritario
+                    </div>
+                    <h3 className="text-xl font-bold text-gray-800 mb-2">Aviso Importante</h3>
+                    <p className="text-gray-500 text-sm mb-6 leading-relaxed">
+                      Información crítica sobre tu proceso. Revisa este documento para evitar contratiempos.
+                    </p>
+                    <PdfBecasExcencion
+                      title=""
+                      description="Abrir Aviso"
+                      pdfSrc="/becas/01_AVISO IMPORTANTE – BECAS BENITO JUÁREZ.pdf"
+                    />
+                  </div>
                 </div>
-                <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3">Aviso Importante</h3>
-                <p className="text-gray-600 text-lg mb-6 leading-relaxed max-w-2xl">
-                  Información crítica sobre tu proceso de beca. Es <span className="font-semibold text-red-600">fundamental</span> que revises este documento para evitar contratiempos.
-                </p>
-                <div className="inline-block bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow">
-                  <PdfBecasExcencion
-                    title=""
-                    description="Leer Aviso Completo"
-                    pdfSrc="/becas/01_AVISO IMPORTANTE – BECAS BENITO JUÁREZ.pdf"
-                  />
+              </div>
+
+              {/* Card: Resultados */}
+              <div className="bg-white rounded-3xl p-8 shadow-sm border border-gray-100 hover:shadow-xl hover:border-green-200 transition-all duration-500 group relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-green-50 rounded-full blur-3xl -mr-16 -mt-16 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <div className="flex items-start gap-6 relative z-10">
+                  <div className="flex-shrink-0 bg-green-50 p-4 rounded-2xl text-green-600 group-hover:scale-110 transition-transform">
+                    <GraduationCap size={32} />
+                  </div>
+                  <div>
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-green-100 text-green-700 text-[10px] font-bold uppercase tracking-wider mb-3">
+                      Publicado
+                    </div>
+                    <h3 className="text-xl font-bold text-gray-800 mb-2">Resultados 2025</h3>
+                    <p className="text-gray-500 text-sm mb-6 leading-relaxed">
+                      Consulta la lista oficial de beneficiarios aceptados del periodo Sep - Dic 2025.
+                    </p>
+                    <PdfBecasExcencion
+                      title=""
+                      description="Ver Listado"
+                      pdfSrc="/becas/RESULTADOS DE BECAS BENITO JUAREZ SEP - DIC 2025.pdf"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
 
-            {/* Card: Resultados */}
-            <div className="bg-gradient-to-r from-indigo-50/80 to-white rounded-2xl p-8 md:p-10 shadow-sm border border-indigo-100 hover:shadow-lg hover:border-indigo-200 transition-all duration-300 flex flex-col md:flex-row items-center gap-8 relative overflow-hidden group">
-              <div className="absolute top-0 right-0 p-4 opacity-10 transform translate-x-1/2 -translate-y-1/2">
-                <GraduationCap size={200} className="text-indigo-500" />
-              </div>
-              <div className="flex-shrink-0 bg-white p-5 rounded-full text-indigo-600 shadow-sm ring-4 ring-indigo-50 group-hover:scale-110 transition-transform duration-300 relative z-10">
-                <GraduationCap size={36} />
-              </div>
-              <div className="flex-1 text-center md:text-left relative z-10">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-100 text-indigo-700 text-xs font-bold uppercase tracking-wider mb-3">
-                  <Sparkles size={12} />
-                  Resultados Publicados
-                </div>
-                <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3">Resultados Sep - Dic 2025</h3>
-                <p className="text-gray-600 text-lg mb-6 leading-relaxed max-w-2xl">
-                  Ya puedes consultar la lista oficial de beneficiarios aceptados. ¡Revisa si fuiste seleccionado!
-                </p>
-                <div className="inline-block bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow">
-                  <PdfBecasExcencion
-                    title="Resultados Sep - Dic 2025"
-                    description="Consultar Lista de Resultados"
-                    pdfSrc="/becas/RESULTADOS DE BECAS BENITO JUAREZ SEP - DIC 2025.pdf"
-                  />
-                </div>
-              </div>
-            </div>
-
-            {/* Sección Destacada: Avisos y Calendarios */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 py-6">
-              
-              {/* Card: Aviso Importante Visual */}
+            {/* Sección Visual: Avisos y Calendarios */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 py-4">
+              {/* Aviso Visual */}
               <div 
-                className="group relative bg-white rounded-2xl shadow-lg shadow-gray-200/50 border border-gray-100 overflow-hidden cursor-pointer hover:shadow-2xl hover:-translate-y-1 transition-all duration-500"
+                className="group bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden cursor-pointer hover:shadow-2xl transition-all duration-500"
                 onClick={() => handleImageClick('/becas/BECAS_AVISO.jpeg')}
               >
-                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-amber-400 to-orange-500"></div>
+                <div className="p-6">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="p-2 bg-green-50 text-green-600 rounded-lg">
+                      <Info size={20} />
+                    </div>
+                    <h3 className="font-bold text-gray-800 text-lg">Guía Visual de Becas</h3>
+                  </div>
+                  <div className="relative rounded-2xl overflow-hidden aspect-video bg-gray-50">
+                    <img src="/becas/BECAS_AVISO.jpeg" alt="Aviso" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                  </div>
+                </div>
+              </div>
+
+              {/* Calendario Visual */}
+              <div 
+                className="group bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden cursor-pointer hover:shadow-2xl transition-all duration-500"
+                onClick={() => handleImageClick('/becas/CALENDARIO DE PAGOS BECA BENITO JUAREZ NOV-DIC 2025.jpeg')}
+              >
                 <div className="p-6">
                   <div className="flex items-center gap-3 mb-4">
                     <div className="p-2 bg-amber-50 text-amber-600 rounded-lg">
-                      <AlertCircle size={24} />
+                      <Calendar size={20} />
                     </div>
-                    <h3 className="text-xl font-bold text-gray-900">Aviso Importante</h3>
+                    <h3 className="font-bold text-gray-800 text-lg">Calendario de Pagos</h3>
                   </div>
-                  <div className="relative rounded-xl overflow-hidden aspect-[4/5] bg-gray-100">
-                    <img 
-                      src="/becas/BECAS_AVISO.jpeg" 
-                      alt="Aviso Importante Becas" 
-                      className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
-                    />
-                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center">
-                      <span className="bg-white/90 backdrop-blur px-4 py-2 rounded-full text-sm font-bold text-gray-900 opacity-0 group-hover:opacity-100 transition-all transform translate-y-4 group-hover:translate-y-0 shadow-lg">
-                        Ver Aviso Completo
-                      </span>
-                    </div>
+                  <div className="relative rounded-2xl overflow-hidden aspect-video bg-gray-50">
+                    <img src="/becas/CALENDARIO DE PAGOS BECA BENITO JUAREZ NOV-DIC 2025.jpeg" alt="Calendario" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
                   </div>
                 </div>
               </div>
-
-              {/* Card: Calendario de Pagos */}
-              <div 
-                className="group relative bg-white rounded-2xl shadow-lg shadow-gray-200/50 border border-gray-100 overflow-hidden cursor-pointer hover:shadow-2xl hover:-translate-y-1 transition-all duration-500"
-                onClick={() => handleImageClick('/becas/CALENDARIO DE PAGOS BECA BENITO JUAREZ NOV-DIC 2025.jpeg')}
-              >
-                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-400 to-indigo-500"></div>
-                <div className="p-6">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="p-2 bg-blue-50 text-blue-600 rounded-lg">
-                      <Calendar size={24} />
-                    </div>
-                    <h3 className="text-xl font-bold text-gray-900">Calendario de Pagos</h3>
-                  </div>
-                  <div className="relative rounded-xl overflow-hidden aspect-[4/5] bg-gray-100">
-                    <img 
-                      src="/becas/CALENDARIO DE PAGOS BECA BENITO JUAREZ NOV-DIC 2025.jpeg" 
-                      alt="Calendario de Pagos Nov-Dic 2025" 
-                      className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
-                    />
-                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center">
-                      <span className="bg-white/90 backdrop-blur px-4 py-2 rounded-full text-sm font-bold text-gray-900 opacity-0 group-hover:opacity-100 transition-all transform translate-y-4 group-hover:translate-y-0 shadow-lg">
-                        Ver Calendario
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
             </div>
 
-            {/* Grid de Recursos Adicionales */}
+            {/* Grid de Recursos Minimalista */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4">
-              
-              {/* Card: SUBES (Blue Theme) */}
-              <div className="bg-gradient-to-br from-blue-50/50 to-white p-8 rounded-2xl border border-blue-100 shadow-sm hover:shadow-lg hover:border-blue-200 hover:-translate-y-1 transition-all duration-300 group relative overflow-hidden">
-                <div className="absolute top-0 right-0 p-4 opacity-5 transform translate-x-1/4 -translate-y-1/4">
-                  <Globe size={120} className="text-blue-600" />
+              {/* SUBES */}
+              <div className="bg-white p-8 rounded-3xl border border-gray-100 shadow-sm hover:shadow-lg transition-all group">
+                <div className="w-12 h-12 bg-gray-50 rounded-2xl flex items-center justify-center mb-6 text-blue-600 group-hover:bg-blue-50 transition-colors">
+                  <Globe size={24} />
                 </div>
-                <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center mb-6 text-blue-600 shadow-sm ring-1 ring-blue-100 group-hover:scale-110 transition-transform duration-300 relative z-10">
-                  <Globe size={28} />
-                </div>
-                <h4 className="text-xl font-bold text-gray-900 mb-3 relative z-10">Plataforma SUBES</h4>
-                <p className="text-gray-600 text-sm mb-6 leading-relaxed relative z-10">Acceso directo al Sistema Único de Beneficiarios de Educación Superior.</p>
-                <a href="https://subes.becasbenitojuarez.gob.mx/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-blue-600 font-bold text-sm hover:text-blue-700 transition-colors relative z-10 group-hover:gap-3">
-                  Ir a la plataforma <ExternalLink size={16} />
+                <h4 className="font-bold text-gray-800 mb-2">Plataforma SUBES</h4>
+                <p className="text-gray-500 text-xs mb-6">Acceso oficial al Sistema Único de Beneficiarios.</p>
+                <a href="https://subes.becasbenitojuarez.gob.mx/" target="_blank" rel="noopener noreferrer" className="text-blue-600 font-bold text-xs flex items-center gap-2">
+                  Visitar sitio <ExternalLink size={14} />
                 </a>
               </div>
 
-            
-              <div className="bg-gradient-to-br from-emerald-50/50 to-white p-8 rounded-2xl border border-emerald-100 shadow-sm hover:shadow-lg hover:border-emerald-200 hover:-translate-y-1 transition-all duration-300 group relative overflow-hidden">
-                <div className="absolute top-0 right-0 p-4 opacity-5 transform translate-x-1/4 -translate-y-1/4">
-                  <BookOpenCheck size={120} className="text-emerald-600" />
+              {/* Registro */}
+              <div className="bg-white p-8 rounded-3xl border border-gray-100 shadow-sm hover:shadow-lg transition-all group">
+                <div className="w-12 h-12 bg-gray-50 rounded-2xl flex items-center justify-center mb-6 text-green-600 group-hover:bg-green-50 transition-colors">
+                  <BookOpenCheck size={24} />
                 </div>
-                <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center mb-6 text-emerald-600 shadow-sm ring-1 ring-emerald-100 group-hover:scale-110 transition-transform duration-300 relative z-10">
-                  <BookOpenCheck size={28} />
-                </div>
-                <h4 className="text-xl font-bold text-gray-900 mb-3 relative z-10">Guía de Registro</h4>
-                <p className="text-gray-600 text-sm mb-6 leading-relaxed relative z-10">Manual detallado paso a paso para realizar tu registro exitosamente.</p>
-                <div className="flex items-center gap-2 text-emerald-600 font-bold text-sm hover:text-emerald-700 transition-colors relative z-10">
-                  <PdfBecasExcencion
+                <h4 className="font-bold text-gray-800 mb-2">Guía de Registro</h4>
+                <p className="text-gray-500 text-xs mb-6">Manual paso a paso para tu registro exitoso.</p>
+                <PdfBecasExcencion
                     title=""
                     description="Ver Guía PDF"
                     pdfSrc="/becas/PROGRAMA S283 JOVENES ESCRIBIENDO EL FUTURO JEF ALUMNOS.pdf"
-                  />
-                </div>
+                />
               </div>
 
-              {/* Card: Comunicado (Amber Theme) */}
-              <div className="bg-gradient-to-br from-amber-50/50 to-white p-8 rounded-2xl border border-amber-100 shadow-sm hover:shadow-lg hover:border-amber-200 hover:-translate-y-1 transition-all duration-300 group relative overflow-hidden">
-                <div className="absolute top-0 right-0 p-4 opacity-5 transform translate-x-1/4 -translate-y-1/4">
-                  <Radio size={120} className="text-amber-600" />
+              {/* Comunicado */}
+              <div className="bg-white p-8 rounded-3xl border border-gray-100 shadow-sm hover:shadow-lg transition-all group">
+                <div className="w-12 h-12 bg-gray-50 rounded-2xl flex items-center justify-center mb-6 text-amber-600 group-hover:bg-amber-50 transition-colors">
+                  <Radio size={24} />
                 </div>
-                <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center mb-6 text-amber-600 shadow-sm ring-1 ring-amber-100 group-hover:scale-110 transition-transform duration-300 relative z-10">
-                  <Radio size={28} />
-                </div>
-                <h4 className="text-xl font-bold text-gray-900 mb-3 relative z-10">Comunicado Oficial</h4>
-                <p className="text-gray-600 text-sm mb-6 leading-relaxed relative z-10">Información relevante, fechas importantes y avisos de última hora.</p>
-                <div className="flex items-center gap-2 text-amber-600 font-bold text-sm hover:text-amber-700 transition-colors relative z-10">
-                  <PdfBecasExcencion
+                <h4 className="font-bold text-gray-800 mb-2">Comunicado Oficial</h4>
+                <p className="text-gray-500 text-xs mb-6">Información relevante y avisos de última hora.</p>
+                <PdfBecasExcencion
                     title=""
                     description="Leer Comunicado"
                     pdfSrc="/becas/Anexo 2. Comunicado de Inicio 2025-2_Estudiantes_S283.pdf"
-                  />
-                </div>
+                />
               </div>
-
             </div>
           </div>
         </div>
 
+
+        </div>
+
         {/* Footer Minimalista */}
         <div className="bg-gray-50 rounded-3xl p-12 text-center">
-          <h3 className="text-2xl font-bold text-gray-900 mb-2">¿Tienes dudas?</h3>
+          <h3 className="text-2xl font-bold text-gray-800 mb-2">¿Tienes dudas?</h3>
           <p className="text-gray-500 mb-8">Estamos aquí para ayudarte en tu proceso</p>
           
           <div className="flex flex-wrap justify-center gap-4">
@@ -624,8 +707,6 @@ const Becas = () => {
             <a href="https://forms.gle/PFqMS1fCf2KWTYaYA" target="_blank" rel="noopener noreferrer" className="hover:text-gray-600 transition-colors">Preregistro 4º</a>
             <a href="https://drive.google.com/drive/folders/1PtCZLvoD3z4jw6a6rSqVnHR_4zJPZNJZ?usp=sharing" target="_blank" rel="noopener noreferrer" className="hover:text-gray-600 transition-colors">Drive de Archivos</a>
           </div>
-        </div>
-
       </div>
 
       {/* Modal de Imagen */}

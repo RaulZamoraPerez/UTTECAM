@@ -67,7 +67,7 @@ export default function Footer() {
 
                             <div className="flex items-center mb-1">
                                 <Mail className="h-5 w-5 text-[#008066] mr-2 flex-shrink-0" />
-                                <p className="text-[#008066]">Email: rectoria@uttcam.edu.mx</p>
+                                <p className="text-[#008066]">Email: rectoria@uttecam.edu.mx</p>
                             </div>
                             <div className="flex items-center">
                                 <Mail className="h-5 w-5 text-[#008066] mr-2 flex-shrink-0" />
