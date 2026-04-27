@@ -1,4 +1,6 @@
-const API_BASE_URL = import.meta.env.VITE_BACKENDURL || 'http://localhost:3000';
+import { API_BASE_URL } from "@/api/config";
+
+// 
 const ENDPOINT = `${API_BASE_URL}/api/programas-desarrollo`;
 
 export interface ProgramaD {

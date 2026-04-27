@@ -74,29 +74,33 @@ export const ContactCard = ({
             {/* Contact Details - Aligned & Clean */}
             <div className="space-y-4 w-full text-sm mt-auto">
                 {/* Phone Row */}
-                <div className="flex items-center gap-3 text-gray-600 group-hover:text-gray-900 transition-colors">
-                    <div className="w-8 h-8 rounded-lg bg-gray-50 flex items-center justify-center text-[#0A9782] shrink-0 group-hover:bg-[#0A9782]/10 transition-colors">
-                        <Phone className="w-4 h-4" />
-                    </div>
-                    <div className="flex flex-col items-start">
-                        <span className="text-[10px] uppercase tracking-wider text-gray-400 font-semibold">Teléfono</span>
-                        <div className="flex items-center gap-2">
-                            <span className="font-medium">{phone ? formatPhone(phone) : "N/A"}</span>
-                            {extension && <span className="text-[#0A9782] text-xs font-bold">Ext. {extension}</span>}
-                        </div>
-                    </div>
-                </div>
+                {phone && (
+                  <div className="flex items-center gap-3 text-gray-600 group-hover:text-gray-900 transition-colors">
+                      <div className="w-8 h-8 rounded-lg bg-gray-50 flex items-center justify-center text-[#0A9782] shrink-0 group-hover:bg-[#0A9782]/10 transition-colors">
+                          <Phone className="w-4 h-4" />
+                      </div>
+                      <div className="flex flex-col items-start">
+                          <span className="text-[10px] uppercase tracking-wider text-gray-400 font-semibold block leading-none mb-1">Teléfono</span>
+                          <div className="flex items-center gap-2">
+                              <span className="font-medium">{formatPhone(phone)}</span>
+                              {extension && <span className="text-[#0A9782] text-xs font-bold">Ext. {extension}</span>}
+                          </div>
+                      </div>
+                  </div>
+                )}
 
                 {/* Email Row */}
-                <div className="flex items-center gap-3 text-gray-600 group-hover:text-gray-900 transition-colors">
-                    <div className="w-8 h-8 rounded-lg bg-gray-50 flex items-center justify-center text-[#0A9782] shrink-0 group-hover:bg-[#0A9782]/10 transition-colors">
-                        <Mail className="w-4 h-4" />
-                    </div>
-                    <div className="flex flex-col items-start min-w-0 flex-1">
-                        <span className="text-[10px] uppercase tracking-wider text-gray-400 font-semibold">Correo</span>
-                        <span className="font-medium truncate w-full text-left" title={email}>{email || "N/A"}</span>
-                    </div>
-                </div>
+                {email && (
+                  <div className="flex items-center gap-3 text-gray-600 group-hover:text-gray-900 transition-colors">
+                      <div className="w-8 h-8 rounded-lg bg-gray-50 flex items-center justify-center text-[#0A9782] shrink-0 group-hover:bg-[#0A9782]/10 transition-colors">
+                          <Mail className="w-4 h-4" />
+                      </div>
+                      <div className="flex flex-col items-start min-w-0 flex-1">
+                          <span className="text-[10px] uppercase tracking-wider text-gray-400 font-semibold block leading-none mb-1">Correo</span>
+                          <span className="font-medium truncate w-full text-left inline-block" title={email}>{email}</span>
+                      </div>
+                  </div>
+                )}
             </div>
         </div>
         

@@ -14,7 +14,8 @@
       "@/data/*": ["data/*"],
       "@/util/*": ["util/*"],
       "@/services/*": ["services/*"],
-      "@/config/*": ["config/*"]
+      "@/config/*": ["config/*"],
+      "@/api/*": ["api/*"]
     },
 
     /* Bundler mode */

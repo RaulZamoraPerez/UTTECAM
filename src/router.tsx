@@ -17,7 +17,7 @@ import Home from "@/views/Inicial/Home";
 import ServicioMedico from "./views/extensionUniversitaria/ServicioMedico/ServicioMedico";
 import EducacionContinua from "./views/EducacionContinua/EducacionContinua";
 import CursosEducacionContinua from "./views/EducacionContinua/CursosEducacionContinua";
-// import Directorios from "./views/Nosotros/Directorios";
+import Directorios from "./views/Nosotros/Directorios";
 
 import Organigrama from "./views/Directorios/Organigrama";
 
@@ -83,7 +83,7 @@ export default function Router() {
             <Route path="/recursosHumanos" element={<RecursosHumanos />} />
             <Route path="/sga" element={<Sga />} />
             <Route path="/sigc" element={<Sigc />} />
-            {/* <Route path="/directorio" element={<Directorios />} /> */}
+            <Route path="/directorio" element={<Directorios />} />
             <Route path="/repositorio-digital-investigacion" element={<Vinculacion />} />
              <Route path="/vinculacion-banner" element={<VinculacionBanner />} />
             <Route path="/calendario" element={<Calendario />} />
