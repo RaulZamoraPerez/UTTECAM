@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Search, FileText, Download, Library } from "lucide-react"
 import { Secciones } from "./Secciones"
 import { Secciones2 } from "./Secciones2"
@@ -27,18 +27,24 @@ interface RepositorioTablaProps {
 
 export default function tablaDocumentosReutilizable2({ secciones, titulo, descripcion, nextUrl }: RepositorioTablaProps) {
     const [searchTerm, setSearchTerm] = useState("")
-    const [seccionActiva, setSeccionActiva] = useState<string | null>(secciones[0]?.id ?? null)
+    const [seccionActiva, setSeccionActiva] = useState<string | null>(null)
     const [pdfSeleccionado, setPdfSeleccionado] = useState<string | null>(null) // Estado para visor PDF
     const [documentoSeleccionado, setDocumentoSeleccionado] = useState<Documento | null>(null) // Estado para documento completo
+
+    // Auto-activar la primera sección cuando lleguen los datos
+    useEffect(() => {
+        if (secciones.length > 0 && !seccionActiva) {
+            setSeccionActiva(secciones[0].id);
+        }
+    }, [secciones]);
 
     const filteredSecciones = secciones
         .map((seccion) => ({
             ...seccion,
-            documentos: seccion.documentos.filter((doc) =>
+            documentos: (seccion.documentos || []).filter((doc) =>
                 doc.titulo.toLowerCase().includes(searchTerm.toLowerCase())
             ),
-        }))
-        .filter((seccion) => seccion.documentos.length > 0);
+        }));
 
     const getResueltoArchivo = (doc: Documento) => {
         if (doc.archivo) return doc.archivo;
@@ -88,6 +94,7 @@ export default function tablaDocumentosReutilizable2({ secciones, titulo, descri
 
                 {/* Contenido */}
                 <div className="grid gap-6">
+                    {/* Caso 1: Hay documentos para mostrar en la pestaña activa */}
                     {filteredSecciones.map(
                         (seccion) =>
                             seccionActiva === seccion.id && (
@@ -99,12 +106,11 @@ export default function tablaDocumentosReutilizable2({ secciones, titulo, descri
                                             </div>
                                             <span className="text-xl font-bold">{seccion.titulo}</span>
                                             <span className="ml-2 px-3 text-sm rounded-full bg-[#d1672a] text-white">
-                                                {seccion.documentos.length} documentos
+                                                {seccion.documentos.length} {seccion.documentos.length === 1 ? 'documento' : 'documentos'}
                                             </span>
                                         </div>
                                     </div>
                                     <div className="p-0">
-                                        {/* Si es "Instrucciones de trabajo", renderiza el componente especial */}
                                         {seccion.titulo === "Instrucciones de trabajo" ? (
                                             <Secciones data={data} searchTerm={searchTerm} />
                                         ) : seccion.titulo === "Formatos" ? (
@@ -112,77 +118,98 @@ export default function tablaDocumentosReutilizable2({ secciones, titulo, descri
                                         ) : seccion.titulo === "Convocatorias para Profesor de Asignatura SEP-DIC-2025" ? (
                                             <Secciones2 searchTerm={searchTerm} />
                                         ) : (
-                                            /* Render normal para las demás secciones */
-                                            <ul>
-                                                {seccion.documentos.map((documento, index) => {
-                                                    const archivoResuelto = getResueltoArchivo(documento);
-                                                    return (
-                                                        <li
-                                                            key={documento.id}
-                                                            className="p-4 border-b border-gray-100 last:border-b-0 hover:bg-gray-50 transition-colors duration-150"
-                                                        >
-                                                            <div className="flex items-start gap-3">
-                                                                <div className="flex items-center justify-center h-8 w-8 rounded-full bg-[#0A9782]/10 text-[#0A9782] font-medium">
-                                                                    {index + 1}
-                                                                </div>
-                                                                <div className="flex-1">
-                                                                    <div className="flex items-start justify-between gap-4">
-                                                                        <div className="flex items-start gap-2">
-                                                                            <FileText className="h-5 w-5 mt-0.5 flex-shrink-0 text-[#D1672A]" />
-                                                                            <a
-                                                                                href="#"
-                                                                                onClick={(e) => {
-                                                                                    e.preventDefault();
-                                                                                    setPdfSeleccionado(encodeURI(archivoResuelto));
-                                                                                    setDocumentoSeleccionado(documento);
-                                                                                }}
-                                                                                className="font-medium text-gray-800 hover:text-[#D1672A] hover:underline transition-colors duration-150"
-                                                                            >
-                                                                                {documento.titulo}
-                                                                            </a>
+                                            <>
+                                                {seccion.documentos.length > 0 ? (
+                                                    <ul>
+                                                        {seccion.documentos.map((documento, index) => {
+                                                            const archivoResuelto = getResueltoArchivo(documento);
+                                                            return (
+                                                                <li
+                                                                    key={documento.id}
+                                                                    className="p-4 border-b border-gray-100 last:border-b-0 hover:bg-gray-50 transition-colors duration-150"
+                                                                >
+                                                                    <div className="flex items-start gap-3">
+                                                                        <div className="flex items-center justify-center h-8 w-8 rounded-full bg-[#0A9782]/10 text-[#0A9782] font-medium">
+                                                                            {index + 1}
                                                                         </div>
-                                                                        <div className="flex gap-2">
-                                                                            <a
-                                                                                href={encodeURI(archivoResuelto)}
-                                                                                download
-                                                                                className="flex-shrink-0 p-2 text-[#D1672A] hover:bg-[#D1672A]/10 rounded-lg transition-colors duration-150"
-                                                                            >
-                                                                                <Download className="h-4 w-4" />
-                                                                            </a>
-                                                                            {documento.facebookLink && (
-                                                                                <a
-                                                                                    href={documento.facebookLink}
-                                                                                    target="_blank"
-                                                                                    rel="noopener noreferrer"
-                                                                                    className="flex-shrink-0 p-2 text-blue-600 hover:bg-blue-100 rounded-lg transition-colors duration-150"
-                                                                                    title="Ver en Facebook"
-                                                                                >
-                                                                                    <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
-                                                                                        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-                                                                                    </svg>
-                                                                                </a>
-                                                                            )}
+                                                                        <div className="flex-1">
+                                                                            <div className="flex items-start justify-between gap-4">
+                                                                                <div className="flex items-start gap-2">
+                                                                                    <FileText className="h-5 w-5 mt-0.5 flex-shrink-0 text-[#D1672A]" />
+                                                                                    <a
+                                                                                        href="#"
+                                                                                        onClick={(e) => {
+                                                                                            e.preventDefault();
+                                                                                            setPdfSeleccionado(encodeURI(archivoResuelto));
+                                                                                            setDocumentoSeleccionado(documento);
+                                                                                        }}
+                                                                                        className="font-medium text-gray-800 hover:text-[#D1672A] hover:underline transition-colors duration-150"
+                                                                                    >
+                                                                                        {documento.titulo}
+                                                                                    </a>
+                                                                                </div>
+                                                                                <div className="flex gap-2">
+                                                                                    <a
+                                                                                        href={encodeURI(archivoResuelto)}
+                                                                                        download
+                                                                                        className="flex-shrink-0 p-2 text-[#D1672A] hover:bg-[#D1672A]/10 rounded-lg transition-colors duration-150"
+                                                                                    >
+                                                                                        <Download className="h-4 w-4" />
+                                                                                    </a>
+                                                                                    {documento.facebookLink && (
+                                                                                        <a
+                                                                                            href={documento.facebookLink}
+                                                                                            target="_blank"
+                                                                                            rel="noopener noreferrer"
+                                                                                            className="flex-shrink-0 p-2 text-blue-600 hover:bg-blue-100 rounded-lg transition-colors duration-150"
+                                                                                            title="Ver en Facebook"
+                                                                                        >
+                                                                                            <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
+                                                                                                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                                                                                            </svg>
+                                                                                        </a>
+                                                                                    )}
+                                                                                </div>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                    );
-                                                })}
-                                            </ul>
+                                                                </li>
+                                                            );
+                                                        })}
+                                                    </ul>
+                                                ) : (
+                                                    <div className="p-12 text-center">
+                                                        <FileText className="h-12 w-12 mx-auto text-gray-300 mb-3" />
+                                                        <p className="text-gray-500 font-medium">No hay documentos registrados en esta sección.</p>
+                                                    </div>
+                                                )}
+                                            </>
                                         )}
                                     </div>
                                 </div>
                             )
                     )}
 
+                    {/* Caso 2: El repositorio está vacío (o no hay nada que coincida con la búsqueda) */}
+                    {secciones.length === 0 && (
+                        <div className="text-center p-12 bg-white rounded-xl border-2 border-dashed border-[#0A9782]/30">
+                            <Library className="h-12 w-12 mx-auto text-[#0A9782]/20 mb-4" />
+                            <div className="text-gray-600 mb-2 font-medium">
+                                No hay categorías o documentos disponibles en este momento.
+                            </div>
+                        </div>
+                    )}
 
-                    {filteredSecciones.length === 0 && (
-                        <div className="text-center p-10 bg-white rounded-lg border-2 border-dashed border-[#0A9782]">
-                            <div className="text-gray-600 mb-2">No se encontraron documentos que coincidan con tu búsqueda</div>
+                    {/* Caso 3: Hay categorías pero el buscador no arroja coincidencias en ninguna */}
+                    {secciones.length > 0 && filteredSecciones.every(s => s.documentos.length === 0) && searchTerm && (
+                        <div className="text-center p-12 bg-white rounded-xl border-2 border-dashed border-red-200">
+                            <Search className="h-12 w-12 mx-auto text-red-200 mb-4" />
+                            <div className="text-gray-600 mb-2 font-medium">
+                                No se encontraron documentos que coincidan con "{searchTerm}"
+                            </div>
                             <button
                                 onClick={() => setSearchTerm("")}
-                                className="text-[#D1672A] hover:text-[#D1672A]/80 hover:underline transition-colors duration-150"
+                                className="text-[#D1672A] hover:text-[#D1672A]/80 font-bold hover:underline transition-colors duration-150"
                             >
                                 Mostrar todos los documentos
                             </button>
