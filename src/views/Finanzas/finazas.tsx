@@ -3,6 +3,39 @@ import TablaDocumentosReutilizable2 from "@/components/tablaDocumentosReutilizab
 
 const datos = [
     {
+        id: "2026_T1",
+        titulo: "1. Estados Financieros 1er Trimestre 2026",
+        documentos: [
+            { id: "doc1", titulo: "1. Ayudas", archivo: "/EstadosFinancieros/1. Estados Financieros 1er Trimestre 2026/1. Ayudas.PDF" },
+            { id: "doc2", titulo: "2. Edo. de Actividades", archivo: "/EstadosFinancieros/1. Estados Financieros 1er Trimestre 2026/2. Edo. de Actividades.PDF" },
+            { id: "doc3", titulo: "3. Edo. Situación Financiera", archivo: "/EstadosFinancieros/1. Estados Financieros 1er Trimestre 2026/3. Edo. Situación Financiera.PDF" },
+            { id: "doc4", titulo: "4. Edo. Cambios en la Sit Fin", archivo: "/EstadosFinancieros/1. Estados Financieros 1er Trimestre 2026/4. Edo. Cambios en la Sit Fin.PDF" },
+            { id: "doc5", titulo: "5. Edo de Flujos de efectivos", archivo: "/EstadosFinancieros/1. Estados Financieros 1er Trimestre 2026/5. Edo de Flujos de efectivos.PDF" },
+            { id: "doc6", titulo: "6. Edo. Variación en la Hda Púb", archivo: "/EstadosFinancieros/1. Estados Financieros 1er Trimestre 2026/6. Edo. Variación en la Hda Púb.PDF" },
+            { id: "doc7", titulo: "7. Pasivos Laborales", archivo: "/EstadosFinancieros/1. Estados Financieros 1er Trimestre 2026/7. Pasivos Laborales.PDF" },
+            { id: "doc8", titulo: "8. Notas a los Edos. Financieros", archivo: "/EstadosFinancieros/1. Estados Financieros 1er Trimestre 2026/8. Notas a los Edos. Financieros.pdf" },
+            { id: "doc9", titulo: "9. Edo. Analítico del Activo", archivo: "/EstadosFinancieros/1. Estados Financieros 1er Trimestre 2026/9. Edo. Analítico del Activo.PDF" },
+            { id: "doc10", titulo: "10. Analítico de la Deuda y otros Pasivo", archivo: "/EstadosFinancieros/1. Estados Financieros 1er Trimestre 2026/10. Analítico de la Deuda y otros Pasivo.PDF" },
+            { id: "doc11", titulo: "11. Estado Analítico de Ingresos", archivo: "/EstadosFinancieros/1. Estados Financieros 1er Trimestre 2026/11. Estado Analítico de Ingresos.PDF" },
+            { id: "doc12", titulo: "12. Clasificación Administrativa", archivo: "/EstadosFinancieros/1. Estados Financieros 1er Trimestre 2026/12. Clasificación Administrativa.PDF" },
+            { id: "doc13", titulo: "13. Clasificación Económica", archivo: "/EstadosFinancieros/1. Estados Financieros 1er Trimestre 2026/13. Clasificación Económica.PDF" },
+            { id: "doc14", titulo: "14. Clasificación por objeto del Gasto", archivo: "/EstadosFinancieros/1. Estados Financieros 1er Trimestre 2026/14. Clasificación por objeto del Gasto.PDF" },
+            { id: "doc15", titulo: "15. Clasificación Funcional", archivo: "/EstadosFinancieros/1. Estados Financieros 1er Trimestre 2026/15. Clasificación Funcional.PDF" },
+            { id: "doc16", titulo: "16. Endeudamiento Neto", archivo: "/EstadosFinancieros/1. Estados Financieros 1er Trimestre 2026/16. Endeudamiento Neto.PDF" },
+            { id: "doc17", titulo: "17. Intereses de la deuda", archivo: "/EstadosFinancieros/1. Estados Financieros 1er Trimestre 2026/17. Intereses de la deuda.PDF" },
+            { id: "doc18", titulo: "18. Gasto por Categoría Programática", archivo: "/EstadosFinancieros/1. Estados Financieros 1er Trimestre 2026/18. Gasto por Categoría Programática.PDF" },
+            { id: "doc19", titulo: "19. Indicadores para resultados", archivo: "/EstadosFinancieros/1. Estados Financieros 1er Trimestre 2026/19. Indicadores para resultados.PDF" },
+            { id: "doc20", titulo: "20. Proyectos de inversión", archivo: "/EstadosFinancieros/1. Estados Financieros 1er Trimestre 2026/20. Proyectos de inversión.PDF" },
+            { id: "doc21", titulo: "21. Analítico del Ingreso Marzo 2026", archivo: "/EstadosFinancieros/1. Estados Financieros 1er Trimestre 2026/21. Analítico del Ingreso Marzo 2026.PDF" },
+            { id: "doc22", titulo: "22. Analítico de Egresos 2501_Marzo 2026", archivo: "/EstadosFinancieros/1. Estados Financieros 1er Trimestre 2026/22. Analítico de Egresos 2501_Marzo 2026.PDF" },
+            { id: "doc23", titulo: "23. Formatos de LDF 1er Trim", archivo: "/EstadosFinancieros/1. Estados Financieros 1er Trimestre 2026/23. Formatos de LDF 1er Trim.PDF" },
+            { id: "doc24", titulo: "24. Edo Analítico pto cap gasto", archivo: "/EstadosFinancieros/1. Estados Financieros 1er Trimestre 2026/24. Edo Analítico pto cap gasto.PDF" },
+            { id: "doc25", titulo: "25. Fuente de financiamiento", archivo: "/EstadosFinancieros/1. Estados Financieros 1er Trimestre 2026/25. Fuente de financiamiento.PDF" },
+            { id: "doc26", titulo: "26. Flujos de Fondos", archivo: "/EstadosFinancieros/1. Estados Financieros 1er Trimestre 2026/26. Flujos de Fondos.pdf" },
+            { id: "doc27", titulo: "27. Manual Contabilidad", archivo: "/EstadosFinancieros/1. Estados Financieros 1er Trimestre 2026/27. Manual Contabilidad.pdf" }
+        ]
+    },
+    {
         id: "2025_T1",
         titulo: "1. Estados Financieros 1er Trimestre 2025",
         documentos: [
@@ -376,7 +409,7 @@ export default function Finazas() {
         <TablaDocumentosReutilizable2
             secciones={datos}
             titulo="Finanzas"
-            descripcion="Explora los productos de investigación generados por la comunidad académica de la institución, organizados por año y tipo de documento."
+            descripcion="Consulta la información financiera y contable de la Universidad, incluyendo los estados financieros trimestrales y la documentación de armonización contable (SEVAC) para la revisión de la Auditoría Superior del Estado."
         />
     )
 }
