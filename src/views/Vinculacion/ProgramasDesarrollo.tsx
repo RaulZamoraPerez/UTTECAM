@@ -1,56 +1,61 @@
+"use client";
+
 import { useState, useEffect } from "react";
 import TablaDocumentosReutilizable2 from "@/components/tablaDocumentosReutilizable2";
-import { envs } from "@/config/envs";
+import { getProgramas, getProgramaFileUrl } from "../../services/programasDesarrollo.service";
 
-interface Programa {
-    id: number;
-    titulo: string;
-    descripcion: string;
-    archivo: string;
-    activo: boolean;
-}
-
+/**
+ * Vista de Programas de Desarrollo (Pública)
+ * REUSANDO el mismo diseño corporativo de Normatividad
+ */
 export default function ProgramasDesarrollo() {
     const [secciones, setSecciones] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const fetchProgramas = async () => {
+        (async () => {
+            setLoading(true);
             try {
-                const response = await fetch(`${envs.API_BASE_URL}/api/programas-desarrollo`);
-                if (!response.ok) throw new Error("Error al cargar programas");
-                const data: Programa[] = await response.json();
-
-                // Formatear para TablaDocumentosReutilizable2
-                // Agrupamos todo en una sola sección por ahora, o como sea que se prefiera
-                const formattedData = [
-                    {
-                        id: "programas",
+                const data = await getProgramas();
+                
+                // Mapeo al formato esperado por TablaDocumentosReutilizable2
+                // Si la API devuelve categorías (con .programas)
+                if (data.length > 0 && (data[0] as any).programas) {
+                    const mapped = data.map((cat: any) => ({
+                        id: String(cat.id),
+                        titulo: cat.titulo,
+                        documentos: (cat.programas || []).map((doc: any) => ({
+                            id: String(doc.id),
+                            titulo: doc.titulo,
+                            archivo: getProgramaFileUrl(doc.archivo)
+                        }))
+                    }));
+                    setSecciones(mapped);
+                } else if (data.length > 0) {
+                    // Si devuelve una lista plana (fallback)
+                    const mapped = [{
+                        id: "general",
                         titulo: "Programas de Desarrollo",
-                        documentos: data
-                            .filter(p => p.activo)
-                            .map(p => ({
-                                id: String(p.id),
-                                titulo: p.titulo,
-                                archivo: `${envs.API_BASE_URL}${p.archivo}`
-                            }))
-                    }
-                ];
-                setSecciones(formattedData);
+                        documentos: data.map((doc: any) => ({
+                            id: String(doc.id),
+                            titulo: doc.titulo,
+                            archivo: getProgramaFileUrl(doc.archivo)
+                        }))
+                    }];
+                    setSecciones(mapped);
+                }
             } catch (error) {
-                console.error(error);
+                console.error("Error al cargar programas API:", error);
             } finally {
                 setLoading(false);
             }
-        };
-
-        fetchProgramas();
+        })();
     }, []);
 
     if (loading) {
         return (
-            <div className="min-h-screen flex items-center justify-center">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#0A9782]"></div>
+            <div className="flex items-center justify-center min-h-[50vh]">
+                <div className="w-12 h-12 border-4 border-gray-200 border-t-[#0A9782] rounded-full animate-spin"></div>
             </div>
         );
     }
@@ -59,7 +64,7 @@ export default function ProgramasDesarrollo() {
         <TablaDocumentosReutilizable2
             secciones={secciones}
             titulo="Programas de Desarrollo"
-            descripcion="Consulta los programas de desarrollo académico e institucional de la Universidad Tecnológica de Tecamachalco."
+            descripcion="Explora los programas institucionales de crecimiento y mejora continua"
         />
     );
 }

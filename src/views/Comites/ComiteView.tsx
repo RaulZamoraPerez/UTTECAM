@@ -1,60 +1,65 @@
+"use client";
+
 import { useState, useEffect } from "react";
 import TablaDocumentosReutilizable2 from "@/components/tablaDocumentosReutilizable2";
-import { envs } from "@/config/envs";
+import { getComiteBySlug, getComiteFileUrl } from "../../services/comite.service";
 
 interface Props {
     slug: string;
     titulo: string;
 }
 
-interface ComiteDoc {
-    id: number;
-    titulo: string;
-    archivo: string;
-    activo: boolean;
-}
-
+/**
+ * Vista Dinámica de Comités (Académico, Vinculación, Calidad, Investigación)
+ */
 export default function ComiteView({ slug, titulo }: Props) {
     const [secciones, setSecciones] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const fetchComite = async () => {
+        (async () => {
+            setLoading(true);
             try {
-                // El backend espera el slug sin prefijo "comite-"
-                const cleanSlug = slug.replace("comite-", "");
-                const response = await fetch(`${envs.API_BASE_URL}/api/comites/${cleanSlug}`);
-                if (!response.ok) throw new Error("Error al cargar comité");
-                const data = await response.json();
-
-                const formattedData = [
-                    {
+                // Limpiar slug por si viene con prefijo
+                const cleanSlug = slug.replace("comites-", "").replace("comite-", "");
+                const data = await getComiteBySlug(cleanSlug);
+                
+                if (data && data.categorias) {
+                    // Mapeo de la nueva estructura por categorías
+                    const mapped = data.categorias.map((cat: any) => ({
+                        id: String(cat.id),
+                        titulo: cat.titulo,
+                        documentos: (cat.documentos || []).map((doc: any) => ({
+                            id: String(doc.id),
+                            titulo: doc.titulo,
+                            archivo: getComiteFileUrl(doc.archivo)
+                        }))
+                    }));
+                    setSecciones(mapped);
+                } else if (data && data.documentos) {
+                    // Fallback para datos sin categorías (retrocompatibilidad)
+                    setSecciones([{
                         id: String(data.id),
                         titulo: "Documentos Oficiales",
-                        documentos: (data.documentos || [])
-                            .filter((doc: ComiteDoc) => doc.activo)
-                            .map((doc: ComiteDoc) => ({
-                                id: String(doc.id),
-                                titulo: doc.titulo,
-                                archivo: `${envs.API_BASE_URL}${doc.archivo}`
-                            }))
-                    }
-                ];
-                setSecciones(formattedData);
+                        documentos: data.documentos.map((doc: any) => ({
+                            id: String(doc.id),
+                            titulo: doc.titulo,
+                            archivo: getComiteFileUrl(doc.archivo)
+                        }))
+                    }]);
+                }
             } catch (error) {
-                console.error(error);
+                console.error("Error al cargar comité:", error);
             } finally {
                 setLoading(false);
             }
-        };
-
-        fetchComite();
+        })();
     }, [slug]);
 
     if (loading) {
         return (
-            <div className="min-h-screen flex items-center justify-center">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#0A9782]"></div>
+            <div className="flex items-center justify-center min-h-[50vh]">
+                <div className="w-12 h-12 border-4 border-gray-200 border-t-[#0A9782] rounded-full animate-spin"></div>
             </div>
         );
     }
@@ -63,7 +68,8 @@ export default function ComiteView({ slug, titulo }: Props) {
         <TablaDocumentosReutilizable2
             secciones={secciones}
             titulo={titulo}
-            descripcion={`Repositorio oficial de documentos del ${titulo} de la Universidad Tecnológica de Tecamachalco.`}
+            descripcion={`Repositorio oficial de documentos del ${titulo}`}
         />
     );
 }
+
