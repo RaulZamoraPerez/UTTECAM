@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import ServicioCard from '@/components/ServiceCard';
 import { Spinner } from '@/components/Spinner';
 import { BookOpen, FileCheck, FileText, GraduationCap, Hospital, IdCard, RefreshCcw, Scroll, Users, X } from 'lucide-react'
@@ -19,55 +19,55 @@ const serviciosEstaticos: ServicioExtendido[] = [
     title: "Inscripción",
     description: "Proceso de registro para nuevo ingreso a la institución.",
     icon: <FileText />,
-    active: false,
+    active: true,
     href: "/reinscripcion",
   },
   {
     title: "Reinscripción a cuatrimestre por iniciar",
     description: "Periodo Enero - Abril 2026",
     icon: <RefreshCcw />,
-    active: false,
+    active: true,
   },
   {
     title: "Constancias y Kardex",
     description: "Emisión de documentos académicos oficiales.",
     icon: <FileCheck />,
-    active: false,
+    active: true,
     href: "/constancia-kardex",
   },
   {
     title: "Certificado de Estudios",
     description: "Documento oficial del historial académico completo.",
     icon: <GraduationCap />,
-    active: false,
+    active: true,
     href: "/certificado-estudios",
   },
   {
     title: "Carta Pasante",
     description: "Documento que acredita el término de estudios.",
     icon: <Scroll />,
-    active: false,
+    active: true,
     href: "/carta-pasante",
   },
   {
     title: "IMSS",
     description: "Alta o baja de servicios del seguro social estudiantil.",
     icon: <Hospital />,
-    active: false,
+    active: true,
     href: "/imss",
   },
   {
     title: "Credencialización",
     description: "Trámite y renovación de credencial estudiantil.",
     icon: <IdCard />,
-    active: false,
+    active: true,
     href: "/reposicion-credencial",
   },
   {
     title: "Título Profesional Electrónico",
     description: "Trámite para la obtención del título profesional.",
     icon: <BookOpen />,
-    active: false,
+    active: true,
     href: "/tramite-titulo",
   },
 ];
@@ -211,22 +211,18 @@ export default function Tramites() {
               );
             }
             
-            // Se comentan los links de los demás trámites para deshabilitarlos temporalmente
+            // Los demás trámites navegan a sus rutas correspondientes
             return (
               <div 
                 key={idx} 
-                className="w-full max-w-[350px] opacity-70 grayscale-[0.5]"
+                className="w-full max-w-[350px]"
               >
-                {/* 
                 <Link 
                   to={servicio.href || "#"}
-                  className="cursor-pointer transition-all duration-200 hover:scale-105 hover:shadow-lg w-full"
+                  className="cursor-pointer transition-all duration-200 hover:scale-105 hover:shadow-lg w-full block"
                 >
-                */}
                   <ServicioCard {...servicio} />
-                {/* 
                 </Link>
-                */}
               </div>
             );
           })}
