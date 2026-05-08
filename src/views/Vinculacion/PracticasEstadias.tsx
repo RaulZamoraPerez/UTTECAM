@@ -1,8 +1,15 @@
 import { Briefcase } from "lucide-react";
+import BecaSectionsRenderer from "../../components/becas/BecaSectionsRenderer";
 
 export default function PracticasEstadias() {
   return (
-    <div className="min-h-[80vh] w-full bg-gradient-to-b from-[#F5F9F8] to-white flex flex-col items-center justify-center py-10 px-4">
+    <div className="min-h-[80vh] w-full bg-gradient-to-b from-[#F5F9F8] to-white flex flex-col items-center py-10 px-4">
+      
+      {/* Secciones Dinámicas */}
+      <div className="w-full max-w-6xl mb-12">
+        <BecaSectionsRenderer module="estadia" />
+      </div>
+
       <h1 className="text-3xl md:text-4xl font-bold text-[#0A9782] mb-8 text-center drop-shadow-lg flex items-center gap-3">
         <Briefcase className="inline-block h-8 w-8 text-[#0A9782]" />
         Prácticas y Estadías

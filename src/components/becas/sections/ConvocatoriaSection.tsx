@@ -1,0 +1,208 @@
+import { FileText, ArrowRight, Info, FileCheck, AlertCircle, Calendar } from 'lucide-react';
+
+interface DocumentItem {
+    title: string;
+    subtitle: string;
+    type: 'pdf' | 'link';
+    url: string;
+    actionText: string;
+    variant?: 'default' | 'warning' | 'success' | 'info' | 'outline' | 'danger';
+}
+
+interface ConvocatoriaSectionProps {
+    section: {
+        badge?: string;
+        mainTitle?: string;
+        title: string;
+        subtitle?: string;
+        description?: string;
+        documents?: DocumentItem[];
+        imageUrl?: string;
+        imageCaption?: string;
+    };
+}
+
+const getVariantStyles = (variant: string = 'default') => {
+    switch (variant) {
+        case 'warning':
+            return {
+                card: 'bg-[#FFF9E6] border-[#FFEeba] hover:border-orange-300',
+                icon: 'bg-[#FFE0B2] text-orange-700',
+                text: 'text-gray-900 text-lg',
+                subtext: 'text-[#0a9782] font-medium',
+                action: 'text-gray-900 font-semibold',
+                span: 'md:col-span-2'
+            };
+        case 'success':
+            return {
+                card: 'bg-[#F0FDF4] border-green-100 hover:border-green-300',
+                icon: 'bg-green-100 text-green-600',
+                text: 'text-gray-900',
+                subtext: 'text-gray-500',
+                action: 'text-[#0a9782]',
+                span: 'md:col-span-1'
+            };
+        case 'info':
+            return {
+                card: 'bg-[#EFF6FF] border-blue-100 hover:border-blue-300',
+                icon: 'bg-blue-100 text-blue-600',
+                text: 'text-gray-900',
+                subtext: 'text-gray-500',
+                action: 'text-[#0a9782]',
+                span: 'md:col-span-1'
+            };
+        case 'danger':
+            return {
+                card: 'bg-[#FEF2F2] border-red-100 hover:border-red-300',
+                icon: 'bg-red-100 text-red-600',
+                text: 'text-gray-900',
+                subtext: 'text-gray-500',
+                action: 'text-[#0a9782]',
+                span: 'md:col-span-1'
+            };
+        case 'outline':
+            return {
+                card: 'bg-white border-2 border-orange-100 hover:border-orange-300',
+                icon: 'bg-orange-50 text-orange-500',
+                text: 'text-gray-900',
+                subtext: 'text-gray-500',
+                action: 'text-gray-400 group-hover:text-orange-500 transition-colors',
+                span: 'md:col-span-2'
+            };
+        default:
+            return {
+                card: 'bg-white border-gray-100 hover:border-[#0a9782]',
+                icon: 'bg-[#E8F5E9] text-[#0a9782]',
+                text: 'text-[#002B49]',
+                subtext: 'text-gray-400',
+                action: 'text-[#0a9782]',
+                span: 'md:col-span-1'
+            };
+    }
+};
+
+const getDocumentIcon = (variant: string = 'default') => {
+    switch (variant) {
+        case 'success': return <FileCheck size={24} />;
+        case 'info': return <Info size={24} />;
+        case 'warning': return <FileText size={24} />;
+        case 'danger': return <AlertCircle size={24} />;
+        case 'outline': return <ArrowRight size={24} className="rotate-90 md:rotate-0" />;
+        default: return <FileText size={24} />;
+    }
+};
+
+const getFullUrl = (url: string) => {
+    if (!url) return '#';
+    if (url.startsWith('http') || url.startsWith('https')) return url;
+    if (url.startsWith('/uploads/')) {
+        return `${import.meta.env.VITE_API_URL || 'http://localhost:3002'}${url}`;
+    }
+    return url;
+};
+
+const ConvocatoriaSection = ({ section }: ConvocatoriaSectionProps) => {
+    const {
+        badge,
+        mainTitle,
+        title,
+        subtitle,
+        description,
+        documents = [],
+        imageUrl,
+        imageCaption
+    } = section;
+
+    return (
+        <div className="py-12 max-w-6xl mx-auto px-4">
+            {/* Content Card Container */}
+             <div className="bg-white rounded-[2rem] p-8 lg:p-12 shadow-sm border border-gray-100">
+                  <div className="flex flex-col lg:flex-row gap-8 md:gap-12 lg:gap-16">
+                    {/* Left Column: Content & Documents */}
+                    <div className="flex-1 space-y-8">
+                        {/* Header */}
+                        <div className="space-y-4">
+                            {(badge || mainTitle) && (
+                                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-50 text-amber-600 text-[10px] font-bold tracking-widest uppercase border border-amber-100">
+                                    <Calendar size={12} />
+                                    {badge || mainTitle}
+                                </div>
+                            )}
+                            <div>
+                                <h2 className="text-3xl lg:text-4xl font-extrabold text-[#002B49] mb-2 tracking-tight leading-tight">
+                                    {title}
+                                </h2>
+                                {subtitle && (
+                                    <p className="text-gray-800 text-base font-bold leading-relaxed max-w-2xl mt-1">
+                                        {subtitle}
+                                    </p>
+                                )}
+                                {description && (
+                                    <p className="text-gray-500 text-base leading-relaxed max-w-2xl mt-2">
+                                        {description}
+                                    </p>
+                                )}
+                            </div>
+                        </div>
+
+                        {/* Documents Grid */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-xl">
+                            {documents.map((doc, idx) => {
+                                const styles = getVariantStyles(doc.variant);
+                                return (
+                                    <a
+                                        key={idx}
+                                        href={getFullUrl(doc.url)}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className={`
+                                            flex items-center gap-5 p-5 rounded-[2rem] border transition-all duration-500 group 
+                                            ${styles.card} ${styles.span}
+                                            hover:shadow-md hover:-translate-y-0.5
+                                        `}
+                                    >
+                                        <div className={`p-3.5 rounded-xl ${styles.icon} shadow-sm group-hover:scale-110 transition-transform`}>
+                                            {getDocumentIcon(doc.variant)}
+                                        </div>
+                                        <div className="flex-1 min-w-0">
+                                            <h3 className={`font-bold text-lg truncate ${styles.text}`}>
+                                                {doc.title}
+                                            </h3>
+                                            <p className={`text-xs truncate mt-0.5 uppercase tracking-wider font-bold opacity-70`}>
+                                                {doc.subtitle}
+                                            </p>
+                                        </div>
+                                        <div className={`flex items-center gap-2 transition-colors whitespace-nowrap ${styles.action} opacity-40 group-hover:opacity-100`}>
+                                            <ArrowRight size={20} />
+                                        </div>
+                                    </a>
+                                );
+                            })}
+                        </div>
+                    </div>
+
+                    {/* Right Column: Poster Image */}
+                     {imageUrl && (
+                         <div className="lg:w-[320px] xl:w-[360px] flex flex-col items-center justify-start pt-2">
+                              <div className="relative rounded-[2rem] overflow-hidden w-full group max-h-[420px]">
+                                 <img
+                                     src={getFullUrl(imageUrl)}
+                                     alt={imageCaption || title}
+                                     className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                                 />
+                                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors pointer-events-none" />
+                            </div>
+                            {imageCaption && (
+                                <p className="mt-4 text-sm font-semibold text-gray-400 text-center italic">
+                                    {imageCaption}
+                                </p>
+                            )}
+                        </div>
+                    )}
+                </div>
+            </div>
+        </div>
+    );
+};
+
+export default ConvocatoriaSection;
