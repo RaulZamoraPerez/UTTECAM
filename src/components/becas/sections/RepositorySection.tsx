@@ -76,7 +76,7 @@ const RepositorySection = ({ section }: RepositorySectionProps) => {
     }
 
     return (
-        <div className="w-full">
+        <div className="w-full max-w-6xl mx-auto px-4">
             <TablaDocumentosReutilizable2 
                 secciones={mappedSecciones} 
                 titulo={section.title || "Repositorio de Documentos"}

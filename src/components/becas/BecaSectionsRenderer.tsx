@@ -19,13 +19,30 @@ export const BecaSectionsRenderer = ({ module, initialSections }: Props) => {
   const [loading, setLoading] = useState(!initialSections);
 
   useEffect(() => {
-    if (initialSections) return; // Si ya vienen por props, no buscamos de nuevo
+    const parseData = (s: BecaSection) => {
+      let parsedData = s.data || {};
+      if (typeof parsedData === 'string') {
+        try {
+          parsedData = JSON.parse(parsedData);
+        } catch (e) {
+          console.error('Error parsing section data:', e);
+          parsedData = {};
+        }
+      }
+      return { ...s, data: parsedData };
+    };
+
+    if (initialSections) {
+      setSections(initialSections.map(parseData));
+      setLoading(false);
+      return;
+    }
     
     const loadSections = async () => {
       setLoading(true);
       const data = await getSectionsByModule(module);
       console.log(`Loaded ${data.length} sections for ${module}:`, data);
-      setSections(data.filter(s => s.active));
+      setSections(data.filter(s => s.active).map(parseData));
       setLoading(false);
     };
     loadSections();
@@ -42,17 +59,19 @@ export const BecaSectionsRenderer = ({ module, initialSections }: Props) => {
   if (sections.length === 0) return null;
 
   return (
-    <div className="w-full space-y-12">
+    <div className="w-full">
       {sections.map((section) => {
+        const sectionData = {
+          ...section.data,
+          title: section.data?.title || section.title
+        };
+
         switch (section.type) {
           case "header":
             return (
               <HeaderSection
                 key={section.id}
-                section={{
-                  ...section.data,
-                  title: section.data.title || section.title
-                }}
+                section={sectionData}
                 module={module}
               />
             );
@@ -60,10 +79,7 @@ export const BecaSectionsRenderer = ({ module, initialSections }: Props) => {
             return (
               <BannerSection
                 key={section.id}
-                section={{
-                  ...section.data,
-                  title: section.data.title || section.title
-                }}
+                section={sectionData}
                 module={module}
               />
             );
@@ -71,10 +87,7 @@ export const BecaSectionsRenderer = ({ module, initialSections }: Props) => {
             return (
               <ResultsSection
                 key={section.id}
-                section={{
-                  ...section.data,
-                  title: section.data.title || section.title
-                }}
+                section={sectionData}
                 module={module}
               />
             );
@@ -82,10 +95,7 @@ export const BecaSectionsRenderer = ({ module, initialSections }: Props) => {
             return (
               <ConvocatoriaSection
                 key={section.id}
-                section={{
-                  ...section.data,
-                  title: section.data.title || section.title
-                }}
+                section={sectionData}
                 module={module}
               />
             );
@@ -93,7 +103,10 @@ export const BecaSectionsRenderer = ({ module, initialSections }: Props) => {
             return (
               <AvisosSection
                 key={section.id}
-                section={section.data}
+                section={{
+                  ...sectionData,
+                  items: sectionData.items || sectionData.cards || []
+                }}
                 module={module}
               />
             );
@@ -101,7 +114,7 @@ export const BecaSectionsRenderer = ({ module, initialSections }: Props) => {
             return (
               <FooterSection
                 key={section.id}
-                section={section.data}
+                section={sectionData}
                 module={module}
               />
             );
@@ -110,8 +123,8 @@ export const BecaSectionsRenderer = ({ module, initialSections }: Props) => {
               <InfographicsSection
                 key={section.id}
                 section={{
-                  ...section.data,
-                  title: section.data.title || section.title
+                  ...sectionData,
+                  items: sectionData.items || sectionData.cards || []
                 }}
               />
             );
@@ -119,10 +132,7 @@ export const BecaSectionsRenderer = ({ module, initialSections }: Props) => {
             return (
               <RepositorySection
                 key={section.id}
-                section={{
-                  ...section.data,
-                  title: section.data.title || section.title
-                }}
+                section={sectionData}
               />
             );
           default:

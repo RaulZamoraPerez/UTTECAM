@@ -44,7 +44,7 @@ const BannerSection = ({ section }: BannerSectionProps) => {
 
   return (
     <>
-      <div className="mb-16">
+      <div className="mb-16 max-w-6xl mx-auto px-4">
         <div className="bg-white rounded-3xl overflow-hidden border border-gray-100 shadow-sm flex flex-col md:flex-row">
           {/* Contenido */}
           <div className="p-8 md:p-12 md:w-3/5 flex flex-col relative">

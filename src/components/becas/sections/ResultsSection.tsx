@@ -1,7 +1,7 @@
-import { 
-    Download, 
-    FileText, 
-    CheckCircle2, 
+import {
+    Download,
+    FileText,
+    CheckCircle2,
     Bell,
     Pin,
     Check,
@@ -59,6 +59,26 @@ const ResultsSection = ({ section, module = 'becas' }: ResultsSectionProps) => {
         importantNote
     } = section;
 
+    const renderTextWithBold = (text: string) => {
+        if (!text) return null;
+        const parts = text.split(/(\*[^*]+\*)/g);
+        return (
+            <>
+                {parts.map((part, index) => {
+                    if (part.startsWith('*') && part.endsWith('*')) {
+                        const content = part.slice(1, -1);
+                        return (
+                            <strong key={index} className="font-bold text-gray-900">
+                                {content}
+                            </strong>
+                        );
+                    }
+                    return <span key={index}>{part}</span>;
+                })}
+            </>
+        );
+    };
+
     return (
         <section className="py-16 px-4 max-w-6xl mx-auto font-sans animate-in fade-in duration-1000">
             {/* Header del Componente - Estilo Oficial */}
@@ -66,7 +86,7 @@ const ResultsSection = ({ section, module = 'becas' }: ResultsSectionProps) => {
                 <div className="flex items-center gap-4 flex-1">
                     {/* Barra de acento vertical */}
                     <div className="w-1.5 h-10 bg-[#0A9782] rounded-full hidden md:block" />
-                    
+
                     <div className="flex items-center gap-4">
                         <div className="p-2.5 bg-green-50 rounded-xl text-[#0A9782]">
                             <Bell size={28} strokeWidth={2.5} />
@@ -92,11 +112,11 @@ const ResultsSection = ({ section, module = 'becas' }: ResultsSectionProps) => {
 
             {/* Contenedor Principal - Estilo Oficial UTTECAM */}
             <div className="bg-white rounded-[2rem] border border-gray-100 shadow-sm p-8 md:p-12 space-y-12">
-                
+
                 {/* Intro text */}
                 {beneficiadosText && (
                     <p className="text-slate-600 text-lg leading-relaxed max-w-4xl">
-                        {beneficiadosText}
+                        {renderTextWithBold(beneficiadosText)}
                     </p>
                 )}
 
@@ -119,12 +139,12 @@ const ResultsSection = ({ section, module = 'becas' }: ResultsSectionProps) => {
                         {beneficiadosCard?.note && (
                             <div className="mb-6 inline-flex items-center gap-2 self-start px-4 py-2 bg-green-50 text-green-700 rounded-full text-sm font-medium border border-green-100">
                                 <Info size={16} />
-                                {beneficiadosCard.note}
+                                {renderTextWithBold(beneficiadosCard.note)}
                             </div>
                         )}
 
                         <p className="text-slate-600 text-base leading-relaxed flex-grow">
-                            {beneficiadosCard?.content || "Las y los estudiantes beneficiados recibirán un correo electrónico con las indicaciones a seguir."}
+                            {beneficiadosCard?.content ? renderTextWithBold(beneficiadosCard.content) : "Las y los estudiantes beneficiados recibirán un correo electrónico con las indicaciones a seguir."}
                         </p>
                     </div>
 
@@ -142,7 +162,7 @@ const ResultsSection = ({ section, module = 'becas' }: ResultsSectionProps) => {
                                     <h4 className="text-lg font-bold text-slate-800 mb-1">{documents[0].title}</h4>
                                     <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">{documents[0].subtitle || "Documento Oficial"}</p>
                                 </div>
-                                <a 
+                                <a
                                     href={getFullUrl(documents[0].url)}
                                     target="_blank"
                                     rel="noopener noreferrer"
@@ -176,7 +196,7 @@ const ResultsSection = ({ section, module = 'becas' }: ResultsSectionProps) => {
                                 <li key={i} className="flex gap-3 items-start">
                                     <div className="w-2 h-2 rounded-full bg-emerald-500 mt-1.5 shrink-0" />
                                     <p className="text-slate-600 text-sm leading-relaxed">
-                                        {step}
+                                        {renderTextWithBold(step)}
                                     </p>
                                 </li>
                             ))}
@@ -186,7 +206,7 @@ const ResultsSection = ({ section, module = 'becas' }: ResultsSectionProps) => {
                             <div className="bg-red-50 text-red-700 rounded-xl p-4 border border-red-100 flex items-start gap-3 mt-4">
                                 <TriangleAlert size={18} className="text-red-500 shrink-0 mt-0.5" />
                                 <p className="text-xs font-semibold leading-relaxed italic">
-                                    {importantNote}
+                                    {renderTextWithBold(importantNote)}
                                 </p>
                             </div>
                         )}
@@ -205,7 +225,7 @@ const ResultsSection = ({ section, module = 'becas' }: ResultsSectionProps) => {
                                 <li key={i} className="flex gap-3 items-start">
                                     <div className="w-2 h-2 rounded-full bg-slate-400 mt-1.5 shrink-0" />
                                     <p className="text-slate-600 text-sm leading-relaxed">
-                                        {step}
+                                        {renderTextWithBold(step)}
                                     </p>
                                 </li>
                             ))}
@@ -218,7 +238,7 @@ const ResultsSection = ({ section, module = 'becas' }: ResultsSectionProps) => {
                                     <h5 className="font-bold text-sm text-[#0A9782]">Para mayores informes</h5>
                                 </div>
                                 <p className="text-slate-600 text-xs leading-relaxed">
-                                    {infobox}
+                                    {renderTextWithBold(infobox)}
                                 </p>
                             </div>
                         )}
@@ -230,5 +250,4 @@ const ResultsSection = ({ section, module = 'becas' }: ResultsSectionProps) => {
 };
 
 export default ResultsSection;
-
 

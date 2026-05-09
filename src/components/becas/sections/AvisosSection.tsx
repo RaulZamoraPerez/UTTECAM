@@ -1,6 +1,16 @@
-import { AlertTriangle, Info, CheckCircle, Calendar, ExternalLink, ArrowRight, Maximize2 } from 'lucide-react';
-import { useState } from 'react';
-import * as React from 'react';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { 
+    AlertTriangle, 
+    Info, 
+    CheckCircle, 
+    Calendar, 
+    ArrowRight, 
+    Maximize2, 
+    ZoomIn, 
+    Image as ImageIcon,
+    Bell
+} from 'lucide-react';
 
 interface AvisoCard {
     id: string;
@@ -13,19 +23,22 @@ interface AvisoCard {
     imageUrl?: string;
     url?: string;
     actionText?: string;
+    date?: string;
 }
 
 interface AvisosSectionProps {
     section: {
-        cards?: AvisoCard[];
+        title?: string;
+        items?: AvisoCard[];
     };
 }
 
 const getFullUrl = (url?: string) => {
-    if (!url) return undefined;
+    if (!url) return '';
     if (url.startsWith('http') || url.startsWith('https')) return url;
     if (url.startsWith('/uploads/')) {
-        return `${import.meta.env.VITE_API_URL || 'http://localhost:3002'}${url}`;
+        const baseUrl = import.meta.env.VITE_API_URL || 'http://localhost:3002';
+        return `${baseUrl}${url}`;
     }
     return url;
 };
@@ -39,9 +52,8 @@ const getVariantStyles = (variant: string) => {
                 text: 'text-red-900',
                 icon: 'text-red-600',
                 iconBg: 'bg-white',
-                hover: 'hover:border-red-200',
                 badge: 'bg-red-100 text-red-700',
-                button: 'bg-white border-red-200 text-red-700 hover:bg-red-50'
+                hover: 'hover:border-red-200'
             };
         case 'warning':
             return {
@@ -50,9 +62,8 @@ const getVariantStyles = (variant: string) => {
                 text: 'text-amber-900',
                 icon: 'text-amber-600',
                 iconBg: 'bg-white',
-                hover: 'hover:border-amber-200',
                 badge: 'bg-amber-100 text-amber-700',
-                button: 'bg-white border-amber-200 text-amber-700 hover:bg-amber-50'
+                hover: 'hover:border-amber-200'
             };
         case 'success':
             return {
@@ -61,9 +72,8 @@ const getVariantStyles = (variant: string) => {
                 text: 'text-green-900',
                 icon: 'text-green-600',
                 iconBg: 'bg-white',
-                hover: 'hover:border-green-200',
                 badge: 'bg-green-100 text-green-700',
-                button: 'bg-white border-green-200 text-green-700 hover:bg-green-50'
+                hover: 'hover:border-green-200'
             };
         case 'info':
             return {
@@ -72,9 +82,8 @@ const getVariantStyles = (variant: string) => {
                 text: 'text-blue-900',
                 icon: 'text-blue-600',
                 iconBg: 'bg-white',
-                hover: 'hover:border-blue-200',
                 badge: 'bg-blue-100 text-blue-700',
-                button: 'bg-white border-blue-200 text-blue-700 hover:bg-blue-50'
+                hover: 'hover:border-blue-200'
             };
         default:
             return {
@@ -83,9 +92,8 @@ const getVariantStyles = (variant: string) => {
                 text: 'text-gray-900',
                 icon: 'text-gray-600',
                 iconBg: 'bg-white',
-                hover: 'hover:border-gray-300',
                 badge: 'bg-gray-100 text-gray-700',
-                button: 'bg-white border-gray-200 text-gray-700 hover:bg-gray-100'
+                hover: 'hover:border-gray-300'
             };
     }
 };
@@ -100,212 +108,240 @@ const getIcon = (iconName?: string) => {
     }
 };
 
-const AvisosSection = ({ section }: AvisosSectionProps) => {
-    const { cards = [] } = section;
+const AvisosSection: React.FC<AvisosSectionProps> = ({ section }) => {
+    const { title, items = [] } = section;
     const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
-    // Cerrar modal con ESC
-    React.useEffect(() => {
-        const handleKeyDown = (e: KeyboardEvent) => {
-            if (e.key === 'Escape') {
-                setSelectedImage(null);
-            }
-        };
-        if (selectedImage) {
-            document.addEventListener('keydown', handleKeyDown);
-            return () => document.removeEventListener('keydown', handleKeyDown);
+    const sortedCards = [...items].sort((a, b) => {
+        const aText = (a.title + (a.badge || '')).toLowerCase();
+        const bText = (b.title + (b.badge || '')).toLowerCase();
+
+        if (aText.includes('prioritario')) return -1;
+        if (bText.includes('prioritario')) return 1;
+        if (aText.includes('resultado')) return -1;
+        if (bText.includes('resultado')) return 1;
+        
+        if (a.type === 'alert' && b.type !== 'alert') return -1;
+        if (a.type !== 'alert' && b.type === 'alert') return 1;
+
+        return 0;
+    });
+
+    const featuredCards = sortedCards.filter(c => c.type === 'alert' || c.type === 'poster');
+    const standardCards = sortedCards.filter(c => c.type === 'card' || (!c.type && c.description));
+
+    const renderCard = (card: AvisoCard, index: number) => {
+        const styles = getVariantStyles(card.variant || 'default');
+        const isLink = !!card.url;
+        const Wrapper = isLink ? 'a' : 'div';
+        const wrapperProps = isLink ? { href: getFullUrl(card.url), target: "_blank", rel: "noopener noreferrer" } : {};
+
+        if (card.type === 'alert') {
+            return (
+                <motion.div
+                    key={card.id || index}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    className="col-span-1 h-full"
+                >
+                    <Wrapper
+                        {...wrapperProps}
+                        className={`block h-full relative overflow-hidden rounded-[2rem] border transition-all duration-300 bg-white ${styles.border} ${styles.hover} group shadow-sm`}
+                    >
+                        <div className="flex flex-col h-full">
+                            <div className={`px-6 py-4 border-b flex items-center gap-3 ${styles.bg} ${styles.border}`}>
+                                <div className={`p-2 rounded-full ${styles.iconBg} ${styles.icon} shadow-sm`}>
+                                    {getIcon(card.icon || 'alert')}
+                                </div>
+                                <h3 className={`text-lg font-black ${styles.text}`}>
+                                    {card.title}
+                                </h3>
+                                {card.badge && (
+                                    <span className={`ml-auto inline-flex items-center px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider ${styles.badge}`}>
+                                        {card.badge}
+                                    </span>
+                                )}
+                            </div>
+                            <div className="p-6 flex flex-col flex-grow">
+                                <p className="text-gray-600 text-sm leading-relaxed mb-4">
+                                    {card.description}
+                                </p>
+                                {isLink && (
+                                    <div className={`mt-auto text-[#0a9782] text-xs font-bold flex items-center gap-1 group-hover:gap-2 transition-all`}>
+                                        {card.actionText || 'Ver más'}
+                                        <ArrowRight size={14} />
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    </Wrapper>
+                </motion.div>
+            );
         }
-    }, [selectedImage]);
 
-    return (
-        <div className="max-w-6xl mx-auto px-4">
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
-                {cards.map((card, idx) => {
-                    const styles = getVariantStyles(card.variant);
-                    const href = getFullUrl(card.url);
-                    const isLink = !!href;
-                    const Wrapper = isLink ? 'a' : 'div';
-                    const wrapperProps = isLink ? { href, target: '_blank', rel: 'noopener noreferrer' } : {};
-
-                    if (card.type === 'alert') {
-                        return (
-                            <Wrapper
-                                key={card.id || idx}
-                                {...wrapperProps}
-                                className={`col-span-1 md:col-span-12 relative overflow-hidden flex flex-col md:flex-row items-start gap-6 p-6 rounded-[2rem] border ${styles.bg} ${styles.border} shadow-sm ${isLink ? `transition-all duration-500 hover:shadow-lg hover:-translate-y-0.5 ${styles.hover}` : ''}`}
-                            >
-                                <div className={`absolute -top-12 -right-12 w-48 h-48 rounded-full opacity-50 blur-3xl ${styles.iconBg}`} />
-
-                                <div className={`relative z-10 flex-shrink-0 w-16 h-16 rounded-full flex items-center justify-center shadow-sm ${styles.iconBg} ${styles.icon}`}>
-                                    {getIcon(card.icon)}
-                                </div>
-
-                                <div className="flex-1 relative z-10">
-                                    {card.badge && (
-                                        <span className={`inline-flex items-center px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider mb-3 ${styles.badge}`}>
-                                            {card.badge}
-                                        </span>
-                                    )}
-                                    <h3 className={`text-2xl font-bold mb-2 ${styles.text}`}>
-                                        {card.title}
-                                    </h3>
-                                    <p className="text-gray-600 text-base leading-relaxed mb-4 max-w-3xl">
-                                        {card.description}
-                                    </p>
-
-                                    {card.actionText && (
-                                        <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold border transition-all shadow-sm ${styles.button}`}>
-                                            {card.actionText}
-                                            <ExternalLink size={14} />
-                                        </div>
-                                    )}
-                                </div>
-                            </Wrapper>
-                        );
-                    }
-
-                    if (card.type === 'poster') {
-                        return (
-                            <Wrapper
-                                key={card.id || idx}
-                                {...wrapperProps}
-                                className={`col-span-1 md:col-span-6 flex flex-col rounded-[2rem] overflow-hidden border bg-white shadow-sm border-gray-100 ${isLink ? `transition-all duration-500 hover:shadow-lg hover:-translate-y-1 ${styles.hover}` : ''}`}
-                            >
-                                <div className={`px-4 py-3 border-b flex items-center gap-3 ${styles.bg} ${styles.border}`}>
-                                    <div className={`${styles.icon}`}>
-                                        {getIcon(card.icon)}
-                                    </div>
-                                    <h3 className={`font-bold text-base ${styles.text}`}>
-                                        {card.title}
-                                    </h3>
-                                </div>
-
-                                {card.imageUrl && (
-                                    <div className="w-full bg-gray-50 flex justify-center relative group/image cursor-pointer" onClick={(e) => {
-                                        if (!isLink) {
-                                            e.preventDefault();
-                                            setSelectedImage(getFullUrl(card.imageUrl) || null);
-                                        }
-                                    }}>
-                                        <img
-                                            src={getFullUrl(card.imageUrl)}
-                                            alt={card.title}
-                                            className="w-full h-auto max-h-[600px] object-contain transition-transform duration-500 group-hover/image:scale-105"
-                                        />
-                                        {!isLink && (
-                                            <div className="absolute inset-0 bg-black/0 group-hover/image:bg-black/20 transition-colors flex items-center justify-center opacity-0 group-hover/image:opacity-100">
-                                                <span className="bg-white/90 text-gray-900 px-4 py-2 rounded-full font-medium flex items-center gap-2 shadow-lg transform translate-y-4 group-hover/image:translate-y-0 transition-all">
-                                                    <Maximize2 size={16} /> Ampliar
-                                                </span>
-                                            </div>
-                                        )}
-                                    </div>
-                                )}
-
-                                {card.actionText && (
-                                    <div className="p-3 bg-white border-t border-gray-100 flex justify-end">
-                                        <span className="text-sm font-semibold text-[#0a9782] flex items-center gap-1 hover:gap-2 transition-all">
-                                            {card.actionText} <ArrowRight size={14} />
-                                        </span>
-                                    </div>
-                                )}
-                            </Wrapper>
-                        );
-                    }
-
-                    return (
-                        <div
-                            key={card.id || idx}
-                            onClick={() => {
-                                if (card.imageUrl && !isLink) {
-                                    setSelectedImage(getFullUrl(card.imageUrl) || null);
-                                }
-                            }}
-                            className={`col-span-1 md:col-span-4 relative rounded-[2rem] overflow-hidden shadow-sm border border-gray-100 hover:shadow-lg transition-all group cursor-pointer ${card.imageUrl && !isLink ? 'cursor-pointer' : ''}`}
-                        >
-                            {/* Imagen de fondo */}
+        if (card.type === 'poster') {
+            return (
+                <motion.div
+                    key={card.id || index}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    className="col-span-1 h-full"
+                >
+                    <Wrapper
+                        {...wrapperProps}
+                        className={`block h-full flex flex-col rounded-[2rem] border transition-all duration-300 bg-white ${styles.border} ${styles.hover} overflow-hidden group shadow-sm`}
+                    >
+                        <div className={`px-6 py-4 border-b flex items-center gap-3 ${styles.bg} ${styles.border}`}>
+                            <div className={`p-2 rounded-full ${styles.iconBg} ${styles.icon} shadow-sm`}>
+                                {getIcon(card.icon || 'calendar')}
+                            </div>
+                            <h3 className={`text-lg font-black ${styles.text}`}>
+                                {card.title}
+                            </h3>
+                            {card.badge && (
+                                <span className={`ml-auto inline-flex items-center px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider ${styles.badge}`}>
+                                    {card.badge}
+                                </span>
+                            )}
+                        </div>
+                        <div className="flex-1 flex items-center justify-center bg-gray-50 relative group/img overflow-hidden min-h-[300px]">
                             {card.imageUrl ? (
                                 <>
                                     <img
                                         src={getFullUrl(card.imageUrl)}
                                         alt={card.title}
-                                        className="w-full h-80 md:h-96 object-cover group-hover:scale-105 transition-transform duration-500"
+                                        className="w-full h-full object-cover group-hover/img:scale-105 transition-transform duration-700"
                                     />
-                                    {/* Overlay oscuro */}
-                                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300 flex items-center justify-center" />
+                                    <div
+                                        className="absolute inset-0 bg-black/40 opacity-0 group-hover/img:opacity-100 transition-opacity flex items-center justify-center cursor-pointer"
+                                        onClick={(e) => {
+                                            if (card.imageUrl) {
+                                                e.preventDefault();
+                                                e.stopPropagation();
+                                                setSelectedImage(getFullUrl(card.imageUrl));
+                                            }
+                                        }}
+                                    >
+                                        <ZoomIn className="text-white" size={32} />
+                                    </div>
                                 </>
                             ) : (
-                                <div className={`w-full h-48 flex items-center justify-center ${styles.bg}`}>
-                                    <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${styles.icon}`}>
-                                        {getIcon(card.icon)}
-                                    </div>
-                                </div>
-                            )}
-
-                            {/* Contenido en overlay - Solo para card type sin imagen */}
-                            {!card.imageUrl && (
-                                <div className="absolute inset-0 flex flex-col justify-end p-4 bg-white">
-                                    <div>
-                                        {card.badge && (
-                                            <span className={`inline-flex items-center px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider mb-2 w-fit ${styles.badge}`}>
-                                                {card.badge}
-                                            </span>
-                                        )}
-                                        <h3 className="text-base font-bold mb-2 text-gray-900">
-                                            {card.title}
-                                        </h3>
-                                        <p className="text-sm text-gray-500 mb-4 line-clamp-3">
-                                            {card.description}
-                                        </p>
-                                        {card.actionText && (
-                                            <div className="text-sm font-semibold flex items-center gap-1 hover:gap-2 transition-all text-[#0a9782]">
-                                                {card.actionText}
-                                                <Maximize2 size={16} />
-                                            </div>
-                                        )}
-                                    </div>
-                                </div>
-                            )}
-                            
-                            {/* Botón Ampliar para cards con imagen */}
-                            {card.imageUrl && (
-                                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                    <button className="px-6 py-3 bg-green-500 hover:bg-green-600 text-white rounded-lg font-semibold flex items-center gap-2 shadow-lg transition-colors">
-                                        <Maximize2 size={18} />
-                                        Ampliar información
-                                    </button>
+                                <div className="py-20 flex flex-col items-center opacity-20">
+                                    <ImageIcon size={48} />
+                                    <span className="text-[10px] font-black uppercase mt-2">Sin Imagen</span>
                                 </div>
                             )}
                         </div>
-                    );
-                })}
-            </div>
+                    </Wrapper>
+                </motion.div>
+            );
+        }
 
-            {selectedImage && (
-                <div
-                    className="fixed inset-0 z-50 bg-black/90 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in duration-200"
-                    onClick={() => setSelectedImage(null)}
+        return (
+            <motion.div
+                key={card.id || index}
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                className="col-span-1 h-full"
+            >
+                <Wrapper
+                    {...wrapperProps}
+                    className={`block h-full flex flex-col rounded-[2rem] border bg-white shadow-sm border-gray-100 transition-all duration-500 hover:shadow-md group`}
                 >
-                    <div className="relative max-w-5xl max-h-[90vh] w-full flex items-center justify-center">
-                        <img
-                            src={selectedImage}
-                            alt="Full size"
-                            className="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl"
-                        />
-                        <button
-                            className="absolute -top-12 right-0 text-white hover:text-gray-300 transition flex items-center gap-2"
-                            onClick={() => setSelectedImage(null)}
-                        >
-                            <span className="text-sm font-medium uppercase tracking-widest">Cerrar</span>
-                            <div className="bg-white/10 p-2 rounded-full">
-                                <Maximize2 size={20} className="rotate-45" />
-                            </div>
-                        </button>
+                    <div className={`px-6 py-4 border-b flex items-center gap-3 ${styles.bg} ${styles.border}`}>
+                        <div className={`w-10 h-10 rounded-full flex items-center justify-center ${styles.iconBg} ${styles.icon} shadow-sm`}>
+                            <Bell size={20} />
+                        </div>
+                        <h3 className={`text-lg font-black ${styles.text}`}>
+                            {card.title}
+                        </h3>
+                        {card.badge && (
+                            <span className={`ml-auto inline-flex items-center px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider ${styles.badge}`}>
+                                {card.badge}
+                            </span>
+                        )}
                     </div>
+                    <div className="p-6 flex-1 flex flex-col">
+                        <p className="text-gray-600 text-sm leading-relaxed mb-4 line-clamp-3">
+                            {card.description}
+                        </p>
+                        {card.actionText && (
+                            <div className="text-[#0a9782] text-xs font-bold flex items-center gap-1 group-hover:gap-2 transition-all mt-auto">
+                                {card.actionText}
+                                <ArrowRight size={14} />
+                            </div>
+                        )}
+                    </div>
+                </Wrapper>
+            </motion.div>
+        );
+    };
+
+    if (!items || items.length === 0) return null;
+
+    return (
+        <section className="py-12 px-4 max-w-6xl mx-auto font-sans">
+            {title && (
+                <div className="flex flex-col items-center mb-12 text-center">
+                    <h2 className="text-3xl md:text-4xl font-black text-[#008f39] tracking-tight uppercase mb-4">
+                        {title}
+                    </h2>
+                    <div className="w-20 h-1 bg-[#0a9782] rounded-full"></div>
                 </div>
             )}
-        </div>
+
+            {/* Featured Grid (Alerts and Posters) */}
+            {featuredCards.length > 0 && (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+                    {featuredCards.map(renderCard)}
+                </div>
+            )}
+
+            {/* Standard Grid (Cards) */}
+            {standardCards.length > 0 && (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {standardCards.map(renderCard)}
+                </div>
+            )}
+
+            {/* Lightbox Modal */}
+            <AnimatePresence>
+                {selectedImage && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="fixed inset-0 z-[9999] bg-black/90 backdrop-blur-sm flex items-center justify-center p-4"
+                        onClick={() => setSelectedImage(null)}
+                    >
+                        <div className="relative max-w-5xl max-h-[90vh] w-full flex items-center justify-center">
+                            <motion.img
+                                initial={{ scale: 0.9, opacity: 0 }}
+                                animate={{ scale: 1, opacity: 1 }}
+                                exit={{ scale: 0.9, opacity: 0 }}
+                                src={selectedImage}
+                                alt="Full size"
+                                className="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl"
+                            />
+                            <button
+                                className="absolute -top-12 right-0 text-white hover:text-gray-300 transition flex items-center gap-2"
+                                onClick={() => setSelectedImage(null)}
+                            >
+                                <span className="text-sm font-medium uppercase tracking-widest">Cerrar</span>
+                                <div className="bg-white/10 p-2 rounded-full">
+                                    <Maximize2 size={20} className="rotate-45" />
+                                </div>
+                            </button>
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+        </section>
     );
 };
 
 export default AvisosSection;
+

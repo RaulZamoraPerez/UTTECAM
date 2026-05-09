@@ -1,4 +1,5 @@
-import { FileText, ArrowRight, Info, FileCheck, AlertCircle, Calendar } from 'lucide-react';
+import { useState } from 'react';
+import { FileText, ArrowRight, Eye, Calendar, Info, FileCheck, AlertCircle, X } from 'lucide-react';
 
 interface DocumentItem {
     title: string;
@@ -71,10 +72,10 @@ const getVariantStyles = (variant: string = 'default') => {
             };
         default:
             return {
-                card: 'bg-white border-gray-100 hover:border-[#0a9782]',
-                icon: 'bg-[#E8F5E9] text-[#0a9782]',
-                text: 'text-[#002B49]',
-                subtext: 'text-gray-400',
+                card: 'bg-gray-50 border-gray-200 hover:border-[#0a9782]',
+                icon: 'bg-gray-200 text-gray-600',
+                text: 'text-gray-900',
+                subtext: 'text-gray-500',
                 action: 'text-[#0a9782]',
                 span: 'md:col-span-1'
             };
@@ -113,11 +114,12 @@ const ConvocatoriaSection = ({ section }: ConvocatoriaSectionProps) => {
         imageCaption
     } = section;
 
+    const [isImageExpanded, setIsImageExpanded] = useState(false);
+
     return (
-        <div className="py-12 max-w-6xl mx-auto px-4">
-            {/* Content Card Container */}
-             <div className="bg-white rounded-[2rem] p-8 lg:p-12 shadow-sm border border-gray-100">
-                  <div className="flex flex-col lg:flex-row gap-8 md:gap-12 lg:gap-16">
+        <section className="py-12 px-4 max-w-6xl mx-auto relative group/section">
+            <div className="bg-white rounded-[2rem] p-8 lg:p-12 shadow-sm border border-gray-100 relative">
+                <div className="flex flex-col lg:flex-row gap-8 lg:gap-16">
                     {/* Left Column: Content & Documents */}
                     <div className="flex-1 space-y-8">
                         {/* Header */}
@@ -182,15 +184,24 @@ const ConvocatoriaSection = ({ section }: ConvocatoriaSectionProps) => {
                     </div>
 
                     {/* Right Column: Poster Image */}
-                     {imageUrl && (
-                         <div className="lg:w-[320px] xl:w-[360px] flex flex-col items-center justify-start pt-2">
-                              <div className="relative rounded-[2rem] overflow-hidden w-full group max-h-[420px]">
-                                 <img
-                                     src={getFullUrl(imageUrl)}
-                                     alt={imageCaption || title}
-                                     className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
-                                 />
-                                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors pointer-events-none" />
+                    {imageUrl && (
+                        <div className="lg:w-[320px] xl:w-[360px] flex-shrink-0 flex flex-col items-center justify-start">
+                            <div 
+                                className="relative rounded-[2rem] overflow-hidden w-full group cursor-pointer shadow-lg"
+                                onClick={() => setIsImageExpanded(true)}
+                            >
+                                <img
+                                    src={getFullUrl(imageUrl)}
+                                    alt={imageCaption || title}
+                                    className="w-full object-cover object-top group-hover:scale-105 transition-transform duration-700"
+                                    style={{ maxHeight: '420px' }}
+                                />
+                                <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                    <div className="bg-white/90 backdrop-blur text-gray-800 px-4 py-2 rounded-full shadow-lg text-sm font-medium flex items-center gap-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                                        <Eye size={16} />
+                                        Ver Imagen
+                                    </div>
+                                </div>
                             </div>
                             {imageCaption && (
                                 <p className="mt-4 text-sm font-semibold text-gray-400 text-center italic">
@@ -201,7 +212,28 @@ const ConvocatoriaSection = ({ section }: ConvocatoriaSectionProps) => {
                     )}
                 </div>
             </div>
-        </div>
+
+            {/* Modal de Imagen Expandida */}
+            {isImageExpanded && imageUrl && (
+                <div
+                    className="fixed inset-0 z-50 bg-black/90 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in duration-200"
+                    onClick={() => setIsImageExpanded(false)}
+                >
+                    <button
+                        className="absolute top-6 right-6 text-white/70 hover:text-white bg-white/10 hover:bg-white/20 p-2 rounded-full transition"
+                        onClick={() => setIsImageExpanded(false)}
+                    >
+                        <X size={32} />
+                    </button>
+                    <img
+                        src={getFullUrl(imageUrl)}
+                        alt={title}
+                        className="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl animate-in zoom-in-95 duration-200"
+                        onClick={(e) => e.stopPropagation()}
+                    />
+                </div>
+            )}
+        </section>
     );
 };
 

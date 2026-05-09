@@ -87,7 +87,7 @@ const Becas = () => {
       )}
 
       {/* Secciones Dinámicas */}
-      <div className="max-w-7xl mx-auto px-4 pb-24 space-y-24">
+      <div className="max-w-7xl mx-auto px-4 pb-24 space-y-8">
         <BecaSectionsRenderer module="becas" initialSections={sections} />
       </div>
 
