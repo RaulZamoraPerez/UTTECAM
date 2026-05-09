@@ -98,13 +98,13 @@ const getVariantStyles = (variant: string) => {
     }
 };
 
-const getIcon = (iconName?: string) => {
+const getIcon = (iconName?: string, size: number = 32) => {
     switch (iconName) {
-        case 'alert': return <AlertTriangle size={32} strokeWidth={1.5} />;
-        case 'info': return <Info size={32} strokeWidth={1.5} />;
-        case 'check': return <CheckCircle size={32} strokeWidth={1.5} />;
-        case 'calendar': return <Calendar size={32} strokeWidth={1.5} />;
-        default: return <Info size={32} strokeWidth={1.5} />;
+        case 'alert': return <AlertTriangle size={size} strokeWidth={1.5} />;
+        case 'info': return <Info size={size} strokeWidth={1.5} />;
+        case 'check': return <CheckCircle size={size} strokeWidth={1.5} />;
+        case 'calendar': return <Calendar size={size} strokeWidth={1.5} />;
+        default: return <Bell size={size} strokeWidth={1.5} />;
     }
 };
 
@@ -253,7 +253,7 @@ const AvisosSection: React.FC<AvisosSectionProps> = ({ section }) => {
                 >
                     <div className={`px-6 py-4 border-b flex items-center gap-3 ${styles.bg} ${styles.border}`}>
                         <div className={`w-10 h-10 rounded-full flex items-center justify-center ${styles.iconBg} ${styles.icon} shadow-sm`}>
-                            <Bell size={20} />
+                            {getIcon(card.icon, 20)}
                         </div>
                         <h3 className={`text-lg font-black ${styles.text}`}>
                             {card.title}
@@ -284,14 +284,7 @@ const AvisosSection: React.FC<AvisosSectionProps> = ({ section }) => {
 
     return (
         <section className="py-12 px-4 max-w-6xl mx-auto font-sans">
-            {title && (
-                <div className="flex flex-col items-center mb-12 text-center">
-                    <h2 className="text-3xl md:text-4xl font-black text-[#008f39] tracking-tight uppercase mb-4">
-                        {title}
-                    </h2>
-                    <div className="w-20 h-1 bg-[#0a9782] rounded-full"></div>
-                </div>
-            )}
+
 
             {/* Featured Grid (Alerts and Posters) */}
             {featuredCards.length > 0 && (
