@@ -51,7 +51,7 @@ export const BecaSectionsRenderer = ({ module, initialSections }: Props) => {
   if (loading) {
     return (
       <div className="w-full flex justify-center py-12">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#0a9782]"></div>
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#0A9782]"></div>
       </div>
     );
   }

@@ -61,14 +61,14 @@ const ResultsSection = ({ section, module = 'becas' }: ResultsSectionProps) => {
 
     const renderTextWithBold = (text: string) => {
         if (!text) return null;
-        const parts = text.split(/(\*[^*]+\*)/g);
+        const parts = text.split(/(\*\*.*?\*\*|\*.*?\*)/g);
         return (
             <>
                 {parts.map((part, index) => {
-                    if (part.startsWith('*') && part.endsWith('*')) {
-                        const content = part.slice(1, -1);
+                    if ((part.startsWith('**') && part.endsWith('**')) || (part.startsWith('*') && part.endsWith('*'))) {
+                        const content = part.startsWith('**') ? part.slice(2, -2) : part.slice(1, -1);
                         return (
-                            <strong key={index} className="font-bold text-gray-900">
+                            <strong key={index} className="font-bold text-[#0A9782]">
                                 {content}
                             </strong>
                         );
@@ -85,10 +85,10 @@ const ResultsSection = ({ section, module = 'becas' }: ResultsSectionProps) => {
             <div className="flex items-center gap-6 mb-10">
                 <div className="flex items-center gap-4 flex-1">
                     {/* Barra de acento vertical */}
-                    <div className="w-1.5 h-10 bg-[#0A9782] rounded-full hidden md:block" />
+                    <div className="w-1.5 h-10 bg-[#00a499] rounded-full hidden md:block" />
 
                     <div className="flex items-center gap-4">
-                        <div className="p-2.5 bg-green-50 rounded-xl text-[#0A9782]">
+                        <div className="p-2.5 bg-green-50 rounded-xl text-[#00a499]">
                             <Bell size={28} strokeWidth={2.5} />
                         </div>
                         <div className="flex flex-col">
@@ -98,11 +98,11 @@ const ResultsSection = ({ section, module = 'becas' }: ResultsSectionProps) => {
                                 </span>
                             )}
                             <h2 className="text-2xl md:text-3xl font-bold text-slate-800 uppercase tracking-tight leading-tight">
-                                {mainTitle || "RESULTADOS"}
+                                {renderTextWithBold(mainTitle || "RESULTADOS")}
                             </h2>
                             {title && (
                                 <p className="text-sm font-bold text-slate-400 uppercase tracking-[0.2em] mt-0.5">
-                                    {title}
+                                    {renderTextWithBold(title)}
                                 </p>
                             )}
                         </div>
@@ -130,7 +130,7 @@ const ResultsSection = ({ section, module = 'becas' }: ResultsSectionProps) => {
                                     <Check size={24} strokeWidth={3} />
                                 </div>
                                 <h3 className="text-2xl font-bold text-slate-800">
-                                    {beneficiadosCard?.title || "Beneficiados"}
+                                    {renderTextWithBold(beneficiadosCard?.title || "Beneficiados")}
                                 </h3>
                             </div>
                         </div>
@@ -159,14 +159,14 @@ const ResultsSection = ({ section, module = 'becas' }: ResultsSectionProps) => {
                                     <span className="absolute -top-2 -right-2 bg-red-600 text-white text-[9px] font-black px-2 py-1 rounded-full shadow-lg">PDF</span>
                                 </div>
                                 <div>
-                                    <h4 className="text-lg font-bold text-slate-800 mb-1">{documents[0].title}</h4>
-                                    <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">{documents[0].subtitle || "Documento Oficial"}</p>
+                                    <h4 className="text-lg font-bold text-slate-800 mb-1">{renderTextWithBold(documents[0].title)}</h4>
+                                    <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">{renderTextWithBold(documents[0].subtitle || "Documento Oficial")}</p>
                                 </div>
                                 <a
                                     href={getFullUrl(documents[0].url)}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="w-full bg-[#0A9782] hover:bg-[#087a69] text-white py-4 rounded-xl flex items-center justify-center gap-3 font-bold text-sm shadow-md transition-all active:scale-[0.98]"
+                                    className="w-full bg-[#00a499] hover:bg-[#087a69] text-white py-4 rounded-xl flex items-center justify-center gap-3 font-bold text-sm shadow-md transition-all active:scale-[0.98]"
                                 >
                                     <Download size={18} strokeWidth={2.5} />
                                     DESCARGAR RESULTADOS
@@ -232,10 +232,10 @@ const ResultsSection = ({ section, module = 'becas' }: ResultsSectionProps) => {
                         </ul>
                         {/* Para mayores informes dentro de columna derecha */}
                         {infobox && (
-                            <div className="mt-2 rounded-xl border border-[#0A9782]/20 bg-[#f0faf8] p-4">
+                            <div className="mt-2 rounded-xl border border-[#00a499]/20 bg-[#f0faf8] p-4">
                                 <div className="flex items-center gap-2 mb-2 text-slate-800">
-                                    <Info size={16} className="text-[#0A9782]" />
-                                    <h5 className="font-bold text-sm text-[#0A9782]">Para mayores informes</h5>
+                                    <Info size={16} className="text-[#00a499]" />
+                                    <h5 className="font-bold text-sm text-[#00a499]">Para mayores informes</h5>
                                 </div>
                                 <p className="text-slate-600 text-xs leading-relaxed">
                                     {renderTextWithBold(infobox)}

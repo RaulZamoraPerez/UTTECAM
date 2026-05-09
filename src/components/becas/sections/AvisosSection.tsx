@@ -108,6 +108,22 @@ const getIcon = (iconName?: string, size: number = 32) => {
     }
 };
 
+const renderTitle = (text: string) => {
+    if (!text) return null;
+    const parts = text.split(/(\*\*.*?\*\*|\*.*?\*)/g);
+    return parts.map((part, index) => {
+        if ((part.startsWith('**') && part.endsWith('**')) || (part.startsWith('*') && part.endsWith('*'))) {
+            const content = part.startsWith('**') ? part.slice(2, -2) : part.slice(1, -1);
+            return (
+                <span key={index} className="text-[#0A9782]">
+                    {content}
+                </span>
+            );
+        }
+        return part;
+    });
+};
+
 const AvisosSection: React.FC<AvisosSectionProps> = ({ section }) => {
     const { title, items = [] } = section;
     const [selectedImage, setSelectedImage] = useState<string | null>(null);
@@ -155,7 +171,7 @@ const AvisosSection: React.FC<AvisosSectionProps> = ({ section }) => {
                                     {getIcon(card.icon || 'alert')}
                                 </div>
                                 <h3 className={`text-lg font-black ${styles.text}`}>
-                                    {card.title}
+                                    {renderTitle(card.title)}
                                 </h3>
                                 {card.badge && (
                                     <span className={`ml-auto inline-flex items-center px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider ${styles.badge}`}>
@@ -165,7 +181,7 @@ const AvisosSection: React.FC<AvisosSectionProps> = ({ section }) => {
                             </div>
                             <div className="p-6 flex flex-col flex-grow">
                                 <p className="text-gray-600 text-sm leading-relaxed mb-4">
-                                    {card.description}
+                                    {renderTitle(card.description)}
                                 </p>
                                 {isLink && (
                                     <div className={`mt-auto text-[#0a9782] text-xs font-bold flex items-center gap-1 group-hover:gap-2 transition-all`}>
@@ -198,7 +214,7 @@ const AvisosSection: React.FC<AvisosSectionProps> = ({ section }) => {
                                 {getIcon(card.icon || 'calendar')}
                             </div>
                             <h3 className={`text-lg font-black ${styles.text}`}>
-                                {card.title}
+                                {renderTitle(card.title)}
                             </h3>
                             {card.badge && (
                                 <span className={`ml-auto inline-flex items-center px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider ${styles.badge}`}>
@@ -256,7 +272,7 @@ const AvisosSection: React.FC<AvisosSectionProps> = ({ section }) => {
                             {getIcon(card.icon, 20)}
                         </div>
                         <h3 className={`text-lg font-black ${styles.text}`}>
-                            {card.title}
+                            {renderTitle(card.title)}
                         </h3>
                         {card.badge && (
                             <span className={`ml-auto inline-flex items-center px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider ${styles.badge}`}>
@@ -266,7 +282,7 @@ const AvisosSection: React.FC<AvisosSectionProps> = ({ section }) => {
                     </div>
                     <div className="p-6 flex-1 flex flex-col">
                         <p className="text-gray-600 text-sm leading-relaxed mb-4 line-clamp-3">
-                            {card.description}
+                            {renderTitle(card.description)}
                         </p>
                         {card.actionText && (
                             <div className="text-[#0a9782] text-xs font-bold flex items-center gap-1 group-hover:gap-2 transition-all mt-auto">

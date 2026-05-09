@@ -29,7 +29,7 @@ const FooterSection = ({ section }: FooterSectionProps) => {
     return (
         <div className="bg-white rounded-3xl p-8 md:p-12 text-center shadow-sm border border-gray-100 max-w-6xl mx-auto">
             {/* Header */}
-            <h2 className="text-2xl md:text-3xl font-bold text-[#0a9782] mb-3">
+            <h2 className="text-2xl md:text-3xl font-bold text-[#0A9782] mb-3">
                 {content.title}
             </h2>
             <p className="text-gray-500 mb-8">
@@ -41,9 +41,9 @@ const FooterSection = ({ section }: FooterSectionProps) => {
                 {content.email && (
                     <a
                         href={`mailto:${content.email}`}
-                        className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-white border border-gray-200 rounded-full text-gray-700 hover:shadow-md hover:border-[#0a9782] hover:text-[#0a9782] transition-all duration-300 group"
+                        className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-white border border-gray-200 rounded-full text-gray-700 hover:shadow-md hover:border-[#0A9782] hover:text-[#0A9782] transition-all duration-300 group"
                     >
-                        <Mail className="text-gray-400 group-hover:text-[#0a9782] transition-colors" size={20} />
+                        <Mail className="text-gray-400 group-hover:text-[#0A9782] transition-colors" size={20} />
                         <span className="font-semibold">{content.email}</span>
                     </a>
                 )}
@@ -51,9 +51,9 @@ const FooterSection = ({ section }: FooterSectionProps) => {
                 {content.phone && (
                     <a
                         href={`tel:${content.phone.replace(/[^0-9]/g, '')}`}
-                        className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-white border border-gray-200 rounded-full text-gray-700 hover:shadow-md hover:border-[#0a9782] hover:text-[#0a9782] transition-all duration-300 group"
+                        className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-white border border-gray-200 rounded-full text-gray-700 hover:shadow-md hover:border-[#0A9782] hover:text-[#0A9782] transition-all duration-300 group"
                     >
-                        <Phone className="text-gray-400 group-hover:text-[#0a9782] transition-colors" size={20} />
+                        <Phone className="text-gray-400 group-hover:text-[#0A9782] transition-colors" size={20} />
                         <span className="font-semibold">{content.phone}</span>
                     </a>
                 )}
@@ -68,7 +68,7 @@ const FooterSection = ({ section }: FooterSectionProps) => {
                             href={link.url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-gray-400 hover:text-[#0a9782] transition-colors text-sm font-medium flex items-center gap-1"
+                            className="text-gray-400 hover:text-[#0A9782] transition-colors text-sm font-medium flex items-center gap-1"
                         >
                             {link.text}
                             <ExternalLink size={12} />

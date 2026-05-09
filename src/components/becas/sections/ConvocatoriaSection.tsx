@@ -30,7 +30,7 @@ const getVariantStyles = (variant: string = 'default') => {
                 card: 'bg-[#FFF9E6] border-[#FFEeba] hover:border-orange-300',
                 icon: 'bg-[#FFE0B2] text-orange-700',
                 text: 'text-gray-900 text-lg',
-                subtext: 'text-[#0a9782] font-medium',
+                subtext: 'text-[#0A9782] font-medium',
                 action: 'text-gray-900 font-semibold',
                 span: 'md:col-span-2'
             };
@@ -40,7 +40,7 @@ const getVariantStyles = (variant: string = 'default') => {
                 icon: 'bg-green-100 text-green-600',
                 text: 'text-gray-900',
                 subtext: 'text-gray-500',
-                action: 'text-[#0a9782]',
+                action: 'text-[#0A9782]',
                 span: 'md:col-span-1'
             };
         case 'info':
@@ -49,7 +49,7 @@ const getVariantStyles = (variant: string = 'default') => {
                 icon: 'bg-blue-100 text-blue-600',
                 text: 'text-gray-900',
                 subtext: 'text-gray-500',
-                action: 'text-[#0a9782]',
+                action: 'text-[#0A9782]',
                 span: 'md:col-span-1'
             };
         case 'danger':
@@ -58,7 +58,7 @@ const getVariantStyles = (variant: string = 'default') => {
                 icon: 'bg-red-100 text-red-600',
                 text: 'text-gray-900',
                 subtext: 'text-gray-500',
-                action: 'text-[#0a9782]',
+                action: 'text-[#0A9782]',
                 span: 'md:col-span-1'
             };
         case 'outline':
@@ -72,11 +72,11 @@ const getVariantStyles = (variant: string = 'default') => {
             };
         default:
             return {
-                card: 'bg-gray-50 border-gray-200 hover:border-[#0a9782]',
+                card: 'bg-gray-50 border-gray-200 hover:border-[#0A9782]',
                 icon: 'bg-gray-200 text-gray-600',
                 text: 'text-gray-900',
                 subtext: 'text-gray-500',
-                action: 'text-[#0a9782]',
+                action: 'text-[#0A9782]',
                 span: 'md:col-span-1'
             };
     }
@@ -100,6 +100,22 @@ const getFullUrl = (url: string) => {
         return `${import.meta.env.VITE_API_URL || 'http://localhost:3002'}${url}`;
     }
     return url;
+};
+
+const renderTitle = (text: string) => {
+    if (!text) return null;
+    const parts = text.split(/(\*\*.*?\*\*|\*.*?\*)/g);
+    return parts.map((part, index) => {
+        if ((part.startsWith('**') && part.endsWith('**')) || (part.startsWith('*') && part.endsWith('*'))) {
+            const content = part.startsWith('**') ? part.slice(2, -2) : part.slice(1, -1);
+            return (
+                <span key={index} className="text-[#0A9782]">
+                    {content}
+                </span>
+            );
+        }
+        return part;
+    });
 };
 
 const ConvocatoriaSection = ({ section }: ConvocatoriaSectionProps) => {
@@ -132,11 +148,11 @@ const ConvocatoriaSection = ({ section }: ConvocatoriaSectionProps) => {
                             )}
                             <div>
                                 <h2 className="text-3xl lg:text-4xl font-extrabold text-[#002B49] mb-2 tracking-tight leading-tight">
-                                    {title}
+                                    {renderTitle(title)}
                                 </h2>
                                 {subtitle && (
                                     <p className="text-gray-800 text-base font-bold leading-relaxed max-w-2xl mt-1">
-                                        {subtitle}
+                                        {renderTitle(subtitle)}
                                     </p>
                                 )}
                                 {description && (

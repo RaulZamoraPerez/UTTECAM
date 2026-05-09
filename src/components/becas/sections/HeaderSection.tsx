@@ -16,12 +16,14 @@ const HeaderSection: React.FC<HeaderSectionProps> = ({ section }) => {
   // Renderizado para el estilo "Principal" (Negro con acento verde)
   const renderDefault = () => {
     const renderTitle = (text: string) => {
-      const parts = text.split(/(\*\*.*?\*\*)/g);
+      // Soporta tanto **texto** como *texto* para resaltar en verde
+      const parts = text.split(/(\*\*.*?\*\*|\*.*?\*)/g);
       return parts.map((part, index) => {
-        if (part.startsWith('**') && part.endsWith('**')) {
+        if ((part.startsWith('**') && part.endsWith('**')) || (part.startsWith('*') && part.endsWith('*'))) {
+          const content = part.startsWith('**') ? part.slice(2, -2) : part.slice(1, -1);
           return (
-            <span key={index} className="text-[#0a9782]">
-              {part.slice(2, -2)}
+            <span key={index} className="text-[#0A9782]">
+              {content}
             </span>
           );
         }
@@ -53,11 +55,11 @@ const HeaderSection: React.FC<HeaderSectionProps> = ({ section }) => {
 
         {description && (
           <p className="text-lg md:text-xl text-gray-500 leading-relaxed max-w-2xl font-medium">
-            {description}
+            {renderTitle(description)}
           </p>
         )}
 
-        <div className="w-24 h-1.5 mt-10 rounded-full bg-[#0a9782] opacity-20"></div>
+        <div className="w-24 h-1.5 mt-10 rounded-full bg-[#0A9782] opacity-20"></div>
       </motion.div>
     );
   };
