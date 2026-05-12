@@ -1,6 +1,6 @@
 
 import PdfBecasExcencion from '@/components/Pdf/PdfBecas';
-import { Award, FileCheck, ExternalLink, Calendar, Download, Info, ChevronRight, FileText, Sparkles, Globe, BookOpenCheck, Radio, AlertCircle, GraduationCap } from 'lucide-react';
+import { Award, FileCheck, ExternalLink, Calendar, Download, Info, ChevronRight, FileText, Sparkles, Globe, BookOpenCheck, Radio, AlertCircle, GraduationCap, BellRing, CheckCircle2, Pin, BadgePercent } from 'lucide-react';
 import { useState } from 'react';
 
 const Becas = () => {
@@ -41,6 +41,129 @@ const Becas = () => {
 
       <div className="max-w-6xl mx-auto px-4 pb-24 space-y-24">
     
+        {/* NUEVA SECCIÓN: Resultados Beca Estadía Mayo-Agosto 2026 */}
+        <div className="space-y-6 animate-in fade-in slide-in-from-bottom-8 duration-700">
+          <div className="flex items-center gap-4 mb-6">
+            <div className="h-8 w-1 bg-green-500 rounded-full"></div>
+            <h2 className="text-2xl font-bold text-gray-800 flex items-center gap-3 tracking-tight">
+              <BellRing className="text-green-500 w-6 h-6" />
+              RESULTADOS BECA DE ESTADÍA MAYO–AGOSTO 2026
+            </h2>
+          </div>
+
+          <div className="bg-white rounded-[2rem] shadow-sm border border-gray-100 overflow-hidden hover:shadow-lg transition-shadow duration-500">
+            <div className="p-8 md:p-12 relative z-10">
+              <p className="text-lg text-gray-600 font-light leading-relaxed mb-8 max-w-4xl">
+                Se informa a la comunidad estudiantil que ya se encuentran disponibles los resultados de la Beca de Estadía correspondiente al periodo mayo–agosto 2026.
+              </p>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+                <div className="bg-gray-50/50 p-8 rounded-3xl border border-gray-100/80">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="flex items-center justify-center w-10 h-10 rounded-full bg-green-50 text-green-600">
+                      <CheckCircle2 className="w-5 h-5" />
+                    </div>
+                    <h3 className="font-bold text-gray-800 text-lg">Beneficiados</h3>
+                  </div>
+                  <p className="text-gray-500 mb-4 text-sm leading-relaxed">Las y los estudiantes beneficiados recibirán un correo electrónico con las indicaciones a seguir.</p>
+                  <div className="flex items-center gap-2 text-green-700 bg-green-50/80 w-fit px-4 py-2 rounded-full text-sm font-medium">
+                    <BadgePercent className="w-4 h-4" />
+                    Esta beca cubre el 100% del pago cuatrimestral.
+                  </div>
+                </div>
+
+                <PdfBecasExcencion
+                  title="Resultados Beca de Estadía Profesional Mayo - Agosto 2026"
+                  pdfSrc="/becas/0_1.-BECA DE ESTADIA- BASE PARA SERVIVIOS ESCOLARES MAYO-AGOSTO 2026.pdf"
+                  className="h-full"
+                >
+                  <div className="flex flex-col justify-center items-center p-8 bg-white rounded-[2rem] border-2 border-gray-100 shadow-sm hover:shadow-xl hover:border-green-400 transition-all group w-full h-full relative overflow-hidden text-center gap-6">
+                    <div className="absolute inset-0 bg-green-50/0 group-hover:bg-green-50/80 transition-colors duration-500"></div>
+                    
+                    <div className="relative flex items-center justify-center w-20 h-20 bg-red-50 text-red-500 rounded-2xl flex-shrink-0 group-hover:scale-110 transition-transform duration-500 shadow-sm">
+                      <FileText className="w-10 h-10" />
+                      <span className="absolute -bottom-3 right-[-10px] text-[11px] font-black bg-red-600 text-white px-2 py-1 rounded-md shadow-md">PDF</span>
+                    </div>
+
+                    <div className="relative z-10 w-full flex flex-col items-center">
+                      <div className="text-gray-800 font-bold text-base mb-2 group-hover:text-green-800 transition-colors">
+                        Resultados_Estadia_2026.pdf
+                      </div>
+                      <div className="flex items-center gap-2 text-sm text-gray-500 font-medium mb-6">
+                        <span>Documento Oficial</span>
+                      </div>
+
+                      <div className="flex items-center justify-center px-8 py-3 bg-green-600 text-white rounded-xl font-bold shadow-md group-hover:bg-green-700 group-hover:shadow-xl group-hover:-translate-y-1 transition-all gap-3 w-full max-w-[200px]">
+                        <Download className="w-5 h-5" />
+                        Descargar
+                      </div>
+                    </div>
+                  </div>
+                </PdfBecasExcencion>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+                <div className="space-y-5">
+                  <h4 className="font-bold text-gray-800 flex items-center gap-2">
+                    <Pin className="text-amber-500 w-5 h-5" /> Indicaciones para beneficiados:
+                  </h4>
+                  <ul className="space-y-4">
+                    <li className="flex items-start gap-3 text-gray-500 text-sm">
+                      <div className="w-1.5 h-1.5 rounded-full bg-green-400 mt-2 flex-shrink-0"></div>
+                      <span className="leading-relaxed">Descargar el correo de notificación en formato PDF</span>
+                    </li>
+                    <li className="flex items-start gap-3 text-gray-500 text-sm">
+                      <div className="w-1.5 h-1.5 rounded-full bg-green-400 mt-2 flex-shrink-0"></div>
+                      <span className="leading-relaxed">Nombrar el archivo con su matrícula seguida de la palabra "BECA"</span>
+                    </li>
+                    <li className="flex items-start gap-3 text-gray-500 text-sm">
+                      <div className="w-1.5 h-1.5 rounded-full bg-green-400 mt-2 flex-shrink-0"></div>
+                      <span className="leading-relaxed">Subirlo a la plataforma Mi Escuela el día de su reinscripción</span>
+                    </li>
+                    <li className="flex items-start gap-3 text-gray-500 text-sm">
+                      <div className="w-1.5 h-1.5 rounded-full bg-green-400 mt-2 flex-shrink-0"></div>
+                      <span className="leading-relaxed">Contestar la encuesta de satisfacción del servicio (link enviado por correo)</span>
+                    </li>
+                    <li className="flex items-start gap-3 text-gray-500 text-sm">
+                      <div className="w-1.5 h-1.5 rounded-full bg-green-400 mt-2 flex-shrink-0"></div>
+                      <span className="leading-relaxed">Acudir a firmar resultados a partir del 22 de abril en el Departamento de Servicios Estudiantiles (Becas)</span>
+                    </li>
+                    <li className="flex items-start gap-3 text-gray-500 text-sm">
+                      <div className="w-1.5 h-1.5 rounded-full bg-green-400 mt-2 flex-shrink-0"></div>
+                      <span className="leading-relaxed">Presentar captura de pantalla como evidencia de haber contestado la encuesta</span>
+                    </li>
+                  </ul>
+                  <div className="bg-red-50/50 text-red-600 p-4 rounded-2xl flex items-start gap-3 mt-6 border border-red-100/50">
+                    <AlertCircle className="w-5 h-5 flex-shrink-0 mt-0.5" />
+                    <p className="text-xs font-medium leading-relaxed">⚠ El cumplimiento de estos requisitos es indispensable para la validación de la beca.</p>
+                  </div>
+                </div>
+
+                <div className="space-y-5">
+                  <h4 className="font-bold text-gray-800 flex items-center gap-2">
+                    <Pin className="text-gray-400 w-5 h-5" /> Indicaciones para no beneficiados:
+                  </h4>
+                  <ul className="space-y-4">
+                    <li className="flex items-start gap-3 text-gray-500 text-sm">
+                      <div className="w-1.5 h-1.5 rounded-full bg-gray-300 mt-2 flex-shrink-0"></div>
+                      <span className="leading-relaxed">Deberán acudir al Departamento de Servicios Estudiantiles para solicitar información sobre los motivos por los cuales no fueron seleccionados.</span>
+                    </li>
+                    <li className="flex items-start gap-3 text-gray-500 text-sm">
+                      <div className="w-1.5 h-1.5 rounded-full bg-gray-300 mt-2 flex-shrink-0"></div>
+                      <span className="leading-relaxed">Deberán realizar el pago de su cuatrimestre en la fecha indicada por su programa educativo.</span>
+                    </li>
+                  </ul>
+                  
+                  <div className="mt-8 p-6 bg-gray-50 rounded-3xl border border-gray-100">
+                    <h5 className="font-bold text-gray-800 mb-2 text-sm">Para mayores informes</h5>
+                    <p className="text-gray-500 text-xs">Favor de acudir al Departamento de Servicios Estudiantiles</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* Sección 1: Beca de Estadía Profesional 2026 */}
         <div className="space-y-12">
           <div className="flex items-center gap-4 mb-4">
@@ -63,7 +186,7 @@ const Becas = () => {
                         <span className="text-green-600 font-bold tracking-wider text-sm uppercase">Convocatoria Beca</span>
                       </div>
                       <h3 className="text-3xl font-bold text-gray-800 mb-4">Convocatoria Beca de Estadía Profesional</h3>
-                      <p className="text-gray-600 text-lg leading-relaxed">
+                      <p className="text-lg text-gray-600 font-light leading-relaxed max-w-4xl">
                         Documentación y requisitos oficiales para la beca de los alumnos que inician su periodo de estadía en el cuatrimestre Mayo - Agosto 2026.
                       </p>
                     </div>
@@ -113,7 +236,7 @@ const Becas = () => {
         <div className="space-y-12">
           <div className="flex items-center gap-4 mb-4">
             <div className="h-10 w-1 bg-green-600 rounded-full"></div>
-            <h2 className="text-3xl font-bold text-gray-700 uppercase tracking-tight">Beca Académica: <span className="text-gray-400">Mayo - Agosto 2026</span></h2>
+            <h2 className="text-3xl font-bold text-gray-700 uppercase tracking-tight">Beca Académica: <span className="text-xl md:text-2xl font-semibold text-gray-900">Mayo - Agosto 2026</span></h2>
           </div>
 
           <div className="relative">
@@ -130,8 +253,8 @@ const Becas = () => {
                         </span>
                         <span className="text-green-600 font-bold tracking-wider text-sm uppercase">Convocatoria Abierta</span>
                       </div>
-                      <h3 className="text-3xl md:text-4xl font-bold text-gray-800 leading-tight mb-4">Convocatoria Beca de Exención de Pago <br/><span className="text-gray-400">Mayo - Agosto 2026</span></h3>
-                      <p className="text-gray-600 text-lg leading-relaxed">
+                      <h3 className="text-3xl md:text-4xl font-bold text-gray-800 leading-tight mb-4">Convocatoria Beca de Exención de Pago <br/><span className="text-xl md:text-2xl font-semibold text-gray-900">Mayo - Agosto 2026</span></h3>
+                      <p className="text-lg text-gray-600 font-light leading-relaxed max-w-4xl">
                         Por este medio se hace pública la convocatoria oficial. Invitamos a la comunidad estudiantil a participar en el proceso de selección para el próximo cuatrimestre.
                       </p>
                     </div>
@@ -190,9 +313,9 @@ const Becas = () => {
                       </div>
                       <h2 className="text-3xl md:text-4xl font-bold text-gray-800 leading-tight mb-4">
                         Resultados de Beca de Exención de Pago <br/>
-                        <span className="text-gray-400">Enero - Abril 2026</span>
+                        <span className="text-xl md:text-2xl font-semibold text-gray-900">Enero - Abril 2026</span>
                       </h2>
-                      <p className="text-gray-600 text-lg leading-relaxed">
+                      <p className="text-lg text-gray-600 font-light leading-relaxed max-w-4xl">
                         Se publican los resultados oficiales de las becas de exención de pago para el cuatrimestre enero - abril 2026. Consulta el documento y los avisos adjuntos.
                       </p>
                     </div>
@@ -202,7 +325,7 @@ const Becas = () => {
                         <PdfBecasExcencion
                           title="Resultados de Becas de Exención de Pago Enero - Abril 2026"
                           description="Descargar Resultados"
-                          pdfSrc="/becas/RESULTADOS DE BECAS DE EXENCIÓN DE PAGO CUATRIMESTRAL ENERO-ABRIL 2026-1.pdf"
+                          pdfSrc="/becas/01_RESULTADOS ENERO-ABRIL 2026 PARA REPORTAR.pdf"
                         />
                       </div>
                     </div>
@@ -290,7 +413,7 @@ const Becas = () => {
           </div>
         </div>
 
-        {/* Sección: Resultados Beca de Estadía Profesional */}
+        {/* Sección: Resultados Beca de Estadía Profesional Enero - Abril 2026 */}
         <div className="relative">
           <div className="absolute inset-0 bg-gradient-to-r from-green-50 to-emerald-50 rounded-3xl transform rotate-1"></div>
           <div className="relative bg-white rounded-3xl shadow-xl shadow-gray-100/50 border border-gray-100 overflow-hidden">
@@ -307,9 +430,9 @@ const Becas = () => {
                     </div>
                     <h2 className="text-3xl md:text-4xl font-bold text-gray-800 leading-tight mb-4">
                       Resultados de Beca de Estadía Profesional <br/>
-                      <span className="text-gray-400">Enero - Abril 2026</span>
+                      <span className="text-xl md:text-2xl font-semibold text-gray-900">Enero - Abril 2026</span>
                     </h2>
-                    <p className="text-gray-600 text-lg leading-relaxed">
+                    <p className="text-lg text-gray-600 font-light leading-relaxed max-w-4xl">
                       Se publican los resultados de las becas para el cuatrimestre enero - abril 2026 para estudiantes en periodo de estadía.
                     </p>
                   </div>
@@ -360,9 +483,9 @@ const Becas = () => {
                     </div>
                     <h2 className="text-3xl md:text-4xl font-bold text-gray-800 leading-tight mb-4">
                       Beca de Exención de Pago <br/>
-                      <span className="text-gray-400">Enero - Abril 2026</span>
+                      <span className="text-xl md:text-2xl font-semibold text-gray-900">Enero - Abril 2026</span>
                     </h2>
-                    <p className="text-gray-600 text-lg leading-relaxed">
+                    <p className="text-lg text-gray-600 font-light leading-relaxed max-w-4xl">
                       Por este medio se hace pública la convocatoria oficial. Invitamos a la comunidad estudiantil a participar en el proceso de selección para el próximo cuatrimestre.
                     </p>
                   </div>
@@ -602,40 +725,38 @@ const Becas = () => {
             </div>
 
             {/* Sección Visual: Avisos y Calendarios */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 py-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 py-8">
               {/* Aviso Visual */}
               <div 
-                className="group bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden cursor-pointer hover:shadow-2xl transition-all duration-500"
+                className="relative group cursor-pointer rounded-[2rem] overflow-hidden shadow-lg shadow-gray-200/50 border border-gray-100 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 bg-gray-50"
                 onClick={() => handleImageClick('/becas/BECAS_AVISO.jpeg')}
               >
-                <div className="p-6">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="p-2 bg-green-50 text-green-600 rounded-lg">
-                      <Info size={20} />
-                    </div>
-                    <h3 className="font-bold text-gray-800 text-lg">Guía Visual de Becas</h3>
-                  </div>
-                  <div className="relative rounded-2xl overflow-hidden aspect-video bg-gray-50">
-                    <img src="/becas/BECAS_AVISO.jpeg" alt="Aviso" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-                  </div>
+                <img 
+                  src="/becas/BECAS_AVISO.jpeg" 
+                  alt="Aviso" 
+                  className="w-full h-auto object-contain transform group-hover:scale-105 transition-transform duration-700" 
+                />
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors flex items-center justify-center">
+                  <span className="bg-white/95 backdrop-blur px-6 py-3 rounded-full text-sm font-bold text-gray-800 opacity-0 group-hover:opacity-100 transition-all transform translate-y-4 group-hover:translate-y-0 shadow-xl flex items-center gap-2">
+                    <ExternalLink size={18} /> Ampliar Aviso
+                  </span>
                 </div>
               </div>
 
               {/* Calendario Visual */}
               <div 
-                className="group bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden cursor-pointer hover:shadow-2xl transition-all duration-500"
+                className="relative group cursor-pointer rounded-[2rem] overflow-hidden shadow-lg shadow-gray-200/50 border border-gray-100 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 bg-gray-50"
                 onClick={() => handleImageClick('/becas/CALENDARIO DE PAGOS BECA BENITO JUAREZ NOV-DIC 2025.jpeg')}
               >
-                <div className="p-6">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="p-2 bg-amber-50 text-amber-600 rounded-lg">
-                      <Calendar size={20} />
-                    </div>
-                    <h3 className="font-bold text-gray-800 text-lg">Calendario de Pagos</h3>
-                  </div>
-                  <div className="relative rounded-2xl overflow-hidden aspect-video bg-gray-50">
-                    <img src="/becas/CALENDARIO DE PAGOS BECA BENITO JUAREZ NOV-DIC 2025.jpeg" alt="Calendario" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-                  </div>
+                <img 
+                  src="/becas/CALENDARIO DE PAGOS BECA BENITO JUAREZ NOV-DIC 2025.jpeg" 
+                  alt="Calendario" 
+                  className="w-full h-auto object-contain transform group-hover:scale-105 transition-transform duration-700" 
+                />
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors flex items-center justify-center">
+                  <span className="bg-white/95 backdrop-blur px-6 py-3 rounded-full text-sm font-bold text-gray-800 opacity-0 group-hover:opacity-100 transition-all transform translate-y-4 group-hover:translate-y-0 shadow-xl flex items-center gap-2">
+                    <ExternalLink size={18} /> Ampliar Calendario
+                  </span>
                 </div>
               </div>
             </div>

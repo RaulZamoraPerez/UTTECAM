@@ -3,12 +3,14 @@ import { createPortal } from 'react-dom';
 import { FileText, X, ExternalLink } from 'lucide-react';
 
 interface PDFViewerProps {
-  title: string;
-  description: string;
+  title?: string;
+  description?: string;
   pdfSrc: string;
+  children?: React.ReactNode;
+  className?: string;
 }
 
-const PdfBecasExcencion = ({ title, description, pdfSrc }: PDFViewerProps) => {
+const PdfBecasExcencion = ({ title, description, pdfSrc, children, className }: PDFViewerProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
 
@@ -83,11 +85,15 @@ const PdfBecasExcencion = ({ title, description, pdfSrc }: PDFViewerProps) => {
   return (
     <>
       <div 
-        className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity"
+        className={`cursor-pointer transition-opacity ${children ? '' : 'hover:opacity-80'} ${className || ''}`}
         onClick={handlePDFClick}
       >
-        <span className="font-medium">{description}</span>
-        <FileText size={16} />
+        {children ? children : (
+          <div className="flex items-center gap-2">
+            <span className="font-medium">{description}</span>
+            <FileText size={16} />
+          </div>
+        )}
       </div>
 
       {isModalOpen && mounted && createPortal(modalContent, document.body)}

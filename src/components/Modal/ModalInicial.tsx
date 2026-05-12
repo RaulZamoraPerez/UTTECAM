@@ -1,13 +1,15 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { X, Megaphone } from "lucide-react"
+import { X, Megaphone, ExternalLink } from "lucide-react"
 
 export default function NewsModal() {
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [isClosing, setIsClosing] = useState(false)
     const [isMobile, setIsMobile] = useState(false)
     const [showText, setShowText] = useState(false)
+    // Controla el fade-in de la mascota al cargar
+    const [mascotaCargada, setMascotaCargada] = useState(false)
 
     useEffect(() => {
         const isMobileDevice = window.innerWidth <= 768
@@ -19,14 +21,15 @@ export default function NewsModal() {
         
         window.addEventListener('resize', checkMobile)
 
-        // Lógica de presentación diferenciada
+        // Preload de la imagen de admisión para caché inmediato
+        const imgPreload = new window.Image()
+        imgPreload.src = "/noticias/adminsion.jpg"
+
         if (!isMobileDevice) {
-            // PC: Auto-open modal del anuncio
             const modalTimer = setTimeout(() => {
                 setIsModalOpen(true)
             }, 2500)
 
-            // Ciclo de animación progresivo para el texto (8s -> 18s -> 30s -> 60s -> Fin)
             const delays = [8000, 18000, 30000, 60000]
             let cycleCount = 0
             let activeTimer: NodeJS.Timeout
@@ -50,7 +53,6 @@ export default function NewsModal() {
                 window.removeEventListener('resize', checkMobile)
             }
         } else {
-            // Móvil: Configuración inicial realizada
             return () => {
                 window.removeEventListener('resize', checkMobile)
             }
@@ -62,6 +64,7 @@ export default function NewsModal() {
         setTimeout(() => {
             setIsModalOpen(false)
             setIsClosing(false)
+            setMascotaCargada(false)
         }, 500)
     }
 
@@ -71,17 +74,17 @@ export default function NewsModal() {
 
     return (
         <>
-            {/* Interfaz de Noticias Pro y Responsiva */}
+            {/* Botón flotante de noticias */}
             <div
                 className={`fixed z-[99] flex flex-col items-center transition-all duration-500 pointer-events-none ${
                     isModalOpen ? 'opacity-0 translate-y-10' : 'opacity-100 translate-y-0'
                 } ${
                     isMobile 
-                    ? 'top-1/2 left-0 -translate-y-1/2' // Móvil: En el medio a la izquierda
-                    : 'bottom-6 left-6'                // PC: Esquina inferior izquierda
+                    ? 'top-1/2 left-0 -translate-y-1/2'
+                    : 'bottom-6 left-6'
                 }`}
             >
-                {/* Texto Profesional que sale hacia ARRIBA (Solo PC) */}
+                {/* Texto que aparece (Solo PC) */}
                 {!isMobile && (
                     <div className={`mb-3 transition-all duration-700 ease-out overflow-hidden flex justify-center ${
                         showText ? 'max-h-20 opacity-100 -translate-y-2' : 'max-h-0 opacity-0 translate-y-4'
@@ -94,7 +97,6 @@ export default function NewsModal() {
                     </div>
                 )}
 
-                {/* Botón de Noticias responsivo y discreto */}
                 <button
                     onClick={openModal}
                     className={`flex items-center group pointer-events-auto focus:outline-none transition-all duration-300 ${
@@ -110,8 +112,6 @@ export default function NewsModal() {
                         }`}
                     >
                         <Megaphone className={`${isMobile ? 'h-5 w-5' : 'h-7 w-7'}`} />
-                        
-                        {/* El Count de "1" (Estilo Mensaje - Más pequeño en móvil) */}
                         <div className={`absolute -top-2 -right-2 bg-red-600 text-white rounded-full flex items-center justify-center font-bold border-2 border-white shadow-md ${
                             isMobile ? 'h-5 w-5 text-[10px]' : 'h-6 w-6 text-xs'
                         }`}>
@@ -121,52 +121,74 @@ export default function NewsModal() {
                 </button>
             </div>
 
+            {/* Modal */}
             {isModalOpen && (
                 <div
-                    className={`fixed inset-0 bg-black/80 z-[100] flex items-center justify-center p-4 transition-opacity duration-500 ${isClosing ? "opacity-0" : "opacity-100"
-                        }`}
+                    className={`fixed inset-0 bg-black/80 z-[100] flex items-center justify-center p-4 transition-opacity duration-500 ${
+                        isClosing ? "opacity-0" : "opacity-100"
+                    }`}
                     onClick={closeModal}
                 >
+                    {/* Wrapper overflow-visible para la mascota */}
                     <div
-                        className={`relative bg-white rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.5)] max-w-[550px] w-full overflow-hidden transition-all duration-500 ${isClosing ? "opacity-0 scale-90" : "opacity-100 scale-100"
-                            }`}
-                        style={{
-                            border: "10px solid white",
-                            maxHeight: "85vh",
-                        }}
+                        className={`relative max-w-[550px] w-full transition-all duration-500 ${
+                            isClosing ? "opacity-0 scale-90" : "opacity-100 scale-100"
+                        }`}
+                        style={{ filter: "drop-shadow(0 25px 50px rgba(0,0,0,0.50))" }}
                         onClick={(e) => e.stopPropagation()}
                     >
-                        {/* Borde Interno Verde de Lujo */}
-                        <div className="border-[3px] border-[#008066] rounded-[1.4rem] overflow-hidden relative">
-                            <button
-                                onClick={closeModal}
-                                className="absolute right-3 top-3 z-30 bg-white/90 hover:bg-white text-[#008066] rounded-full p-2 shadow-lg transition-all duration-300 hover:rotate-90 border border-[#008066]/20"
-                                title="Cerrar"
-                            >
-                                <X className="h-5 w-5" />
-                            </button>
+                        {/* Mascota en esquina inferior-derecha */}
+                        <img
+                            src="/noticias/motocle.png"
+                            alt="Mascota UTTECAM"
+                            loading="eager"
+                            onLoad={() => setMascotaCargada(true)}
+                            className={`absolute -bottom-10 -right-10 w-44 h-44 sm:-bottom-12 sm:-right-14 sm:w-52 sm:h-52 object-contain z-30 animate-float pointer-events-none transition-opacity duration-500 ${
+                                mascotaCargada ? 'opacity-100' : 'opacity-0'
+                            }`}
+                        />
 
-                            <div className="relative w-full h-[70vh] group">
-                                <iframe
-                                    src="/noticias/PROCESO DE ADMISIÓN 2026 UTTECAM_compressed.pdf"
-                                    className="w-full h-full"
-                                    title="Proceso de Admisión 2026 UTTECAM"
-                                    style={{ border: "none" }}
-                                />
-                                {/* Botón de descarga/abrir fuera del iframe para mayor comodidad */}
-                                <div className="absolute bottom-4 right-4 z-30">
-                                    <a 
-                                        href="/noticias/PROCESO DE ADMISIÓN 2026 UTTECAM_compressed.pdf" 
-                                        target="_blank" 
-                                        rel="noopener noreferrer"
-                                        className="bg-[#D1672A] text-white px-4 py-2 rounded-full font-bold text-sm shadow-xl hover:bg-[#b05623] transition-all duration-300 border border-white/30 flex items-center gap-2"
-                                    >
-                                        <Megaphone className="h-4 w-4" />
-                                        Abrir en pantalla completa
-                                    </a>
-                                </div>
-                            </div>
+                        {/* Tab saliente en el borde superior-central */}
+                        <div className="absolute -top-8 left-1/2 -translate-x-1/2 z-30 whitespace-nowrap">
+                            <span className="inline-flex items-center gap-1.5 bg-[#D1672A] text-white text-xs font-bold px-4 py-1.5 rounded-t-xl shadow-md tracking-wide">
+                                <ExternalLink className="h-3 w-3" />
+                                Presiona para más detalles
+                            </span>
                         </div>
+
+                        {/* Contenido del modal — sin borde blanco extra */}
+                        <div
+                            className="relative bg-white rounded-[2rem] overflow-hidden"
+                            style={{ maxHeight: "85vh" }}
+                        >
+                                {/* Botón cerrar — izquierda para no chocar con mascota */}
+                                <button
+                                    onClick={closeModal}
+                                    className="absolute left-3 top-3 z-30 bg-white/90 hover:bg-white text-gray-600 hover:text-red-500 rounded-full p-2 shadow-lg transition-all duration-300 hover:rotate-90 border border-gray-200"
+                                    title="Cerrar"
+                                >
+                                    <X className="h-5 w-5" />
+                                </button>
+
+                                {/* Imagen clickeable que abre el PDF */}
+                                <a
+                                    href="/noticias/PROCESO DE ADMISION 2026 UTTECAM.pdf  "
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="block cursor-pointer group"
+                                    title="Ver convocatoria completa"
+                                >
+                                    <img
+                                        src="/noticias/adminsion.jpg"
+                                        alt="Proceso de Admisión 2026 UTTECAM — clic para abrir"
+                                        loading="eager"
+                                        className="w-full h-auto block rounded-[1.4rem] group-hover:brightness-95 transition-all duration-300"
+                                        style={{ maxHeight: "82vh" }}
+                                    />
+                                </a>
+                        </div>
+
+
                     </div>
                 </div>
             )}

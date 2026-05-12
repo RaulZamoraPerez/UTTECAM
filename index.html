@@ -5,6 +5,17 @@
     <link rel="icon" type="image/svg+xml" href="icon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>UTTECAM</title>
+
+    <!-- Preload hero images: el navegador las descarga antes de procesar JS -->
+    <link rel="preload" as="image" href="/hero/Discriminaci%C3%B3n_pages-to-jpg-0001.jpg" fetchpriority="high" />
+    <link rel="preload" as="image" href="/hero/image.png" fetchpriority="high" />
+    <link rel="preload" as="image" href="/hero/hero1.jpg" fetchpriority="low" />
+    <link rel="preload" as="image" href="/hero/hero2.jpg" fetchpriority="low" />
+    <link rel="preload" as="image" href="/hero/buzon%20de%20quejas%20y%20sugerencias%20.jpeg" fetchpriority="low" />
+
+    <!-- Preload modal de noticias -->
+    <link rel="preload" as="image" href="/noticias/adminsion.jpg" fetchpriority="low" />
+    <link rel="preload" as="image" href="/noticias/motocle.png" fetchpriority="low" />
   </head>
   <body>
     <div id="root"></div>

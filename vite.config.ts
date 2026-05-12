@@ -12,4 +12,13 @@ export default defineConfig({
       "@": fileURLToPath(new URL("./src", import.meta.url)),
     },
   },
+  server: {
+    headers: {
+      "Cache-Control": "no-cache",
+    },
+  },
+
+  build: {
+    assetsInlineLimit: 0,
+  },
 });
