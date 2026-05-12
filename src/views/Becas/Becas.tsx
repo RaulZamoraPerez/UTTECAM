@@ -65,26 +65,8 @@ const Becas = () => {
   return (
     <div className="min-h-screen bg-white font-sans selection:bg-green-100 selection:text-green-900">
       
-      {/* Hero Section - Solo si NO hay un header dinámico */}
-      {!hasHeader && (
-        <div className="relative pt-20 pb-12 px-4 overflow-hidden">
-          <div className="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-green-50 rounded-full blur-3xl opacity-50"></div>
-          <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 bg-amber-50 rounded-full blur-3xl opacity-50"></div>
-          
-          <div className="max-w-5xl mx-auto text-center relative z-10">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gray-50 border border-gray-100 text-gray-500 text-sm font-medium mb-6">
-              <Sparkles size={14} className="text-amber-500" />
-              <span>Portal de Becas Institucionales</span>
-            </div>
-            <h1 className="text-5xl md:text-7xl font-bold text-gray-800 mb-6 tracking-tight">
-              Becas y <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-emerald-600">Apoyos</span>
-            </h1>
-            <p className="text-xl text-gray-500 max-w-2xl mx-auto font-light leading-relaxed">
-              Impulsando el talento universitario con oportunidades reales para tu desarrollo académico.
-            </p>
-          </div>
-        </div>
-      )}
+      {/* Las secciones dinámicas ahora controlan el encabezado a través del Dashboard */}
+
 
       {/* Secciones Dinámicas */}
       <div className="max-w-7xl mx-auto px-4 pb-24 space-y-8">

@@ -133,30 +133,50 @@ const ConvocatoriaSection = ({ section }: ConvocatoriaSectionProps) => {
     const [isImageExpanded, setIsImageExpanded] = useState(false);
 
     return (
-        <section className="py-12 px-4 max-w-6xl mx-auto relative group/section">
-            <div className="bg-white rounded-[2rem] p-8 lg:p-12 shadow-sm border border-gray-100 relative">
+        <section className="py-16 px-4 max-w-6xl mx-auto relative group/section font-sans">
+            {/* Header del Componente - Estilo Oficial UTTECAM (Sección) */}
+            {(mainTitle || badge) && (
+                <div className="flex items-center gap-6 mb-10">
+                    <div className="flex items-center gap-4 flex-1 text-left">
+                        {/* Barra de acento vertical */}
+                        <div className="w-1.5 h-10 bg-[#00a499] rounded-full hidden md:block" />
+
+                        <div className="flex items-center gap-4">
+                            <div className="p-2.5 bg-green-50 rounded-xl text-[#00a499]">
+                                <FileText size={28} strokeWidth={2.5} />
+                            </div>
+                            <div className="flex flex-col text-left">
+                                {badge && (
+                                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-black bg-green-100 text-green-700 uppercase tracking-widest mb-1 w-fit">
+                                        {badge}
+                                    </span>
+                                )}
+                                <h2 className="text-2xl md:text-3xl font-bold text-slate-800 uppercase tracking-tight leading-tight">
+                                    {mainTitle || ""}
+                                </h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            <div className="bg-white rounded-[2rem] p-8 lg:p-12 shadow-sm border border-gray-100 relative text-left">
                 <div className="flex flex-col lg:flex-row gap-8 lg:gap-16">
                     {/* Left Column: Content & Documents */}
                     <div className="flex-1 space-y-8">
-                        {/* Header */}
+                        {/* Title and Subtitle inside the card */}
                         <div className="space-y-4">
-                            {(badge || mainTitle) && (
-                                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-50 text-amber-600 text-[10px] font-bold tracking-widest uppercase border border-amber-100">
-                                    <Calendar size={12} />
-                                    {badge || mainTitle}
-                                </div>
-                            )}
                             <div>
-                                <h2 className="text-3xl lg:text-4xl font-extrabold text-[#002B49] mb-2 tracking-tight leading-tight">
+                                <h3 className="text-3xl lg:text-4xl font-extrabold text-[#002B49] mb-2 tracking-tight leading-tight">
                                     {renderTitle(title)}
-                                </h2>
+                                </h3>
                                 {subtitle && (
-                                    <p className="text-gray-800 text-base font-bold leading-relaxed max-w-2xl mt-1">
+                                    <p className="text-gray-800 text-lg font-bold leading-relaxed max-w-2xl mt-1">
                                         {renderTitle(subtitle)}
                                     </p>
                                 )}
                                 {description && (
-                                    <p className="text-gray-500 text-base leading-relaxed max-w-2xl mt-2">
+                                    <p className="text-gray-500 text-base leading-relaxed max-w-2xl mt-4">
                                         {description}
                                     </p>
                                 )}
@@ -202,7 +222,7 @@ const ConvocatoriaSection = ({ section }: ConvocatoriaSectionProps) => {
                     {/* Right Column: Poster Image */}
                     {imageUrl && (
                         <div className="lg:w-[320px] xl:w-[360px] flex-shrink-0 flex flex-col items-center justify-start">
-                            <div 
+                            <div
                                 className="relative rounded-[2rem] overflow-hidden w-full group cursor-pointer shadow-lg"
                                 onClick={() => setIsImageExpanded(true)}
                             >

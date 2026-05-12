@@ -82,36 +82,41 @@ const ResultsSection = ({ section, module = 'becas' }: ResultsSectionProps) => {
     return (
         <section className="py-16 px-4 max-w-6xl mx-auto font-sans animate-in fade-in duration-1000">
             {/* Header del Componente - Estilo Oficial */}
-            <div className="flex items-center gap-6 mb-10">
-                <div className="flex items-center gap-4 flex-1">
-                    {/* Barra de acento vertical */}
-                    <div className="w-1.5 h-10 bg-[#00a499] rounded-full hidden md:block" />
+            {(mainTitle || badge) && (
+                <div className="flex items-center gap-6 mb-10">
+                    <div className="flex items-center gap-4 flex-1">
+                        {/* Barra de acento vertical */}
+                        <div className="w-1.5 h-10 bg-[#00a499] rounded-full hidden md:block" />
 
-                    <div className="flex items-center gap-4">
-                        <div className="p-2.5 bg-green-50 rounded-xl text-[#00a499]">
-                            <Bell size={28} strokeWidth={2.5} />
-                        </div>
-                        <div className="flex flex-col">
-                            {badge && (
-                                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-black bg-green-100 text-green-700 uppercase tracking-widest mb-1 w-fit">
-                                    {badge}
-                                </span>
-                            )}
-                            <h2 className="text-2xl md:text-3xl font-bold text-slate-800 uppercase tracking-tight leading-tight">
-                                {renderTextWithBold(mainTitle || "RESULTADOS")}
-                            </h2>
-                            {title && (
-                                <p className="text-sm font-bold text-slate-400 uppercase tracking-[0.2em] mt-0.5">
-                                    {renderTextWithBold(title)}
-                                </p>
-                            )}
+                        <div className="flex items-center gap-4">
+                            <div className="p-2.5 bg-green-50 rounded-xl text-[#00a499]">
+                                <Bell size={28} strokeWidth={2.5} />
+                            </div>
+                            <div className="flex flex-col">
+                                {badge && (
+                                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-black bg-green-100 text-green-700 uppercase tracking-widest mb-1 w-fit">
+                                        {badge}
+                                    </span>
+                                )}
+                                <h2 className="text-2xl md:text-3xl font-bold text-slate-800 uppercase tracking-tight leading-tight">
+                                    {renderTextWithBold(mainTitle || "")}
+                                </h2>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            )}
 
             {/* Contenedor Principal - Estilo Oficial UTTECAM */}
             <div className="bg-white rounded-[2rem] border border-gray-100 shadow-sm p-8 md:p-12 space-y-12">
+                {/* Scholarship Name - Moved Inside Card */}
+                {title && (
+                    <div className="border-b border-slate-100 pb-8">
+                        <h3 className="text-3xl md:text-4xl font-black text-[#012d48] tracking-tight leading-tight uppercase">
+                            {renderTextWithBold(title)}
+                        </h3>
+                    </div>
+                )}
 
                 {/* Intro text */}
                 {beneficiadosText && (

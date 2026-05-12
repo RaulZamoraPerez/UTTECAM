@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Image as ImageIcon, X, ZoomIn, Search } from 'lucide-react';
+import { Image as ImageIcon, X, ZoomIn } from 'lucide-react';
 
 interface InfographicItem {
     title: string;
@@ -11,6 +11,8 @@ interface InfographicItem {
 interface InfographicsSectionProps {
     section: {
         title?: string;
+        mainTitle?: string;
+        badge?: string;
         items?: InfographicItem[];
     };
 }
@@ -38,30 +40,45 @@ const renderTitle = (text: string) => {
 };
 
 const InfographicsSection: React.FC<InfographicsSectionProps> = ({ section }) => {
-    const { title, items = [] } = section;
+    const { title, mainTitle, badge, items = [] } = section;
     const [selectedImage, setSelectedImage] = useState<string | null>(null);
-    const [searchTerm, setSearchTerm] = useState("");
 
-    const filteredItems = useMemo(() => {
-        if (!searchTerm.trim()) return items;
-        const lowerSearch = searchTerm.toLowerCase();
-        return items.filter(item => 
-            item.title.toLowerCase().includes(lowerSearch) || 
-            (item.subtitle && item.subtitle.toLowerCase().includes(lowerSearch))
-        );
-    }, [items, searchTerm]);
+
 
     if (!items || items.length === 0) return null;
 
     return (
         <section className="py-12 px-4 max-w-6xl mx-auto font-sans group/section">
-            {/* Header - Centered Layout */}
-            {/* Header - Centered Layout (Removed title and search bar as requested) */}
+            {/* Header del Componente - Estilo Oficial UTTECAM (Sección) */}
+            {(mainTitle || badge) && (
+                <div className="flex items-center gap-6 mb-10">
+                    <div className="flex items-center gap-4 flex-1 text-left">
+                        {/* Barra de acento vertical */}
+                        <div className="w-1.5 h-10 bg-[#00a499] rounded-full hidden md:block" />
+
+                        <div className="flex items-center gap-4">
+                            <div className="p-2.5 bg-green-50 rounded-xl text-[#00a499]">
+                                <ImageIcon size={28} strokeWidth={2.5} />
+                            </div>
+                            <div className="flex flex-col text-left">
+                                {badge && (
+                                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-black bg-green-100 text-green-700 uppercase tracking-widest mb-1 w-fit">
+                                        {badge}
+                                    </span>
+                                )}
+                                <h2 className="text-2xl md:text-3xl font-bold text-slate-800 uppercase tracking-tight leading-tight">
+                                    {renderTitle(mainTitle || "")}
+                                </h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
 
 
-            {filteredItems.length > 0 ? (
+            {items.length > 0 ? (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {filteredItems.map((item, index) => (
+                    {items.map((item, index) => (
                         <motion.div
                             key={index}
                             initial={{ opacity: 0, y: 20 }}
@@ -78,7 +95,7 @@ const InfographicsSection: React.FC<InfographicsSectionProps> = ({ section }) =>
                                     alt={item.title}
                                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                                 />
-                                
+
                                 {/* Premium Overlay */}
                                 <div className="absolute inset-0 bg-gradient-to-t from-[#012d48]/80 via-[#012d48]/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col justify-end p-8">
                                     <div className="translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
@@ -101,7 +118,7 @@ const InfographicsSection: React.FC<InfographicsSectionProps> = ({ section }) =>
                                         </p>
                                     )}
                                 </div>
-                                
+
                                 {/* Action Button */}
                                 <div className="pt-2">
                                     <div className="w-full py-3 bg-[#0A9782] text-white rounded-2xl font-black text-[10px] uppercase tracking-widest flex items-center justify-center gap-2 group-hover:bg-[#008f39] transition-all shadow-sm group-hover:shadow-lg group-hover:shadow-[#0A9782]/20">
@@ -118,7 +135,7 @@ const InfographicsSection: React.FC<InfographicsSectionProps> = ({ section }) =>
                     <ImageIcon size={64} className="opacity-10 mb-4" />
                     <h3 className="text-xl font-black text-[#012d48] mb-1 uppercase tracking-tight">Sin resultados</h3>
                     <p className="text-sm font-medium mb-8">No encontramos material que coincida con tu búsqueda</p>
-                    <button 
+                    <button
                         onClick={() => setSearchTerm("")}
                         className="px-8 py-3 bg-[#0A9782] text-white rounded-xl font-black text-xs uppercase tracking-widest hover:bg-[#087a69] transition-all shadow-lg hover:shadow-[#0A9782]/20"
                     >
