@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { X, Megaphone, ExternalLink } from "lucide-react"
+import { X, Bell, ExternalLink } from "lucide-react"
 
 export default function NewsModal() {
     const [isModalOpen, setIsModalOpen] = useState(false)
@@ -84,14 +84,29 @@ export default function NewsModal() {
                     : 'bottom-6 left-6'
                 }`}
             >
-                {/* Texto que aparece (Solo PC) */}
+                {/* Tooltip de texto (Solo PC) */}
                 {!isMobile && (
-                    <div className={`mb-3 transition-all duration-700 ease-out overflow-hidden flex justify-center ${
-                        showText ? 'max-h-20 opacity-100 -translate-y-2' : 'max-h-0 opacity-0 translate-y-4'
+                    <div className={`mb-3 transition-all duration-500 ease-out overflow-hidden flex justify-center ${
+                        showText ? 'max-h-20 opacity-100 -translate-y-1' : 'max-h-0 opacity-0 translate-y-2'
                     }`}>
-                        <div className="bg-white px-5 py-2 rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.15)] border border-gray-100">
-                            <span className="text-gray-800 font-semibold text-base whitespace-nowrap tracking-tight">
-                                ¡Tienes nuevas noticias! 
+                        <div style={{
+                            background: 'rgba(15, 23, 42, 0.82)',
+                            backdropFilter: 'blur(12px)',
+                            WebkitBackdropFilter: 'blur(12px)',
+                            border: '1px solid rgba(255,255,255,0.10)',
+                            borderRadius: '999px',
+                            padding: '6px 16px',
+                            boxShadow: '0 4px 24px rgba(0,0,0,0.22)',
+                        }}>
+                            <span style={{
+                                color: 'rgba(255,255,255,0.88)',
+                                fontSize: '0.78rem',
+                                fontWeight: 500,
+                                letterSpacing: '0.03em',
+                                whiteSpace: 'nowrap',
+                                fontFamily: 'Inter, sans-serif',
+                            }}>
+                                Nuevas noticias disponibles
                             </span>
                         </div>
                     </div>
@@ -99,22 +114,62 @@ export default function NewsModal() {
 
                 <button
                     onClick={openModal}
-                    className={`flex items-center group pointer-events-auto focus:outline-none transition-all duration-300 ${
-                        isMobile 
-                        ? 'bg-[#D1672A]/90 p-2 pr-4 rounded-r-2xl border-white/40 border-y border-r shadow-lg' 
-                        : ''
-                    }`}
+                    className={`flex items-center group pointer-events-auto focus:outline-none transition-all duration-300`}
                     title="Ver Noticias"
+                    style={isMobile ? {
+                        background: 'rgba(255,255,255,0.88)',
+                        backdropFilter: 'blur(10px)',
+                        WebkitBackdropFilter: 'blur(10px)',
+                        borderLeft: 'none',
+                        borderRadius: '0 10px 10px 0',
+                        padding: '6px 6px 6px 4px',
+                        boxShadow: '2px 2px 12px rgba(0,0,0,0.12)',
+                    } : {}}
                 >
                     <div 
-                        className={`bg-[#D1672A] text-white rounded-full transition-all duration-300 flex items-center justify-center relative ${
-                            isMobile ? 'h-9 w-9 opacity-90 animate-[pulse_4s_infinite]' : 'p-4 group-hover:scale-110 border-2 border-white shadow-2xl shadow-[#D1672A]/40'
+                        className={`transition-all duration-300 flex items-center justify-center relative ${
+                            isMobile ? '' : 'group-hover:scale-110'
                         }`}
+                        style={{
+                            background: 'rgba(255,255,255,0.95)',
+                            backdropFilter: 'blur(16px)',
+                            WebkitBackdropFilter: 'blur(16px)',
+                            borderRadius: '50%',
+                            width: isMobile ? '28px' : '52px',
+                            height: isMobile ? '28px' : '52px',
+                            flexShrink: 0,
+                            boxShadow: isMobile
+                                ? 'none'
+                                : '0 4px 20px rgba(0,0,0,0.15), 0 0 0 4px rgba(255,255,255,0.35)',
+                            border: isMobile ? 'none' : '1.5px solid rgba(255,255,255,0.8)',
+                        }}
                     >
-                        <Megaphone className={`${isMobile ? 'h-5 w-5' : 'h-7 w-7'}`} />
-                        <div className={`absolute -top-2 -right-2 bg-red-600 text-white rounded-full flex items-center justify-center font-bold border-2 border-white shadow-md ${
-                            isMobile ? 'h-5 w-5 text-[10px]' : 'h-6 w-6 text-xs'
-                        }`}>
+                        <Bell
+                            style={{
+                                color: '#0f766e',
+                                width: isMobile ? '14px' : '22px',
+                                height: isMobile ? '14px' : '22px',
+                            }}
+                        />
+                        {/* Badge */}
+                        <div
+                            style={{
+                                position: 'absolute',
+                                top: isMobile ? '-3px' : '-4px',
+                                right: isMobile ? '-3px' : '-4px',
+                                width: isMobile ? '12px' : '18px',
+                                height: isMobile ? '12px' : '18px',
+                                background: 'linear-gradient(135deg, #0d9488, #0f766e)',
+                                borderRadius: '50%',
+                                color: '#fff',
+                                fontSize: isMobile ? '7px' : '9px',
+                                fontWeight: 700,
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                boxShadow: '0 1px 4px rgba(13,148,136,0.4)',
+                            }}
+                        >
                             1
                         </div>
                     </div>

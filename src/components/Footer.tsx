@@ -95,6 +95,11 @@ export default function Footer() {
                                     <ChevronRight /> Información y Estadística
                                 </a>
                             </li>
+                            <li className="mb-8">
+                                <a href="/avisos-privacidad" className="text-[#0A9782] hover:text-[#D1672A] text-base font-semibold flex items-center transition-colors duration-200">
+                                    <ChevronRight /> Avisos de Privacidad
+                                </a>
+                            </li>
                         </ul>
                     </div>
 

@@ -16,6 +16,7 @@ interface MenuItem {
   label: string;
   href?: string;
   submenu?: SubMenuItem[];
+  align?: "left" | "right";
 }
 
 export default function Navbar() {
@@ -176,6 +177,7 @@ export default function Navbar() {
     },
     {
       label: "Extension universitaria",
+      align: "right",
 
       submenu: [
         {
@@ -217,6 +219,7 @@ export default function Navbar() {
     {
       label: "Accesos",
       href: "/accesos",
+      align: "right",
       submenu: [
         { label: "Portal estudiantes Mi Escuela", href: "/portal-estudiantes" },
         {label: "Moodle UTTECAM", href:"http://187.217.125.213/server/moodle/"},
@@ -365,7 +368,9 @@ export default function Navbar() {
                         initial="hidden"
                         animate="visible"
                         exit="exit"
-                        className="absolute top-full left-0 mt-2 w-80 bg-white rounded-xl shadow-xl border border-gray-200 py-3"
+                        className={`absolute top-full mt-2 w-80 bg-white rounded-xl shadow-xl border border-gray-200 py-3 ${
+                          item.align === "right" ? "right-0" : "left-0"
+                        }`}
                       >
                         {item.submenu.map((subItem) => (
                           <div

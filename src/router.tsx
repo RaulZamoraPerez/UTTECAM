@@ -30,6 +30,7 @@ const Finanzas = lazy(() => import("@/views/Finanzas/finazas"));
 const RecursosHumanos = lazy(() => import("@/views/RecursosHumanos/recursosHumanos"));
 const Sga = lazy(() => import("@/views/Sga/sga"));
 const Sigc = lazy(() => import("@/views/Sigc/sigc"));
+const AvisosPrivacidad = lazy(() => import("@/views/AvisosPrivacidad/AvisosPrivacidad"));
 
 const Vinculacion = lazy(() => import("@/views/Vinculacion/vinculacion"));
 const VinculacionBanner = lazy(() => import("@/views/Vinculacion/VinculacionBanner"));
@@ -83,6 +84,7 @@ export default function Router() {
             <Route path="/recursosHumanos" element={<RecursosHumanos />} />
             <Route path="/sga" element={<Sga />} />
             <Route path="/sigc" element={<Sigc />} />
+            <Route path="/avisos-privacidad" element={<AvisosPrivacidad />} />
             {/* <Route path="/directorio" element={<Directorios />} /> */}
             <Route path="/repositorio-digital-investigacion" element={<Vinculacion />} />
              <Route path="/vinculacion-banner" element={<VinculacionBanner />} />

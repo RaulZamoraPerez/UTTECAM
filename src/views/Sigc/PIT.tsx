@@ -12,7 +12,5 @@ const PIT = () => {
   )
 }
 
-
-
-
 export default PIT;
+

@@ -1,3 +1,4 @@
+
 export default function MiEscuela() {
   return (
     <section className="my-16 px-4">
@@ -13,8 +14,6 @@ export default function MiEscuela() {
         </div>
         
         <div className="bg-gradient-to-br from-amber-50 to-white p-8 rounded-2xl shadow-lg border border-amber-100">
-         
-          
           <div className="space-y-6 text-lg text-gray-700 leading-relaxed">
             <div className="text-center mb-8">
               <div className="inline-block bg-amber-700 text-white px-4 py-1 rounded-full text-sm font-medium mb-4">
@@ -66,6 +65,7 @@ export default function MiEscuela() {
             </div>
           </div>
         </div>
+
       </div>
     </section>
   );

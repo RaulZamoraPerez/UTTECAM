@@ -26,7 +26,9 @@ const EducationalPrograms = () => {
 
         <ProgramFilter selectedFilter={selectedFilter} onFilterChange={setSelectedFilter} />
 
-        <ProgramGrid programs={filteredPrograms} />
+        <div key={selectedFilter}>
+          <ProgramGrid programs={filteredPrograms} />
+        </div>
       </div>
     </div>
   )

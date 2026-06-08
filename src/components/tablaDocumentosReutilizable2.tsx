@@ -9,6 +9,7 @@ interface Documento {
     titulo: string
     archivo?: string // Nuevo campo opcional para ruta del PDF
     facebookLink?: string // Link de Facebook opcional
+    verde?: boolean // Muestra el título en color verde
 }
 
 interface Seccion {
@@ -44,6 +45,11 @@ export default function tablaDocumentosReutilizable2({ secciones, titulo, descri
         if (doc.archivo) return doc.archivo;
         const carpeta = nextUrl ? nextUrl.replace('-', '') : 'PIT';
         return `/${carpeta}/${doc.titulo}`;
+    };
+
+    // Determina si el archivo puede previsualizarse en el modal (solo PDF)
+    const esPrevisualizble = (ruta: string) => {
+        return /\.pdf$/i.test(ruta);
     };
 
     return (
@@ -128,18 +134,34 @@ export default function tablaDocumentosReutilizable2({ secciones, titulo, descri
                                                                 <div className="flex-1">
                                                                     <div className="flex items-start justify-between gap-4">
                                                                         <div className="flex items-start gap-2">
-                                                                            <FileText className="h-5 w-5 mt-0.5 flex-shrink-0 text-[#D1672A]" />
-                                                                            <a
-                                                                                href="#"
-                                                                                onClick={(e) => {
-                                                                                    e.preventDefault();
-                                                                                    setPdfSeleccionado(encodeURI(archivoResuelto));
-                                                                                    setDocumentoSeleccionado(documento);
-                                                                                }}
-                                                                                className="font-medium text-gray-800 hover:text-[#D1672A] hover:underline transition-colors duration-150"
-                                                                            >
-                                                                                {documento.titulo}
-                                                                            </a>
+                                                                            <FileText className={`h-5 w-5 mt-0.5 flex-shrink-0 ${documento.verde ? 'text-green-600' : 'text-[#D1672A]'}`} />
+                                                                            {esPrevisualizble(archivoResuelto) ? (
+                                                                                // PDF / imagen → abre modal de previsualización
+                                                                                <a
+                                                                                    href="#"
+                                                                                    onClick={(e) => {
+                                                                                        e.preventDefault();
+                                                                                        setPdfSeleccionado(encodeURI(archivoResuelto));
+                                                                                        setDocumentoSeleccionado(documento);
+                                                                                    }}
+                                                                                    className={`font-medium hover:underline transition-colors duration-150 ${
+                                                                                        documento.verde
+                                                                                            ? 'text-green-700 hover:text-green-900'
+                                                                                            : 'text-gray-800 hover:text-[#D1672A]'
+                                                                                    }`}
+                                                                                >
+                                                                                    {documento.titulo}
+                                                                                </a>
+                                                                            ) : (
+                                                                                // No previsualizable → descarga directa al hacer clic
+                                                                                <a
+                                                                                    href={encodeURI(archivoResuelto)}
+                                                                                    download
+                                                                                    className="font-medium text-gray-800 hover:text-[#0A9782] hover:underline transition-colors duration-150"
+                                                                                >
+                                                                                    {documento.titulo}
+                                                                                </a>
+                                                                            )}
                                                                         </div>
                                                                         <div className="flex gap-2">
                                                                             <a

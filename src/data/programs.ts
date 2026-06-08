@@ -5,7 +5,7 @@ export const programs: Program[] = [
     id: 1,
     title: "TICS DESARROLLO DE SOFTWARE_2025",
     duration: "3 AÑOS, 6 MESES",
-    image: "PE2025/TICS DESARROLLO DE SOFTWARE_2025.jpg",
+    image: "PE2025/carrera .jpeg",
     category: "Ingenierías",
   },
 

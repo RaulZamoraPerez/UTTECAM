@@ -817,8 +817,13 @@ export const dataFormatos = {
           documentos: [
             {
               id: "DEU_DEU_doc1",
-              titulo: "EUIT01-R01 FICHA DE PROTOCOLO PARA EVENTOS_V3.DOCX",
-              archivo: "/SIG/FORMATOS/Dirección de Extensión Universitaria/Dirección de Extensión Universitaría/EUIT01_R01FICHA_DE_PROTOCOLO_PARA_EVENTOSV3.DOCX"
+              titulo: "EUIT01-R01  FICHA DE PROTOCOLO PARA EVENTOS 2026.docx",
+              archivo: "/SIG/FORMATOS/Dirección de Extensión Universitaria/Dirección de Extensión Universitaría/EUIT01-R01  FICHA DE PROTOCOLO PARA EVENTOS 2026.docx"
+            },
+            {
+              id: "DEU_DEU_doc2",
+              titulo: "ENCUESTA DE SATISFACCIÓN 2026.pdf",
+              archivo: "/SIG/FORMATOS/Dirección de Extensión Universitaria/Dirección de Extensión Universitaría/ENCUESTA DE SATISFACCIÓN 2026.pdf"
             }
           ]
         },

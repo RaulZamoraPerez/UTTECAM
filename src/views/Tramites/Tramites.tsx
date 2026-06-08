@@ -183,15 +183,43 @@ export default function Tramites() {
     return (
       <div className="mb-10">
         {/* Hero section - estado de carga */}
-        <section className="relative bg-gradient-to-br from-amber-50 via-orange-50 to-white py-20 px-4 overflow-hidden">
-          <div className="absolute inset-0 opacity-[0.04]"
-            style={{ backgroundImage: "radial-gradient(circle, #d97706 1px, transparent 1px)", backgroundSize: "24px 24px" }}
+        <section className="relative bg-gradient-to-br from-teal-50/30 via-slate-50/50 to-white pt-16 pb-16 px-4 overflow-hidden">
+          <div className="absolute inset-0 opacity-[0.03]"
+            style={{ backgroundImage: "radial-gradient(circle, #0A9782 1px, transparent 1px)", backgroundSize: "24px 24px" }}
           />
-          <h2 className="relative text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-amber-700 to-orange-600 mb-4 text-center tracking-tight">
+          <h2 className="relative text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#0A9782] to-teal-800 mb-4 text-center tracking-tight">
             Servicios Escolares
           </h2>
           <div className="flex justify-center items-center py-20">
             <Spinner text="Cargando servicios..." />
+          </div>
+
+          {/* Wave transition at the bottom of Hero */}
+          <div className="absolute bottom-0 left-0 right-0 w-full overflow-hidden leading-none z-0 pointer-events-none">
+            {/* Layer 1 (Teal background wave) */}
+            <svg
+              viewBox="0 0 1200 120"
+              preserveAspectRatio="none"
+              className="absolute bottom-0 left-0 right-0 w-full h-[40px] opacity-15"
+              style={{ transform: 'scaleY(-1) scaleX(-1)' }}
+            >
+              <path
+                d="M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86C252,69.29,166.88,43.78,83,23.63,55.05,17,26.9,8.75,0,0V120H1200V92.83Z"
+                fill="#0A9782"
+              />
+            </svg>
+            {/* Layer 2 (White foreground wave) */}
+            <svg
+              viewBox="0 0 1200 120"
+              preserveAspectRatio="none"
+              className="relative block w-full h-[35px]"
+              style={{ transform: 'scaleY(-1)' }}
+            >
+              <path
+                d="M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86C252,69.29,166.88,43.78,83,23.63,55.05,17,26.9,8.75,0,0V120H1200V92.83Z"
+                fill="#ffffff"
+              />
+            </svg>
           </div>
         </section>
       </div>
@@ -201,21 +229,21 @@ export default function Tramites() {
   return (
     <div className="mb-10">
       {/* ── Hero Section ── */}
-      <section className="relative bg-gradient-to-br from-amber-50 via-orange-50 to-white pt-16 pb-4 px-4 overflow-hidden">
+      <section className="relative bg-gradient-to-br from-teal-50/30 via-slate-50/50 to-white pt-16 pb-16 px-4 overflow-hidden">
         {/* Patrón de puntos decorativo */}
         <div
-          className="absolute inset-0 opacity-[0.04]"
-          style={{ backgroundImage: "radial-gradient(circle, #d97706 1px, transparent 1px)", backgroundSize: "24px 24px" }}
+          className="absolute inset-0 opacity-[0.03]"
+          style={{ backgroundImage: "radial-gradient(circle, #0A9782 1px, transparent 1px)", backgroundSize: "24px 24px" }}
         />
         {/* Orb decorativo superior derecho */}
-        <div className="absolute -top-20 -right-20 w-72 h-72 bg-amber-200/30 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute -bottom-10 -left-10 w-56 h-56 bg-orange-200/20 rounded-full blur-2xl pointer-events-none" />
+        <div className="absolute -top-20 -right-20 w-72 h-72 bg-teal-600/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute -bottom-10 -left-10 w-56 h-56 bg-orange-500/5 rounded-full blur-2xl pointer-events-none" />
 
         <div className="relative max-w-4xl mx-auto text-center mb-12">
-          <span className="inline-block bg-amber-100 text-amber-700 text-xs font-semibold tracking-widest uppercase px-4 py-1.5 rounded-full mb-4 border border-amber-200">
+          <span className="inline-block bg-teal-50 text-[#0A9782] text-xs font-semibold tracking-widest uppercase px-4 py-1.5 rounded-full mb-4 border border-teal-100">
             Departamento Escolar
           </span>
-          <h2 className="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-amber-700 to-orange-600 mb-5 tracking-tight leading-tight">
+          <h2 className="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#0A9782] to-teal-800 mb-5 tracking-tight leading-tight">
             {titulo}
           </h2>
           <p className="text-gray-600 leading-relaxed text-lg max-w-3xl mx-auto">
@@ -244,22 +272,16 @@ export default function Tramites() {
                 );
               }
 
-              // Se comentan los links de los demás trámites para deshabilitarlos temporalmente
+              // Se comentan los links de los demás trámites para deshabilitarlos de forma elegante con etiqueta "Próximamente"
               return (
                 <div
                   key={idx}
-                  className="w-full max-w-[220px] h-[190px] opacity-50 grayscale-[0.7] pointer-events-none"
+                  className="w-full max-w-[220px] h-[190px] pointer-events-none relative group/disabled"
                 >
-                  {/* 
-                  <Link 
-                    to={servicio.href || "#"}
-                    className="cursor-pointer transition-all duration-200 hover:scale-105 hover:shadow-lg w-full"
-                  >
-                  */}
                   <ServicioCard {...servicio} />
-                  {/* 
-                  </Link>
-                  */}
+                  <span className="absolute bottom-3 left-1/2 transform -translate-x-1/2 bg-amber-50 text-amber-800 text-[9px] font-extrabold py-0.5 px-2.5 rounded-full border border-amber-200/80 uppercase tracking-wider shadow-2xs">
+                    Próximamente
+                  </span>
                 </div>
               );
             })}
@@ -267,9 +289,37 @@ export default function Tramites() {
         </div>
 
         {/* Nota de servicios disponibles */}
-        <p className="relative text-center text-xs text-gray-400 mt-8 mb-2">
-          Los servicios en gris estarán disponibles próximamente.
+        <p className="relative text-center text-xs text-gray-500 mt-8 mb-8">
+          Las opciones con la etiqueta <span className="font-bold text-amber-700">Próximamente</span> estarán disponibles próximamente.
         </p>
+
+        {/* Wave transition at the bottom of Hero */}
+        <div className="absolute bottom-0 left-0 right-0 w-full overflow-hidden leading-none z-0 pointer-events-none">
+          {/* Layer 1 (Teal background wave) */}
+          <svg
+            viewBox="0 0 1200 120"
+            preserveAspectRatio="none"
+            className="absolute bottom-0 left-0 right-0 w-full h-[40px] opacity-15"
+            style={{ transform: 'scaleY(-1) scaleX(-1)' }}
+          >
+            <path
+              d="M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86C252,69.29,166.88,43.78,83,23.63,55.05,17,26.9,8.75,0,0V120H1200V92.83Z"
+              fill="#0A9782"
+            />
+          </svg>
+          {/* Layer 2 (White foreground wave) */}
+          <svg
+            viewBox="0 0 1200 120"
+            preserveAspectRatio="none"
+            className="relative block w-full h-[35px]"
+            style={{ transform: 'scaleY(-1)' }}
+          >
+            <path
+              d="M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86C252,69.29,166.88,43.78,83,23.63,55.05,17,26.9,8.75,0,0V120H1200V92.83Z"
+              fill="#ffffff"
+            />
+          </svg>
+        </div>
       </section>
 
       {/* ── Modal de Reinscripción ── */}
